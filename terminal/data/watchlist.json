@@ -1,0 +1,3567 @@
+{
+ "updated": "2026-06-12",
+ "entities": [
+  {
+   "id": "nrc",
+   "name": "NRC",
+   "aliases": [
+    "NRC",
+    "Nuclear Regulatory Commission"
+   ],
+   "groups": [
+    "agency"
+   ],
+   "category": "Agency",
+   "tier": 1,
+   "query": false,
+   "ticker": null,
+   "x": {
+    "handle": "NRCgov",
+    "verified": true
+   }
+  },
+  {
+   "id": "doe",
+   "name": "DOE",
+   "aliases": [
+    "DOE",
+    "Department of Energy",
+    "U.S. DOE"
+   ],
+   "groups": [
+    "agency"
+   ],
+   "category": "Agency",
+   "tier": 1,
+   "query": false,
+   "ticker": null,
+   "x": {
+    "handle": "ENERGY",
+    "verified": true
+   }
+  },
+  {
+   "id": "doe-office-of-nuclear-energy",
+   "name": "DOE Office of Nuclear Energy",
+   "aliases": [
+    "DOE Office of Nuclear Energy",
+    "DOE-NE",
+    "Office of Nuclear Energy"
+   ],
+   "groups": [
+    "agency"
+   ],
+   "category": "Agency",
+   "tier": 1,
+   "query": false,
+   "ticker": null,
+   "x": {
+    "handle": "GovNuclear",
+    "verified": true
+   }
+  },
+  {
+   "id": "eia",
+   "name": "EIA",
+   "aliases": [
+    "EIA",
+    "Energy Information Administration"
+   ],
+   "groups": [
+    "agency"
+   ],
+   "category": "Agency",
+   "tier": 1,
+   "query": false,
+   "ticker": null,
+   "x": {
+    "handle": "EIAgov",
+    "verified": true
+   }
+  },
+  {
+   "id": "converdyn-solstice",
+   "name": "ConverDyn / Solstice",
+   "aliases": [
+    "ConverDyn",
+    "ConverDyn / Solstice",
+    "Metropolis Works",
+    "Solstice",
+    "Solstice Advanced Materials"
+   ],
+   "groups": [
+    "fuel-cycle"
+   ],
+   "category": "Conversion",
+   "tier": 1,
+   "query": true,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "centrus-energy",
+   "name": "Centrus Energy",
+   "aliases": [
+    "ACP",
+    "American Centrifuge",
+    "Centrus Energy",
+    "Piketon"
+   ],
+   "groups": [
+    "fuel-cycle"
+   ],
+   "category": "Enrichment",
+   "tier": 1,
+   "query": true,
+   "ticker": "LEU",
+   "x": {
+    "handle": "Centrus_Energy",
+    "verified": false
+   }
+  },
+  {
+   "id": "urenco-usa",
+   "name": "Urenco USA",
+   "aliases": [
+    "Eunice",
+    "UUSA",
+    "Urenco",
+    "Urenco USA"
+   ],
+   "groups": [
+    "fuel-cycle",
+    "supplier"
+   ],
+   "category": "Enrichment",
+   "tier": 1,
+   "query": true,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "orano-project-ike",
+   "name": "Orano (Project IKE)",
+   "aliases": [
+    "Orano"
+   ],
+   "groups": [
+    "fuel-cycle"
+   ],
+   "category": "Enrichment",
+   "tier": 1,
+   "query": true,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "general-matter",
+   "name": "General Matter",
+   "aliases": [
+    "General Matter"
+   ],
+   "groups": [
+    "fuel-cycle"
+   ],
+   "category": "Enrichment",
+   "tier": 1,
+   "query": true,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "global-laser-enrichment",
+   "name": "Global Laser Enrichment",
+   "aliases": [
+    "GLE",
+    "Global Laser Enrichment",
+    "Paducah Laser",
+    "Silex"
+   ],
+   "groups": [
+    "fuel-cycle"
+   ],
+   "category": "Enrichment",
+   "tier": 1,
+   "query": true,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "hexium",
+   "name": "Hexium",
+   "aliases": [
+    "Hexium"
+   ],
+   "groups": [
+    "fuel-cycle"
+   ],
+   "category": "Enrichment",
+   "tier": 1,
+   "query": true,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "lis-technologies",
+   "name": "LIS Technologies",
+   "aliases": [
+    "LIS Technologies"
+   ],
+   "groups": [
+    "fuel-cycle"
+   ],
+   "category": "Enrichment",
+   "tier": 1,
+   "query": true,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "bwxt-erwin-enrichment",
+   "name": "BWXT \u2014 Erwin enrichment",
+   "aliases": [
+    "BWXT",
+    "BWXT \u2014 Erwin enrichment",
+    "Erwin enrichment"
+   ],
+   "groups": [
+    "fuel-cycle"
+   ],
+   "category": "Enrichment",
+   "tier": 1,
+   "query": true,
+   "ticker": "BWXT",
+   "x": {
+    "handle": "BWXT",
+    "verified": false
+   }
+  },
+  {
+   "id": "triso-x-x-energy",
+   "name": "TRISO-X (X-energy)",
+   "aliases": [
+    "TRISO-X"
+   ],
+   "groups": [
+    "fuel-cycle"
+   ],
+   "category": "Fabrication",
+   "tier": 1,
+   "query": true,
+   "ticker": null,
+   "x": {
+    "handle": "xenergynuclear",
+    "verified": false
+   }
+  },
+  {
+   "id": "standard-nuclear",
+   "name": "Standard Nuclear",
+   "aliases": [
+    "Standard Nuclear",
+    "Standard Nuclear TRISO"
+   ],
+   "groups": [
+    "fuel-cycle",
+    "supplier"
+   ],
+   "category": "Fabrication",
+   "tier": 1,
+   "query": true,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "bwxt-specialty-fuels",
+   "name": "BWXT \u2014 Specialty Fuels",
+   "aliases": [
+    "BWXT \u2014 Specialty Fuels",
+    "Specialty Fuels"
+   ],
+   "groups": [
+    "fuel-cycle"
+   ],
+   "category": "Fabrication",
+   "tier": 1,
+   "query": true,
+   "ticker": "BWXT",
+   "x": {
+    "handle": "BWXT",
+    "verified": false
+   }
+  },
+  {
+   "id": "framatome-us",
+   "name": "Framatome (US)",
+   "aliases": [
+    "Framatome",
+    "Richland"
+   ],
+   "groups": [
+    "fuel-cycle"
+   ],
+   "category": "Fabrication",
+   "tier": 1,
+   "query": true,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "westinghouse",
+   "name": "Westinghouse",
+   "aliases": [
+    "AP1000",
+    "AP300",
+    "Westinghouse",
+    "eVinci"
+   ],
+   "groups": [
+    "fuel-cycle"
+   ],
+   "category": "Fabrication",
+   "tier": 1,
+   "query": true,
+   "ticker": null,
+   "x": {
+    "handle": "WECNuclear",
+    "verified": false
+   }
+  },
+  {
+   "id": "ge-vernova-global-nuclear-fuel",
+   "name": "GE Vernova / Global Nuclear Fuel",
+   "aliases": [
+    "GE Vernova",
+    "GE Vernova / Global Nuclear Fuel",
+    "Global Nuclear Fuel"
+   ],
+   "groups": [
+    "fuel-cycle"
+   ],
+   "category": "Fabrication",
+   "tier": 1,
+   "query": true,
+   "ticker": "GEV",
+   "x": null
+  },
+  {
+   "id": "terrapower",
+   "name": "TerraPower",
+   "aliases": [
+    "Natrium",
+    "TerraPower"
+   ],
+   "groups": [
+    "fuel-cycle",
+    "supplier"
+   ],
+   "category": "Fabrication",
+   "tier": 1,
+   "query": true,
+   "ticker": null,
+   "x": {
+    "handle": "TerraPower",
+    "verified": false
+   }
+  },
+  {
+   "id": "lightbridge",
+   "name": "Lightbridge",
+   "aliases": [
+    "Lightbridge"
+   ],
+   "groups": [
+    "fuel-cycle"
+   ],
+   "category": "Fabrication",
+   "tier": 1,
+   "query": true,
+   "ticker": "LTBR",
+   "x": null
+  },
+  {
+   "id": "newcleo",
+   "name": "newcleo",
+   "aliases": [
+    "LFR-AS-200",
+    "NWCL",
+    "newcleo"
+   ],
+   "groups": [
+    "fuel-cycle"
+   ],
+   "category": "Fabrication",
+   "tier": 1,
+   "query": true,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "curio-solutions",
+   "name": "Curio Solutions",
+   "aliases": [
+    "Curio",
+    "Curio Solutions",
+    "NuCycle"
+   ],
+   "groups": [
+    "fuel-cycle"
+   ],
+   "category": "Reprocessing",
+   "tier": 1,
+   "query": true,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "oklo",
+   "name": "Oklo",
+   "aliases": [
+    "Aurora powerhouse",
+    "Oklo"
+   ],
+   "groups": [
+    "fuel-cycle"
+   ],
+   "category": "Reprocessing",
+   "tier": 1,
+   "query": true,
+   "ticker": "OKLO",
+   "x": {
+    "handle": "oklo",
+    "verified": false
+   }
+  },
+  {
+   "id": "shine-technologies",
+   "name": "SHINE Technologies",
+   "aliases": [
+    "SHINE",
+    "SHINE Technologies"
+   ],
+   "groups": [
+    "fuel-cycle"
+   ],
+   "category": "Reprocessing",
+   "tier": 1,
+   "query": true,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "flibe-energy",
+   "name": "Flibe Energy",
+   "aliases": [
+    "Flibe Energy"
+   ],
+   "groups": [
+    "fuel-cycle"
+   ],
+   "category": "Reprocessing",
+   "tier": 1,
+   "query": true,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "alpha-nur",
+   "name": "Alpha Nur",
+   "aliases": [
+    "Alpha Nur"
+   ],
+   "groups": [
+    "fuel-cycle"
+   ],
+   "category": "Reprocessing",
+   "tier": 1,
+   "query": true,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "exodys-energy",
+   "name": "Exodys Energy",
+   "aliases": [
+    "Exodys Energy"
+   ],
+   "groups": [
+    "fuel-cycle"
+   ],
+   "category": "Reprocessing",
+   "tier": 1,
+   "query": true,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "blsk-energy",
+   "name": "BLSK Energy",
+   "aliases": [
+    "BLSK Energy"
+   ],
+   "groups": [
+    "fuel-cycle"
+   ],
+   "category": "Reprocessing",
+   "tier": 1,
+   "query": true,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "project-omega",
+   "name": "Project Omega",
+   "aliases": [
+    "Project Omega"
+   ],
+   "groups": [
+    "fuel-cycle"
+   ],
+   "category": "Reprocessing",
+   "tier": 1,
+   "query": true,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "savannah-river-site-h-canyon-hb-line",
+   "name": "Savannah River Site \u2014 H-Canyon / HB-Line",
+   "aliases": [
+    "H-Canyon",
+    "HB-Line",
+    "Savannah River Site",
+    "Savannah River Site \u2014 H-Canyon / HB-Line"
+   ],
+   "groups": [
+    "fuel-cycle"
+   ],
+   "category": "Reprocessing",
+   "tier": 1,
+   "query": true,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "orano-la-hague-melox",
+   "name": "Orano La Hague + Melox",
+   "aliases": [
+    "Orano La Hague + Melox"
+   ],
+   "groups": [
+    "fuel-cycle"
+   ],
+   "category": "Reprocessing",
+   "tier": 1,
+   "query": true,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "international-isotopes-iifp",
+   "name": "International Isotopes (IIFP)",
+   "aliases": [
+    "International Isotopes"
+   ],
+   "groups": [
+    "fuel-cycle"
+   ],
+   "category": "Deconversion",
+   "tier": 1,
+   "query": true,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "first-american-nuclear",
+   "name": "First American Nuclear",
+   "aliases": [
+    "FANCO / EAGL-1",
+    "First American Nuclear"
+   ],
+   "groups": [
+    "developer"
+   ],
+   "category": "Reactor developer",
+   "tier": 1,
+   "query": true,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "first-american-nuclear-state-of-indiana",
+   "name": "First American Nuclear / State of Indiana",
+   "aliases": [
+    "FANCO Indiana Energy Park",
+    "First American Nuclear / State of Indiana",
+    "State of Indiana"
+   ],
+   "groups": [
+    "developer"
+   ],
+   "category": "Reactor developer",
+   "tier": 1,
+   "query": true,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "blykalla-ab-oklo-inc",
+   "name": "Blykalla AB / Oklo Inc.",
+   "aliases": [
+    "Blykalla / Oklo US Partnership",
+    "Blykalla AB",
+    "Blykalla AB / Oklo .",
+    "Blykalla AB / Oklo Inc."
+   ],
+   "groups": [
+    "developer"
+   ],
+   "category": "Reactor developer",
+   "tier": 1,
+   "query": true,
+   "ticker": "OKLO",
+   "x": {
+    "handle": "oklo",
+    "verified": false
+   }
+  },
+  {
+   "id": "blykalla-oklo-inl-ecosystem",
+   "name": "Blykalla / Oklo / INL ecosystem",
+   "aliases": [
+    "Blykalla",
+    "Blykalla / Oklo / INL ecosystem",
+    "Blykalla Fj\u00e4ll / SEALER INL Pathway",
+    "INL ecosystem"
+   ],
+   "groups": [
+    "developer"
+   ],
+   "category": "Reactor developer",
+   "tier": 1,
+   "query": true,
+   "ticker": "OKLO",
+   "x": {
+    "handle": "oklo",
+    "verified": false
+   }
+  },
+  {
+   "id": "westinghouse-electric-company",
+   "name": "Westinghouse Electric Company",
+   "aliases": [
+    "Westinghouse Electric",
+    "Westinghouse Electric Company",
+    "Westinghouse LFR"
+   ],
+   "groups": [
+    "developer",
+    "supplier"
+   ],
+   "category": "Reactor developer",
+   "tier": 1,
+   "query": true,
+   "ticker": null,
+   "x": {
+    "handle": "WECNuclear",
+    "verified": false
+   }
+  },
+  {
+   "id": "oak-ridge-national-laboratory",
+   "name": "Oak Ridge National Laboratory",
+   "aliases": [
+    "ORNL AFA Steels / Molten Lead Materials Testing",
+    "Oak Ridge National Laboratory"
+   ],
+   "groups": [
+    "developer"
+   ],
+   "category": "Reactor developer",
+   "tier": 1,
+   "query": true,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "los-alamos-national-laboratory",
+   "name": "Los Alamos National Laboratory",
+   "aliases": [
+    "LANL DELTA / Materials Test Loop",
+    "Los Alamos National Laboratory"
+   ],
+   "groups": [
+    "developer"
+   ],
+   "category": "Reactor developer",
+   "tier": 1,
+   "query": true,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "idaho-national-laboratory",
+   "name": "Idaho National Laboratory",
+   "aliases": [
+    "INL Lead Coolant Test Facility Concept",
+    "Idaho National Laboratory"
+   ],
+   "groups": [
+    "developer"
+   ],
+   "category": "Reactor developer",
+   "tier": 1,
+   "query": true,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "niowave",
+   "name": "Niowave",
+   "aliases": [
+    "Niowave",
+    "Niowave HYST / LBE Subcritical Testbed"
+   ],
+   "groups": [
+    "developer"
+   ],
+   "category": "Reactor developer",
+   "tier": 1,
+   "query": true,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "argonne-national-laboratory",
+   "name": "Argonne National Laboratory",
+   "aliases": [
+    "Argonne LFR Modeling / Westinghouse Core Design Support",
+    "Argonne National Laboratory"
+   ],
+   "groups": [
+    "developer"
+   ],
+   "category": "Reactor developer",
+   "tier": 1,
+   "query": true,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "lanl-university-of-new-mexico-westinghouse",
+   "name": "LANL / University of New Mexico / Westinghouse",
+   "aliases": [
+    "LANL",
+    "LANL / UNM / Westinghouse ELTA Lead Cartridge Loop",
+    "LANL / University of New Mexico / Westinghouse",
+    "University of New Mexico"
+   ],
+   "groups": [
+    "developer"
+   ],
+   "category": "Reactor developer",
+   "tier": 1,
+   "query": true,
+   "ticker": null,
+   "x": {
+    "handle": "WECNuclear",
+    "verified": false
+   }
+  },
+  {
+   "id": "us-gen-iv-llnl-led-heritage",
+   "name": "US Gen IV / LLNL-led heritage",
+   "aliases": [
+    "Gen IV / LLNL-led heritage",
+    "LLNL-led heritage",
+    "SSTAR US Lead-Cooled Fast Reactor Concept",
+    "US Gen IV",
+    "US Gen IV / LLNL-led heritage"
+   ],
+   "groups": [
+    "developer"
+   ],
+   "category": "Reactor developer",
+   "tier": 1,
+   "query": true,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "us-national-lab-gen-iv-programme",
+   "name": "US national-lab Gen IV programme",
+   "aliases": [
+    "LLNL / ANL / US Gen IV LFR Heritage",
+    "US national-lab Gen IV programme",
+    "national-lab Gen IV programme"
+   ],
+   "groups": [
+    "developer"
+   ],
+   "category": "Reactor developer",
+   "tier": 1,
+   "query": true,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "pacific-northwest-national-laboratory",
+   "name": "Pacific Northwest National Laboratory",
+   "aliases": [
+    "PNNL Materials / Instrumentation / Advisory Support",
+    "Pacific Northwest National Laboratory"
+   ],
+   "groups": [
+    "developer"
+   ],
+   "category": "Reactor developer",
+   "tier": 1,
+   "query": true,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "former-us-private-developer",
+   "name": "Former US private developer",
+   "aliases": [
+    "Former  private developer",
+    "Former US private developer",
+    "Hyperion / Gen4 Energy Historical LBE Concept"
+   ],
+   "groups": [
+    "developer"
+   ],
+   "category": "Reactor developer",
+   "tier": 1,
+   "query": true,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "us-accelerator-transmutation-r-d-ecosystem",
+   "name": "US accelerator / transmutation R&D ecosystem",
+   "aliases": [
+    "US ADS / LBE Spallation-Target Knowledge Base",
+    "US accelerator",
+    "US accelerator / transmutation R&D ecosystem",
+    "accelerator / transmutation R&D ecosystem",
+    "transmutation R&D ecosystem"
+   ],
+   "groups": [
+    "developer"
+   ],
+   "category": "Reactor developer",
+   "tier": 1,
+   "query": true,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "tennessee-valley-authority-tva",
+   "name": "Tennessee Valley Authority (TVA)",
+   "aliases": [
+    "Tennessee Valley Authority"
+   ],
+   "groups": [
+    "offtaker"
+   ],
+   "category": "Offtaker / customer",
+   "tier": 1,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "pacificorp",
+   "name": "PacifiCorp",
+   "aliases": [
+    "PacifiCorp"
+   ],
+   "groups": [
+    "offtaker"
+   ],
+   "category": "Offtaker / customer",
+   "tier": 1,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "energy-northwest",
+   "name": "Energy Northwest",
+   "aliases": [
+    "Energy Northwest"
+   ],
+   "groups": [
+    "offtaker"
+   ],
+   "category": "Offtaker / customer",
+   "tier": 1,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "duke-energy",
+   "name": "Duke Energy",
+   "aliases": [
+    "Duke Energy"
+   ],
+   "groups": [
+    "offtaker"
+   ],
+   "category": "Offtaker / customer",
+   "tier": 1,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "southern-company",
+   "name": "Southern Company",
+   "aliases": [
+    "Southern",
+    "Southern Company"
+   ],
+   "groups": [
+    "offtaker"
+   ],
+   "category": "Offtaker / customer",
+   "tier": 1,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "diamondback-energy",
+   "name": "Diamondback Energy",
+   "aliases": [
+    "Diamondback Energy"
+   ],
+   "groups": [
+    "offtaker"
+   ],
+   "category": "Offtaker / customer",
+   "tier": 1,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "equinix",
+   "name": "Equinix",
+   "aliases": [
+    "Equinix"
+   ],
+   "groups": [
+    "offtaker"
+   ],
+   "category": "Offtaker / customer",
+   "tier": 1,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "switch",
+   "name": "Switch",
+   "aliases": [
+    "Switch"
+   ],
+   "groups": [
+    "offtaker"
+   ],
+   "category": "Offtaker / customer",
+   "tier": 1,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "liberty-energy",
+   "name": "Liberty Energy",
+   "aliases": [
+    "Liberty Energy"
+   ],
+   "groups": [
+    "offtaker"
+   ],
+   "category": "Offtaker / customer",
+   "tier": 1,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "prometheus-hyperscale",
+   "name": "Prometheus Hyperscale",
+   "aliases": [
+    "Prometheus Hyperscale"
+   ],
+   "groups": [
+    "offtaker"
+   ],
+   "category": "Offtaker / customer",
+   "tier": 1,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "dow-chemical",
+   "name": "Dow Chemical",
+   "aliases": [
+    "Dow Chemical"
+   ],
+   "groups": [
+    "offtaker"
+   ],
+   "category": "Offtaker / customer",
+   "tier": 1,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "amazon-aws",
+   "name": "Amazon (AWS)",
+   "aliases": [
+    "Amazon"
+   ],
+   "groups": [
+    "offtaker"
+   ],
+   "category": "Offtaker / customer",
+   "tier": 1,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "materion",
+   "name": "Materion",
+   "aliases": [
+    "Materion"
+   ],
+   "groups": [
+    "adjacent",
+    "supplier"
+   ],
+   "category": "Supplier \u00b7 materials chain",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "energysolutions",
+   "name": "EnergySolutions",
+   "aliases": [
+    "EnergySolutions"
+   ],
+   "groups": [
+    "adjacent"
+   ],
+   "category": "Back-end \u00b7 waste \u00b7 siting",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "holtec-international",
+   "name": "Holtec International",
+   "aliases": [
+    "Holtec International"
+   ],
+   "groups": [
+    "adjacent",
+    "supplier"
+   ],
+   "category": "Back-end + service",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "fluor-corporation",
+   "name": "Fluor Corporation",
+   "aliases": [
+    "Fluor Corporation"
+   ],
+   "groups": [
+    "adjacent"
+   ],
+   "category": "EPC \u00b7 engineering",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "clark-construction",
+   "name": "Clark Construction",
+   "aliases": [
+    "Clark Construction"
+   ],
+   "groups": [
+    "adjacent"
+   ],
+   "category": "Construction \u00b7 EPC",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "nts-international-nuclear-services",
+   "name": "NTS / International Nuclear Services",
+   "aliases": [
+    "International Nuclear Services",
+    "NTS",
+    "NTS / International Nuclear Services"
+   ],
+   "groups": [
+    "adjacent"
+   ],
+   "category": "Transport \u00b7 logistics (UK)",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "idaho-national-laboratory-inl",
+   "name": "Idaho National Laboratory (INL)",
+   "aliases": [
+    "Idaho National Laboratory (INL)"
+   ],
+   "groups": [
+    "lab"
+   ],
+   "category": "National lab",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "argonne-national-laboratory-anl",
+   "name": "Argonne National Laboratory (ANL)",
+   "aliases": [
+    "Argonne National Laboratory (ANL)"
+   ],
+   "groups": [
+    "lab"
+   ],
+   "category": "National lab",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "oak-ridge-national-laboratory-ornl",
+   "name": "Oak Ridge National Laboratory (ORNL)",
+   "aliases": [
+    "Oak Ridge National Laboratory (ORNL)"
+   ],
+   "groups": [
+    "lab"
+   ],
+   "category": "National lab",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "pacific-northwest-national-laboratory-pnnl",
+   "name": "Pacific Northwest National Laboratory (PNNL)",
+   "aliases": [
+    "Pacific Northwest National Laboratory (PNNL)"
+   ],
+   "groups": [
+    "lab"
+   ],
+   "category": "National lab",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "savannah-river-national-laboratory-srnl",
+   "name": "Savannah River National Laboratory (SRNL)",
+   "aliases": [
+    "Savannah River National Laboratory"
+   ],
+   "groups": [
+    "lab"
+   ],
+   "category": "National lab",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "los-alamos-national-laboratory-lanl",
+   "name": "Los Alamos National Laboratory (LANL)",
+   "aliases": [
+    "Los Alamos National Laboratory (LANL)"
+   ],
+   "groups": [
+    "lab"
+   ],
+   "category": "National lab",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "lawrence-livermore-national-laboratory-llnl",
+   "name": "Lawrence Livermore National Laboratory (LLNL)",
+   "aliases": [
+    "Lawrence Livermore National Laboratory"
+   ],
+   "groups": [
+    "lab"
+   ],
+   "category": "National lab",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "sandia-national-laboratories-snl",
+   "name": "Sandia National Laboratories (SNL)",
+   "aliases": [
+    "Sandia National Laboratories"
+   ],
+   "groups": [
+    "lab"
+   ],
+   "category": "National lab",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "smith-ranchhighland",
+   "name": "Smith Ranch\u2013Highland",
+   "aliases": [
+    "Smith Ranch\u2013Highland"
+   ],
+   "groups": [
+    "uranium-recovery"
+   ],
+   "category": "Uranium recovery",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "crow-butte",
+   "name": "Crow Butte",
+   "aliases": [
+    "Crow Butte"
+   ],
+   "groups": [
+    "uranium-recovery"
+   ],
+   "category": "Uranium recovery",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "lost-creek-lc-east",
+   "name": "Lost Creek / LC East",
+   "aliases": [
+    "LC East",
+    "Lost Creek",
+    "Lost Creek / LC East"
+   ],
+   "groups": [
+    "uranium-recovery"
+   ],
+   "category": "Uranium recovery",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "willow-creek",
+   "name": "Willow Creek",
+   "aliases": [
+    "Willow Creek"
+   ],
+   "groups": [
+    "uranium-recovery"
+   ],
+   "category": "Uranium recovery",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "nichols-ranch",
+   "name": "Nichols Ranch",
+   "aliases": [
+    "Nichols Ranch"
+   ],
+   "groups": [
+    "uranium-recovery"
+   ],
+   "category": "Uranium recovery",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "jane-dough",
+   "name": "Jane Dough",
+   "aliases": [
+    "Jane Dough"
+   ],
+   "groups": [
+    "uranium-recovery"
+   ],
+   "category": "Uranium recovery",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "reno-creek",
+   "name": "Reno Creek",
+   "aliases": [
+    "Reno Creek"
+   ],
+   "groups": [
+    "uranium-recovery"
+   ],
+   "category": "Uranium recovery",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "moore-ranch",
+   "name": "Moore Ranch",
+   "aliases": [
+    "Moore Ranch"
+   ],
+   "groups": [
+    "uranium-recovery"
+   ],
+   "category": "Uranium recovery",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "ross",
+   "name": "Ross",
+   "aliases": [
+    "Ross"
+   ],
+   "groups": [
+    "uranium-recovery"
+   ],
+   "category": "Uranium recovery",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "kendrick",
+   "name": "Kendrick",
+   "aliases": [
+    "Kendrick"
+   ],
+   "groups": [
+    "uranium-recovery"
+   ],
+   "category": "Uranium recovery",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "dewey-burdock",
+   "name": "Dewey Burdock",
+   "aliases": [
+    "Dewey Burdock"
+   ],
+   "groups": [
+    "uranium-recovery"
+   ],
+   "category": "Uranium recovery",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "crownpoint",
+   "name": "Crownpoint",
+   "aliases": [
+    "Crownpoint"
+   ],
+   "groups": [
+    "uranium-recovery"
+   ],
+   "category": "Uranium recovery",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "sweetwater",
+   "name": "Sweetwater",
+   "aliases": [
+    "Sweetwater"
+   ],
+   "groups": [
+    "uranium-recovery"
+   ],
+   "category": "Uranium recovery",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "aecom",
+   "name": "AECOM",
+   "aliases": [
+    "AECOM"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "EPC / Construction",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "aecon",
+   "name": "AeCON",
+   "aliases": [
+    "AeCON"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "EPC / Construction",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "bechtel-nuclear-security-environment",
+   "name": "Bechtel Nuclear Security & Environment",
+   "aliases": [
+    "Bechtel Nuclear Security & Environment"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "EPC / Construction",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "burns-mcdonnell",
+   "name": "Burns & McDonnell",
+   "aliases": [
+    "Burns & McDonnell"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "EPC / Construction",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "fluor",
+   "name": "Fluor",
+   "aliases": [
+    "Fluor"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "EPC / Construction",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "parsons-corporation",
+   "name": "Parsons Corporation",
+   "aliases": [
+    "Parsons",
+    "Parsons Corporation"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "EPC / Construction",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "dbd-inc",
+   "name": "DBD Inc.",
+   "aliases": [
+    "DBD .",
+    "DBD Inc."
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Engineering / Licensing / Safety",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "enercon",
+   "name": "Enercon",
+   "aliases": [
+    "Enercon"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Engineering / Licensing / Safety",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "engineering-mechanics-corporation-of-columbus-emc2",
+   "name": "Engineering Mechanics Corporation of Columbus (Emc2)",
+   "aliases": [
+    "Engineering Mechanics  of Columbus",
+    "Engineering Mechanics Corporation of Columbus"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Engineering / Licensing / Safety",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "engineering-planning-and-management",
+   "name": "Engineering Planning and Management",
+   "aliases": [
+    "Engineering Planning and Management"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Engineering / Licensing / Safety",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "excel-services-corporation",
+   "name": "Excel Services Corporation",
+   "aliases": [
+    "Excel Services",
+    "Excel Services Corporation"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Engineering / Licensing / Safety",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "fauske-associates-llc",
+   "name": "Fauske & Associates, LLC",
+   "aliases": [
+    "Fauske & Associates",
+    "Fauske & Associates, LLC"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Engineering / Licensing / Safety",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "gei-consultants-inc",
+   "name": "GEI Consultants, Inc.",
+   "aliases": [
+    "GEI Consultants, .",
+    "GEI Consultants, Inc."
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Engineering / Licensing / Safety",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "jensen-hughes-inc",
+   "name": "Jensen Hughes, Inc.",
+   "aliases": [
+    "Jensen Hughes, .",
+    "Jensen Hughes, Inc."
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Engineering / Licensing / Safety",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "maidana-research",
+   "name": "Maidana Research",
+   "aliases": [
+    "Maidana Research"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Engineering / Licensing / Safety",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "merrick-company",
+   "name": "Merrick & Company",
+   "aliases": [
+    "Merrick &",
+    "Merrick & Company"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Engineering / Licensing / Safety",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "ms-technology-inc",
+   "name": "MS Technology, Inc.",
+   "aliases": [
+    "MS Technology, .",
+    "MS Technology, Inc."
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Engineering / Licensing / Safety",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "nuclear-energy-consultants-inc",
+   "name": "Nuclear Energy Consultants, Inc.",
+   "aliases": [
+    "Nuclear Energy Consultants, .",
+    "Nuclear Energy Consultants, Inc."
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Engineering / Licensing / Safety",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "nuclear-rose-consulting-llc",
+   "name": "Nuclear Rose Consulting, LLC",
+   "aliases": [
+    "Nuclear Rose Consulting",
+    "Nuclear Rose Consulting, LLC"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Engineering / Licensing / Safety",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "numerical-advisory-solutions",
+   "name": "Numerical Advisory Solutions",
+   "aliases": [
+    "Numerical Advisory Solutions"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Engineering / Licensing / Safety",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "nuvision-engineering",
+   "name": "NuVision Engineering",
+   "aliases": [
+    "NuVision Engineering"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Engineering / Licensing / Safety",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "simpson-gumpertz-heger-inc",
+   "name": "Simpson Gumpertz & Heger Inc.",
+   "aliases": [
+    "Simpson Gumpertz & Heger .",
+    "Simpson Gumpertz & Heger Inc."
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Engineering / Licensing / Safety",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "socotec-engineering",
+   "name": "SOCOTEC Engineering",
+   "aliases": [
+    "SOCOTEC Engineering"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Engineering / Licensing / Safety",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "southern-nuclear-development-llc",
+   "name": "Southern Nuclear Development, LLC",
+   "aliases": [
+    "Southern Nuclear Development",
+    "Southern Nuclear Development, LLC"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Engineering / Licensing / Safety",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "southwest-research-institute-swri",
+   "name": "Southwest Research Institute (SwRI)",
+   "aliases": [
+    "Southwest Research Institute"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Engineering / Licensing / Safety",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "structural-integrity-associates-inc",
+   "name": "Structural Integrity Associates, Inc.",
+   "aliases": [
+    "Structural Integrity Associates, .",
+    "Structural Integrity Associates, Inc."
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Engineering / Licensing / Safety",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "tetra-tech",
+   "name": "Tetra Tech",
+   "aliases": [
+    "Tetra Tech"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Engineering / Licensing / Safety",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "alphasource-inc",
+   "name": "Alphasource, Inc.",
+   "aliases": [
+    "Alphasource, .",
+    "Alphasource, Inc."
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Components / Fabrication / Equipment",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "bnl-industries-inc",
+   "name": "BNL Industries, Inc.",
+   "aliases": [
+    "BNL Industries, .",
+    "BNL Industries, Inc."
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Components / Fabrication / Equipment",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "bwx-technologies-inc",
+   "name": "BWX Technologies, Inc.",
+   "aliases": [
+    "BWX Technologies, .",
+    "BWX Technologies, Inc."
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Components / Fabrication / Equipment",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "carolina-fabricators-inc",
+   "name": "Carolina Fabricators, Inc.",
+   "aliases": [
+    "Carolina Fabricators, .",
+    "Carolina Fabricators, Inc."
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Components / Fabrication / Equipment",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "curtiss-wright",
+   "name": "Curtiss-Wright",
+   "aliases": [
+    "Curtiss-Wright"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Components / Fabrication / Equipment",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "dc-fabricators",
+   "name": "DC Fabricators",
+   "aliases": [
+    "DC Fabricators"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Components / Fabrication / Equipment",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "dubose-national-energy-inc",
+   "name": "DuBose National Energy Inc.",
+   "aliases": [
+    "DuBose National .",
+    "DuBose National Energy Inc."
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Components / Fabrication / Equipment",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "ed-fagan-inc-efi",
+   "name": "Ed Fagan Inc. (EFI)",
+   "aliases": [
+    "Ed Fagan .",
+    "Ed Fagan Inc."
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Components / Fabrication / Equipment",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "fisher-controls",
+   "name": "Fisher Controls",
+   "aliases": [
+    "Fisher Controls"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Components / Fabrication / Equipment",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "fisonic-energy-solutions-power-systems-division",
+   "name": "Fisonic Energy Solutions - Power Systems Division",
+   "aliases": [
+    "Fisonic Energy Solutions - Power Systems Division"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Components / Fabrication / Equipment",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "fluid-components-international-llc",
+   "name": "Fluid Components International, LLC",
+   "aliases": [
+    "Fluid Components International",
+    "Fluid Components International, LLC"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Components / Fabrication / Equipment",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "framatome",
+   "name": "Framatome",
+   "aliases": [
+    "Framatome"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Components / Fabrication / Equipment",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "gutor-electronic-llc",
+   "name": "Gutor Electronic LLC",
+   "aliases": [
+    "Gutor Electronic",
+    "Gutor Electronic LLC"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Components / Fabrication / Equipment",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "hayward-tyler-inc",
+   "name": "Hayward Tyler, Inc.",
+   "aliases": [
+    "Hayward Tyler, .",
+    "Hayward Tyler, Inc."
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Components / Fabrication / Equipment",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "high-temperature-system-designs-llc",
+   "name": "High Temperature System Designs, LLC",
+   "aliases": [
+    "High Temperature System Designs",
+    "High Temperature System Designs, LLC"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Components / Fabrication / Equipment",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "hytorc",
+   "name": "HYTORC",
+   "aliases": [
+    "HYTORC"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Components / Fabrication / Equipment",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "joseph-oat-corporation",
+   "name": "Joseph Oat Corporation",
+   "aliases": [
+    "Joseph Oat",
+    "Joseph Oat Corporation"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Components / Fabrication / Equipment",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "l-h-industrial",
+   "name": "L&H Industrial",
+   "aliases": [
+    "L&H Industrial"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Components / Fabrication / Equipment",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "master-lee-engineered-products-inc",
+   "name": "Master-Lee Engineered Products, Inc.",
+   "aliases": [
+    "Master-Lee Engineered Products, .",
+    "Master-Lee Engineered Products, Inc."
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Components / Fabrication / Equipment",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "nelco-worldwide",
+   "name": "Nelco Worldwide",
+   "aliases": [
+    "Nelco Worldwide"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Components / Fabrication / Equipment",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "nutherm-international-inc",
+   "name": "Nutherm International, Inc.",
+   "aliases": [
+    "Nutherm International, .",
+    "Nutherm International, Inc."
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Components / Fabrication / Equipment",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "paragon-energy-solutions",
+   "name": "Paragon Energy Solutions",
+   "aliases": [
+    "Paragon Energy Solutions"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Components / Fabrication / Equipment",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "paxton-vierling-steel",
+   "name": "Paxton & Vierling Steel",
+   "aliases": [
+    "Paxton & Vierling Steel"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Components / Fabrication / Equipment",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "pmt-nuclear",
+   "name": "PMT Nuclear",
+   "aliases": [
+    "PMT Nuclear"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Components / Fabrication / Equipment",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "power-system-sentinel-technologies-llc",
+   "name": "Power System Sentinel Technologies, LLC",
+   "aliases": [
+    "Power System Sentinel Technologies",
+    "Power System Sentinel Technologies, LLC"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Components / Fabrication / Equipment",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "precision-custom-components-llc",
+   "name": "Precision Custom Components, LLC",
+   "aliases": [
+    "Precision Custom Components",
+    "Precision Custom Components, LLC"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Components / Fabrication / Equipment",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "premier-technology-inc",
+   "name": "Premier Technology, Inc.",
+   "aliases": [
+    "Premier Technology, .",
+    "Premier Technology, Inc."
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Components / Fabrication / Equipment",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "thermal-engineering-international-usa-inc-tei",
+   "name": "Thermal Engineering International (USA) Inc. (TEI)",
+   "aliases": [
+    "Thermal Engineering International .",
+    "Thermal Engineering International Inc."
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Components / Fabrication / Equipment",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "tioga",
+   "name": "Tioga",
+   "aliases": [
+    "Tioga"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Components / Fabrication / Equipment",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "transco-products-inc",
+   "name": "Transco Products Inc.",
+   "aliases": [
+    "Transco Products .",
+    "Transco Products Inc."
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Components / Fabrication / Equipment",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "analysis-and-measurement-services-corporation-ams",
+   "name": "Analysis and Measurement Services Corporation (AMS)",
+   "aliases": [
+    "Analysis and Measurement Services",
+    "Analysis and Measurement Services Corporation"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "I&C / Digital / Simulation / Automation",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "ansys",
+   "name": "Ansys",
+   "aliases": [
+    "Ansys"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "I&C / Digital / Simulation / Automation",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "ats-industrial-automation",
+   "name": "ATS Industrial Automation",
+   "aliases": [
+    "ATS Industrial Automation"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "I&C / Digital / Simulation / Automation",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "competitive-access-systems-inc",
+   "name": "Competitive Access Systems, Inc.",
+   "aliases": [
+    "Competitive Access Systems, .",
+    "Competitive Access Systems, Inc."
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "I&C / Digital / Simulation / Automation",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "exyn-technologies",
+   "name": "Exyn Technologies",
+   "aliases": [
+    "Exyn Technologies"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "I&C / Digital / Simulation / Automation",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "gse-performance-solutions-inc",
+   "name": "GSE Performance Solutions, Inc.",
+   "aliases": [
+    "GSE Performance Solutions, .",
+    "GSE Performance Solutions, Inc."
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "I&C / Digital / Simulation / Automation",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "informational-systems-laboratories-isl",
+   "name": "Informational Systems Laboratories (ISL)",
+   "aliases": [
+    "Informational Systems Laboratories"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "I&C / Digital / Simulation / Automation",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "rockwell-automation-inc",
+   "name": "Rockwell Automation, Inc.",
+   "aliases": [
+    "Rockwell Automation, .",
+    "Rockwell Automation, Inc."
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "I&C / Digital / Simulation / Automation",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "studsvik-scandpower",
+   "name": "Studsvik Scandpower",
+   "aliases": [
+    "Studsvik Scandpower"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "I&C / Digital / Simulation / Automation",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "taurus-telesys-inc",
+   "name": "Taurus teleSYS Inc.",
+   "aliases": [
+    "Taurus teleSYS .",
+    "Taurus teleSYS Inc."
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "I&C / Digital / Simulation / Automation",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "centrus-technical",
+   "name": "Centrus Technical",
+   "aliases": [
+    "Centrus Technical"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Fuel / Materials / Chemistry",
+   "tier": 2,
+   "query": false,
+   "ticker": "LEU",
+   "x": {
+    "handle": "Centrus_Energy",
+    "verified": false
+   }
+  },
+  {
+   "id": "ceramic-tubular-products-llc",
+   "name": "Ceramic Tubular Products, LLC",
+   "aliases": [
+    "Ceramic Tubular Products",
+    "Ceramic Tubular Products, LLC"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Fuel / Materials / Chemistry",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "lightbridge-corporation",
+   "name": "Lightbridge Corporation",
+   "aliases": [
+    "Lightbridge Corporation"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Fuel / Materials / Chemistry",
+   "tier": 2,
+   "query": false,
+   "ticker": "LTBR",
+   "x": null
+  },
+  {
+   "id": "millennitek-llc",
+   "name": "Millennitek LLC",
+   "aliases": [
+    "Millennitek",
+    "Millennitek LLC"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Fuel / Materials / Chemistry",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "thorium-energy-alliance",
+   "name": "Thorium Energy Alliance",
+   "aliases": [
+    "Thorium Energy Alliance"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Fuel / Materials / Chemistry",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "concurrent-technologies-corporation",
+   "name": "Concurrent Technologies Corporation",
+   "aliases": [
+    "Concurrent Technologies",
+    "Concurrent Technologies Corporation"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Testing / Inspection / QA / NDE",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "f-j-specialty-products-inc",
+   "name": "F&J Specialty Products, Inc.",
+   "aliases": [
+    "F&J Specialty Products, .",
+    "F&J Specialty Products, Inc."
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Testing / Inspection / QA / NDE",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "h3d-inc",
+   "name": "H3D, Inc.",
+   "aliases": [
+    "H3D, .",
+    "H3D, Inc."
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Testing / Inspection / QA / NDE",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "mp-machinery-and-testing-llc",
+   "name": "MP Machinery and Testing, LLC",
+   "aliases": [
+    "MP Machinery and Testing",
+    "MP Machinery and Testing, LLC"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Testing / Inspection / QA / NDE",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "radqual-llc",
+   "name": "Radqual, LLC",
+   "aliases": [
+    "Radqual",
+    "Radqual, LLC"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Testing / Inspection / QA / NDE",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "comprex-llc",
+   "name": "Comprex, LLC",
+   "aliases": [
+    "Comprex",
+    "Comprex, LLC"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Waste / Decommissioning / Rad Services",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "bluestone-group",
+   "name": "Bluestone Group",
+   "aliases": [
+    "Bluestone Group"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Advisory / Workforce / Insurance",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "empyrean",
+   "name": "Empyrean",
+   "aliases": [
+    "Empyrean"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Advisory / Workforce / Insurance",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "hansell-tierney-inc",
+   "name": "Hansell Tierney, Inc.",
+   "aliases": [
+    "Hansell Tierney, .",
+    "Hansell Tierney, Inc."
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Advisory / Workforce / Insurance",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "hukariascendent-inc",
+   "name": "Hukariascendent, Inc.",
+   "aliases": [
+    "Hukariascendent, .",
+    "Hukariascendent, Inc."
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Advisory / Workforce / Insurance",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "meridian-services-group",
+   "name": "Meridian Services Group",
+   "aliases": [
+    "Meridian Services Group"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Advisory / Workforce / Insurance",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "q-way-llc",
+   "name": "Q-Way LLC",
+   "aliases": [
+    "Q-Way",
+    "Q-Way LLC"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Advisory / Workforce / Insurance",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "scottmadden-management-consultants",
+   "name": "ScottMadden Management Consultants",
+   "aliases": [
+    "ScottMadden Management Consultants"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Advisory / Workforce / Insurance",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "strategic-resource-alliance-llc",
+   "name": "Strategic Resource Alliance, LLC",
+   "aliases": [
+    "Strategic Resource Alliance",
+    "Strategic Resource Alliance, LLC"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Advisory / Workforce / Insurance",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "system-one-holdings-llc",
+   "name": "System One Holdings, LLC",
+   "aliases": [
+    "System One Holdings",
+    "System One Holdings, LLC"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Advisory / Workforce / Insurance",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "the-hartford-steam-boiler-inspection-and-insurance-company-hsb",
+   "name": "The Hartford Steam Boiler Inspection and Insurance Company (HSB)",
+   "aliases": [
+    "The Hartford Steam Boiler Inspection and Insurance",
+    "The Hartford Steam Boiler Inspection and Insurance Company"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Advisory / Workforce / Insurance",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "kiewit-nuclear-solutions-kiewit",
+   "name": "Kiewit Nuclear Solutions / Kiewit",
+   "aliases": [
+    "Kiewit",
+    "Kiewit Nuclear Solutions",
+    "Kiewit Nuclear Solutions / Kiewit"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "EPC / Construction",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "advanced-technology-group-atg-containment",
+   "name": "Advanced Technology Group (ATG) Containment",
+   "aliases": [
+    "Advanced Technology Group Containment"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Components / Fabrication / Equipment",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "amentum",
+   "name": "Amentum",
+   "aliases": [
+    "Amentum"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Engineering / Licensing / Safety",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "mpr-associates",
+   "name": "MPR Associates",
+   "aliases": [
+    "MPR Associates"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Engineering / Licensing / Safety",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "metatomic",
+   "name": "Metatomic",
+   "aliases": [
+    "Metatomic"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Fuel / Materials / Chemistry",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "arco-murray",
+   "name": "ARCO/Murray",
+   "aliases": [
+    "ARCO",
+    "ARCO/Murray",
+    "Murray"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "EPC / Construction",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "avantech-llc",
+   "name": "AVANTech, LLC",
+   "aliases": [
+    "AVANTech",
+    "AVANTech, LLC"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Components / Fabrication / Equipment",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "eclipse-automation-nuclear-u-s-southeast",
+   "name": "Eclipse Automation, Nuclear / U.S. Southeast",
+   "aliases": [
+    "Eclipse Automation, Nuclear",
+    "Eclipse Automation, Nuclear / U.S. Southeast",
+    "U.S. Southeast"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "I&C / Digital / Simulation / Automation",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "gonzales-mechanical-solutions-gonzales-group",
+   "name": "Gonzales Mechanical Solutions / Gonzales Group",
+   "aliases": [
+    "Gonzales Group",
+    "Gonzales Mechanical Solutions",
+    "Gonzales Mechanical Solutions / Gonzales Group"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Components / Fabrication / Equipment",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "james-fisher-technologies",
+   "name": "James Fisher Technologies",
+   "aliases": [
+    "James Fisher Technologies"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Components / Fabrication / Equipment",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "pci-energy-services",
+   "name": "PCI Energy Services",
+   "aliases": [
+    "PCI Energy Services"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Components / Fabrication / Equipment",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "westinghouse-columbia-fuel-fabrication-facility",
+   "name": "Westinghouse Columbia Fuel Fabrication Facility",
+   "aliases": [
+    "Westinghouse Columbia Fuel Fabrication Facility"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Fuel / Materials / Chemistry",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": {
+    "handle": "WECNuclear",
+    "verified": false
+   }
+  },
+  {
+   "id": "container-technologies-industries",
+   "name": "Container Technologies Industries",
+   "aliases": [
+    "Container Technologies Industries"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Components / Fabrication / Equipment",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "lancs-industries",
+   "name": "Lancs Industries",
+   "aliases": [
+    "Lancs Industries"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Components / Fabrication / Equipment",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "skolnik-industries",
+   "name": "Skolnik Industries",
+   "aliases": [
+    "Skolnik Industries"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Components / Fabrication / Equipment",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "ge-vernova-hitachi-nuclear-energy",
+   "name": "GE Vernova Hitachi Nuclear Energy",
+   "aliases": [
+    "GE Vernova Hitachi Nuclear Energy"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Engineering / Licensing / Safety",
+   "tier": 2,
+   "query": false,
+   "ticker": "GEV",
+   "x": null
+  },
+  {
+   "id": "united-engineers-constructors",
+   "name": "United Engineers & Constructors",
+   "aliases": [
+    "United Engineers & Constructors"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "EPC / Construction",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "cross-river-infrastructure-partners",
+   "name": "Cross River Infrastructure Partners",
+   "aliases": [
+    "Cross River Infrastructure Partners"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Advisory / Workforce / Insurance",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "northrop-grumman",
+   "name": "Northrop Grumman",
+   "aliases": [
+    "Northrop Grumman"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Engineering / Licensing / Safety",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "rolls-royce-libertyworks",
+   "name": "Rolls-Royce LibertyWorks",
+   "aliases": [
+    "Rolls-Royce LibertyWorks"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Components / Fabrication / Equipment",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "torch-technologies-inc",
+   "name": "Torch Technologies, Inc.",
+   "aliases": [
+    "Torch Technologies, .",
+    "Torch Technologies, Inc."
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Advisory / Workforce / Insurance",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "general-atomics",
+   "name": "General Atomics",
+   "aliases": [
+    "General Atomics"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Engineering / Licensing / Safety",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "mitsubishi-electric-power-products",
+   "name": "Mitsubishi Electric Power Products",
+   "aliases": [
+    "Mitsubishi Electric Power Products"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "I&C / Digital / Simulation / Automation",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "north-american-forgemasters-naf",
+   "name": "North American ForgeMasters (NAF)",
+   "aliases": [
+    "North American ForgeMasters"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Components / Fabrication / Equipment",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "hi-tech-solutions-llc",
+   "name": "Hi Tech Solutions LLC",
+   "aliases": [
+    "Hi Tech Solutions",
+    "Hi Tech Solutions LLC"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Advisory / Workforce / Insurance",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "kairos-power",
+   "name": "Kairos Power",
+   "aliases": [
+    "Hermes reactor",
+    "Kairos Power"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Engineering / Licensing / Safety",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "electric-power-research-institute-epri",
+   "name": "Electric Power Research Institute (EPRI)",
+   "aliases": [
+    "Electric Power Research Institute"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Testing / Inspection / QA / NDE",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "nuscale-power",
+   "name": "NuScale Power",
+   "aliases": [
+    "NuScale Power"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Engineering / Licensing / Safety",
+   "tier": 2,
+   "query": false,
+   "ticker": "SMR",
+   "x": {
+    "handle": "NuScale_Power",
+    "verified": false
+   }
+  },
+  {
+   "id": "entra1-energy-llc",
+   "name": "ENTRA1 Energy LLC",
+   "aliases": [
+    "ENTRA1 Energy",
+    "ENTRA1 Energy LLC"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Advisory / Workforce / Insurance",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "oklo-inc",
+   "name": "Oklo Inc.",
+   "aliases": [
+    "Oklo .",
+    "Oklo Inc."
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Engineering / Licensing / Safety",
+   "tier": 2,
+   "query": false,
+   "ticker": "OKLO",
+   "x": {
+    "handle": "oklo",
+    "verified": false
+   }
+  },
+  {
+   "id": "atomic-alchemy-oklo-subsidiary",
+   "name": "Atomic Alchemy (Oklo subsidiary)",
+   "aliases": [
+    "Atomic Alchemy"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Fuel / Materials / Chemistry",
+   "tier": 2,
+   "query": false,
+   "ticker": "OKLO",
+   "x": {
+    "handle": "oklo",
+    "verified": false
+   }
+  },
+  {
+   "id": "centrus-energy-corp",
+   "name": "Centrus Energy Corp",
+   "aliases": [
+    "Centrus Energy Corp"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Fuel / Materials / Chemistry",
+   "tier": 2,
+   "query": false,
+   "ticker": "LEU",
+   "x": {
+    "handle": "Centrus_Energy",
+    "verified": false
+   }
+  },
+  {
+   "id": "vertiv",
+   "name": "Vertiv",
+   "aliases": [
+    "Vertiv"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "I&C / Digital / Simulation / Automation",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "orano-federal-services",
+   "name": "Orano Federal Services",
+   "aliases": [
+    "Orano Federal Services"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Waste / Decommissioning / Rad Services",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "global-nuclear-fuel-americas-gnf-a",
+   "name": "Global Nuclear Fuel-Americas (GNF-A)",
+   "aliases": [
+    "Global Nuclear Fuel-Americas"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Fuel / Materials / Chemistry",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "3m-company",
+   "name": "3M Company",
+   "aliases": [
+    "3M Company"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Fuel / Materials / Chemistry",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "core-power",
+   "name": "CORE POWER",
+   "aliases": [
+    "CORE POWER"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Engineering / Licensing / Safety",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "terrestrial-energy-usa",
+   "name": "Terrestrial Energy USA",
+   "aliases": [
+    "Terrestrial Energy",
+    "Terrestrial Energy USA"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Engineering / Licensing / Safety",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "hatch",
+   "name": "Hatch",
+   "aliases": [
+    "Hatch"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "EPC / Construction",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "kbr-inc",
+   "name": "KBR, Inc.",
+   "aliases": [
+    "KBR, .",
+    "KBR, Inc."
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Engineering / Licensing / Safety",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "x-energy",
+   "name": "X-energy",
+   "aliases": [
+    "X-energy",
+    "Xe-100"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Engineering / Licensing / Safety",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": {
+    "handle": "xenergynuclear",
+    "verified": false
+   }
+  },
+  {
+   "id": "amstead-graphite-material-agm",
+   "name": "Amstead Graphite Material (AGM)",
+   "aliases": [
+    "Amstead Graphite Material"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Fuel / Materials / Chemistry",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "sargent-lundy",
+   "name": "Sargent & Lundy",
+   "aliases": [
+    "Sargent & Lundy"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Engineering / Licensing / Safety",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "day-zimmermann",
+   "name": "Day & Zimmermann",
+   "aliases": [
+    "Day & Zimmermann"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "EPC / Construction",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "zachry-group",
+   "name": "Zachry Group",
+   "aliases": [
+    "Zachry Group"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "EPC / Construction",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "clark-construction-group",
+   "name": "Clark Construction Group",
+   "aliases": [
+    "Clark Construction Group"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "EPC / Construction",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  },
+  {
+   "id": "calnetix-technologies-llc",
+   "name": "Calnetix Technologies, LLC",
+   "aliases": [
+    "Calnetix Technologies",
+    "Calnetix Technologies, LLC"
+   ],
+   "groups": [
+    "supplier"
+   ],
+   "category": "Components / Fabrication / Equipment",
+   "tier": 2,
+   "query": false,
+   "ticker": null,
+   "x": null
+  }
+ ]
+}

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>newcleo · Nuclear Intel Terminal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#15181A; --panel:#1D2124; --panel-2:#23282C; --line:#2C3236;
+  --text:#D6DDE2; --muted:#76878F; --dim:#535F66;
+  --teal:#00B3B6; --teal-deep:#025152; --orange:#F0782E;
+  --reg:#00B3B6; --fund:#F0782E; --fil:#9A8BD0; --news:#8B9BA5; --soc:#5BA8D6;
+  --lead-light:#B4C1CB; --lead:#768792; --lead-dark:#313132;
+  --font:'Montserrat',system-ui,sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--ink);color:var(--text);font-family:var(--font);font-size:13px;min-height:100vh}
+a{color:inherit;text-decoration:none}
+a:hover{color:#fff}
+
+/* ---------- command bar ---------- */
+.bar{display:flex;align-items:center;gap:18px;padding:10px 18px;border-bottom:1px solid var(--line)}
+.bar img{height:24px;filter:drop-shadow(0 0 1px rgba(255,255,255,.15))}
+.bar .ttl{font-weight:800;font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:#fff}
+.bar .ttl span{color:var(--teal)}
+.bar .v{font:600 10px var(--mono);color:var(--orange);border:1px solid var(--orange);border-radius:3px;padding:2px 6px}
+.bar .right{margin-left:auto;display:flex;align-items:center;gap:16px;font:500 11px var(--mono);color:var(--muted)}
+.clock{color:var(--text)}
+.dot{display:inline-flex;align-items:center;gap:5px}
+.dot i{width:7px;height:7px;border-radius:50%;background:#3E8C5A;display:inline-block}
+.dot.off i{background:#5A4632}
+.dot.warn i{background:#C2382E}
+/* molten lead rule — family signature from the hub */
+.leadrule{height:3px;background:linear-gradient(90deg,var(--lead-light),var(--lead) 30%,var(--lead-dark) 65%,var(--lead) 85%,var(--lead-light))}
+
+/* ---------- ticker tape ---------- */
+.tape{overflow:hidden;border-bottom:1px solid var(--line);background:var(--panel)}
+.tape-in{display:inline-flex;gap:42px;white-space:nowrap;padding:7px 0;animation:tape 90s linear infinite;will-change:transform}
+.tape:hover .tape-in{animation-play-state:paused}
+@keyframes tape{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.tk{font:500 11.5px var(--mono);color:var(--muted)}
+.tk b{color:var(--text);font-weight:500}
+.tk i{font-style:normal;margin-right:8px}
+
+/* ---------- KPI strip ---------- */
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);border-bottom:1px solid var(--line)}
+.kpi{padding:10px 18px;border-right:1px solid var(--line);cursor:pointer;transition:background .15s}
+.kpi:last-child{border-right:none}
+.kpi:hover,.kpi.on{background:var(--panel)}
+.kpi .n{font:600 22px var(--mono);line-height:1}
+.kpi .l{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.kpi .l::before{content:'';display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:7px;vertical-align:-1px;background:var(--c)}
+.kpi.off{opacity:.35}
+
+/* ---------- layout ---------- */
+.wrap{display:grid;grid-template-columns:minmax(0,2.1fr) minmax(280px,1fr);gap:0;min-height:calc(100vh - 160px)}
+.main{border-right:1px solid var(--line);min-width:0}
+.rail{display:flex;flex-direction:column}
+
+/* ---------- filters ---------- */
+.filters{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 18px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--ink);z-index:5}
+.search{flex:1;min-width:160px;background:var(--panel);border:1px solid var(--line);border-radius:4px;color:var(--text);font:500 12px var(--mono);padding:7px 11px;outline:none}
+.search:focus{border-color:var(--teal)}
+.tgl{font:600 10.5px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:7px 11px;cursor:pointer;background:none;transition:.15s}
+.tgl:hover{color:var(--text)}
+.tgl.on{color:var(--ink);background:var(--teal);border-color:var(--teal)}
+.entflag{display:none;align-items:center;gap:8px;font:600 11px var(--mono);color:var(--orange);border:1px dashed var(--orange);border-radius:4px;padding:6px 10px}
+.entflag.show{display:inline-flex}
+.entflag b{cursor:pointer}
+
+/* ---------- feed ---------- */
+.feed{padding:6px 0 30px}
+.day{font:600 10px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--dim);padding:14px 18px 6px}
+.item{display:grid;grid-template-columns:64px 4px 1fr;gap:0 14px;padding:9px 18px;border-bottom:1px solid #1A1E21;cursor:default}
+.item:hover{background:var(--panel)}
+.item .t{font:500 11px var(--mono);color:var(--dim);padding-top:2px;text-align:right}
+.item .b{border-radius:2px;background:var(--c,#444)}
+.item h3{font-size:13px;font-weight:600;line-height:1.45;color:var(--text)}
+.item h3 a:hover{color:#fff;text-decoration:underline;text-underline-offset:3px}
+.meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:5px}
+.src{font:500 10.5px var(--mono);color:var(--muted)}
+.chip{font:600 10px var(--font);letter-spacing:.04em;color:var(--lead-light);background:var(--panel-2);border:1px solid var(--line);border-radius:3px;padding:2px 7px;cursor:pointer}
+.chip:hover{border-color:var(--teal);color:var(--teal)}
+.topic{font:500 10px var(--mono);color:var(--dim)}
+.dl{font:600 10px var(--mono);color:var(--orange);border:1px solid #5A4632;border-radius:3px;padding:2px 7px}
+.vfy{font:600 10px var(--mono);color:#3E8C5A}
+.empty{padding:60px 30px;text-align:center;color:var(--muted);font-size:13px;line-height:1.8}
+.empty code{font-family:var(--mono);color:var(--teal)}
+
+/* ---------- right rail ---------- */
+.panelbox{border-bottom:1px solid var(--line);padding:14px 18px 16px}
+.panelbox h2{font-size:10.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:11px}
+.panelbox h2 b{color:var(--orange)}
+.dlrow{display:grid;grid-template-columns:46px 1fr;gap:10px;padding:7px 0;border-bottom:1px solid #1A1E21;align-items:start}
+.dlrow:last-child{border-bottom:none}
+.dday{font:600 13px var(--mono);color:var(--orange);text-align:center;border:1px solid #5A4632;border-radius:4px;padding:4px 2px;line-height:1.1}
+.dday small{display:block;font-size:8.5px;color:var(--muted);font-weight:500;letter-spacing:.06em}
+.dday.far{color:var(--lead-light);border-color:var(--line)}
+.dlrow p{font-size:11.5px;line-height:1.45;color:var(--text)}
+.dlrow p a:hover{text-decoration:underline;text-underline-offset:3px}
+.dlrow .what{font:500 9.5px var(--mono);color:var(--dim);margin-top:2px;display:block}
+.mover{display:grid;grid-template-columns:1fr 30px;gap:8px;align-items:center;padding:4px 0;cursor:pointer}
+.mover:hover .mn{color:var(--teal)}
+.mn{font-size:11.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mbar{height:4px;background:var(--panel-2);border-radius:2px;overflow:hidden;margin-top:3px}
+.mbar i{display:block;height:100%;background:linear-gradient(90deg,var(--teal-deep),var(--teal))}
+.mc{font:600 11px var(--mono);color:var(--muted);text-align:right}
+.note{font-size:10.5px;color:var(--dim);line-height:1.6;padding-top:4px}
+
+footer{padding:12px 18px;font:500 10px var(--mono);color:var(--dim);border-top:1px solid var(--line)}
+footer b{color:var(--muted)}
+
+@media(max-width:920px){
+  .wrap{grid-template-columns:1fr}
+  .main{border-right:none}
+  .kpis{grid-template-columns:repeat(3,1fr)}
+  .bar .right .hide-m{display:none}
+}
+@media(prefers-reduced-motion:reduce){.tape-in{animation:none}}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <img id="logo" alt="newcleo" src="">
+  <div class="ttl">Nuclear Intel <span>Terminal</span></div>
+  <div class="v">V1 · RAW FEED + VERIFIED LAYER</div>
+  <div class="right">
+    <span class="dot" id="d-fr"><i></i>FED REG</span>
+    <span class="dot" id="d-nrc"><i></i>NRC</span>
+    <span class="dot" id="d-sec"><i></i>EDGAR</span>
+    <span class="dot off hide-m" id="d-sam"><i></i>SAM.GOV</span>
+    <span class="dot off hide-m" id="d-x"><i></i>X</span>
+    <span id="gen" class="hide-m"></span>
+    <span class="clock" id="clock"></span>
+  </div>
+</header>
+<div class="leadrule"></div>
+
+<div class="tape"><div class="tape-in" id="tape"></div></div>
+
+<div class="kpis" id="kpis"></div>
+
+<div class="wrap">
+  <div class="main">
+    <div class="filters">
+      <input class="search" id="q" placeholder="Search titles, companies, topics…">
+      <button class="tgl" data-w="24">24H</button>
+      <button class="tgl on" data-w="168">7D</button>
+      <button class="tgl" data-w="0">ALL</button>
+      <button class="tgl" id="vonly">Verified only</button>
+      <span class="entflag" id="entflag">Filtered: <span id="entname"></span> <b id="entclear">×</b></span>
+    </div>
+    <div class="feed" id="feed"></div>
+  </div>
+
+  <aside class="rail">
+    <div class="panelbox">
+      <h2>Deadline radar <b id="dlcount"></b></h2>
+      <div id="deadlines"></div>
+    </div>
+    <div class="panelbox">
+      <h2>Watchlist movers · 7d</h2>
+      <div id="movers"></div>
+    </div>
+    <div class="panelbox">
+      <h2>Coverage</h2>
+      <div class="note" id="coverage"></div>
+    </div>
+  </aside>
+</div>
+
+<footer>Public primary sources + open news feeds · raw feed is <b>uncorroborated</b> until promoted to the verified layer · newcleo internal market intelligence</footer>
+
+<script src="data/watchlist.js"></script>
+<script src="data/feed.js"></script>
+<script>
+(function(){
+'use strict';
+/* newcleo logo (official asset, embedded) */
+document.getElementById('logo').src = 'data/logo.png';
+
+var FEED = window.NIT_FEED || null;
+var WL   = window.NIT_WATCHLIST || {entities:[]};
+var EMAP = {}; WL.entities.forEach(function(e){ EMAP[e.id] = e; });
+var BUCKETS = [
+  {k:'regulatory', l:'Regulatory', c:'var(--reg)'},
+  {k:'funding',    l:'Funding & RFx', c:'var(--fund)'},
+  {k:'filings',    l:'SEC filings', c:'var(--fil)'},
+  {k:'news',       l:'News', c:'var(--news)'},
+  {k:'social',     l:'X / Social', c:'var(--soc)'}
+];
+var state = { q:'', windowH:168, buckets:{}, ent:null, vonly:false };
+BUCKETS.forEach(function(b){ state.buckets[b.k] = true; });
+
+function esc(s){ var d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
+function ename(id){ return EMAP[id] ? EMAP[id].name.replace(/\s*[—–(].*$/,'') : id; }
+function rel(ts){
+  var m = (Date.now() - new Date(ts).getTime())/60000;
+  if (m < 60) return Math.max(1,Math.round(m)) + 'm';
+  if (m < 1440) return Math.round(m/60) + 'h';
+  return Math.round(m/1440) + 'd';
+}
+function hhmm(ts){ var d=new Date(ts); if(/T00:00:00/.test(ts)) return '——'; return ('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2); }
+function dayKey(ts){ return new Date(ts).toDateString(); }
+function bucketColor(k){ var b=BUCKETS.filter(function(x){return x.k===k;})[0]; return b?b.c:'#444'; }
+
+/* ---------- header ---------- */
+function tickClock(){
+  var n = new Date();
+  document.getElementById('clock').textContent =
+    n.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit'}) + ' LOCAL';
+}
+setInterval(tickClock, 1000); tickClock();
+
+if (!FEED) {
+  document.getElementById('feed').innerHTML =
+    '<div class="empty">No data yet.<br>Run <code>python3 collectors/collect.py</code> once, or wait for the first scheduled refresh.<br>This terminal reads <code>data/feed.js</code>.</div>';
+} else {
+  var gen = new Date(FEED.generated);
+  var ageH = (Date.now()-gen.getTime())/3600000;
+  document.getElementById('gen').textContent = 'COLLECTED ' + rel(FEED.generated).toUpperCase() + ' AGO';
+  if (ageH > 2.5) document.getElementById('gen').style.color = 'var(--orange)';
+  if (FEED.sources && FEED.sources.sam_gov) document.getElementById('d-sam').classList.remove('off');
+  if (FEED.sources && FEED.sources.x_api)  document.getElementById('d-x').classList.remove('off');
+  boot();
+}
+
+function boot(){
+  /* ticker tape: latest 18 headlines, duplicated for seamless loop */
+  var latest = FEED.items.slice(0,18);
+  var seg = latest.map(function(i){
+    return '<span class="tk"><i style="color:'+bucketColor(i.bucket)+'">●</i>'+hhmm(i.ts)+' <b>'+esc(i.title.slice(0,110))+'</b></span>';
+  }).join('');
+  document.getElementById('tape').innerHTML = seg + seg;
+
+  /* KPI strip */
+  var k = document.getElementById('kpis');
+  k.innerHTML = BUCKETS.map(function(b){
+    var n = FEED.items.filter(function(i){ return i.bucket===b.k && (Date.now()-new Date(i.ts))/36e5 <= 168; }).length;
+    return '<div class="kpi on" data-k="'+b.k+'" style="--c:'+b.c+'"><div class="n">'+n+'</div><div class="l">'+b.l+' · 7d</div></div>';
+  }).join('');
+  k.addEventListener('click', function(ev){
+    var el = ev.target.closest('.kpi'); if(!el) return;
+    var key = el.dataset.k; state.buckets[key] = !state.buckets[key];
+    el.classList.toggle('off', !state.buckets[key]); el.classList.toggle('on', state.buckets[key]);
+    render();
+  });
+
+  /* deadlines */
+  var today = new Date(); today.setHours(0,0,0,0);
+  var dls = FEED.items.filter(function(i){ return i.deadline && new Date(i.deadline) >= today; })
+    .sort(function(a,b){ return a.deadline < b.deadline ? -1 : 1; }).slice(0,9);
+  document.getElementById('dlcount').textContent = dls.length ? dls.length + ' open' : '';
+  document.getElementById('deadlines').innerHTML = dls.length ? dls.map(function(i){
+    var d = Math.round((new Date(i.deadline) - today)/864e5);
+    return '<div class="dlrow"><div class="dday'+(d>14?' far':'')+'">D-'+d+'<small>'+i.deadline.slice(5)+'</small></div>'+
+      '<p><a href="'+esc(i.url)+'" target="_blank" rel="noopener">'+esc(i.title.slice(0,100))+'</a>'+
+      '<span class="what">'+esc(i.deadline_label||'Deadline')+' · '+esc(i.source)+'</span></p></div>';
+  }).join('') : '<div class="note">No open comment or response deadlines in the feed.</div>';
+
+  /* movers */
+  var counts = {};
+  FEED.items.forEach(function(i){
+    if ((Date.now()-new Date(i.ts))/36e5 > 168) return;
+    i.entities.forEach(function(e){ if(EMAP[e] && EMAP[e].groups.indexOf('agency')<0) counts[e]=(counts[e]||0)+1; });
+  });
+  var top = Object.keys(counts).map(function(k){return [k,counts[k]];})
+    .sort(function(a,b){return b[1]-a[1];}).slice(0,10);
+  var max = top.length ? top[0][1] : 1;
+  document.getElementById('movers').innerHTML = top.map(function(p){
+    return '<div class="mover" data-e="'+p[0]+'"><div><div class="mn">'+esc(ename(p[0]))+'</div>'+
+      '<div class="mbar"><i style="width:'+Math.round(100*p[1]/max)+'%"></i></div></div>'+
+      '<div class="mc">'+p[1]+'</div></div>';
+  }).join('') || '<div class="note">No watchlist mentions in the last 7 days.</div>';
+  document.getElementById('movers').addEventListener('click', function(ev){
+    var el = ev.target.closest('.mover'); if(!el) return;
+    setEnt(el.dataset.e);
+  });
+
+  /* coverage note */
+  var wl1 = WL.entities.filter(function(e){return e.tier===1;}).length;
+  document.getElementById('coverage').innerHTML =
+    'Tracking <b style="color:var(--text)">'+WL.entities.length+'</b> entities from the fuel-cycle and reactor-landscape dashboards ('+wl1+' tier-1). '+
+    'Sources live: Federal Register, Grants.gov, NRC ADAMS, SEC EDGAR, Google News.'+
+    (FEED.sources.sam_gov?'':' SAM.gov pending API key.')+(FEED.sources.x_api?'':' X pending bearer token.');
+
+  /* filters */
+  document.getElementById('q').addEventListener('input', function(){ state.q=this.value.toLowerCase(); render(); });
+  document.querySelectorAll('.tgl[data-w]').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('.tgl[data-w]').forEach(function(x){x.classList.remove('on');});
+      this.classList.add('on'); state.windowH = +this.dataset.w; render();
+    });
+  });
+  document.getElementById('vonly').addEventListener('click', function(){
+    state.vonly = !state.vonly; this.classList.toggle('on', state.vonly); render();
+  });
+  document.getElementById('entclear').addEventListener('click', function(){ setEnt(null); });
+  document.getElementById('feed').addEventListener('click', function(ev){
+    var c = ev.target.closest('.chip'); if(c) setEnt(c.dataset.e);
+  });
+  render();
+}
+
+function setEnt(id){
+  state.ent = id;
+  var f = document.getElementById('entflag');
+  f.classList.toggle('show', !!id);
+  if (id) document.getElementById('entname').textContent = ename(id);
+  render();
+}
+
+function render(){
+  var items = FEED.items.filter(function(i){
+    if (!state.buckets[i.bucket]) return false;
+    if (state.windowH && (Date.now()-new Date(i.ts))/36e5 > state.windowH) return false;
+    if (state.vonly && !i.verified) return false;
+    if (state.ent && i.entities.indexOf(state.ent) < 0) return false;
+    if (state.q){
+      var blob = (i.title+' '+i.source+' '+i.entities.map(ename).join(' ')+' '+(i.topics||[]).join(' ')).toLowerCase();
+      if (blob.indexOf(state.q) < 0) return false;
+    }
+    return true;
+  });
+  var out = [], lastDay = '';
+  items.slice(0,250).forEach(function(i){
+    var dk = dayKey(i.ts);
+    if (dk !== lastDay){
+      lastDay = dk;
+      out.push('<div class="day">'+new Date(i.ts).toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'})+'</div>');
+    }
+    var chips = i.entities.slice(0,4).map(function(e){
+      return '<span class="chip" data-e="'+e+'">'+esc(ename(e))+'</span>';
+    }).join('');
+    var topics = (i.topics||[]).slice(0,3).map(function(t){return '<span class="topic">#'+esc(t)+'</span>';}).join('');
+    out.push('<div class="item" style="--c:'+bucketColor(i.bucket)+'">'+
+      '<div class="t">'+hhmm(i.ts)+'<br>'+rel(i.ts)+'</div><div class="b"></div>'+
+      '<div><h3><a href="'+esc(i.url)+'" target="_blank" rel="noopener">'+esc(i.title)+'</a></h3>'+
+      '<div class="meta"><span class="src">'+esc(i.source)+'</span>'+chips+topics+
+      (i.deadline?'<span class="dl">'+esc(i.deadline_label||'Deadline')+' '+i.deadline+'</span>':'')+
+      (i.verified?'<span class="vfy">✓ verified</span>':'')+
+      '</div></div></div>');
+  });
+  document.getElementById('feed').innerHTML = out.join('') ||
+    '<div class="empty">Nothing matches these filters.<br>Widen the time window or clear the search.</div>';
+}
+
+/* periodic data refresh without page reload */
+setInterval(function(){
+  var s = document.createElement('script');
+  s.src = 'data/feed.js?ts=' + Date.now();
+  s.onload = function(){ if (window.NIT_FEED && window.NIT_FEED.generated !== (FEED&&FEED.generated)){ location.reload(); } };
+  document.body.appendChild(s);
+}, 5*60*1000);
+})();
+</script>
+</body>
+</html>
