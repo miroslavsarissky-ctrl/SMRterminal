@@ -165,22 +165,54 @@ def sam_gov():
     if not key:
         print('  - sam_gov skipped (set SAM_GOV_API_KEY)')
         return []
-    items = []
-    try:
-        frm = (NOW - datetime.timedelta(days=30)).strftime('%m/%d/%Y')
-        r = requests.get('https://api.sam.gov/opportunities/v2/search', params={
-            'api_key': key, 'postedFrom': frm, 'postedTo': NOW.strftime('%m/%d/%Y'),
-            'title': 'nuclear', 'limit': 100}, headers=UA, timeout=45)
-        for o in r.json().get('opportunitiesData', []):
+    # SAM opportunities update daily and personal keys have low daily caps — throttle to ~3h.
+    # Previously-collected SAM items persist in history (bucket 'funding'), so nothing is lost.
+    sstate = load_json(os.path.join(DATA, 'sam_state.json'), {})
+    last = parse_date(sstate.get('last', ''))
+    if last and (NOW - last).total_seconds() < 3 * 3600:
+        print('  - sam_gov throttled (ran <3h ago)')
+        return []
+    items, seen = [], set()
+    frm = (NOW - datetime.timedelta(days=45)).strftime('%m/%d/%Y')
+    to = NOW.strftime('%m/%d/%Y')
+    # GSA docs say /prod/, many integrations use the bare path — try both, use whichever returns 200.
+    endpoints = ['https://api.sam.gov/opportunities/v2/search',
+                 'https://api.sam.gov/prod/opportunities/v2/search']
+    hdr = {'Accept': 'application/json', **UA}
+    auth_failed, got_200 = False, False
+    for kw in ('nuclear', 'HALEU', 'reactor'):           # title sweep (API has no body full-text)
+        data = None
+        for ep in endpoints:
+            try:
+                r = requests.get(ep, params={'api_key': key, 'postedFrom': frm, 'postedTo': to,
+                                             'title': kw, 'limit': 100}, headers=hdr, timeout=45)
+                if r.status_code == 200:
+                    data = r.json(); got_200 = True; break
+                if r.status_code in (401, 403):
+                    auth_failed = True; break
+                # 404/400 here usually means wrong endpoint or rejected key — try the other endpoint
+            except Exception as ex:
+                print('  ! sam_gov', kw, ex)
+        if auth_failed:
+            print('  ! sam_gov auth failed — verify SAM_GOV_API_KEY is a SAM.gov Account-Details public key'); break
+        if data is None:
+            print(f'  ! sam_gov no 200 for "{kw}" (endpoint or key issue)'); continue
+        for o in data.get('opportunitiesData', []):
+            nid = o.get('noticeId') or o.get('uiLink') or o.get('title', '')
+            if nid in seen: continue
+            seen.add(nid)
             ts = parse_date(o.get('postedDate')) or NOW
             dl = o.get('responseDeadLine')
+            ptype = o.get('type') or o.get('baseType') or 'Opportunity'
             items.append(make_item(
-                f"[{o.get('type','Opportunity')}] {o.get('title','')}",
-                o.get('uiLink') or '', ts, 'SAM.gov · ' + (o.get('fullParentPathName', '').split('.')[0] or 'Fed'),
-                'funding', f"Solicitation {o.get('solicitationNumber','')}",
-                deadline=dl[:10] if dl else None, deadline_label='Responses due' if dl else ''))
-    except Exception as ex:
-        print('  ! sam_gov', ex)
+                f"[{ptype}] {o.get('title','')}",
+                o.get('uiLink') or ('https://sam.gov/opp/' + (o.get('noticeId', '') or '')),
+                ts, 'SAM.gov · ' + ((o.get('fullParentPathName', '') or 'Fed').split('.')[0]),
+                'funding', f"Solicitation {o.get('solicitationNumber','—')}",
+                deadline=dl, deadline_label='Responses due' if dl else ''))
+    if got_200:                                          # only mark success when SAM actually answered
+        sstate['last'] = iso(NOW)
+        json.dump(sstate, open(os.path.join(DATA, 'sam_state.json'), 'w'))
     return items
 
 def nrc_adams():
