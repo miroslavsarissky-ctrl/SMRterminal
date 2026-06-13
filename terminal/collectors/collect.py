@@ -24,6 +24,24 @@ WINDOW_DAYS = 120
 MAX_ITEMS = 600
 
 TOPIC_QUERIES = ['HALEU', '"advanced nuclear" funding', '"nuclear fuel" supply chain', 'SMR deployment']
+
+# Trusted publishers pulled from their OWN chronological feeds — reliable dates,
+# so old articles can never resurface as "today". This is the news backbone.
+PUBLISHER_FEEDS = [
+    ('World Nuclear News',    'https://www.world-nuclear-news.org/rss'),
+    ('ANS Nuclear Newswire',  'https://www.ans.org/news/feed/'),
+    ('Utility Dive',          'https://www.utilitydive.com/feeds/news/'),
+    ('POWER Magazine',        'https://www.powermag.com/feed/'),
+    ('Neutron Bytes',         'https://neutronbytes.com/feed/'),
+]
+# Domains already pulled directly above — skip in Google News so Google's
+# unreliable re-surfacing dates can't reintroduce stale items (the TerraPower bug).
+DIRECT_DOMAINS = {'world-nuclear-news.org', 'ans.org', 'utilitydive.com', 'powermag.com', 'neutronbytes.com'}
+# Content-mills / stock-tip SEO that recycle old news — dropped everywhere.
+NEWS_BLOCKLIST = {'indexbox.io', 'mugglehead.com', 'simplywall.st', 'marketbeat.com',
+                  'tipranks.com', 'zacks.com', 'barchart.com', 'fool.com', 'benzinga.com',
+                  'stocktwits.com', 'investorplace.com', 'stocktitan.net'}
+YEAR_RX = re.compile(r'\b(20\d{2})\b')
 TOPIC_TAGS = {'haleu': 'HALEU', 'mox': 'MOX', 'plutonium': 'Pu disposition', 'lead-cooled': 'LFR',
               'molten salt': 'MSR', 'microreactor': 'Microreactor', 'enrichment': 'Enrichment',
               'reprocessing': 'Recycling', 'recycl': 'Recycling', 'savannah river': 'SRS'}
@@ -233,7 +251,46 @@ def edgar():
             print('  ! edgar', tk, ex)
     return items
 
+def _source_domain(en):
+    src = en.get('source')
+    href = ''
+    if isinstance(src, dict): href = src.get('href', '')
+    elif hasattr(src, 'href'): href = getattr(src, 'href', '')
+    if not href: href = en.get('link', '')
+    m = re.search(r'https?://([^/]+)', href or '')
+    return (m.group(1) if m else '').lower().replace('www.', '')
+
+def _title_stale(title):
+    """True only if the title names a year 2+ years old and no current year — a cheap
+    guard against re-surfaced articles whose date string carries the year."""
+    yrs = [int(y) for y in YEAR_RX.findall(title)]
+    return bool(yrs) and (NOW.year not in yrs) and (max(yrs) <= NOW.year - 2)
+
+def publisher_news():
+    """News backbone: trusted outlets' own chronological feeds. Dates are reliable,
+    so stale items structurally cannot appear. Filtered to watchlist/topic relevance."""
+    items = []
+    for name, url in PUBLISHER_FEEDS:
+        try:
+            r = requests.get(url, headers=UA, timeout=25)
+            fp = feedparser.parse(r.content)
+            kept = 0
+            for en in fp.entries[:45]:
+                ts = parse_date(en.get('published') or en.get('updated'))
+                if not ts or (NOW - ts).days > 30: continue
+                title = en.get('title', '')
+                summary = strip_html(en.get('summary', ''), 300)
+                txt = title + ' ' + summary
+                if not tag_entities(txt) and not tag_topics(txt): continue   # relevance gate
+                items.append(make_item(title, en.get('link', ''), ts, name, 'news', summary))
+                kept += 1
+        except Exception as ex:
+            print('  ! publisher_news', name, ex)
+    return items
+
 def google_news():
+    """Supplement: per-company Google News, hardened. Tight window; drop content-mills
+    and any domain already covered by a direct feed (whose dates are trustworthy)."""
     items = []
     rot = load_json(os.path.join(DATA, 'rotation.json'), {'i': 0})
     qents = [e for e in WL['entities'] if e.get('query')]
@@ -248,7 +305,10 @@ def google_news():
             fp = feedparser.parse(requests.get(url, headers=UA, timeout=25).text)
             for en in fp.entries[:5]:
                 ts = parse_date(en.get('published'))
-                if not ts or (NOW - ts).days > 21: continue
+                if not ts or (NOW - ts).days > 10: continue          # tightened 21 -> 10
+                dom = _source_domain(en)
+                if dom in DIRECT_DOMAINS or dom in NEWS_BLOCKLIST: continue
+                if _title_stale(en.get('title', '')): continue
                 src = en.get('source', {}).get('title', 'News') if hasattr(en.get('source', {}), 'get') else 'News'
                 it = make_item(en.title, en.link, ts, src, 'news', '')
                 if ent and ent['id'] not in it['entities']: it['entities'].insert(0, ent['id'])
@@ -300,17 +360,61 @@ def x_api():
     json.dump(state, open(os.path.join(DATA, 'x_state.json'), 'w'))
     return items
 
+# ---------------------------------------------------------------- dedup
+def _norm_title(t):
+    t = re.sub(r'\s*[-|–—:]\s*[^-|–—:]+$', '', t)   # strip trailing " - Source"
+    t = re.sub(r'#\d+\s*$', '', t)
+    t = re.sub(r'[^a-z0-9 ]', '', t.lower())
+    return re.sub(r'\s+', ' ', t).strip()[:80]
+
+_PRIMARY_PREFIX = ('Federal Register', 'NRC ADAMS', 'SEC EDGAR', 'Grants.gov', 'SAM.gov')
+_FEED_NAMES = {n for n, _ in PUBLISHER_FEEDS}
+def _src_rank(it):
+    s = it.get('source', '')
+    if any(s.startswith(p) for p in _PRIMARY_PREFIX): return 3   # official sources
+    if s in _FEED_NAMES: return 2                                # trusted publisher feed
+    return 1                                                     # google-news / misc
+
+def dedup(items):
+    """Collapse near-identical headlines (same bucket + normalized title). Keeps the
+    most authoritative / earliest copy, unions entity & topic tags, counts the rest."""
+    ranked = sorted(items, key=lambda it: (-_src_rank(it), it['ts']))
+    seen = {}
+    for it in ranked:
+        key = (it['bucket'], _norm_title(it['title']))
+        if not key[1]:                       # untitled — never collapse
+            seen[it['id']] = it; continue
+        if key in seen:
+            k = seen[key]
+            k['dupes'] = k.get('dupes', 0) + 1
+            for e in it['entities']:
+                if e not in k['entities']: k['entities'].append(e)
+            for t in it['topics']:
+                if t not in k['topics']: k['topics'].append(t)
+            k['verified'] = k['verified'] or it['verified']
+        else:
+            it.setdefault('dupes', 0)
+            seen[key] = it
+    return list(seen.values())
+
 # ---------------------------------------------------------------- main
 def main():
     os.makedirs(DATA, exist_ok=True)
     prev = load_json(os.path.join(DATA, 'feed.json'), {'items': []})
     verified_ids = {i['id'] for i in prev['items'] if i.get('verified')}
     known = {i['id']: i for i in prev['items']}
+    # Self-heal: news from Google (dates not fully trustworthy) is re-collected fresh
+    # every run, so a stale item stored by an earlier run cannot linger. We retain
+    # verified items, all non-news history, and news from trusted publisher feeds
+    # (whose chronological dates are reliable).
+    known = {k: it for k, it in known.items()
+             if it.get('verified') or it.get('bucket') != 'news' or it.get('source') in _FEED_NAMES}
 
     collected = []
     for name, fn in [('federal_register', federal_register), ('grants_gov', grants_gov),
                      ('sam_gov', sam_gov), ('nrc_adams', nrc_adams), ('edgar', edgar),
-                     ('google_news', google_news), ('x_api', x_api)]:
+                     ('publisher_news', publisher_news), ('google_news', google_news),
+                     ('x_api', x_api)]:
         got = fn()
         print(f'  {name}: {len(got)}')
         collected += got
@@ -326,6 +430,7 @@ def main():
         d = parse_date(i.get('deadline') or '')
         return bool(d and d >= NOW - datetime.timedelta(days=1))
     items = [i for i in merged.values() if keep(i)]
+    items = dedup(items)                       # collapse near-duplicate headlines
     items.sort(key=lambda i: i['ts'], reverse=True)
     items = items[:MAX_ITEMS]
 
