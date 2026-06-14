@@ -1,5 +1,5 @@
 {
- "updated": "2026-06-12",
+ "updated": "2026-06-13",
  "entities": [
   {
    "id": "nrc",
@@ -385,7 +385,10 @@
    "aliases": [
     "LFR-AS-200",
     "NWCL",
-    "newcleo"
+    "newcleo",
+    "NewHold Investment",
+    "NewHold III",
+    "NewHold Investment Corp"
    ],
    "groups": [
     "fuel-cycle"
@@ -393,7 +396,7 @@
    "category": "Fabrication",
    "tier": 1,
    "query": true,
-   "ticker": null,
+   "ticker": "NHIC",
    "x": null
   },
   {
@@ -929,7 +932,7 @@
    "category": "Offtaker / customer",
    "tier": 1,
    "query": false,
-   "ticker": null,
+   "ticker": "SO",
    "x": null
   },
   {
@@ -3561,6 +3564,222 @@
    "tier": 2,
    "query": false,
    "ticker": null,
+   "x": null
+  },
+  {
+   "id": "cameco",
+   "name": "Cameco",
+   "aliases": [
+    "Cameco"
+   ],
+   "groups": [
+    "public-edgar"
+   ],
+   "category": "Public company",
+   "tier": 1,
+   "query": true,
+   "ticker": "CCJ",
+   "x": null
+  },
+  {
+   "id": "uranium-energy-corp",
+   "name": "Uranium Energy Corp",
+   "aliases": [
+    "Uranium Energy Corp"
+   ],
+   "groups": [
+    "public-edgar"
+   ],
+   "category": "Public company",
+   "tier": 1,
+   "query": true,
+   "ticker": "UEC",
+   "x": null
+  },
+  {
+   "id": "energy-fuels",
+   "name": "Energy Fuels",
+   "aliases": [
+    "Energy Fuels"
+   ],
+   "groups": [
+    "public-edgar"
+   ],
+   "category": "Public company",
+   "tier": 1,
+   "query": true,
+   "ticker": "UUUU",
+   "x": null
+  },
+  {
+   "id": "ur-energy",
+   "name": "Ur-Energy",
+   "aliases": [
+    "Ur-Energy"
+   ],
+   "groups": [
+    "public-edgar"
+   ],
+   "category": "Public company",
+   "tier": 1,
+   "query": false,
+   "ticker": "URG",
+   "x": null
+  },
+  {
+   "id": "encore-energy",
+   "name": "enCore Energy",
+   "aliases": [
+    "enCore",
+    "enCore Energy"
+   ],
+   "groups": [
+    "public-edgar"
+   ],
+   "category": "Public company",
+   "tier": 1,
+   "query": false,
+   "ticker": "EU",
+   "x": null
+  },
+  {
+   "id": "denison-mines",
+   "name": "Denison Mines",
+   "aliases": [
+    "Denison",
+    "Denison Mines"
+   ],
+   "groups": [
+    "public-edgar"
+   ],
+   "category": "Public company",
+   "tier": 1,
+   "query": false,
+   "ticker": "DNN",
+   "x": null
+  },
+  {
+   "id": "nexgen-energy",
+   "name": "NexGen Energy",
+   "aliases": [
+    "NexGen",
+    "NexGen Energy"
+   ],
+   "groups": [
+    "public-edgar"
+   ],
+   "category": "Public company",
+   "tier": 1,
+   "query": false,
+   "ticker": "NXE",
+   "x": null
+  },
+  {
+   "id": "uranium-royalty",
+   "name": "Uranium Royalty",
+   "aliases": [
+    "Uranium Royalty"
+   ],
+   "groups": [
+    "public-edgar"
+   ],
+   "category": "Public company",
+   "tier": 1,
+   "query": false,
+   "ticker": "UROY",
+   "x": null
+  },
+  {
+   "id": "asp-isotopes",
+   "name": "ASP Isotopes",
+   "aliases": [
+    "ASP Isotopes"
+   ],
+   "groups": [
+    "public-edgar"
+   ],
+   "category": "Public company",
+   "tier": 1,
+   "query": true,
+   "ticker": "ASPI",
+   "x": null
+  },
+  {
+   "id": "nano-nuclear-energy",
+   "name": "Nano Nuclear Energy",
+   "aliases": [
+    "Nano Nuclear"
+   ],
+   "groups": [
+    "public-edgar"
+   ],
+   "category": "Public company",
+   "tier": 1,
+   "query": true,
+   "ticker": "NNE",
+   "x": null
+  },
+  {
+   "id": "constellation-energy",
+   "name": "Constellation Energy",
+   "aliases": [
+    "Constellation",
+    "Constellation Energy"
+   ],
+   "groups": [
+    "public-edgar"
+   ],
+   "category": "Public company",
+   "tier": 1,
+   "query": true,
+   "ticker": "CEG",
+   "x": null
+  },
+  {
+   "id": "vistra",
+   "name": "Vistra",
+   "aliases": [
+    "Vistra"
+   ],
+   "groups": [
+    "public-edgar"
+   ],
+   "category": "Public company",
+   "tier": 1,
+   "query": true,
+   "ticker": "VST",
+   "x": null
+  },
+  {
+   "id": "talen-energy",
+   "name": "Talen Energy",
+   "aliases": [
+    "Talen",
+    "Talen Energy"
+   ],
+   "groups": [
+    "public-edgar"
+   ],
+   "category": "Public company",
+   "tier": 1,
+   "query": true,
+   "ticker": "TLN",
+   "x": null
+  },
+  {
+   "id": "public-service-enterprise-group",
+   "name": "Public Service Enterprise Group",
+   "aliases": [
+    "PSEG",
+    "Public Service Enterprise Group"
+   ],
+   "groups": [
+    "public-edgar"
+   ],
+   "category": "Public company",
+   "tier": 1,
+   "query": false,
+   "ticker": "PEG",
    "x": null
   }
  ]
