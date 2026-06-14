@@ -545,6 +545,61 @@ def datagov():
     json.dump({'last': iso(NOW)}, open(os.path.join(DATA, 'datagov_state.json'), 'w'))
     return reg + bil
 
+def eia():
+    """EIA energy chassis -> energy.json (+ energy.js), a separate surface from the news feed.
+    v1: state electricity economics (retail price by sector) and nuclear capacity by state.
+    Throttled to ~daily since the series are monthly. Grid/fuel layers come in a later pass."""
+    key = os.environ.get('EIA_API_KEY')
+    if not key:
+        print('  - eia skipped (set EIA_API_KEY)'); return
+    st = load_json(os.path.join(DATA, 'eia_state.json'), {})
+    last = parse_date(st.get('last', ''))
+    if last and (NOW - last).total_seconds() < 20 * 3600:
+        print('  - eia throttled (ran <20h ago)'); return
+    EB = 'https://api.eia.gov/v2'
+    states, pper, cper = {}, '', ''
+    # (a) retail price by state x sector, latest month
+    try:
+        rows = requests.get(f'{EB}/electricity/retail-sales/data/', headers=UA, timeout=60,
+            params={'api_key': key, 'frequency': 'monthly', 'data[0]': 'price',
+                    'sort[0][column]': 'period', 'sort[0][direction]': 'desc', 'length': 400}
+            ).json()['response']['data']
+        pper = rows[0]['period'] if rows else ''
+        SEC = {'ALL': 'all', 'RES': 'res', 'COM': 'com', 'IND': 'ind'}
+        for x in rows:
+            if x['period'] != pper: continue
+            sid, stt, pr = x.get('sectorid'), x.get('stateid'), x.get('price')
+            if stt and sid in SEC and pr not in (None, ''):
+                states.setdefault(stt, {}).setdefault('price', {})[SEC[sid]] = round(float(pr), 2)
+    except Exception as ex:
+        print('  ! eia retail', ex); return
+    # (b) operating nuclear capacity by state, latest month
+    try:
+        rows = requests.get(f'{EB}/electricity/operating-generator-capacity/data/', headers=UA, timeout=60,
+            params={'api_key': key, 'frequency': 'monthly', 'data[0]': 'net-summer-capacity-mw',
+                    'facets[energy_source_code][]': 'NUC', 'facets[status][]': 'OP',
+                    'sort[0][column]': 'period', 'sort[0][direction]': 'desc', 'length': 300}
+            ).json()['response']['data']
+        cper = rows[0]['period'] if rows else ''
+        for x in rows:
+            if x['period'] != cper: continue
+            stt, cap = x.get('stateid'), x.get('net-summer-capacity-mw')
+            if stt and cap not in (None, ''):
+                nu = states.setdefault(stt, {}).setdefault('nuclear', {'mw': 0.0, 'units': 0})
+                nu['mw'] += float(cap); nu['units'] += 1
+    except Exception as ex:
+        print('  ! eia nuclear', ex)
+    for s in states.values():
+        if 'nuclear' in s: s['nuclear']['mw'] = round(s['nuclear']['mw'])
+    payload = {'updated': iso(NOW), 'price_period': pper, 'capacity_period': cper, 'states': states,
+               'totals': {'nuclear_mw': round(sum(s.get('nuclear', {}).get('mw', 0) for s in states.values())),
+                          'nuclear_units': sum(s.get('nuclear', {}).get('units', 0) for s in states.values()),
+                          'nuclear_states': sum(1 for s in states.values() if s.get('nuclear', {}).get('mw', 0) > 0)}}
+    json.dump(payload, open(os.path.join(DATA, 'energy.json'), 'w'), indent=1)
+    open(os.path.join(DATA, 'energy.js'), 'w').write('window.NIT_ENERGY=' + json.dumps(payload) + ';')
+    json.dump({'last': iso(NOW)}, open(os.path.join(DATA, 'eia_state.json'), 'w'))
+    print(f"  eia: {len(states)} states, price {pper}, nuclear {payload['totals']['nuclear_mw']} MW / {payload['totals']['nuclear_units']} units")
+
 def _source_domain(en):
     src = en.get('source')
     href = ''
@@ -737,6 +792,7 @@ def main():
     payload = {'generated': iso(NOW), 'count': len(items),
                'sources': {'sam_gov': bool(os.environ.get('SAM_GOV_API_KEY')),
                            'datagov': bool(os.environ.get('API_DATA_GOV_KEY')),
+                           'eia': bool(os.environ.get('EIA_API_KEY')),
                            'x_api': bool(os.environ.get('X_BEARER_TOKEN'))},
                'items': items}
     json.dump(payload, open(os.path.join(DATA, 'feed.json'), 'w'))
@@ -745,6 +801,7 @@ def main():
     with open(os.path.join(DATA, 'watchlist.js'), 'w') as f:
         f.write('window.NIT_WATCHLIST=' + json.dumps(WL) + ';')
     print(f'feed: {len(items)} items · generated {payload["generated"]}')
+    eia()                                          # writes energy.json / energy.js (separate surface)
 
 if __name__ == '__main__':
     main()
