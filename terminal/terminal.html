@@ -11,7 +11,7 @@
   --ink:#15181A; --panel:#1D2124; --panel-2:#23282C; --line:#2C3236;
   --text:#D6DDE2; --muted:#76878F; --dim:#535F66;
   --teal:#00B3B6; --teal-deep:#025152; --orange:#F0782E;
-  --reg:#00B3B6; --fund:#F0782E; --fil:#9A8BD0; --news:#8B9BA5; --soc:#5BA8D6;
+  --reg:#00B3B6; --fund:#F0782E; --fil:#9A8BD0; --news:#8B9BA5; --soc:#5BA8D6; --nrc:#5CB88A;
   --lead-light:#B4C1CB; --lead:#768792; --lead-dark:#313132;
   --font:'Montserrat',system-ui,sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace;
 }
@@ -84,6 +84,7 @@ a:hover{color:#fff}
 .chip{font:600 10px var(--font);letter-spacing:.04em;color:var(--lead-light);background:var(--panel-2);border:1px solid var(--line);border-radius:3px;padding:2px 7px;cursor:pointer}
 .chip:hover{border-color:var(--teal);color:var(--teal)}
 .topic{font:500 10px var(--mono);color:var(--dim)}
+.more{font:600 9.5px var(--mono);color:var(--lead);background:var(--panel-2);border-radius:3px;padding:2px 6px}
 .dl{font:600 10px var(--mono);color:var(--orange);border:1px solid #5A4632;border-radius:3px;padding:2px 7px}
 .vfy{font:600 10px var(--mono);color:#3E8C5A}
 .empty{padding:60px 30px;text-align:center;color:var(--muted);font-size:13px;line-height:1.8}
@@ -187,6 +188,7 @@ var WL   = window.NIT_WATCHLIST || {entities:[]};
 var EMAP = {}; WL.entities.forEach(function(e){ EMAP[e.id] = e; });
 var BUCKETS = [
   {k:'regulatory', l:'Regulatory', c:'var(--reg)'},
+  {k:'nrc',        l:'NRC ADAMS', c:'var(--nrc)'},
   {k:'funding',    l:'Funding & RFx', c:'var(--fund)'},
   {k:'filings',    l:'SEC filings', c:'var(--fil)'},
   {k:'news',       l:'News', c:'var(--news)'},
@@ -339,7 +341,7 @@ function render(){
     out.push('<div class="item" style="--c:'+bucketColor(i.bucket)+'">'+
       '<div class="t">'+hhmm(i.ts)+'<br>'+rel(i.ts)+'</div><div class="b"></div>'+
       '<div><h3><a href="'+esc(i.url)+'" target="_blank" rel="noopener">'+esc(i.title)+'</a></h3>'+
-      '<div class="meta"><span class="src">'+esc(i.source)+'</span>'+chips+topics+
+      '<div class="meta"><span class="src">'+esc(i.source)+'</span>'+(i.dupes?'<span class="more" title="also carried by '+i.dupes+' other source(s)">+'+i.dupes+'</span>':'')+chips+topics+
       (i.deadline?'<span class="dl">'+esc(i.deadline_label||'Deadline')+' '+i.deadline+'</span>':'')+
       (i.verified?'<span class="vfy">✓ verified</span>':'')+
       '</div></div></div>');
