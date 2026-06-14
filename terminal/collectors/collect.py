@@ -12,6 +12,7 @@ Sources:
   edgar             - data.sec.gov structured filings for resolved companies + efts full-text
                       search for "newcleo" mentions inside anyone's filing (no key)
   osti              - OSTI research reports/papers on newcleo-core topics (no key)
+  datagov           - Regulations.gov dockets + Congress nuclear bills (needs API_DATA_GOV_KEY)
   publisher_news    - trusted trade-press feeds with reliable dates (no key)
   google_news       - rotating per-company + standing topic queries (no key)
   x_api             - posts from watchlist X handles (needs X_BEARER_TOKEN, pay-per-use)
@@ -435,6 +436,97 @@ def osti():
             items.append(it)
     return items
 
+def _datagov_key():
+    return os.environ.get('API_DATA_GOV_KEY')
+
+def _regulations_gov(key):
+    """Regulations.gov dockets: agency rulemaking + supporting materials with comment
+    deadlines. Complements Federal Register by adding docket-level documents FR does not
+    carry; FR-published items that do overlap dedup via their shared FR document number."""
+    items, seen, dockcount = [], set(), {}
+    TERMS = ['advanced reactor', 'HALEU', 'spent nuclear fuel', 'uranium enrichment', 'fuel cycle facility']
+    ge = (NOW - datetime.timedelta(days=90)).strftime('%Y-%m-%d')
+    for term in TERMS:
+        try:
+            r = requests.get('https://api.regulations.gov/v4/documents',
+                params={'filter[searchTerm]': term, 'filter[postedDate][ge]': ge,
+                        'sort': '-postedDate', 'page[size]': 20, 'api_key': key}, headers=UA, timeout=30)
+            if r.status_code != 200:
+                print('  ! regulations_gov', term, r.status_code); time.sleep(0.6); continue
+            for x in r.json().get('data', []):
+                did = x.get('id'); a = x.get('attributes', {})
+                if not did or did in seen: continue
+                ts = parse_date(a.get('postedDate'))
+                if not ts: continue
+                dk = a.get('docketId') or did
+                if dockcount.get(dk, 0) >= 4: continue            # cap per docket (supporting-material floods)
+                seen.add(did); dockcount[dk] = dockcount.get(dk, 0) + 1
+                dl = a.get('commentEndDate')
+                it = make_item(f"[{a.get('documentType', 'Document')}] {a.get('title', '')}",
+                               'https://www.regulations.gov/document/' + did, ts,
+                               'Regulations.gov \u00b7 ' + (a.get('agencyId') or 'Fed'), 'regulatory',
+                               'Docket ' + (a.get('docketId') or ''),
+                               deadline=dl, deadline_label='Comments close' if dl else '')
+                items.append(it)
+        except Exception as ex:
+            print('  ! regulations_gov', term, ex)
+        time.sleep(0.8)
+    return items
+
+def _congress_bills(key):
+    """Nuclear legislation via GovInfo full-text over the BILLS collection (Congress.gov's
+    own API has no keyword search). Title-gated to drop omnibus/appropriations noise and
+    scoped to the current Congress, so only genuine nuclear bills land in the policy bucket."""
+    items, seen = [], set()
+    NUC = re.compile(r'nuclear|reactor|haleu|uranium|enrich|atomic|radioactive|fission|spent fuel|fuel cycle', re.I)
+    TMAP = {'hr': 'house-bill', 's': 'senate-bill', 'hres': 'house-resolution', 'sres': 'senate-resolution',
+            'hjres': 'house-joint-resolution', 'sjres': 'senate-joint-resolution',
+            'hconres': 'house-concurrent-resolution', 'sconres': 'senate-concurrent-resolution'}
+    QUERIES = ['"advanced nuclear"', '"advanced reactor"', '"HALEU"', '"high-assay low-enriched"',
+               '"used nuclear fuel"', '"uranium enrichment"', '"nuclear fuel cycle"']
+    for q in QUERIES:
+        try:
+            r = requests.post('https://api.govinfo.gov/search', params={'api_key': key},
+                json={'query': q + ' collection:BILLS', 'pageSize': 5, 'offsetMark': '*',
+                      'sorts': [{'field': 'publishdate', 'sortOrder': 'DESC'}]},
+                headers={**UA, 'Content-Type': 'application/json'}, timeout=30)
+            if r.status_code != 200:
+                print('  ! congress_bills', q, r.status_code); time.sleep(0.6); continue
+            for x in r.json().get('results', []):
+                m = re.match(r'BILLS-(\d+)([a-z]+)(\d+)', x.get('packageId', '') or '')
+                if not m: continue
+                cong, btype, num = m.group(1), m.group(2), m.group(3)
+                if int(cong) < 119: continue                      # current Congress only
+                bk = (cong, btype, num)
+                if bk in seen: continue
+                title = x.get('title', '')
+                if not NUC.search(title): continue                # drop omnibus / appropriations
+                ts = parse_date(x.get('dateIssued'))
+                if not ts: continue
+                seen.add(bk)
+                url = f"https://www.congress.gov/bill/{cong}th-congress/{TMAP.get(btype, btype)}/{num}"
+                it = make_item(f"[{btype.upper()} {num}] {title}", url, ts, 'Congress \u00b7 Bills', 'policy', '')
+                items.append(it)
+        except Exception as ex:
+            print('  ! congress_bills', q, ex)
+        time.sleep(0.8)
+    return items
+
+def datagov():
+    """Regulations.gov + Congress legislation, both off one api.data.gov key. Throttled to
+    ~6h since dockets and bills move slowly; collected history persists between runs."""
+    key = _datagov_key()
+    if not key:
+        print('  - datagov skipped (set API_DATA_GOV_KEY)'); return []
+    st = load_json(os.path.join(DATA, 'datagov_state.json'), {})
+    last = parse_date(st.get('last', ''))
+    if last and (NOW - last).total_seconds() < 6 * 3600:
+        print('  - datagov throttled (ran <6h ago)'); return []
+    reg = _regulations_gov(key); print(f'    regulations_gov: {len(reg)}')
+    bil = _congress_bills(key);  print(f'    congress_bills: {len(bil)}')
+    json.dump({'last': iso(NOW)}, open(os.path.join(DATA, 'datagov_state.json'), 'w'))
+    return reg + bil
+
 def _source_domain(en):
     src = en.get('source')
     href = ''
@@ -551,7 +643,8 @@ def _norm_title(t):
     t = re.sub(r'[^a-z0-9 ]', '', t.lower())
     return re.sub(r'\s+', ' ', t).strip()[:80]
 
-_PRIMARY_PREFIX = ('Federal Register', 'NRC ADAMS', 'SEC EDGAR', 'Grants.gov', 'SAM.gov', 'OSTI')
+_PRIMARY_PREFIX = ('Federal Register', 'NRC ADAMS', 'SEC EDGAR', 'Grants.gov', 'SAM.gov', 'OSTI',
+                   'Regulations.gov', 'Congress')
 _FEED_NAMES = {n for n, _ in PUBLISHER_FEEDS}
 def _src_rank(it):
     s = it.get('source', '')
@@ -601,8 +694,8 @@ def main():
     collected = []
     for name, fn in [('federal_register', federal_register), ('grants_gov', grants_gov),
                      ('sam_gov', sam_gov), ('nrc_adams', nrc_adams), ('edgar', edgar),
-                     ('osti', osti), ('publisher_news', publisher_news), ('google_news', google_news),
-                     ('x_api', x_api)]:
+                     ('osti', osti), ('datagov', datagov), ('publisher_news', publisher_news),
+                     ('google_news', google_news), ('x_api', x_api)]:
         got = fn()
         print(f'  {name}: {len(got)}')
         collected += got
@@ -624,6 +717,7 @@ def main():
 
     payload = {'generated': iso(NOW), 'count': len(items),
                'sources': {'sam_gov': bool(os.environ.get('SAM_GOV_API_KEY')),
+                           'datagov': bool(os.environ.get('API_DATA_GOV_KEY')),
                            'x_api': bool(os.environ.get('X_BEARER_TOKEN'))},
                'items': items}
     json.dump(payload, open(os.path.join(DATA, 'feed.json'), 'w'))
