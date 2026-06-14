@@ -150,6 +150,8 @@ footer b{color:var(--muted)}
 #usmap .st:hover{opacity:.82;stroke:var(--text);stroke-width:1.2}
 #usmap .stlabel{font:700 10px var(--mono);fill:#EAF0F1;stroke:#10201E;stroke-width:2.6;paint-order:stroke;text-anchor:middle;dominant-baseline:middle;pointer-events:none}
 #usmap .stval{font:700 9.5px var(--mono);fill:#F4F8F8;stroke:#0C1A18;stroke-width:2.4;paint-order:stroke;text-anchor:middle;dominant-baseline:middle;pointer-events:none}
+#usmap .ctower{fill:#F4F7F7;stroke:#0A1715;stroke-width:1.1;paint-order:stroke;pointer-events:none}
+#usmap .ctower .steam{fill:#F4F7F7;opacity:.85}
 #etip{position:absolute;display:none;pointer-events:none;z-index:6;background:var(--ink);border:1px solid var(--lead-dark);border-radius:5px;padding:5px 9px;font:600 11px var(--mono);color:var(--text);white-space:nowrap;transform:translate(-50%,-135%);box-shadow:0 4px 14px rgba(0,0,0,.5)}
 #etip b{color:var(--teal);font-weight:700}
 .elegend{display:flex;align-items:center;flex-wrap:wrap;gap:4px 0;margin-top:13px;font:600 10px var(--mono);color:var(--lead-light)}
@@ -462,6 +464,16 @@ function sectorVals(){var d=statesData(),o=[];STATES().forEach(function(s){var p
 function nukeVals(){var d=statesData(),o=[];STATES().forEach(function(s){var n=d[s]&&d[s].nuclear;if(n&&n.mw)o.push(n.mw);});return o;}
 function valLabel(s){var st=statesData()[s]||{};if(estate.overlay){var mw=(st.nuclear&&st.nuclear.mw)||0;return mw?(mw>=1000?(mw/1000).toFixed(1)+' GW':mw+' MW'):'no nuclear';}var pr=st.price?st.price[estate.sector]:null;return pr!=null?pr.toFixed(2)+' \u00a2/kWh':'\u2014';}
 
+function coolingTower(cx,cy,s){
+  s=s||1;
+  return '<g class="ctower" transform="translate('+cx+' '+cy+') scale('+s+')">'+
+    '<circle class="steam" cx="-1.4" cy="-8.2" r="1.5"/>'+
+    '<circle class="steam" cx="1.3" cy="-8.9" r="1.7"/>'+
+    '<circle class="steam" cx="-.1" cy="-9.9" r="1.3"/>'+
+    '<path d="M-5,6 C-3.9,2.4 -3.3,-1 -2.9,-4.9 L-3.7,-6 L3.7,-6 L2.9,-4.9 C3.3,-1 3.9,2.4 5,6 Z"/>'+
+    '</g>';
+}
+
 function buildMap(){
   if(!US_MAP) return;
   var svg=document.getElementById('usmap'); svg.setAttribute('viewBox', US_MAP.viewBox);
@@ -472,6 +484,13 @@ function buildMap(){
     var c=US_MAP.cent[k];
     frag+='<text class="stlabel" x="'+c[0]+'" y="'+(c[1]-6)+'">'+k+'</text>';
     frag+='<text class="stval" data-s="'+k+'" x="'+c[0]+'" y="'+(c[1]+7)+'"></text>';
+  }
+  var nd=statesData();
+  for(var n in US_MAP.cent){
+    var ns=nd[n];
+    if(!(ns&&ns.nuclear&&ns.nuclear.mw))continue;   // mark only states with operating nuclear
+    var cc=US_MAP.cent[n], iy=SKIPLABEL[n]?cc[1]:cc[1]-16;
+    frag+=coolingTower(cc[0], iy, 0.9);
   }
   svg.innerHTML=frag;
   var tip=document.getElementById('etip'), col=document.getElementById('emapcol');
