@@ -150,7 +150,9 @@ footer b{color:var(--muted)}
 #usmap .st:hover{opacity:.82;stroke:var(--text);stroke-width:1.2}
 #usmap .stlabel{font:700 10px var(--mono);fill:#EAF0F1;stroke:#10201E;stroke-width:2.6;paint-order:stroke;text-anchor:middle;dominant-baseline:middle;pointer-events:none}
 #usmap .stval{font:700 9.5px var(--mono);fill:#F4F8F8;stroke:#0C1A18;stroke-width:2.4;paint-order:stroke;text-anchor:middle;dominant-baseline:middle;pointer-events:none}
-#usmap .radicon{fill:#F4F7F7;stroke:#0A1715;stroke-width:1.1;paint-order:stroke;pointer-events:none}
+#usmap .radicon{pointer-events:none}
+#usmap .rdisc{fill:#FFC400;stroke:#0A0A0A;stroke-width:1.1}
+#usmap .rtref *{fill:#0A0A0A}
 #etip{position:absolute;display:none;pointer-events:none;z-index:6;background:var(--ink);border:1px solid var(--lead-dark);border-radius:5px;padding:5px 9px;font:600 11px var(--mono);color:var(--text);white-space:nowrap;transform:translate(-50%,-135%);box-shadow:0 4px 14px rgba(0,0,0,.5)}
 #etip b{color:var(--teal);font-weight:700}
 .elegend{display:flex;align-items:center;flex-wrap:wrap;gap:4px 0;margin-top:13px;font:600 10px var(--mono);color:var(--lead-light)}
@@ -465,13 +467,40 @@ function valLabel(s){var st=statesData()[s]||{};if(estate.overlay){var mw=(st.nu
 
 function radIcon(cx,cy,s){
   s=s||1;
-  var ri=2.0, ro=5.3, half=30*Math.PI/180, blades='';
+  var ri=2.0, ro=5.1, half=30*Math.PI/180, blades='';
   [270,30,150].forEach(function(deg){
     var a=deg*Math.PI/180, a1=a-half, a2=a+half;
     function P(r,ang){return (Math.round(r*Math.cos(ang)*10)/10)+' '+(Math.round(r*Math.sin(ang)*10)/10);}
     blades+='<path d="M'+P(ri,a1)+' L'+P(ro,a1)+' A'+ro+' '+ro+' 0 0 1 '+P(ro,a2)+' L'+P(ri,a2)+' A'+ri+' '+ri+' 0 0 0 '+P(ri,a1)+' Z"/>';
   });
-  return '<g class="radicon" transform="translate('+cx+' '+cy+') scale('+s+')"><circle r="1.8"/>'+blades+'</g>';
+  return '<g class="radicon" transform="translate('+cx+' '+cy+') scale('+s+')">'+
+    '<circle class="rdisc" r="7"/>'+
+    '<g class="rtref"><circle r="1.7"/>'+blades+'</g></g>';
+}
+
+function placeNukeIcons(){
+  var svg=document.getElementById('usmap'), nd=statesData(), pt=svg.createSVGPoint(), out='';
+  function inside(el,x,y){ pt.x=x; pt.y=y; return el.isPointInFill(pt); }
+  function clear(el,x,y,R){
+    if(!inside(el,x,y)) return false;
+    for(var a=0;a<360;a+=45){ var r=a*Math.PI/180; if(!inside(el,x+R*Math.cos(r),y+R*Math.sin(r))) return false; }
+    return true;
+  }
+  for(var n in US_MAP.cent){
+    var ns=nd[n]; if(!(ns&&ns.nuclear&&ns.nuclear.mw)) continue;
+    var el=document.querySelector('#usmap path[data-s="'+n+'"]'); if(!el) continue;
+    var bb=el.getBBox(), step=Math.max(2.5, Math.min(bb.width,bb.height)/9), pick=null, pickR=2.5;
+    [8,6,4.5,3].some(function(R){                       // walk clearance down until the badge fits
+      var best=null;
+      for(var gx=bb.x+R; gx<=bb.x+bb.width-R+0.01; gx+=step)
+        for(var gy=bb.y+R; gy<=bb.y+bb.height-R+0.01; gy+=step)
+          if(clear(el,gx,gy,R) && (!best||(gx+gy)<(best[0]+best[1]))) best=[gx,gy];   // upper-left-most clear point
+      if(best){ pick=best; pickR=R; return true; } return false;
+    });
+    if(!pick) pick=US_MAP.cent[n];
+    out+=radIcon(pick[0], pick[1], Math.max(0.45, Math.min(0.82, (pickR-0.3)/7)));
+  }
+  document.getElementById('nukeicons').innerHTML=out;
 }
 
 function buildMap(){
@@ -485,16 +514,9 @@ function buildMap(){
     frag+='<text class="stlabel" x="'+c[0]+'" y="'+(c[1]-6)+'">'+k+'</text>';
     frag+='<text class="stval" data-s="'+k+'" x="'+c[0]+'" y="'+(c[1]+7)+'"></text>';
   }
-  var nd=statesData(), icons='';
-  for(var n in US_MAP.cent){
-    var ns=nd[n];
-    if(!(ns&&ns.nuclear&&ns.nuclear.mw))continue;   // mark only states with operating nuclear
-    var cc=US_MAP.cent[n];
-    if(SKIPLABEL[n]) icons+=radIcon(cc[0], cc[1], 0.9);          // no label here, sit at centre
-    else icons+=radIcon(cc[0]-12, cc[1]-10, 0.9);                // upper-left, clear of the letters
-  }
-  frag+='<g id="nukeicons">'+icons+'</g>';
+  frag+='<g id="nukeicons"></g>';
   svg.innerHTML=frag;
+  placeNukeIcons();                                   // anchors need the paths in the DOM for hit-testing
   var tip=document.getElementById('etip'), col=document.getElementById('emapcol');
   svg.addEventListener('mousemove',function(ev){
     var t=ev.target.closest('[data-s]');
