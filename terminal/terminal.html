@@ -109,6 +109,12 @@ a:hover{color:#fff}
 .mbar i{display:block;height:100%;background:linear-gradient(90deg,var(--teal-deep),var(--teal))}
 .mc{font:600 11px var(--mono);color:var(--muted);text-align:right}
 .note{font-size:10.5px;color:var(--dim);line-height:1.6;padding-top:4px}
+.billrow{display:grid;grid-template-columns:54px 1fr;gap:10px;padding:7px 0;border-bottom:1px solid #1A1E21;align-items:start}
+.billrow:last-child{border-bottom:none}
+.billno{font:700 11px var(--mono);color:var(--policy);text-align:center;border:1px solid #5A2E36;border-radius:4px;padding:5px 2px;line-height:1.1;white-space:nowrap}
+.billrow p{font-size:11.5px;line-height:1.45;color:var(--text)}
+.billrow p a:hover{text-decoration:underline;text-underline-offset:3px}
+.billrow .what{font:500 9.5px var(--mono);color:var(--dim);margin-top:3px;display:block}
 
 footer{padding:12px 18px;font:500 10px var(--mono);color:var(--dim);border-top:1px solid var(--line)}
 footer b{color:var(--muted)}
@@ -165,6 +171,10 @@ footer b{color:var(--muted)}
       <div id="deadlines"></div>
     </div>
     <div class="panelbox">
+      <h2>Legislation <b id="billcount"></b></h2>
+      <div id="bills"></div>
+    </div>
+    <div class="panelbox">
       <h2>Watchlist movers · 7d</h2>
       <div id="movers"></div>
     </div>
@@ -191,7 +201,6 @@ var EMAP = {}; WL.entities.forEach(function(e){ EMAP[e.id] = e; });
 var BUCKETS = [
   {k:'regulatory', l:'Regulatory', c:'var(--reg)'},
   {k:'nrc',        l:'NRC ADAMS', c:'var(--nrc)'},
-  {k:'policy',     l:'Policy', c:'var(--policy)'},
   {k:'funding',    l:'Funding & RFx', c:'var(--fund)'},
   {k:'filings',    l:'SEC filings', c:'var(--fil)'},
   {k:'research',   l:'Research', c:'var(--research)'},
@@ -268,6 +277,17 @@ function boot(){
       '<span class="what">'+esc(i.deadline_label||'Deadline')+' · '+esc(i.source)+'</span></p></div>';
   }).join('') : '<div class="note">No open comment or response deadlines in the feed.</div>';
 
+  /* legislation */
+  var bills = FEED.items.filter(function(i){ return i.bucket==='policy'; })
+    .sort(function(a,b){ return a.ts < b.ts ? 1 : -1; }).slice(0,8);
+  document.getElementById('billcount').textContent = bills.length ? bills.length + ' tracked' : '';
+  document.getElementById('bills').innerHTML = bills.length ? bills.map(function(i){
+    var sub = esc((i.status||'').slice(0,66)) + (i.sponsor ? ' · ' + esc(i.sponsor) : '');
+    return '<div class="billrow"><div class="billno">'+esc(i.billno||'BILL')+'</div>'+
+      '<p><a href="'+esc(i.url)+'" target="_blank" rel="noopener">'+esc(i.title)+'</a>'+
+      '<span class="what">'+sub+'</span></p></div>';
+  }).join('') : '<div class="note">No tracked nuclear bills in the current Congress.</div>';
+
   /* movers */
   var counts = {};
   FEED.items.forEach(function(i){
@@ -323,6 +343,7 @@ function setEnt(id){
 
 function render(){
   var items = FEED.items.filter(function(i){
+    if (i.bucket==='policy') return false;          // legislation shows in its own panel
     if (!state.buckets[i.bucket]) return false;
     if (state.windowH && (Date.now()-new Date(i.ts))/36e5 > state.windowH) return false;
     if (state.vonly && !i.verified) return false;
