@@ -275,7 +275,7 @@ def edgar():
                 if not ts or (NOW - ts).days > 30: continue
                 ftype = (en.get('category') or en.get('title', '').split(' - ')[0]).strip()
                 if not MATERIAL.match(ftype): continue
-                it = make_item(f"{disp} files {ftype}", en.link, ts,
+                it = make_item(f"{disp} files {ftype} ({ts.strftime('%d %b')})", en.link, ts,
                                'SEC EDGAR', 'filings', en.get('title', ''))
                 if e['id'] not in it['entities']: it['entities'].insert(0, e['id'])
                 items.append(it)
@@ -413,6 +413,10 @@ def dedup(items):
     ranked = sorted(items, key=lambda it: (-_src_rank(it), it['ts']))
     seen = {}
     for it in ranked:
+        # SEC filings are each distinct documents (exact-URL dupes already merged upstream) —
+        # never fuzzy-collapse them, or distinct 425s/8-Ks would vanish.
+        if it['bucket'] == 'filings':
+            seen[it['id']] = it; continue
         key = (it['bucket'], _norm_title(it['title']))
         if not key[1]:                       # untitled — never collapse
             seen[it['id']] = it; continue
