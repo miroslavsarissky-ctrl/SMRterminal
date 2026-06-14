@@ -216,37 +216,89 @@ def sam_gov():
     return items
 
 def nrc_adams():
-    items = []
-    frm = (NOW - datetime.timedelta(days=7)).strftime('%m/%d/%Y')
-    q = ("(mode:sections,sections:(filters:(public-library:!t),"
-         f"properties_search_all:!(!(DocumentDate,gt,'{frm}','')),"
-         "options:(within-folder:(enable:!f,insubfolder:!f,path:''))))")
-    try:
-        r = requests.get('https://adams.nrc.gov/wba/services/search/advanced/nrc',
-                         params={'q': q, 'qn': 'New', 'tab': 'content-search-pars',
-                                 's': 'DocumentDate', 'so': 'DESC'},
-                         headers=UA, timeout=45)
-        import xml.etree.ElementTree as ET
-        root = ET.fromstring(r.text)
-        kept = 0
-        for res in root.iter('result'):
-            f = {c.tag: (c.text or '') for c in res}
-            title = f.get('DocumentTitle') or f.get('title') or ''
-            acc = f.get('AccessionNumber') or ''
-            if not title or not acc: continue
-            txt = title + ' ' + f.get('DocketNumber', '')
-            ents = tag_entities(txt)
-            tops = tag_topics(txt)
-            if not ents and not tops: continue          # keep only watchlist-relevant docs
-            url = f'https://adamswebsearch2.nrc.gov/webSearch2/main.jsp?AccessionNumber={acc}'
-            ts = parse_date(f.get('DocumentDate')) or NOW
-            it = make_item(title, url, ts, 'NRC ADAMS', 'regulatory',
-                           f"Docket {f.get('DocketNumber','—')} · {f.get('DocumentType','')}")
-            items.append(it); kept += 1
-            if kept >= 40: break
-    except Exception as ex:
-        print('  ! nrc_adams', ex)
+    """NRC ADAMS filings for watchlist companies via the ADAMS Public Search (APS) API.
+    (The legacy WBA API is disabled 30 Jun 2026.) Per-company search with a working
+    server-side date filter + author/addressee affiliation match. Needs NRC_APS_KEY
+    (free: register at adams-api-developer.nrc.gov). Throttled + rotated to stay light."""
+    key = os.environ.get('NRC_APS_KEY')
+    if not key:
+        print('  - nrc_adams skipped (set NRC_APS_KEY; free signup at adams-api-developer.nrc.gov)')
+        return []
+    state = load_json(os.path.join(DATA, 'nrc_state.json'), {'last': '', 'i': 0})
+    last = parse_date(state.get('last', ''))
+    if last and (NOW - last).total_seconds() < 4 * 3600:
+        print('  - nrc_adams throttled (ran <4h ago)')
+        return []
+    AGENCY = {e['id'] for e in WL['entities'] if 'agency' in e.get('groups', [])}
+    companies = [e for e in WL['entities'] if e.get('query') and e['id'] not in AGENCY
+                 and 'reactor-project' not in e.get('groups', [])]
+    if not companies:
+        return []
+    BATCH = 20
+    i = state.get('i', 0)
+    batch = [companies[(i + k) % len(companies)] for k in range(min(BATCH, len(companies)))]
+    state['i'] = (i + BATCH) % len(companies)
+    frm = (NOW - datetime.timedelta(days=14)).strftime('%Y-%m-%d')   # added-to-ADAMS window
+    hdr = {'Ocp-Apim-Subscription-Key': key, 'Content-Type': 'application/json', 'Accept': 'application/json'}
+
+    def aps(term):
+        body = {
+            'q': term, 'content': True,
+            'filters': [{'field': 'DateAddedTimestamp', 'value': "(DateAddedTimestamp ge '" + frm + "')"}],
+            'anyFilters': [], 'mainLibFilter': True, 'legacyLibFilter': False,
+            'sort': 'DateAddedTimestamp', 'sortDirection': 1, 'skip': 0,
+        }
+        r = requests.post('https://adams-api.nrc.gov/aps/api/search', headers=hdr, json=body, timeout=60)
+        if r.status_code in (401, 403): return 'AUTH'
+        if r.status_code != 200: return None
+        return r.json().get('results', [])
+
+    items, ok = [], False
+    for e in batch:
+        base = re.sub(r'\s*[—–(/].*$', '', e['name']).strip()
+        base = re.sub(r'\b(Inc|LLC|Corp|Corporation|Company|Co|Ltd|Limited)\b\.?', '', base).strip(' ,')
+        if len(base) < 4:
+            continue
+        terms = [base]
+        # add the most distinctive multi-word alias (facility/product names like
+        # "American Centrifuge") to catch docs filed under a subsidiary, not the parent
+        alias = [a for a in e.get('aliases', []) if ' ' in a and len(a) >= 9 and a.lower() != base.lower()]
+        if alias:
+            terms.append(max(alias, key=len))
+        docs = {}                                        # accession -> document (dedup across terms)
+        for term in terms[:2]:
+            try:
+                res = aps(term)
+            except Exception as ex:
+                print('  ! nrc_adams', term, ex); continue
+            if res == 'AUTH':
+                print('  ! nrc_adams auth failed — verify NRC_APS_KEY'); 
+                if ok: state['last'] = iso(NOW)
+                json.dump(state, open(os.path.join(DATA, 'nrc_state.json'), 'w')); return items
+            if res is None:
+                continue
+            ok = True
+            for x in res:
+                d = x.get('document', {})
+                acc = d.get('AccessionNumber', '')
+                if acc: docs.setdefault(acc, d)
+        # newest first by date added, cap per company
+        for d in sorted(docs.values(), key=lambda x: x.get('DateAddedTimestamp', ''), reverse=True)[:6]:
+            acc = d.get('AccessionNumber', '')
+            ts = parse_date((d.get('DateAddedTimestamp') or d.get('DocumentDate') or '')[:10]) or NOW
+            title = d.get('DocumentTitle') or d.get('Name') or (base + ' NRC filing')
+            dock = ', '.join(d.get('DocketNumber', []) or [])
+            dtype = (d.get('DocumentType') or [''])[0] if d.get('DocumentType') else ''
+            url = d.get('Url') or ('https://adams.nrc.gov/wba/view?AccessionNumber=' + acc)
+            it = make_item(title, url, ts, 'NRC ADAMS', 'nrc',
+                           'Docket ' + (dock or '—') + ' \u00b7 ' + (dtype or 'ADAMS') + ' \u00b7 ' + acc)
+            if e['id'] not in it['entities']: it['entities'].insert(0, e['id'])
+            items.append(it)
+    if ok:
+        state['last'] = iso(NOW)
+    json.dump(state, open(os.path.join(DATA, 'nrc_state.json'), 'w'))
     return items
+
 
 def _norm_co(s):
     s = re.sub(r'[^a-z0-9 ]', ' ', (s or '').lower())
