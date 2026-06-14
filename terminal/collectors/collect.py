@@ -270,11 +270,16 @@ def edgar():
                                      'count': 40, 'output': 'atom'},
                              headers=UA, timeout=30)
             fp = feedparser.parse(r.text)
+            formcount = {}                       # cap filings per form-type per company
+            CAP_PER_FORM = 5                      # keep the 5 most recent of each form (atom is newest-first)
             for en in fp.entries[:40]:
                 ts = parse_date(en.get('updated') or en.get('published'))
                 if not ts or (NOW - ts).days > 30: continue
                 ftype = (en.get('category') or en.get('title', '').split(' - ')[0]).strip()
                 if not MATERIAL.match(ftype): continue
+                base = ftype.split()[0]
+                formcount[base] = formcount.get(base, 0) + 1
+                if formcount[base] > CAP_PER_FORM: continue   # trims de-SPAC 425 floods etc.
                 it = make_item(f"{disp} files {ftype} ({ts.strftime('%d %b')})", en.link, ts,
                                'SEC EDGAR', 'filings', en.get('title', ''))
                 if e['id'] not in it['entities']: it['entities'].insert(0, e['id'])
