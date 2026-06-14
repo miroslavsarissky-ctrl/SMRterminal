@@ -476,14 +476,16 @@ def _regulations_gov(key):
 def _congress_bills(key):
     """Nuclear legislation via GovInfo full-text over the BILLS collection (Congress.gov's
     own API has no keyword search). Title-gated to drop omnibus/appropriations noise and
-    scoped to the current Congress, so only genuine nuclear bills land in the policy bucket."""
-    items, seen = [], set()
+    scoped to the current Congress, so only genuine nuclear bills surface. Each bill is then
+    enriched via the Congress.gov API for its latest action, status and sponsor, and stamped
+    by the date it last moved so the Legislation panel reflects real activity."""
     NUC = re.compile(r'nuclear|reactor|haleu|uranium|enrich|atomic|radioactive|fission|spent fuel|fuel cycle', re.I)
     TMAP = {'hr': 'house-bill', 's': 'senate-bill', 'hres': 'house-resolution', 'sres': 'senate-resolution',
             'hjres': 'house-joint-resolution', 'sjres': 'senate-joint-resolution',
             'hconres': 'house-concurrent-resolution', 'sconres': 'senate-concurrent-resolution'}
     QUERIES = ['"advanced nuclear"', '"advanced reactor"', '"HALEU"', '"high-assay low-enriched"',
                '"used nuclear fuel"', '"uranium enrichment"', '"nuclear fuel cycle"']
+    cand = {}                                                 # billkey -> (cong, btype, num, title, dateIssued)
     for q in QUERIES:
         try:
             r = requests.post('https://api.govinfo.gov/search', params={'api_key': key},
@@ -496,20 +498,36 @@ def _congress_bills(key):
                 m = re.match(r'BILLS-(\d+)([a-z]+)(\d+)', x.get('packageId', '') or '')
                 if not m: continue
                 cong, btype, num = m.group(1), m.group(2), m.group(3)
-                if int(cong) < 119: continue                      # current Congress only
+                if int(cong) < 119: continue                  # current Congress only
                 bk = (cong, btype, num)
-                if bk in seen: continue
+                if bk in cand: continue
                 title = x.get('title', '')
-                if not NUC.search(title): continue                # drop omnibus / appropriations
-                ts = parse_date(x.get('dateIssued'))
-                if not ts: continue
-                seen.add(bk)
-                url = f"https://www.congress.gov/bill/{cong}th-congress/{TMAP.get(btype, btype)}/{num}"
-                it = make_item(f"[{btype.upper()} {num}] {title}", url, ts, 'Congress \u00b7 Bills', 'policy', '')
-                items.append(it)
+                if not NUC.search(title): continue            # drop omnibus / appropriations
+                cand[bk] = (cong, btype, num, title, x.get('dateIssued'))
         except Exception as ex:
             print('  ! congress_bills', q, ex)
         time.sleep(0.8)
+    items = []
+    for (cong, btype, num), (_, _, _, gtitle, diss) in cand.items():
+        ts = parse_date(diss); status, sponsor, title = '', '', gtitle
+        try:
+            b = requests.get(f'https://api.congress.gov/v3/bill/{cong}/{btype}/{num}',
+                             params={'api_key': key}, headers=UA, timeout=30).json().get('bill', {})
+            la = b.get('latestAction', {})
+            ats = parse_date(la.get('actionDate'))
+            if ats: ts = ats                                  # stamp by the date the bill last moved
+            status = re.sub(r'^Read twice and referred to ', 'Referred to ', la.get('text', '') or '')
+            sp = b.get('sponsors', [])
+            if sp: sponsor = sp[0].get('fullName', '')
+            if b.get('title'): title = b.get('title')
+        except Exception as ex:
+            print('  ! congress_bills enrich', cong, btype, num, ex)
+        if not ts: continue
+        url = f"https://www.congress.gov/bill/{cong}th-congress/{TMAP.get(btype, btype)}/{num}"
+        it = make_item(title, url, ts, 'Congress \u00b7 Bills', 'policy', '')
+        it['billno'] = f"{btype.upper()} {num}"; it['status'] = status; it['sponsor'] = sponsor
+        items.append(it)
+        time.sleep(0.3)
     return items
 
 def datagov():
@@ -707,6 +725,7 @@ def main():
 
     cutoff = NOW - datetime.timedelta(days=WINDOW_DAYS)
     def keep(i):
+        if i.get('bucket') == 'policy': return True          # legislation persists; shown in its own panel, not the feed
         if (parse_date(i['ts']) or NOW) >= cutoff: return True
         d = parse_date(i.get('deadline') or '')
         return bool(d and d >= NOW - datetime.timedelta(days=1))
