@@ -21,6 +21,7 @@ jobs:
           SAM_GOV_API_KEY: ${{ secrets.SAM_GOV_API_KEY }}
           X_BEARER_TOKEN:  ${{ secrets.X_BEARER_TOKEN }}
           NRC_APS_KEY:     ${{ secrets.NRC_APS_KEY }}
+          API_DATA_GOV_KEY:  ${{ secrets.API_DATA_GOV_KEY }}
         run: python terminal/collectors/collect.py
       - name: Commit data
         run: |
