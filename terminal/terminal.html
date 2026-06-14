@@ -141,8 +141,6 @@ footer b{color:var(--muted)}
 .seg button:last-child{border-right:none}
 .seg button.on{color:var(--ink);background:var(--orange)}
 .seg button:hover:not(.on){color:var(--text)}
-.otgl{font:600 10.5px var(--mono);color:var(--muted);background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:6px 13px;cursor:pointer}
-.otgl.on{color:var(--ink);background:var(--nrc);border-color:var(--nrc)}
 .emain{display:grid;grid-template-columns:1fr 322px}
 .emapcol{position:relative;padding:14px 18px 18px;border-right:1px solid var(--line);min-width:0}
 #usmap{width:100%;height:auto;display:block}
@@ -249,7 +247,6 @@ footer b{color:var(--muted)}
         <button data-s="com">Commercial</button>
         <button data-s="ind">Industrial</button>
       </div>
-      <button class="otgl" id="nukeoverlay">Nuclear overlay</button>
     </div>
   </div>
   <div class="emain">
@@ -337,12 +334,20 @@ function boot(){
   var k = document.getElementById('kpis');
   k.innerHTML = BUCKETS.map(function(b){
     var n = FEED.items.filter(function(i){ return i.bucket===b.k && (Date.now()-new Date(i.ts))/36e5 <= 168; }).length;
-    return '<div class="kpi on" data-k="'+b.k+'" style="--c:'+b.c+'"><div class="n">'+n+'</div><div class="l">'+b.l+' · 7d</div></div>';
+    return '<div class="kpi on" data-k="'+b.k+'" title="Show only this; click others to add them back" style="--c:'+b.c+'"><div class="n">'+n+'</div><div class="l">'+b.l+' \u00b7 7d</div></div>';
   }).join('');
   k.addEventListener('click', function(ev){
     var el = ev.target.closest('.kpi'); if(!el) return;
-    var key = el.dataset.k; state.buckets[key] = !state.buckets[key];
-    el.classList.toggle('off', !state.buckets[key]); el.classList.toggle('on', state.buckets[key]);
+    var key = el.dataset.k, keys = BUCKETS.map(function(b){return b.k;});
+    if(keys.every(function(x){return state.buckets[x];})){
+      keys.forEach(function(x){ state.buckets[x] = (x===key); });          // all shown -> isolate the clicked category
+    } else {
+      state.buckets[key] = !state.buckets[key];                            // already filtered -> add/remove this one
+      if(!keys.some(function(x){return state.buckets[x];})) keys.forEach(function(x){ state.buckets[x]=true; });  // removed the last -> restore all
+    }
+    k.querySelectorAll('.kpi').forEach(function(t){
+      var on = state.buckets[t.dataset.k]; t.classList.toggle('on', on); t.classList.toggle('off', !on);
+    });
     render();
   });
 
@@ -427,11 +432,7 @@ function boot(){
     var b = ev.target.closest('button'); if(!b) return;
     this.querySelectorAll('button').forEach(function(x){x.classList.remove('on');});
     b.classList.add('on'); estate.sector = b.dataset.s;
-    estate.overlay = false; document.getElementById('nukeoverlay').classList.remove('on');
     paintMap();
-  });
-  document.getElementById('nukeoverlay').addEventListener('click', function(){
-    estate.overlay = !estate.overlay; this.classList.toggle('on', estate.overlay); paintMap();
   });
 
   render();
@@ -446,7 +447,7 @@ function setEnt(id){
 }
 
 /* ============================ ENERGY VIEW ============================ */
-var estate = { sector:'all', overlay:false, built:false, sel:null };
+var estate = { sector:'all', built:false, sel:null };
 var SECTORLABEL = {all:'All-sector',res:'Residential',com:'Commercial',ind:'Industrial'};
 var SKIPLABEL = {DC:1,DE:1,RI:1,CT:1,NJ:1,MD:1,MA:1,NH:1,VT:1};   // tiny NE states: identified on hover, not crammed labels
 var SNAME = {AL:'Alabama',AK:'Alaska',AZ:'Arizona',AR:'Arkansas',CA:'California',CO:'Colorado',CT:'Connecticut',DE:'Delaware',DC:'District of Columbia',FL:'Florida',GA:'Georgia',HI:'Hawaii',ID:'Idaho',IL:'Illinois',IN:'Indiana',IA:'Iowa',KS:'Kansas',KY:'Kentucky',LA:'Louisiana',ME:'Maine',MD:'Maryland',MA:'Massachusetts',MI:'Michigan',MN:'Minnesota',MS:'Mississippi',MO:'Missouri',MT:'Montana',NE:'Nebraska',NV:'Nevada',NH:'New Hampshire',NJ:'New Jersey',NM:'New Mexico',NY:'New York',NC:'North Carolina',ND:'North Dakota',OH:'Ohio',OK:'Oklahoma',OR:'Oregon',PA:'Pennsylvania',RI:'Rhode Island',SC:'South Carolina',SD:'South Dakota',TN:'Tennessee',TX:'Texas',UT:'Utah',VT:'Vermont',VA:'Virginia',WA:'Washington',WV:'West Virginia',WI:'Wisconsin',WY:'Wyoming'};
@@ -454,16 +455,14 @@ function STATES(){ return US_MAP ? Object.keys(US_MAP.paths) : []; }
 
 /* five-band quintile palettes: price runs green (cheapest) -> red (priciest); nuclear runs dim -> bright green by capacity */
 var BAND_PRICE = ['#2FA36A','#86BE4B','#E3C03F','#EC8A3E','#D14B3E'];
-var BAND_NUKE  = ['#2A4D40','#356E54','#46946C','#5FBE86','#84E3A8'];
-var NO_NUKE = '#1C2123', NO_DATA = '#23282C';
+var NO_DATA = '#23282C';
 function quantile(sorted,p){ if(!sorted.length)return 0; var i=(sorted.length-1)*p, lo=Math.floor(i), hi=Math.ceil(i); return lo===hi?sorted[lo]:sorted[lo]+(sorted[hi]-sorted[lo])*(i-lo); }
 function quintiles(vals){ var s=vals.slice().sort(function(a,b){return a-b;}); return [quantile(s,0.2),quantile(s,0.4),quantile(s,0.6),quantile(s,0.8)]; }
 function bandOf(v,q){ for(var i=0;i<4;i++) if(v<=q[i]) return i; return 4; }
 function fmt1(x){ return (Math.round(x*10)/10).toString(); }
 function statesData(){ return (ENERGY&&ENERGY.states)||{}; }
 function sectorVals(){var d=statesData(),o=[];STATES().forEach(function(s){var p=d[s]&&d[s].price;if(p&&p[estate.sector]!=null)o.push(p[estate.sector]);});return o;}
-function nukeVals(){var d=statesData(),o=[];STATES().forEach(function(s){var n=d[s]&&d[s].nuclear;if(n&&n.mw)o.push(n.mw);});return o;}
-function valLabel(s){var st=statesData()[s]||{};if(estate.overlay){var mw=(st.nuclear&&st.nuclear.mw)||0;return mw?(mw>=1000?(mw/1000).toFixed(1)+' GW':mw+' MW'):'no nuclear';}var pr=st.price?st.price[estate.sector]:null;return pr!=null?pr.toFixed(2)+' \u00a2/kWh':'\u2014';}
+function valLabel(s){var st=statesData()[s]||{},pr=st.price?st.price[estate.sector]:null;return pr!=null?pr.toFixed(2)+' \u00a2/kWh':'\u2014';}
 
 function radIcon(cx,cy,s){
   s=s||1;
@@ -534,36 +533,19 @@ function setVal(s,txt){ var v=document.querySelector('#usmap text.stval[data-s="
 
 function paintMap(){
   if(!US_MAP) return;
-  var d=statesData(), overlay=estate.overlay;
-  var ni=document.getElementById('nukeicons'); if(ni) ni.style.display=overlay?'none':'';   // redundant over the nuclear shading
-  var q = quintiles(overlay ? nukeVals() : sectorVals());
+  var d=statesData();
+  var q = quintiles(sectorVals());
   for(var s in US_MAP.paths){
     var el=document.querySelector('#usmap path[data-s="'+s+'"]'); if(!el)continue;
-    var st=d[s]||{};
-    if(overlay){
-      var mw=(st.nuclear&&st.nuclear.mw)||0;
-      el.setAttribute('fill', mw ? BAND_NUKE[bandOf(mw,q)] : NO_NUKE);
-      setVal(s, mw ? (mw/1000).toFixed(1) : '');
-    } else {
-      var pr=st.price?st.price[estate.sector]:null;
-      el.setAttribute('fill', pr!=null ? BAND_PRICE[bandOf(pr,q)] : NO_DATA);
-      setVal(s, pr!=null ? Math.round(pr) : '');
-    }
+    var st=d[s]||{}, pr=st.price?st.price[estate.sector]:null;
+    el.setAttribute('fill', pr!=null ? BAND_PRICE[bandOf(pr,q)] : NO_DATA);
+    setVal(s, pr!=null ? Math.round(pr) : '');
   }
-  var leg=document.getElementById('elegend'), h='', i;
-  if(overlay){
-    var gw=q.map(function(x){return fmt1(x/1000);});
-    var lab=['<'+gw[0], gw[0]+'\u2013'+gw[1], gw[1]+'\u2013'+gw[2], gw[2]+'\u2013'+gw[3], '>'+gw[3]];
-    h+='<span><i style="background:'+NO_NUKE+'"></i>none</span>';
-    for(i=0;i<5;i++) h+='<span><i style="background:'+BAND_NUKE[i]+'"></i>'+lab[i]+'</span>';
-    h+='<span class="legunit">GW operating \u00b7 quintiles</span>';
-  } else {
-    var t=q.map(fmt1);
-    var labp=['<'+t[0], t[0]+'\u2013'+t[1], t[1]+'\u2013'+t[2], t[2]+'\u2013'+t[3], '>'+t[3]];
-    for(i=0;i<5;i++) h+='<span><i style="background:'+BAND_PRICE[i]+'"></i>'+labp[i]+'</span>';
-    h+='<span class="legunit">'+SECTORLABEL[estate.sector]+' \u00a2/kWh \u00b7 quintiles</span>';
-  }
-  leg.innerHTML=h;
+  var t=q.map(fmt1), h='';
+  var labp=['<'+t[0], t[0]+'\u2013'+t[1], t[1]+'\u2013'+t[2], t[2]+'\u2013'+t[3], '>'+t[3]];
+  for(var i=0;i<5;i++) h+='<span><i style="background:'+BAND_PRICE[i]+'"></i>'+labp[i]+'</span>';
+  h+='<span class="legunit">'+SECTORLABEL[estate.sector]+' \u00a2/kWh \u00b7 quintiles</span>';
+  document.getElementById('elegend').innerHTML=h;
 }
 
 function showState(s){
