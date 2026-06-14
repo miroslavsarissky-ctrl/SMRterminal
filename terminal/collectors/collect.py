@@ -4,16 +4,19 @@ newcleo Nuclear Intel Terminal - collector
 Pulls public primary sources + news, tags items against the dashboard watchlist,
 and writes data/feed.json + data/feed.js for the terminal UI.
 
-Sources (v1):
-  federal_register  - NRC + DOE documents, with structured comment deadlines (no key)
+Sources:
+  federal_register  - NRC + DOE documents (nuclear-scoped), with comment deadlines (no key)
   grants_gov        - nuclear funding opportunities / RFAs (no key)
   sam_gov           - RFIs / RFPs / sources-sought  (needs SAM_GOV_API_KEY)
-  nrc_adams         - NRC ADAMS public docket documents (no key)
-  edgar             - SEC filings for tickered watchlist companies (no key)
+  nrc_adams         - NRC ADAMS public docket documents, per watchlist company (needs NRC_APS_KEY)
+  edgar             - data.sec.gov structured filings for resolved companies + efts full-text
+                      search for "newcleo" mentions inside anyone's filing (no key)
+  osti              - OSTI research reports/papers on newcleo-core topics (no key)
+  publisher_news    - trusted trade-press feeds with reliable dates (no key)
   google_news       - rotating per-company + standing topic queries (no key)
   x_api             - posts from watchlist X handles (needs X_BEARER_TOKEN, pay-per-use)
 """
-import os, re, json, hashlib, datetime, email.utils, html as html_mod
+import os, re, json, time, hashlib, datetime, email.utils, html as html_mod
 import requests, feedparser
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -27,24 +30,26 @@ TOPIC_QUERIES = ['HALEU', '"advanced nuclear" funding', '"nuclear fuel" supply c
 
 # Trusted publishers pulled from their OWN chronological feeds — reliable dates,
 # so old articles can never resurface as "today". This is the news backbone.
+# Trimmed to the new-build-focused trade press; Utility Dive / POWER removed to cut
+# operating-fleet and general-power noise (re-add either if SMR-deal coverage is missed).
 PUBLISHER_FEEDS = [
     ('World Nuclear News',    'https://www.world-nuclear-news.org/rss'),
     ('ANS Nuclear Newswire',  'https://www.ans.org/news/feed/'),
-    ('Utility Dive',          'https://www.utilitydive.com/feeds/news/'),
-    ('POWER Magazine',        'https://www.powermag.com/feed/'),
     ('Neutron Bytes',         'https://neutronbytes.com/feed/'),
 ]
 # Domains already pulled directly above — skip in Google News so Google's
 # unreliable re-surfacing dates can't reintroduce stale items (the TerraPower bug).
-DIRECT_DOMAINS = {'world-nuclear-news.org', 'ans.org', 'utilitydive.com', 'powermag.com', 'neutronbytes.com'}
+DIRECT_DOMAINS = {'world-nuclear-news.org', 'ans.org', 'neutronbytes.com'}
 # Content-mills / stock-tip SEO that recycle old news — dropped everywhere.
 NEWS_BLOCKLIST = {'indexbox.io', 'mugglehead.com', 'simplywall.st', 'marketbeat.com',
                   'tipranks.com', 'zacks.com', 'barchart.com', 'fool.com', 'benzinga.com',
                   'stocktwits.com', 'investorplace.com', 'stocktitan.net'}
 YEAR_RX = re.compile(r'\b(20\d{2})\b')
-TOPIC_TAGS = {'haleu': 'HALEU', 'mox': 'MOX', 'plutonium': 'Pu disposition', 'lead-cooled': 'LFR',
-              'molten salt': 'MSR', 'microreactor': 'Microreactor', 'enrichment': 'Enrichment',
-              'reprocessing': 'Recycling', 'recycl': 'Recycling', 'savannah river': 'SRS'}
+TOPIC_TAGS = {'haleu': 'HALEU', 'mox': 'MOX', 'plutonium': 'Pu', 'surplus plutonium': 'SPUP', 'spup': 'SPUP',
+              'lead-cooled': 'LFR', 'lead-bismuth': 'LFR', 'lead fast': 'LFR', 'molten salt': 'MSR',
+              'microreactor': 'Microreactor', 'enrichment': 'Enrichment', 'separative work': 'SWU', 'swu': 'SWU',
+              'reprocessing': 'Recycling', 'recycl': 'Recycling', 'savannah river': 'SRS',
+              'fuel qualification': 'Fuel qual', 'part 53': 'Part 53', 'advance act': 'ADVANCE Act'}
 
 # ---------------------------------------------------------------- helpers
 def load_json(path, default):
@@ -344,28 +349,90 @@ def edgar():
     print(f'    edgar: {len(targets)} CIKs resolved from watchlist ({len(matched_log)} by name)')
 
     MATERIAL = re.compile(r'^(8-K|10-K|10-Q|S-1|S-4|F-4|425|DEF 14A|DEFM14A|6-K|SC 13|S-3|424B|20-F|40-F)', re.I)
+
+    def index_url(cik, acc):                          # canonical filing-index URL, keyed on accession
+        return f"https://www.sec.gov/Archives/edgar/data/{int(cik)}/{acc.replace('-', '')}/{acc}-index.htm"
+
+    # (a) Structured submissions per resolved company (data.sec.gov) — clean JSON, newest-first.
     for cik, (disp, eid) in targets.items():
         try:
-            r = requests.get('https://www.sec.gov/cgi-bin/browse-edgar',
-                             params={'action': 'getcompany', 'CIK': cik, 'type': '', 'dateb': '',
-                                     'owner': 'include', 'count': 40, 'output': 'atom'},
-                             headers=UA, timeout=30)
-            fp = feedparser.parse(r.text)
-            formcount = {}; CAP_PER_FORM = 5            # 5 most recent of each form (atom is newest-first)
-            for en in fp.entries[:40]:
-                ts = parse_date(en.get('updated') or en.get('published'))
-                if not ts or (NOW - ts).days > 30: continue
-                ftype = (en.get('category') or en.get('title', '').split(' - ')[0]).strip()
+            sub = requests.get(f'https://data.sec.gov/submissions/CIK{cik}.json', headers=UA, timeout=30).json()
+            rec = sub.get('filings', {}).get('recent', {})
+            forms, dates, accs = rec.get('form', []), rec.get('filingDate', []), rec.get('accessionNumber', [])
+            formcount = {}; CAP_PER_FORM = 5
+            for i in range(len(forms)):
+                ftype = forms[i]
                 if not MATERIAL.match(ftype): continue
+                ts = parse_date(dates[i])
+                if not ts or (NOW - ts).days > 30: continue
                 base = ftype.split()[0]
                 formcount[base] = formcount.get(base, 0) + 1
-                if formcount[base] > CAP_PER_FORM: continue   # trims floods (e.g. de-SPAC 425s)
-                it = make_item(f"{disp} files {ftype} ({ts.strftime('%d %b')})", en.link, ts,
-                               'SEC EDGAR', 'filings', en.get('title', ''))
+                if formcount[base] > CAP_PER_FORM: continue       # trims floods (e.g. de-SPAC 425s)
+                it = make_item(f"{disp} files {ftype} ({ts.strftime('%d %b')})", index_url(cik, accs[i]),
+                               ts, 'SEC EDGAR', 'filings', '')
                 if eid not in it['entities']: it['entities'].insert(0, eid)
                 items.append(it)
         except Exception as ex:
-            print('  ! edgar', cik, ex)
+            print('  ! edgar submissions', cik, ex)
+
+    # (b) Full-text search (efts) — catches "newcleo" named INSIDE anyone's filing: the NHIC
+    # de-SPAC trail plus third-party mentions. Index-URL is keyed on accession, so a hit that
+    # is also one of our companies' own filings collapses against (a) instead of duplicating.
+    NC = next((e for e in WL['entities'] if e['id'] == 'newcleo'), None)
+    try:
+        fr = requests.get('https://efts.sec.gov/LATEST/search-index',
+                          params={'q': '"newcleo"', 'forms': '8-K,425,10-K,10-Q,6-K,20-F,S-4,F-4,DEFM14A,424B'},
+                          headers=UA, timeout=30).json()
+        for h in fr.get('hits', {}).get('hits', [])[:25]:
+            s = h.get('_source', {})
+            ts = parse_date(s.get('file_date'))
+            if not ts or (NOW - ts).days > 60: continue
+            ciks = s.get('ciks', ['0']); acc = h.get('_id', ':').split(':')[0]
+            filer = re.sub(r'\s*\(.*$', '', (s.get('display_names') or ['a filer'])[0]).strip()
+            it = make_item(f"{filer} \u2014 {s.get('form', 'filing')} names newcleo",
+                           index_url(ciks[0], acc), ts, 'SEC EDGAR \u00b7 full-text', 'filings', '')
+            if NC and NC['id'] not in it['entities']: it['entities'].insert(0, NC['id'])
+            items.append(it)
+    except Exception as ex:
+        print('  ! edgar full-text', ex)
+    return items
+
+def osti():
+    """Research backbone: OSTI scientific & technical reports/papers, queried by
+    newcleo-core topics. The phrase query is itself the relevance filter, so each item
+    is labelled by the queried topic rather than re-gated on its title."""
+    items, seen = [], set()
+    QUERIES = [('"lead-cooled fast reactor"', 'LFR'), ('"lead-bismuth eutectic"', 'LFR'),
+               ('"MOX fuel"', 'MOX'), ('"fuel qualification" fast reactor', 'Fuel qual'),
+               ('"HALEU"', 'HALEU')]
+    for q, topic in QUERIES:
+        recs = None
+        for attempt in (1, 2):                            # OSTI throttles rapid calls; retry once on a throttled/empty body
+            try:
+                r = requests.get('https://www.osti.gov/api/v1/records',
+                                 params={'q': q, 'rows': 6, 'sort': 'entry_date desc'},
+                                 headers=UA, timeout=30)
+                if r.status_code == 200 and r.text.strip().startswith('['):
+                    recs = r.json(); break
+            except Exception as ex:
+                if attempt == 2: print('  ! osti', q, ex)
+            time.sleep(2.0)
+        time.sleep(1.0)                                    # space queries so OSTI doesn't rate-limit the batch
+        for d in (recs or []):
+            oid = str(d.get('osti_id') or '')
+            if not oid or oid in seen: continue
+            ets = parse_date((d.get('entry_date') or '')[:10])        # when it became available in OSTI
+            pts = parse_date((d.get('publication_date') or '')[:10])
+            ts = ets or pts
+            if not ts or (NOW - ts).days > 45: continue              # recently available
+            if pts and (NOW - pts).days > 1100: continue             # drop ancient (~3y+) back-fills
+            seen.add(oid)
+            org = d.get('research_org') or d.get('sponsor_org') or ''
+            ptype = d.get('product_type') or 'Report'
+            it = make_item(d.get('title') or 'OSTI record', 'https://www.osti.gov/biblio/' + oid,
+                           ts, 'OSTI', 'research', (ptype + (' \u00b7 ' + org if org else '')).strip())
+            if topic not in it['topics']: it['topics'].append(topic)
+            items.append(it)
     return items
 
 def _source_domain(en):
@@ -484,7 +551,7 @@ def _norm_title(t):
     t = re.sub(r'[^a-z0-9 ]', '', t.lower())
     return re.sub(r'\s+', ' ', t).strip()[:80]
 
-_PRIMARY_PREFIX = ('Federal Register', 'NRC ADAMS', 'SEC EDGAR', 'Grants.gov', 'SAM.gov')
+_PRIMARY_PREFIX = ('Federal Register', 'NRC ADAMS', 'SEC EDGAR', 'Grants.gov', 'SAM.gov', 'OSTI')
 _FEED_NAMES = {n for n, _ in PUBLISHER_FEEDS}
 def _src_rank(it):
     s = it.get('source', '')
@@ -534,7 +601,7 @@ def main():
     collected = []
     for name, fn in [('federal_register', federal_register), ('grants_gov', grants_gov),
                      ('sam_gov', sam_gov), ('nrc_adams', nrc_adams), ('edgar', edgar),
-                     ('publisher_news', publisher_news), ('google_news', google_news),
+                     ('osti', osti), ('publisher_news', publisher_news), ('google_news', google_news),
                      ('x_api', x_api)]:
         got = fn()
         print(f'  {name}: {len(got)}')
