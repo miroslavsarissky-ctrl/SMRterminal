@@ -11,7 +11,7 @@
   --ink:#15181A; --panel:#1D2124; --panel-2:#23282C; --line:#2C3236;
   --text:#D6DDE2; --muted:#76878F; --dim:#535F66;
   --teal:#00B3B6; --teal-deep:#025152; --orange:#F0782E;
-  --reg:#00B3B6; --fund:#F0782E; --fil:#9A8BD0; --news:#8B9BA5; --soc:#5BA8D6; --nrc:#5CB88A; --research:#C9A24B;
+  --reg:#00B3B6; --fund:#F0782E; --fil:#9A8BD0; --news:#8B9BA5; --soc:#5BA8D6; --nrc:#5CB88A; --research:#C9A24B; --policy:#CB5C6B;
   --lead-light:#B4C1CB; --lead:#768792; --lead-dark:#313132;
   --font:'Montserrat',system-ui,sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace;
 }
@@ -133,6 +133,7 @@ footer b{color:var(--muted)}
     <span class="dot" id="d-nrc"><i></i>NRC</span>
     <span class="dot" id="d-sec"><i></i>EDGAR</span>
     <span class="dot hide-m" id="d-osti"><i></i>OSTI</span>
+    <span class="dot off hide-m" id="d-datagov"><i></i>REG.GOV</span>
     <span class="dot off hide-m" id="d-sam"><i></i>SAM.GOV</span>
     <span class="dot off hide-m" id="d-x"><i></i>X</span>
     <span id="gen" class="hide-m"></span>
@@ -190,6 +191,7 @@ var EMAP = {}; WL.entities.forEach(function(e){ EMAP[e.id] = e; });
 var BUCKETS = [
   {k:'regulatory', l:'Regulatory', c:'var(--reg)'},
   {k:'nrc',        l:'NRC ADAMS', c:'var(--nrc)'},
+  {k:'policy',     l:'Policy', c:'var(--policy)'},
   {k:'funding',    l:'Funding & RFx', c:'var(--fund)'},
   {k:'filings',    l:'SEC filings', c:'var(--fil)'},
   {k:'research',   l:'Research', c:'var(--research)'},
@@ -227,6 +229,7 @@ if (!FEED) {
   var ageH = (Date.now()-gen.getTime())/3600000;
   document.getElementById('gen').textContent = 'COLLECTED ' + rel(FEED.generated).toUpperCase() + ' AGO';
   if (ageH > 2.5) document.getElementById('gen').style.color = 'var(--orange)';
+  if (FEED.sources && FEED.sources.datagov) document.getElementById('d-datagov').classList.remove('off');
   if (FEED.sources && FEED.sources.sam_gov) document.getElementById('d-sam').classList.remove('off');
   if (FEED.sources && FEED.sources.x_api)  document.getElementById('d-x').classList.remove('off');
   boot();
@@ -288,7 +291,8 @@ function boot(){
   var wl1 = WL.entities.filter(function(e){return e.tier===1;}).length;
   document.getElementById('coverage').innerHTML =
     'Tracking <b style="color:var(--text)">'+WL.entities.length+'</b> entities from the fuel-cycle and reactor-landscape dashboards ('+wl1+' tier-1). '+
-    'Sources live: Federal Register, Grants.gov, NRC ADAMS, SEC EDGAR, Google News.'+
+    'Sources live: Federal Register, Grants.gov, NRC ADAMS, SEC EDGAR, OSTI, Google News.'+
+    (FEED.sources.datagov?' Regulations.gov + Congress live.':' Regulations.gov + Congress pending api.data.gov key.')+
     (FEED.sources.sam_gov?'':' SAM.gov pending API key.')+(FEED.sources.x_api?'':' X pending bearer token.');
 
   /* filters */
