@@ -248,30 +248,58 @@ def nrc_adams():
         print('  ! nrc_adams', ex)
     return items
 
+def _norm_co(s):
+    s = re.sub(r'[^a-z0-9 ]', ' ', (s or '').lower())
+    s = re.sub(r'\b(inc|incorporated|corp|corporation|company|co|ltd|limited|llc|plc|lp|sa|ag|nv|holdings|holding|group|the)\b', ' ', s)
+    return re.sub(r'\s+', ' ', s).strip()
+
+# single normalized words too generic to safely match a company on their own
+_GENERIC_CO = {'energy','nuclear','power','uranium','american','national','general','standard','global',
+               'first','new','united','advanced','solutions','technologies','materials','industries',
+               'systems','resources','international','dynamics','laboratory','labs','fuels','fuel'}
+
 def edgar():
     items = []
     try:
-        r = requests.get('https://www.sec.gov/files/company_tickers.json', headers=UA, timeout=30)
-        cikmap = {v['ticker']: str(v['cik_str']).zfill(10) for v in r.json().values()}
+        rows = list(requests.get('https://www.sec.gov/files/company_tickers.json',
+                                 headers=UA, timeout=30).json().values())
     except Exception as ex:
         print('  ! edgar ticker map', ex); return items
-    MATERIAL = re.compile(r'^(8-K|10-K|10-Q|S-1|S-4|F-4|425|DEF 14A|DEFM14A|6-K|SC 13|S-3|424B)', re.I)
-    CLEAN = {'BWXT': 'BWXT', 'LEU': 'Centrus Energy', 'SMR': 'NuScale Power'}
-    done_tk = set()
+    cik_by_ticker = {str(v['ticker']).upper(): str(v['cik_str']).zfill(10) for v in rows}
+    cik_by_name = {}                                    # normalized company name -> (CIK, official title)
+    for v in rows:
+        nm = _norm_co(v['title'])
+        if len(nm) >= 4 and nm not in cik_by_name:
+            cik_by_name[nm] = (str(v['cik_str']).zfill(10), v['title'])
+
+    # Resolve a CIK for EVERY watchlist entity: hand ticker first, else exact normalized name/alias match.
+    # Private, foreign-only, project and lab entities simply won't match — correctly yielding no filings.
+    targets, matched_log = {}, []                        # cik -> (display, entity_id)
     for e in WL['entities']:
-        tk = e.get('ticker')
-        if not tk or tk not in cikmap or tk in done_tk: continue
-        done_tk.add(tk)
-        disp = CLEAN.get(tk) or re.sub(r'\s*[—–(].*$', '', e['name']).strip()
+        cik = None; via = ''
+        tk = (e.get('ticker') or '').upper()
+        if tk and tk in cik_by_ticker:
+            cik = cik_by_ticker[tk]; via = 'ticker'
+        else:
+            for cand in [e['name']] + e.get('aliases', []):
+                nm = _norm_co(cand)
+                if len(nm) >= 5 and nm not in _GENERIC_CO and nm in cik_by_name:
+                    cik = cik_by_name[nm][0]; via = 'name:' + cand; break
+        if cik and cik not in targets:
+            disp = re.sub(r'\s*[—–(/].*$', '', e['name']).strip()
+            targets[cik] = (disp, e['id'])
+            if via != 'ticker': matched_log.append(f"{disp} ⟵ {via}")
+    print(f'    edgar: {len(targets)} CIKs resolved from watchlist ({len(matched_log)} by name)')
+
+    MATERIAL = re.compile(r'^(8-K|10-K|10-Q|S-1|S-4|F-4|425|DEF 14A|DEFM14A|6-K|SC 13|S-3|424B|20-F|40-F)', re.I)
+    for cik, (disp, eid) in targets.items():
         try:
             r = requests.get('https://www.sec.gov/cgi-bin/browse-edgar',
-                             params={'action': 'getcompany', 'CIK': cikmap[tk],
-                                     'type': '', 'dateb': '', 'owner': 'include',
-                                     'count': 40, 'output': 'atom'},
+                             params={'action': 'getcompany', 'CIK': cik, 'type': '', 'dateb': '',
+                                     'owner': 'include', 'count': 40, 'output': 'atom'},
                              headers=UA, timeout=30)
             fp = feedparser.parse(r.text)
-            formcount = {}                       # cap filings per form-type per company
-            CAP_PER_FORM = 5                      # keep the 5 most recent of each form (atom is newest-first)
+            formcount = {}; CAP_PER_FORM = 5            # 5 most recent of each form (atom is newest-first)
             for en in fp.entries[:40]:
                 ts = parse_date(en.get('updated') or en.get('published'))
                 if not ts or (NOW - ts).days > 30: continue
@@ -279,13 +307,13 @@ def edgar():
                 if not MATERIAL.match(ftype): continue
                 base = ftype.split()[0]
                 formcount[base] = formcount.get(base, 0) + 1
-                if formcount[base] > CAP_PER_FORM: continue   # trims de-SPAC 425 floods etc.
+                if formcount[base] > CAP_PER_FORM: continue   # trims floods (e.g. de-SPAC 425s)
                 it = make_item(f"{disp} files {ftype} ({ts.strftime('%d %b')})", en.link, ts,
                                'SEC EDGAR', 'filings', en.get('title', ''))
-                if e['id'] not in it['entities']: it['entities'].insert(0, e['id'])
+                if eid not in it['entities']: it['entities'].insert(0, eid)
                 items.append(it)
         except Exception as ex:
-            print('  ! edgar', tk, ex)
+            print('  ! edgar', cik, ex)
     return items
 
 def _source_domain(en):
