@@ -117,6 +117,51 @@ def make_item(title, url, ts, source, bucket, summary='', deadline=None, deadlin
             'entities': tag_entities(txt), 'topics': tag_topics(txt),
             'deadline': deadline, 'deadline_label': deadline_label, 'verified': False}
 
+# ---------------------------------------------------------------- funding taxonomy (Phase 1)
+# Nuclear-relevance gate for funding items, plus subdomain + notice-type classification.
+FUND_REL = re.compile(r'nuclear|uranium|reactor|HALEU|fission|enrich|centrifuge|reprocess|recycl|'
+                      r'spent fuel|fuel cycle|fuel fabricat|radioiso|plutonium|TRISO|deconversion|'
+                      r'microreactor|small modular|advanced reactor|molten salt|MOX|fast reactor', re.I)
+
+def classify_subdomain(text):
+    """Tag a funding item with the nuclear subdomain it most specifically touches."""
+    t = (text or '').lower()
+    if re.search(r'reprocess|recycl|spent fuel|spent nuclear fuel|used (nuclear )?fuel|pyroprocess|'
+                 r'electrorefin|mixed oxide|\bmox\b|plutonium', t): return 'Recycling'
+    if re.search(r'haleu|deconversion|triso|fuel fabricat|metallic fuel|fuel qualif|uranium fuel|'
+                 r'nuclear fuel|fuel supply', t): return 'Fuel fab'
+    if re.search(r'enrich|centrifuge|\bleu\b|low-enriched|hexafluoride', t): return 'Enrichment'
+    if re.search(r'small modular|\bsmr\b|bwrx|gen iii', t): return 'SMR'
+    if re.search(r'advanced reactor|advanced nuclear|microreactor|micro-?reactor|fast reactor|'
+                 r'molten salt|high-temperature gas|\bhtgr\b|gen iv|lead-cooled|sodium-cooled|natrium', t): return 'AMR'
+    return 'Nuclear'
+
+def sam_notice_type(t):
+    """Map a SAM.gov notice type to a clean RFI / RFP / Award / Presolicitation / Notice label."""
+    t = (t or '').lower()
+    if 'sources sought' in t or 'request for information' in t: return 'RFI'
+    if 'presolicitation' in t: return 'Presolicitation'
+    if 'combined' in t or 'solicitation' in t: return 'RFP'
+    if 'award' in t: return 'Award'
+    return 'Notice'
+
+def money(n):
+    try: n = float(n)
+    except (TypeError, ValueError): return ''
+    if n >= 1e9: return '$%.1fB' % (n / 1e9)
+    if n >= 1e6: return '$%.0fM' % (n / 1e6)
+    if n >= 1e3: return '$%.0fk' % (n / 1e3)
+    return '$%.0f' % n
+
+def nice_name(s):
+    """Make USAspending ALL-CAPS recipient names readable."""
+    s = (s or '').strip()
+    if s.isupper(): s = s.title()
+    for a, b in [(' Llc', ' LLC'), (' L.L.C.', ' LLC'), (' Llp', ' LLP'), ('Bwxt', 'BWXT'),
+                 (' Of ', ' of '), (' And ', ' and '), (' For ', ' for '), (' The ', ' the ')]:
+        s = s.replace(a, b)
+    return s
+
 # ---------------------------------------------------------------- sources
 def federal_register():
     items = []
@@ -145,23 +190,32 @@ def federal_register():
     return items
 
 def grants_gov():
-    items = []
+    items, seen = [], set()
+    queries = ['nuclear', 'reactor', 'HALEU', 'uranium', 'reprocessing', 'enrichment', 'radioisotope']
     try:
-        r = requests.post('https://api.grants.gov/v1/api/search2',
-                          json={'keyword': 'nuclear', 'oppStatuses': 'forecasted|posted', 'rows': 60},
-                          headers=UA, timeout=30)
-        REL = re.compile(r'nuclear|uranium|reactor|isotope|radiolog|fission|enrich', re.I)
-        for o in r.json().get('data', {}).get('oppHits', []):
-            blob = (o.get('title','') + ' ' + (o.get('agency') or '') + ' ' + (o.get('agencyCode') or ''))
-            if not REL.search(blob): continue
-            url = f"https://www.grants.gov/search-results-detail/{o.get('id')}"
-            ts = parse_date(o.get('openDate')) or NOW
-            dl = o.get('closeDate')
-            items.append(make_item(
-                f"[{o.get('oppStatus','posted').title()} FOA] {o.get('title','')} ({o.get('number','')})",
-                url, ts, 'Grants.gov · ' + (o.get('agencyCode') or 'Fed'), 'funding',
-                f"Agency: {o.get('agency','')}",
-                deadline=dl, deadline_label='Applications close' if dl else ''))
+        for kw in queries:                                   # single specific terms; multi-word over-matches
+            r = requests.post('https://api.grants.gov/v1/api/search2',
+                              json={'keyword': kw, 'oppStatuses': 'forecasted|posted', 'rows': 60},
+                              headers=UA, timeout=30)
+            for o in r.json().get('data', {}).get('oppHits', []):
+                oid = o.get('id')
+                if oid in seen: continue
+                blob = (o.get('title', '') + ' ' + (o.get('agency') or '') + ' '
+                        + (o.get('agencyCode') or '') + ' ' + ' '.join(o.get('cfdaList') or []))
+                if not FUND_REL.search(blob): continue           # nuclear term in title/agency/CFDA
+                seen.add(oid)
+                sub = classify_subdomain(o.get('title', '') + ' ' + (o.get('agency') or ''))
+                ntype = 'Forecast' if o.get('oppStatus', '') == 'forecasted' else 'NOFO'
+                dl = o.get('closeDate')
+                it = make_item(
+                    f"[{ntype} \u00b7 {sub}] {o.get('title', '')} ({o.get('number', '')})",
+                    f"https://www.grants.gov/search-results-detail/{oid}",
+                    parse_date(o.get('openDate')) or NOW,
+                    'Grants.gov \u00b7 ' + (o.get('agencyCode') or 'Fed'), 'funding',
+                    f"Agency: {o.get('agency', '')}",
+                    deadline=dl, deadline_label='Applications close' if dl else '')
+                it['ntype'], it['subdomain'] = ntype, sub
+                items.append(it)
     except Exception as ex:
         print('  ! grants_gov', ex)
     return items
@@ -186,7 +240,9 @@ def sam_gov():
                  'https://api.sam.gov/prod/opportunities/v2/search']
     hdr = {'Accept': 'application/json', **UA}
     auth_failed, got_200 = False, False
-    for kw in ('nuclear', 'HALEU', 'reactor'):           # title sweep (API has no body full-text)
+    for kw in ('nuclear', 'HALEU', 'reprocessing', 'enrichment', 'advanced reactor',
+               'small modular reactor', 'microreactor', 'spent nuclear fuel', 'fuel fabrication',
+               'MOX', 'uranium', 'radioisotope'):           # title sweep (API has no body full-text)
         data = None
         for ep in endpoints:
             try:
@@ -209,16 +265,86 @@ def sam_gov():
             seen.add(nid)
             ts = parse_date(o.get('postedDate')) or NOW
             dl = o.get('responseDeadLine')
-            ptype = o.get('type') or o.get('baseType') or 'Opportunity'
-            items.append(make_item(
-                f"[{ptype}] {o.get('title','')}",
+            raw = o.get('type') or o.get('baseType') or 'Notice'
+            ntype = sam_notice_type(raw)
+            sub = classify_subdomain(o.get('title', '') + ' ' + (o.get('fullParentPathName', '') or ''))
+            it = make_item(
+                f"[{ntype} \u00b7 {sub}] {o.get('title','')}",
                 o.get('uiLink') or ('https://sam.gov/opp/' + (o.get('noticeId', '') or '')),
-                ts, 'SAM.gov · ' + ((o.get('fullParentPathName', '') or 'Fed').split('.')[0]),
-                'funding', f"Solicitation {o.get('solicitationNumber','—')}",
-                deadline=dl, deadline_label='Responses due' if dl else ''))
+                ts, 'SAM.gov \u00b7 ' + ((o.get('fullParentPathName', '') or 'Fed').split('.')[0]),
+                'funding', f"Solicitation {o.get('solicitationNumber','\u2014')}",
+                deadline=dl, deadline_label='Responses due' if dl else '')
+            it['ntype'], it['subdomain'] = ntype, sub
+            items.append(it)
     if got_200:                                          # only mark success when SAM actually answered
         sstate['last'] = iso(NOW)
         json.dump(sstate, open(os.path.join(DATA, 'sam_state.json'), 'w'))
+    return items
+
+def usaspending():
+    """Federal awards (contracts + financial assistance) to nuclear programmes, via the
+    keyless USAspending API. Restricted to DOE/NRC awarding agencies to exclude biomedical
+    'nuclear medicine' noise; filtered to genuinely new awards (recent start date) to exclude
+    the decades-old DOE site-management and Naval-reactor mega-contracts. Throttled ~20h."""
+    ustate = load_json(os.path.join(DATA, 'usaspending_state.json'), {})
+    last = parse_date(ustate.get('last', ''))
+    if last and (NOW - last).total_seconds() < 20 * 3600:
+        print('  - usaspending throttled (ran <20h ago)')
+        return []
+    items, seen = [], set()
+    B = 'https://api.usaspending.gov/api/v2/search/spending_by_award/'
+    KW = ['nuclear', 'reactor', 'HALEU', 'uranium', 'reprocessing', 'enrichment', 'spent fuel',
+          'fuel cycle', 'advanced reactor', 'small modular', 'microreactor', 'plutonium',
+          'deconversion', 'MOX']
+    AG = [{'type': 'awarding', 'tier': 'toptier', 'name': 'Department of Energy'},
+          {'type': 'awarding', 'tier': 'toptier', 'name': 'Nuclear Regulatory Commission'}]
+    EXCL = re.compile(r'management and operat|\bnaval\b|\bm&o\b|site management|IGF::|'
+                      r'legacy management|environmental management contract|tempest|tscm', re.I)
+    win_from = (NOW - datetime.timedelta(days=150)).strftime('%Y-%m-%d')
+    win_to = NOW.strftime('%Y-%m-%d')
+    new_floor = (NOW - datetime.timedelta(days=WINDOW_DAYS)).strftime('%Y-%m-%d')   # new awards only
+    hdr = {'Content-Type': 'application/json', **UA}
+    for codes in (['A', 'B', 'C', 'D'], ['02', '03', '04', '05']):
+        try:
+            body = {'filters': {'keywords': KW, 'award_type_codes': codes, 'agencies': AG,
+                                'time_period': [{'start_date': win_from, 'end_date': win_to}]},
+                    'fields': ['Award ID', 'Recipient Name', 'Award Amount', 'Awarding Agency',
+                               'Awarding Sub Agency', 'Start Date', 'Description'],
+                    'limit': 100, 'sort': 'Award Amount', 'order': 'desc'}
+            r = requests.post(B, json=body, headers=hdr, timeout=50)
+            if r.status_code != 200:
+                print(f'  ! usaspending HTTP {r.status_code}'); continue
+            kept = 0
+            for x in r.json().get('results', []):
+                if kept >= 20: break
+                rec = (x.get('Recipient Name') or '').strip()
+                desc = (x.get('Description') or '').strip()
+                blob = rec + ' ' + desc
+                sd = x.get('Start Date') or ''
+                if EXCL.search(blob): continue
+                if not FUND_REL.search(blob): continue
+                if not (new_floor <= sd <= win_to): continue        # recent start: new, not future, not old M&O
+                gid = x.get('generated_internal_id')
+                if not gid or gid in seen: continue
+                seen.add(gid)
+                amt = x.get('Award Amount') or 0
+                sub = classify_subdomain(blob)
+                agency = x.get('Awarding Sub Agency') or x.get('Awarding Agency') or 'Federal'
+                name = nice_name(rec)
+                head = (money(amt) + ' to ' + name) if amt else name
+                src = 'NRC' if 'Nuclear Regulatory' in (x.get('Awarding Agency') or '') else 'DOE'
+                it = make_item(
+                    f"[Award \u00b7 {sub}] {head} ({agency})",
+                    'https://www.usaspending.gov/award/' + gid,
+                    parse_date(sd) or NOW, 'USAspending \u00b7 ' + src, 'funding',
+                    desc[:170] if desc else 'Federal award')
+                it['ntype'], it['subdomain'], it['amount'] = 'Award', sub, amt
+                items.append(it); kept += 1
+            print(f'  usaspending {"contracts" if "A" in codes else "grants"}: {kept}')
+        except Exception as ex:
+            print('  ! usaspending', ex)
+    ustate['last'] = iso(NOW)
+    json.dump(ustate, open(os.path.join(DATA, 'usaspending_state.json'), 'w'))
     return items
 
 def nrc_adams():
@@ -766,17 +892,17 @@ def main():
 
     collected = []
     for name, fn in [('federal_register', federal_register), ('grants_gov', grants_gov),
-                     ('sam_gov', sam_gov), ('nrc_adams', nrc_adams), ('edgar', edgar),
-                     ('osti', osti), ('datagov', datagov), ('publisher_news', publisher_news),
-                     ('google_news', google_news), ('x_api', x_api)]:
+                     ('sam_gov', sam_gov), ('usaspending', usaspending), ('nrc_adams', nrc_adams),
+                     ('edgar', edgar), ('osti', osti), ('datagov', datagov),
+                     ('publisher_news', publisher_news), ('google_news', google_news), ('x_api', x_api)]:
         got = fn()
         print(f'  {name}: {len(got)}')
         collected += got
 
-    merged = dict(known)                      # keep history
+    merged = dict(known)                      # keep history for sources not re-collected this run
     for it in collected:
         if it['id'] in verified_ids: it['verified'] = True
-        if it['id'] not in merged: merged[it['id']] = it
+        merged[it['id']] = it                 # fresh collection wins, so retuned fields/format stay current
 
     cutoff = NOW - datetime.timedelta(days=WINDOW_DAYS)
     def keep(i):
@@ -793,6 +919,7 @@ def main():
                'sources': {'sam_gov': bool(os.environ.get('SAM_GOV_API_KEY')),
                            'datagov': bool(os.environ.get('API_DATA_GOV_KEY')),
                            'eia': bool(os.environ.get('EIA_API_KEY')),
+                           'usaspending': True,
                            'x_api': bool(os.environ.get('X_BEARER_TOKEN'))},
                'items': items}
     json.dump(payload, open(os.path.join(DATA, 'feed.json'), 'w'))
