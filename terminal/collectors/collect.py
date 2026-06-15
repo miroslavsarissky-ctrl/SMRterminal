@@ -38,13 +38,29 @@ PUBLISHER_FEEDS = [
     ('ANS Nuclear Newswire',  'https://www.ans.org/news/feed/'),
     ('Neutron Bytes',         'https://neutronbytes.com/feed/'),
 ]
+# Companies' own investor-relations / newsroom feeds — the issuer's release, authoritative
+# and reliably dated. Extend as more company feeds are identified (vendor paths vary).
+COMPANY_FEEDS = [
+    ('Oklo IR',          'https://oklo.com/rss/pressrelease.aspx'),
+    ('NANO Nuclear IR',  'https://nanonuclearenergy.com/feed/'),
+    ('Centrus IR',       'https://centrusenergy.com/feed/'),
+    ('NexGen Energy IR', 'https://nexgenenergy.ca/rss/pressrelease.aspx'),
+]
+# Public press-wire RSS is broad-energy only (latest ~20 items, no nuclear keyword feed), so
+# nuclear releases never surface above the oil/gas/solar volume. A usable wire feed needs an
+# account-issued keyword feed (e.g. a Business Wire token). Parked until such a URL is available;
+# companies' own IR feeds above already carry the releases they distribute over the wires.
+WIRE_FEEDS = []
 # Domains already pulled directly above — skip in Google News so Google's
 # unreliable re-surfacing dates can't reintroduce stale items (the TerraPower bug).
-DIRECT_DOMAINS = {'world-nuclear-news.org', 'ans.org', 'neutronbytes.com'}
-# Content-mills / stock-tip SEO that recycle old news — dropped everywhere.
+DIRECT_DOMAINS = {'world-nuclear-news.org', 'ans.org', 'neutronbytes.com',
+                  'oklo.com', 'nanonuclearenergy.com', 'centrusenergy.com', 'nexgenenergy.ca'}
+# Content-mills / stock-tip SEO and re-dating aggregators that recycle old releases — dropped everywhere.
 NEWS_BLOCKLIST = {'indexbox.io', 'mugglehead.com', 'simplywall.st', 'marketbeat.com',
                   'tipranks.com', 'zacks.com', 'barchart.com', 'fool.com', 'benzinga.com',
-                  'stocktwits.com', 'investorplace.com', 'stocktitan.net'}
+                  'stocktwits.com', 'investorplace.com', 'stocktitan.net',
+                  'finance.yahoo.com', 'yahoo.com', 'msn.com', 'moomoo.com', 'insidermonkey.com',
+                  '247wallst.com'}
 YEAR_RX = re.compile(r'\b(20\d{2})\b')
 TOPIC_TAGS = {'haleu': 'HALEU', 'mox': 'MOX', 'plutonium': 'Pu', 'surplus plutonium': 'SPUP', 'spup': 'SPUP',
               'lead-cooled': 'LFR', 'lead-bismuth': 'LFR', 'lead fast': 'LFR', 'molten salt': 'MSR',
@@ -792,6 +808,53 @@ def google_news():
             print('  ! google_news', q, ex)
     return items
 
+def company_ir():
+    """Companies' own IR / newsroom feeds: the issuer's release, authoritative and reliably
+    dated. Primary-source; entity tags come from the release text."""
+    items = []
+    for name, url in COMPANY_FEEDS:
+        try:
+            fp = feedparser.parse(requests.get(url, headers=UA, timeout=25).content)
+            kept = 0
+            for en in fp.entries[:20]:
+                ts = parse_date(en.get('published') or en.get('updated'))
+                if not ts or (NOW - ts).days > 45: continue
+                title = en.get('title', '')
+                summary = strip_html(en.get('summary', ''), 300)
+                it = make_item(title, en.get('link', ''), ts, name, 'news', summary)
+                it['srctype'], it['primary'] = 'ir', True
+                items.append(it); kept += 1
+            print(f'  company_ir {name}: {kept}')
+        except Exception as ex:
+            print('  ! company_ir', name, ex)
+    return items
+
+def newswire():
+    """Press-wire energy feeds (GlobeNewswire, PR Newswire). Original company releases with
+    reliable dates; filtered to nuclear relevance or a watchlist company. Primary-source."""
+    items, seen = [], set()
+    for name, url in WIRE_FEEDS:
+        try:
+            fp = feedparser.parse(requests.get(url, headers=UA, timeout=25).content)
+            kept = 0
+            for en in fp.entries[:60]:
+                ts = parse_date(en.get('published') or en.get('updated'))
+                if not ts or (NOW - ts).days > 30: continue
+                title = en.get('title', '')
+                summary = strip_html(en.get('summary', ''), 300)
+                txt = title + ' ' + summary
+                if not (FUND_REL.search(txt) or tag_entities(txt)): continue   # nuclear or a watchlist co.
+                key = _norm_title(title)
+                if not key or key in seen: continue          # collapse cross-feed / multilingual repeats
+                seen.add(key)
+                it = make_item(title, en.get('link', ''), ts, name, 'news', summary)
+                it['srctype'], it['primary'] = 'wire', True
+                items.append(it); kept += 1
+            print(f'  newswire {name}: {kept}')
+        except Exception as ex:
+            print('  ! newswire', name, ex)
+    return items
+
 def x_api():
     tok = os.environ.get('X_BEARER_TOKEN')
     if not tok:
@@ -846,10 +909,12 @@ _PRIMARY_PREFIX = ('Federal Register', 'NRC ADAMS', 'SEC EDGAR', 'Grants.gov', '
                    'Regulations.gov', 'Congress')
 _FEED_NAMES = {n for n, _ in PUBLISHER_FEEDS}
 def _src_rank(it):
+    if it.get('srctype') == 'ir': return 4                      # the issuer's own release
     s = it.get('source', '')
-    if any(s.startswith(p) for p in _PRIMARY_PREFIX): return 3   # official sources
-    if s in _FEED_NAMES: return 2                                # trusted publisher feed
-    return 1                                                     # google-news / misc
+    if it.get('srctype') == 'wire': return 3                    # original press-wire release
+    if any(s.startswith(p) for p in _PRIMARY_PREFIX): return 3  # official sources
+    if s in _FEED_NAMES: return 2                               # trusted publisher feed
+    return 1                                                    # google-news / misc
 
 def dedup(items):
     """Collapse near-identical headlines (same bucket + normalized title). Keeps the
@@ -888,12 +953,14 @@ def main():
     # verified items, all non-news history, and news from trusted publisher feeds
     # (whose chronological dates are reliable).
     known = {k: it for k, it in known.items()
-             if it.get('verified') or it.get('bucket') != 'news' or it.get('source') in _FEED_NAMES}
+             if it.get('verified') or it.get('bucket') != 'news' or it.get('source') in _FEED_NAMES
+             or it.get('primary')}
 
     collected = []
     for name, fn in [('federal_register', federal_register), ('grants_gov', grants_gov),
                      ('sam_gov', sam_gov), ('usaspending', usaspending), ('nrc_adams', nrc_adams),
                      ('edgar', edgar), ('osti', osti), ('datagov', datagov),
+                     ('company_ir', company_ir),
                      ('publisher_news', publisher_news), ('google_news', google_news), ('x_api', x_api)]:
         got = fn()
         print(f'  {name}: {len(got)}')
