@@ -141,6 +141,40 @@ footer b{color:var(--muted)}
 .seg button:last-child{border-right:none}
 .seg button.on{color:var(--ink);background:var(--orange)}
 .seg button:hover:not(.on){color:var(--text)}
+
+/* ---------- conferences / events ---------- */
+.conf-wrap{padding:4px 0 44px}
+.cmonth{font:700 10px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--dim);padding:18px 20px 8px}
+.crow{display:flex;gap:15px;padding:13px 20px;border-bottom:1px solid var(--line);border-left:3px solid var(--lead-dark);transition:background .12s}
+.crow:hover{background:var(--panel)}
+.crow.t1{border-left-color:var(--orange)}
+.crow.t2{border-left-color:var(--teal)}
+.cdate{flex:0 0 58px;font:600 14px var(--mono);color:var(--text);line-height:1.15}
+.cdate small{display:block;font-size:9.5px;color:var(--dim);font-weight:500;margin-top:2px;letter-spacing:.02em}
+.cbody{flex:1;min-width:0}
+.cname{font-weight:700;font-size:13.5px;color:var(--text);line-height:1.35}
+.cname a:hover{color:#fff;text-decoration:underline}
+.cflag{font-size:13px;margin-right:3px}
+.cmeta{font:500 10.5px var(--mono);color:var(--muted);margin-top:3px}
+.crel{font-size:11.5px;color:var(--lead);margin-top:5px;line-height:1.45;max-width:62ch}
+.cchips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;align-items:center}
+.ctag{font:700 9px var(--font);letter-spacing:.07em;text-transform:uppercase;border-radius:3px;padding:2px 7px}
+.ctag.r1{color:var(--ink);background:var(--orange)}
+.ctag.r2{color:var(--ink);background:var(--teal)}
+.ctag.r3{color:var(--lead-light);background:var(--panel-2);border:1px solid var(--line)}
+.cpart{font:600 10px var(--font);color:var(--lead-light);background:var(--panel-2);border:1px solid var(--line);border-radius:3px;padding:2px 7px}
+.cempty{padding:44px 20px;color:var(--dim);font:500 12px var(--mono);text-align:center;line-height:1.6}
+
+/* ---------- capital / programmes (reuses .crow/.cbody/.cname/.cmeta/.crel/.cchips) ---------- */
+.crow.rc-cash{border-left-color:var(--nrc)}
+.crow.rc-inkind{border-left-color:var(--teal)}
+.crow.rc-alloc{border-left-color:var(--lead-dark)}
+.crow.rc-alloc{opacity:.72}
+.cprov{font:600 10.5px var(--mono);color:var(--lead-light);margin-top:4px}
+.ctag.g{color:var(--ink);background:var(--nrc)}
+.ctag.k{color:var(--lead-light);background:var(--panel-2);border:1px solid var(--line);text-transform:none;letter-spacing:.01em;font-weight:600}
+.cstat{font:700 9px var(--font);letter-spacing:.07em;text-transform:uppercase;border-radius:3px;padding:2px 7px;color:var(--muted);background:var(--panel-2);border:1px solid var(--line)}
+.cstat.open{color:var(--nrc);border-color:var(--nrc)}
 .emain{display:grid;grid-template-columns:1fr 322px}
 .emapcol{position:relative;padding:14px 18px 18px;border-right:1px solid var(--line);min-width:0}
 #usmap{width:100%;height:auto;display:block}
@@ -180,6 +214,8 @@ footer b{color:var(--muted)}
   <div class="navtabs">
     <button class="navtab on" data-v="intel">Intel</button>
     <button class="navtab" data-v="energy">Energy</button>
+    <button class="navtab" data-v="conf">Events</button>
+    <button class="navtab" data-v="cap">Capital</button>
   </div>
   <div class="right">
     <span class="dot" id="d-fr"><i></i>FED REG</span>
@@ -259,12 +295,59 @@ footer b{color:var(--muted)}
   </div>
 </div>
 
+<div id="view-conf" hidden>
+  <div class="ehead">
+    <div>
+      <div class="etitle">Conference &amp; Event Pipeline</div>
+      <div class="esub" id="csub"></div>
+    </div>
+    <div class="ectrls">
+      <input class="search" id="cq" placeholder="Search events, organisers, cities…" style="min-width:190px">
+      <div class="seg" id="cregion">
+        <button data-r="all" class="on">All</button>
+        <button data-r="International">EU + Intl</button>
+        <button data-r="USA">USA</button>
+      </div>
+      <div class="seg" id="crating">
+        <button data-t="all" class="on">All tiers</button>
+        <button data-t="HIGH">Tier 1</button>
+        <button data-t="MEDIUM">Tier 2</button>
+        <button data-t="LOW">Tier 3</button>
+      </div>
+      <button class="tgl on" id="cupcoming">Upcoming</button>
+    </div>
+  </div>
+  <div class="conf-wrap" id="conflist"></div>
+</div>
+
+<div id="view-cap" hidden>
+  <div class="ehead">
+    <div>
+      <div class="etitle">Capital &amp; Programmes</div>
+      <div class="esub" id="capsub"></div>
+    </div>
+    <div class="ectrls">
+      <input class="search" id="capq" placeholder="Search programmes…" style="min-width:170px">
+      <div class="seg" id="capreg">
+        <button data-r="all" class="on">All</button>
+        <button data-r="cash">Cash R&amp;D</button>
+        <button data-r="inkind">In-kind</button>
+        <button data-r="allocated">Allocated</button>
+      </div>
+      <button class="tgl" id="capopen">Open only</button>
+    </div>
+  </div>
+  <div class="conf-wrap" id="caplist"></div>
+</div>
+
 <footer>Public primary sources + open news feeds · raw feed is <b>uncorroborated</b> until promoted to the verified layer · newcleo internal market intelligence</footer>
 
 <script src="data/watchlist.js"></script>
 <script src="data/feed.js"></script>
 <script src="data/energy.js"></script>
 <script src="data/usmap.js"></script>
+<script src="data/conferences.js"></script>
+<script src="data/programmes.js"></script>
 <script>
 (function(){
 'use strict';
@@ -274,6 +357,8 @@ document.getElementById('logo').src = 'data/logo.png';
 var FEED = window.NIT_FEED || null;
 var WL   = window.NIT_WATCHLIST || {entities:[]};
 var ENERGY = window.NIT_ENERGY || null;
+var CONF = window.NIT_CONF || null;
+var PROG = window.NIT_PROG || null;
 var US_MAP = window.US_MAP || null;
 var EMAP = {}; WL.entities.forEach(function(e){ EMAP[e.id] = e; });
 var BUCKETS = [
@@ -425,7 +510,11 @@ function boot(){
       var v = t.dataset.v;
       document.getElementById('view-intel').hidden = (v!=='intel');
       document.getElementById('view-energy').hidden = (v!=='energy');
+      document.getElementById('view-conf').hidden = (v!=='conf');
+      document.getElementById('view-cap').hidden = (v!=='cap');
       if (v==='energy') renderEnergy();
+      if (v==='conf') renderConf();
+      if (v==='cap') renderCap();
     });
   });
   document.getElementById('sectorseg').addEventListener('click', function(ev){
@@ -579,6 +668,131 @@ function renderEnergy(){
   if(!estate.built) buildMap();
   paintMap();
   showState(estate.sel||'TX');
+}
+
+/* ============================ CONFERENCES / EVENTS VIEW ============================ */
+var cstate = { region:'all', tier:'all', q:'', upcoming:true, wired:false };
+var CMON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function cfmtDate(i){
+  if(!i.start) return { big:'TBC', small:'' };
+  var s=i.start.split('-'), e=(i.end||i.start).split('-');
+  var sd=+s[2], ed=+e[2], sm=CMON[+s[1]-1], em=CMON[+e[1]-1];
+  if(i.end && i.end!==i.start){
+    if(sm===em) return { big:sd+'–'+ed, small:sm+' '+s[0] };
+    return { big:sd+' '+sm, small:'– '+ed+' '+em+' '+s[0] };
+  }
+  return { big:String(sd), small:sm+' '+s[0] };
+}
+function cmonthLabel(i){
+  if(!i.start) return 'Dates to confirm';
+  var p=i.start.split('-'); return CMON[+p[1]-1].toUpperCase()+' '+p[0];
+}
+function renderConf(){
+  var el=document.getElementById('conflist');
+  if(!CONF||!CONF.items){ el.innerHTML='<div class="cempty">No conference data loaded.<br>Upload <code>data/conferences.js</code> to populate this tab.</div>'; document.getElementById('csub').textContent=''; return; }
+  var hi=CONF.items.filter(function(x){return x.rating==='HIGH';}).length;
+  document.getElementById('csub').textContent=CONF.count+' events · '+hi+' Tier 1 · verified on organiser sites · seed '+(CONF.generated||'').slice(0,10);
+  if(!cstate.wired){
+    document.getElementById('cregion').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;this.querySelectorAll('button').forEach(function(x){x.classList.remove('on');});b.classList.add('on');cstate.region=b.dataset.r;paintConf();});
+    document.getElementById('crating').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;this.querySelectorAll('button').forEach(function(x){x.classList.remove('on');});b.classList.add('on');cstate.tier=b.dataset.t;paintConf();});
+    document.getElementById('cupcoming').addEventListener('click',function(){cstate.upcoming=!cstate.upcoming;this.classList.toggle('on',cstate.upcoming);paintConf();});
+    document.getElementById('cq').addEventListener('input',function(){cstate.q=this.value.toLowerCase();paintConf();});
+    cstate.wired=true;
+  }
+  paintConf();
+}
+function paintConf(){
+  var today=new Date().toISOString().slice(0,10);
+  var rows=CONF.items.filter(function(i){
+    if(cstate.region!=='all' && i.region!==cstate.region) return false;
+    if(cstate.tier!=='all' && i.rating!==cstate.tier) return false;
+    if(cstate.upcoming && i.end && i.end<today) return false;
+    if(cstate.q){
+      var hay=(i.name+' '+i.organizer+' '+i.city+' '+i.country+' '+i.relevance+' '+i.participation).toLowerCase();
+      if(hay.indexOf(cstate.q)<0) return false;
+    }
+    return true;
+  });
+  var el=document.getElementById('conflist');
+  if(!rows.length){ el.innerHTML='<div class="cempty">No events match these filters.</div>'; return; }
+  var html='', lastMonth='';
+  rows.forEach(function(i){
+    var ml=cmonthLabel(i);
+    if(ml!==lastMonth){ html+='<div class="cmonth">'+ml+'</div>'; lastMonth=ml; }
+    var d=cfmtDate(i), rc=i.rating==='HIGH'?'1':i.rating==='MEDIUM'?'2':'3';
+    var loc=[i.city,i.country].filter(Boolean).join(', ');
+    var nm=i.link?'<a href="'+esc(i.link)+'" target="_blank" rel="noopener">'+esc(i.name)+'</a>':esc(i.name);
+    var tlabel=i.rating==='HIGH'?'Tier 1':i.rating==='MEDIUM'?'Tier 2':'Tier 3';
+    html+='<div class="crow t'+rc+'">'+
+      '<div class="cdate">'+d.big+'<small>'+esc(d.small)+'</small></div>'+
+      '<div class="cbody">'+
+        '<div class="cname">'+(i.flag?'<span class="cflag">'+esc(i.flag)+'</span>':'')+nm+'</div>'+
+        '<div class="cmeta">'+esc(i.organizer)+(loc?' · '+esc(loc):'')+'</div>'+
+        (i.relevance?'<div class="crel">'+esc(i.relevance)+'</div>':'')+
+        '<div class="cchips"><span class="ctag r'+rc+'">'+tlabel+'</span>'+
+          (i.participation?'<span class="cpart">'+esc(i.participation)+'</span>':'')+
+          (i.type?'<span class="cpart">'+esc(i.type)+'</span>':'')+
+          (i.deadline?'<span class="cpart" style="color:var(--orange)">⏱ '+esc(i.deadline)+'</span>':'')+
+        '</div>'+
+      '</div></div>';
+  });
+  el.innerHTML=html;
+}
+
+/* ============================ CAPITAL / PROGRAMMES VIEW ============================ */
+var capstate = { reg:'all', openOnly:false, q:'', wired:false };
+var REG_LABEL = { cash:'Cash \u00b7 competitive R&D', inkind:'In-kind \u00b7 access, material, partnership', allocated:'Largely allocated \u00b7 reference' };
+var REG_ORDER = ['cash','inkind','allocated'];
+function renderCap(){
+  var el=document.getElementById('caplist');
+  if(!PROG||!PROG.items){ el.innerHTML='<div class="cempty">No programme data loaded.<br>Upload <code>data/programmes.js</code> to populate this tab.</div>'; document.getElementById('capsub').textContent=''; return; }
+  document.getElementById('capsub').textContent=PROG.count+' programmes \u00b7 '+PROG.open+' open now \u00b7 tagged by what each provides, not lumped as funding \u00b7 curated '+(PROG.generated||'').slice(0,10);
+  if(!capstate.wired){
+    document.getElementById('capreg').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;this.querySelectorAll('button').forEach(function(x){x.classList.remove('on');});b.classList.add('on');capstate.reg=b.dataset.r;paintCap();});
+    document.getElementById('capopen').addEventListener('click',function(){capstate.openOnly=!capstate.openOnly;this.classList.toggle('on',capstate.openOnly);paintCap();});
+    document.getElementById('capq').addEventListener('input',function(){capstate.q=this.value.toLowerCase();paintCap();});
+    capstate.wired=true;
+  }
+  paintCap();
+}
+function paintCap(){
+  var rows=PROG.items.filter(function(p){
+    if(capstate.reg!=='all' && p.register!==capstate.reg) return false;
+    if(capstate.openOnly && p.status!=='open') return false;
+    if(capstate.q){
+      var hay=(p.name+' '+p.sponsor+' '+p.kind+' '+p.fit+' '+p.funds+' '+p.provides).toLowerCase();
+      if(hay.indexOf(capstate.q)<0) return false;
+    }
+    return true;
+  });
+  var el=document.getElementById('caplist');
+  if(!rows.length){ el.innerHTML='<div class="cempty">No programmes match these filters.</div>'; return; }
+  var html='';
+  REG_ORDER.forEach(function(reg){
+    var grp=rows.filter(function(p){return p.register===reg;});
+    if(!grp.length) return;
+    html+='<div class="cmonth">'+REG_LABEL[reg]+'</div>';
+    grp.forEach(function(p){
+      var rc=reg==='cash'?'cash':reg==='inkind'?'inkind':'alloc';
+      var nm=p.link?'<a href="'+esc(p.link)+'" target="_blank" rel="noopener">'+esc(p.name)+'</a>':esc(p.name);
+      var stopen=p.status==='open'?' open':'';
+      var dl=p.deadline?'<span class="cpart" style="color:var(--orange)">\u23f1 '+esc(p.deadline)+'</span>':(p.deadline_label?'<span class="cstat">'+esc(p.deadline_label)+'</span>':'');
+      html+='<div class="crow rc-'+rc+'">'+
+        '<div class="cbody">'+
+          '<div class="cname">'+nm+'</div>'+
+          '<div class="cmeta">'+esc(p.sponsor)+' \u00b7 '+esc(p.kind)+'</div>'+
+          '<div class="cprov">'+esc(p.provides)+'</div>'+
+          (p.fit?'<div class="crel">'+esc(p.fit)+'</div>':'')+
+          (p.note?'<div class="crel" style="color:var(--dim)">'+esc(p.note)+'</div>':'')+
+          '<div class="cchips">'+
+            '<span class="ctag '+(reg==='cash'?'g':reg==='inkind'?'r2':'r3')+'">'+(reg==='cash'?'Cash':reg==='inkind'?'In-kind':'Allocated')+'</span>'+
+            '<span class="cstat'+stopen+'">'+esc(p.status)+'</span>'+
+            dl+
+          '</div>'+
+        '</div></div>';
+    });
+  });
+  el.innerHTML=html;
 }
 
 function render(){
