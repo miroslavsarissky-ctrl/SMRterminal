@@ -31,6 +31,7 @@ Stdlib only. No pip dependencies.
 
 import json
 import os
+import re
 import smtplib
 import sys
 import urllib.request
@@ -132,28 +133,55 @@ def gather():
         deduped.append(v)
     fresh = deduped[:MAX_VERIFIED]
 
-    # 3. deadlines + milestones
-    dls = []
-    for i in feed.get("items", []):
-        if not i.get("deadline"):
-            continue
+    # 3. deadlines: merged radar (feed + programmes + events + gates)
+    prog = load_js("programmes.js") or {"items": []}
+    conf = load_js("conferences.js") or {"items": []}
+    internal = load_js("internal.js") or {"items": []}
+
+    def days_to(s):
+        m = re.search(r"\d{4}-\d{2}-\d{2}", str(s or ""))
+        if not m:
+            return None, None
         try:
-            dd = (datetime.strptime(i["deadline"], "%Y-%m-%d").date()
+            dd = (datetime.strptime(m.group(0), "%Y-%m-%d").date()
                   - today).days
         except ValueError:
-            continue
-        if 0 <= dd <= DEADLINE_DAYS:
-            dls.append({"d": dd, "date": i["deadline"],
+            return None, None
+        return (dd, m.group(0)) if 0 <= dd <= DEADLINE_DAYS else (None, None)
+
+    def clean_url(s):
+        u = str(s or "").split(" ")[0]
+        return u if u.startswith("http") else ""
+
+    dls = []
+    for i in feed.get("items", []):
+        dd, dt = days_to(i.get("deadline"))
+        if dd is not None:
+            dls.append({"d": dd, "date": dt,
                         "label": i.get("deadline_label") or "Deadline",
                         "title": i["title"], "url": i["url"]})
+    for p in prog.get("items", []):
+        dd, dt = days_to(p.get("deadline"))
+        if dd is not None:
+            dls.append({"d": dd, "date": dt, "label": "Programme",
+                        "title": p.get("name", ""),
+                        "url": clean_url(p.get("link"))})
+    for cf in conf.get("items", []):
+        dd, dt = days_to(cf.get("deadline"))
+        if dd is not None:
+            dls.append({"d": dd, "date": dt, "label": "Event",
+                        "title": cf.get("name", ""),
+                        "url": clean_url(cf.get("link"))})
+    for g in internal.get("items", []):
+        dd, dt = days_to(g.get("date"))
+        if dd is not None:
+            dls.append({"d": dd, "date": dt, "label": "Gate",
+                        "title": g.get("label", "Internal gate"),
+                        "url": clean_url(g.get("url"))})
     for m in (cfg.get("milestones") or []):
-        try:
-            dd = (datetime.strptime(m["date"], "%Y-%m-%d").date()
-                  - today).days
-        except (KeyError, ValueError):
-            continue
-        if 0 <= dd <= DEADLINE_DAYS:
-            dls.append({"d": dd, "date": m["date"], "label": "Milestone",
+        dd, dt = days_to(m.get("date"))
+        if dd is not None:
+            dls.append({"d": dd, "date": dt, "label": "Milestone",
                         "title": m.get("label", "Milestone"), "url": ""})
     dls.sort(key=lambda x: x["d"])
 
