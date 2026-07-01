@@ -1,0 +1,43 @@
+name: refresh-research
+
+# Weekly automatic refresh of the Events and Capital tabs via Claude with web search.
+# Separate from the 30-minute data collector because conferences and programmes change
+# slowly and each run costs an API call. Runs Mondays; also runnable on demand.
+on:
+  schedule:
+    - cron: '0 6 * * 1'      # Mondays 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install anthropic
+
+      - name: Refresh Events + Capital via Claude
+        env:
+          # Add this secret in the repo (Settings -> Secrets and variables -> Actions).
+          # Each secret needs its own explicit line here to be injected.
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          RESEARCH_MODEL: claude-opus-4-8      # swap to claude-sonnet-4-6 for lower cost
+          RESEARCH_WINDOW: next 6 months
+        run: python terminal/collectors/refresh_research.py terminal/data all
+
+      - name: Commit refreshed data
+        run: |
+          git config user.name  "intel-bot"
+          git config user.email "intel-bot@users.noreply.github.com"
+          git add terminal/data/conferences.json terminal/data/conferences.js \
+                  terminal/data/programmes.json  terminal/data/programmes.js
+          git diff --staged --quiet || git commit -m "Auto-refresh Events + Capital ($(date -u +%Y-%m-%d))"
+          git push
