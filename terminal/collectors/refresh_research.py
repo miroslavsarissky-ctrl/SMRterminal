@@ -153,8 +153,31 @@ def write(name, payload_extra, items, out_dir):
 
 
 def load(name, out_dir):
-    p = os.path.join(out_dir, name + '.json')
-    return json.load(open(p))['items'] if os.path.exists(p) else []
+    """Read the current list. Prefer the .json; if it is missing, fall back to parsing the
+    browser .js file, so a repo that carries only the .js can never make the refresh start from
+    an empty tracker and overwrite the whole list with a single run's findings."""
+    pj = os.path.join(out_dir, name + '.json')
+    if os.path.exists(pj):
+        try:
+            return json.load(open(pj)).get('items', [])
+        except Exception:
+            pass
+    pjs = os.path.join(out_dir, name + '.js')
+    if os.path.exists(pjs):
+        m = re.search(r'=\s*(\{.*\})\s*;?\s*$', open(pjs).read(), re.S)
+        if m:
+            return json.loads(m.group(1)).get('items', [])
+    return []
+
+
+def guard(name, current, result):
+    """Refuse to write if the result collapsed to under half the current list, which signals a
+    load failure rather than genuine churn. Prevents a silent wipe of curated data."""
+    if current and len(result) < 0.5 * len(current):
+        print(f'  !! {name}: refusing to write, {len(result)} items is under half of the current '
+              f'{len(current)} (looks like a load failure, not churn); keeping existing data')
+        return False
+    return True
 
 
 def refresh_conferences(out_dir):
@@ -164,6 +187,8 @@ def refresh_conferences(out_dir):
     items = [i for i in items if not (i.get('end') and i['end'] < TODAY)]          # drop finished events
     items.sort(key=lambda x: (x.get('start') or '9999', x.get('tier', 3)))
     hi = sum(1 for i in items if i.get('rating') == 'HIGH')
+    if not guard('conferences', cur, items):
+        return
     write('conferences', {'regions': sorted({i.get('region', '') for i in items}), 'high': hi}, items, out_dir)
     print(f'  conferences: +{stats[0]} new, ~{stats[1]} updated, {stats[2]} verified-protected -> {len(items)} total')
 
@@ -174,6 +199,8 @@ def refresh_programmes(out_dir):
     items, stats = merge(cur, got, norm_prog)
     order = {'cash': 0, 'inkind': 1, 'allocated': 2}
     items.sort(key=lambda p: (order.get(p.get('register'), 9), 0 if p.get('status') == 'open' else 1, p.get('deadline') or '9999'))
+    if not guard('programmes', cur, items):
+        return
     write('programmes', {'open': sum(1 for p in items if p.get('status') == 'open')}, items, out_dir)
     print(f'  programmes: +{stats[0]} new, ~{stats[1]} updated, {stats[2]} verified-protected -> {len(items)} total')
 
