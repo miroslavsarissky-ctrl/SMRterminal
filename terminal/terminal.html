@@ -95,6 +95,19 @@ a:hover{color:#fff}
 .panelbox{border-bottom:1px solid var(--line);padding:14px 18px 16px}
 .panelbox h2{font-size:10.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:11px}
 .panelbox h2 b{color:var(--orange)}
+/* markets rail */
+.mkrow{display:grid;grid-template-columns:44px 1fr 58px 54px;gap:8px;align-items:center;padding:4px 0;cursor:pointer}
+.mkrow .mkt{font:600 11px var(--mono);color:var(--text)}
+.mkrow:hover .mkt{color:#fff}
+.mkrow .mkl{font:500 11px var(--mono);color:var(--muted);text-align:right}
+.mkrow .mkd{font:600 11px var(--mono);text-align:right;white-space:nowrap}
+.mkrow svg{display:block;width:100%;height:16px}
+.mkrow polyline{fill:none;stroke:var(--dim);stroke-width:1.5;vector-effect:non-scaling-stroke}
+.mkrow.pin{border-left:2px solid var(--orange);padding-left:8px;margin-left:-10px}
+.mkrow.pin polyline{stroke:var(--orange)}
+.mkup{color:#3E8C5A}
+.mkdn{color:#C2382E}
+.mq{font:600 10px var(--mono);margin-left:6px}
 .dlrow{display:grid;grid-template-columns:46px 1fr;gap:10px;padding:7px 0;border-bottom:1px solid #1A1E21;align-items:start}
 .dlrow:last-child{border-bottom:none}
 .dday{font:600 13px var(--mono);color:var(--orange);text-align:center;border:1px solid #5A4632;border-radius:4px;padding:4px 2px;line-height:1.1}
@@ -261,6 +274,10 @@ footer b{color:var(--muted)}
       <div id="bills"></div>
     </div>
     <div class="panelbox">
+      <h2>Markets · EOD <b id="mktasof"></b></h2>
+      <div id="mkt"></div>
+    </div>
+    <div class="panelbox">
       <h2>Watchlist movers · 7d</h2>
       <div id="movers"></div>
     </div>
@@ -347,6 +364,7 @@ footer b{color:var(--muted)}
 <script src="data/watchlist.js"></script>
 <script src="data/feed.js"></script>
 <script src="data/verified.js"></script>
+<script src="data/quotes.js"></script>
 <script src="data/energy.js"></script>
 <script src="data/usmap.js"></script>
 <script src="data/conferences.js"></script>
@@ -363,7 +381,9 @@ var ENERGY = window.NIT_ENERGY || null;
 var CONF = window.NIT_CONF || null;
 var PROG = window.NIT_PROG || null;
 var US_MAP = window.US_MAP || null;
+var QUOTES = window.NIT_QUOTES || null;
 var EMAP = {}; WL.entities.forEach(function(e){ EMAP[e.id] = e; });
+var T2E = {}; WL.entities.forEach(function(e){ if(e.ticker && !T2E[e.ticker]) T2E[e.ticker] = e.id; });
 /* verified layer: merge sidecar (data/verified.js) onto feed items by id */
 var VERD = window.NIT_VERIFIED || {items:{}};
 if (FEED && FEED.items) FEED.items.forEach(function(i){
@@ -399,6 +419,46 @@ function rel(ts){
 function hhmm(ts){ var d=new Date(ts); if(/T00:00:00/.test(ts)) return '——'; return ('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2); }
 function dayKey(ts){ return new Date(ts).toDateString(); }
 function bucketColor(k){ var b=BUCKETS.filter(function(x){return x.k===k;})[0]; return b?b.c:'#444'; }
+
+/* ---------- markets rail (data/quotes.js) ---------- */
+function sparkSvg(sp){
+  if(!sp || sp.length < 2) return '<span></span>';
+  var mn = Math.min.apply(null, sp), mx = Math.max.apply(null, sp), rng = (mx - mn) || 1;
+  var pts = sp.map(function(v, i){
+    return (i * (64 / (sp.length - 1))).toFixed(1) + ',' + (15 - 13 * (v - mn) / rng + 1).toFixed(1);
+  }).join(' ');
+  return '<svg viewBox="0 0 64 17" preserveAspectRatio="none"><polyline points="' + pts + '"/></svg>';
+}
+function fmtPrice(v){ return v >= 1000 ? Math.round(v).toLocaleString('en-US') : v.toFixed(2); }
+function d1chip(eid){
+  var tk = EMAP[eid] && EMAP[eid].ticker;
+  var q = tk && QUOTES && QUOTES.tickers && QUOTES.tickers[tk];
+  if(!q || q.d1 == null) return '';
+  return '<span class="mq ' + (q.d1 > 0 ? 'mkup' : q.d1 < 0 ? 'mkdn' : '') + '">' + (q.d1 > 0 ? '+' : '') + q.d1.toFixed(1) + '%</span>';
+}
+function renderMarkets(){
+  var el = document.getElementById('mkt'); if(!el) return;
+  if(!QUOTES || !QUOTES.tickers){
+    el.innerHTML = '<div class="note">Market data pending the first quotes run.</div>';
+    return;
+  }
+  document.getElementById('mktasof').textContent = QUOTES.asof || '';
+  var rows = Object.keys(QUOTES.tickers).map(function(t){ return { t: t, q: QUOTES.tickers[t] }; });
+  var pin = rows.filter(function(r){ return r.t === 'NHIC' || r.t === 'NWCL'; });
+  var rest = rows.filter(function(r){ return r.t !== 'NHIC' && r.t !== 'NWCL'; })
+    .sort(function(a, b){ return Math.abs(b.q.d1 || 0) - Math.abs(a.q.d1 || 0); })
+    .slice(0, 11);
+  el.innerHTML = pin.concat(rest).map(function(r){
+    var d = r.q.d1, cls = d > 0 ? 'mkup' : d < 0 ? 'mkdn' : '';
+    var arr = d > 0 ? '\u25b2' : d < 0 ? '\u25bc' : '\u00b7';
+    var e = T2E[r.t];
+    return '<div class="mkrow' + (pin.indexOf(r) >= 0 ? ' pin' : '') + '"' + (e ? ' data-e="' + e + '"' : '') +
+      ' title="7d ' + (r.q.d7 == null ? 'n/a' : r.q.d7 + '%') + ' \u00b7 30d ' + (r.q.d30 == null ? 'n/a' : r.q.d30 + '%') + '">' +
+      '<span class="mkt">' + r.t + '</span>' + sparkSvg(r.q.spark) +
+      '<span class="mkl">' + fmtPrice(r.q.last) + '</span>' +
+      '<span class="mkd ' + cls + '">' + arr + ' ' + (d == null ? 'n/a' : Math.abs(d).toFixed(1) + '%') + '</span></div>';
+  }).join('');
+}
 
 /* ---------- header ---------- */
 function tickClock(){
@@ -490,13 +550,19 @@ function boot(){
     .sort(function(a,b){return b[1]-a[1];}).slice(0,10);
   var max = top.length ? top[0][1] : 1;
   document.getElementById('movers').innerHTML = top.map(function(p){
-    return '<div class="mover" data-e="'+p[0]+'"><div><div class="mn">'+esc(ename(p[0]))+'</div>'+
+    return '<div class="mover" data-e="'+p[0]+'"><div><div class="mn">'+esc(ename(p[0]))+d1chip(p[0])+'</div>'+
       '<div class="mbar"><i style="width:'+Math.round(100*p[1]/max)+'%"></i></div></div>'+
       '<div class="mc">'+p[1]+'</div></div>';
   }).join('') || '<div class="note">No watchlist mentions in the last 7 days.</div>';
   document.getElementById('movers').addEventListener('click', function(ev){
     var el = ev.target.closest('.mover'); if(!el) return;
     setEnt(el.dataset.e);
+  });
+
+  renderMarkets();
+  document.getElementById('mkt').addEventListener('click', function(ev){
+    var r = ev.target.closest('.mkrow'); if(!r || !r.dataset.e) return;
+    setEnt(r.dataset.e);
   });
 
   /* coverage note */
