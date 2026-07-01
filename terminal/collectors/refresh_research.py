@@ -19,7 +19,7 @@ import os, re, sys, json, datetime as dt
 
 HERE = os.path.dirname(__file__)
 DATA = os.path.join(HERE, '..', 'data')
-MODEL = os.environ.get('RESEARCH_MODEL', 'claude-opus-4-8')
+MODEL = os.environ.get('RESEARCH_MODEL', 'claude-sonnet-5')
 MAX_SEARCHES = int(os.environ.get('RESEARCH_MAX_SEARCHES', '12'))
 WINDOW = os.environ.get('RESEARCH_WINDOW', 'next 6 months')
 NOW = dt.datetime.now(dt.timezone.utc)
