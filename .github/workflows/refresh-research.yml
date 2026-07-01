@@ -29,7 +29,7 @@ jobs:
           # Add this secret in the repo (Settings -> Secrets and variables -> Actions).
           # Each secret needs its own explicit line here to be injected.
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          RESEARCH_MODEL: claude-opus-4-8      # swap to claude-sonnet-4-6 for lower cost
+          RESEARCH_MODEL: claude-sonnet-5        # Sonnet 5 (agentic, lower cost); claude-opus-4-8 is the higher-accuracy swap
           RESEARCH_WINDOW: next 6 months
         run: python terminal/collectors/refresh_research.py terminal/data all
 
