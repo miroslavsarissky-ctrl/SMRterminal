@@ -388,6 +388,7 @@ footer b{color:var(--muted)}
 <script src="data/deal_config.js"></script>
 <script src="data/deal.js"></script>
 <script src="data/internal.js"></script>
+<script src="data/legislation.js"></script>
 <script src="data/energy.js"></script>
 <script src="data/usmap.js"></script>
 <script src="data/conferences.js"></script>
@@ -629,9 +630,14 @@ function boot(){
       '<span class="what">'+esc(i.what)+'</span></p></div>';
   }).join('') : '<div class="note">No open deadlines across the feed, programmes, events or internal gates.</div>';
 
-  /* legislation */
-  var bills = FEED.items.filter(function(i){ return i.bucket==='policy'; })
-    .sort(function(a,b){ return a.ts < b.ts ? 1 : -1; }).slice(0,8);
+  /* legislation: Congress.gov sidecar (data/legislation.js) + any feed policy items */
+  var BILLSRC = window.NIT_BILLS || null;
+  var bills = (BILLSRC && BILLSRC.items ? BILLSRC.items.slice() : []);
+  FEED.items.forEach(function(i){
+    if(i.bucket==='policy') bills.push({billno:i.billno||'BILL', title:i.title, url:i.url, status:i.status||'', sponsor:i.sponsor||'', ts:i.ts});
+  });
+  bills.sort(function(a,b){ return (a.ts||'') < (b.ts||'') ? 1 : -1; });
+  bills = bills.slice(0,8);
   document.getElementById('billcount').textContent = bills.length ? bills.length + ' tracked' : '';
   document.getElementById('bills').innerHTML = bills.length ? bills.map(function(i){
     var sub = esc((i.status||'').slice(0,66)) + (i.sponsor ? ' · ' + esc(i.sponsor) : '');
