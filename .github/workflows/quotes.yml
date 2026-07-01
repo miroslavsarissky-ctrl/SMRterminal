@@ -27,16 +27,19 @@ jobs:
       - name: Fetch market quotes
         run: python terminal/collectors/quotes.py
 
-      - name: Commit quotes
+      - name: Fetch deal filings
+        run: python terminal/collectors/deal.py
+
+      - name: Commit data
         run: |
           git config user.name "quotes-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add terminal/data/quotes.js
+          git add terminal/data/quotes.js terminal/data/deal.js
           if git diff --cached --quiet; then
             echo "No changes to commit"
             exit 0
           fi
-          git commit -m "quotes: update market data"
+          git commit -m "data: quotes and deal update"
           for attempt in 1 2 3; do
             if git push; then
               exit 0
