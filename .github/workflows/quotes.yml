@@ -16,7 +16,7 @@ concurrency:
 jobs:
   quotes:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
 
@@ -30,16 +30,22 @@ jobs:
       - name: Fetch deal filings
         run: python terminal/collectors/deal.py
 
+      - name: Fetch legislation
+        env:
+          API_DATA_GOV_KEY: ${{ secrets.API_DATA_GOV_KEY }}
+          CONGRESS_API_KEY: ${{ secrets.CONGRESS_API_KEY }}
+        run: python terminal/collectors/congress.py
+
       - name: Commit data
         run: |
           git config user.name "quotes-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add terminal/data/quotes.js terminal/data/deal.js
+          git add terminal/data/quotes.js terminal/data/deal.js terminal/data/legislation.js
           if git diff --cached --quiet; then
             echo "No changes to commit"
             exit 0
           fi
-          git commit -m "data: quotes and deal update"
+          git commit -m "data: quotes, deal and legislation update"
           for attempt in 1 2 3; do
             if git push; then
               exit 0
