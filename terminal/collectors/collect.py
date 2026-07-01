@@ -564,7 +564,7 @@ def osti():
         for d in (recs or []):
             oid = str(d.get('osti_id') or '')
             if not oid or oid in seen: continue
-            ets = parse_date((d.get('entry_date') or '')[:10])        # when it became available in OSTI
+            ets = parse_date(d.get('entry_date') or '')               # full timestamp: when it became available in OSTI
             pts = parse_date((d.get('publication_date') or '')[:10])
             ts = ets or pts
             if not ts or (NOW - ts).days > 45: continue              # recently available
@@ -574,6 +574,8 @@ def osti():
             ptype = d.get('product_type') or 'Report'
             it = make_item(d.get('title') or 'OSTI record', 'https://www.osti.gov/biblio/' + oid,
                            ts, 'OSTI', 'research', (ptype + (' \u00b7 ' + org if org else '')).strip())
+            if pts and ets and (ets - pts).days > 45:
+                it['pub'] = pts.strftime('%Y-%m')                     # true vintage when release lags publication
             if topic not in it['topics']: it['topics'].append(topic)
             items.append(it)
     return items
