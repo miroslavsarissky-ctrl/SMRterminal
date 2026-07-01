@@ -108,6 +108,22 @@ a:hover{color:#fff}
 .mkup{color:#3E8C5A}
 .mkdn{color:#C2382E}
 .mq{font:600 10px var(--mono);margin-left:6px}
+/* merged radar origin tags */
+.dk{font:600 8.5px var(--mono);letter-spacing:.08em;border-radius:3px;padding:1px 4px;margin-right:6px;vertical-align:1px}
+.dkp{color:var(--fund);border:1px solid var(--fund)}
+.dkc{color:var(--muted);border:1px solid var(--muted)}
+.dkg{color:var(--orange);border:1px solid var(--orange)}
+/* deal monitor */
+.dealpx{display:grid;grid-template-columns:auto 1fr 54px;gap:10px;align-items:center;margin-bottom:8px}
+.dealpx .big{font:700 19px var(--mono);color:#fff;letter-spacing:.02em}
+.dealpx svg{display:block;width:100%;height:20px}
+.dealpx polyline{fill:none;stroke:var(--orange);stroke-width:1.5;vector-effect:non-scaling-stroke}
+.dealprem{font:500 10.5px var(--mono);color:var(--muted);margin:0 0 10px}
+.frow{display:flex;gap:8px;align-items:baseline;padding:3px 0;line-height:1.35}
+.fform{font:600 9.5px var(--mono);color:var(--fil);border:1px solid var(--fil);border-radius:3px;padding:1px 5px;white-space:nowrap}
+.frow .fd{font:500 10.5px var(--mono);color:var(--dim);white-space:nowrap}
+.frow a{font-size:12px;color:var(--text)}
+.frow a:hover{color:#fff}
 .dlrow{display:grid;grid-template-columns:46px 1fr;gap:10px;padding:7px 0;border-bottom:1px solid #1A1E21;align-items:start}
 .dlrow:last-child{border-bottom:none}
 .dday{font:600 13px var(--mono);color:var(--orange);text-align:center;border:1px solid #5A4632;border-radius:4px;padding:4px 2px;line-height:1.1}
@@ -258,13 +274,17 @@ footer b{color:var(--muted)}
       <button class="tgl on" data-w="168">7D</button>
       <button class="tgl" data-w="0">ALL</button>
       <button class="tgl" id="vonly">Verified only</button>
-      <button class="tgl on" id="noisef" title="Hide items the verify layer scored zero relevance. Unscored items always show.">Mute routine</button>
+      <button class="tgl" id="noisef" title="Hide items the verify layer scored zero relevance. Unscored items always show.">Mute routine</button>
       <span class="entflag" id="entflag">Filtered: <span id="entname"></span> <b id="entclear">×</b></span>
     </div>
     <div class="feed" id="feed"></div>
   </div>
 
   <aside class="rail">
+    <div class="panelbox">
+      <h2>Deal monitor · NWCL <b id="dealasof"></b></h2>
+      <div id="deal"></div>
+    </div>
     <div class="panelbox">
       <h2>Deadline radar <b id="dlcount"></b></h2>
       <div id="deadlines"></div>
@@ -365,6 +385,9 @@ footer b{color:var(--muted)}
 <script src="data/feed.js"></script>
 <script src="data/verified.js"></script>
 <script src="data/quotes.js"></script>
+<script src="data/deal_config.js"></script>
+<script src="data/deal.js"></script>
+<script src="data/internal.js"></script>
 <script src="data/energy.js"></script>
 <script src="data/usmap.js"></script>
 <script src="data/conferences.js"></script>
@@ -382,6 +405,9 @@ var CONF = window.NIT_CONF || null;
 var PROG = window.NIT_PROG || null;
 var US_MAP = window.US_MAP || null;
 var QUOTES = window.NIT_QUOTES || null;
+var DEAL = window.NIT_DEAL || null;
+var DEALCFG = window.NIT_DEALCFG || null;
+var INTERNAL = window.NIT_INTERNAL || null;
 var EMAP = {}; WL.entities.forEach(function(e){ EMAP[e.id] = e; });
 var T2E = {}; WL.entities.forEach(function(e){ if(e.ticker && !T2E[e.ticker]) T2E[e.ticker] = e.id; });
 /* verified layer: merge sidecar (data/verified.js) onto feed items by id */
@@ -404,7 +430,7 @@ var BUCKETS = [
   {k:'news',       l:'News', c:'var(--news)'},
   {k:'social',     l:'X / Social', c:'var(--soc)'}
 ];
-var state = { q:'', windowH:168, buckets:{}, ent:null, vonly:false, mute:true };
+var state = { q:'', windowH:168, buckets:{}, ent:null, vonly:false, mute:false };
 function isMuted(i){ return state.mute && i.rel === 0; }
 BUCKETS.forEach(function(b){ state.buckets[b.k] = true; });
 
@@ -458,6 +484,47 @@ function renderMarkets(){
       '<span class="mkl">' + fmtPrice(r.q.last) + '</span>' +
       '<span class="mkd ' + cls + '">' + arr + ' ' + (d == null ? 'n/a' : Math.abs(d).toFixed(1) + '%') + '</span></div>';
   }).join('');
+}
+
+/* ---------- deal monitor (data/deal.js + data/deal_config.js) ---------- */
+function renderDeal(){
+  var el = document.getElementById('deal'); if(!el) return;
+  var cfg = DEALCFG || {};
+  var tick = cfg.ticker || 'NHIC';
+  var q = QUOTES && QUOTES.tickers && QUOTES.tickers[tick];
+  var h = '';
+  if (q){
+    var d = q.d1, cls = d > 0 ? 'mkup' : d < 0 ? 'mkdn' : '';
+    var arr = d > 0 ? '\u25b2' : d < 0 ? '\u25bc' : '\u00b7';
+    h += '<div class="dealpx"><span class="big">' + fmtPrice(q.last) + '</span>' + sparkSvg(q.spark) +
+      '<span class="mkd ' + cls + '">' + arr + ' ' + (d == null ? 'n/a' : Math.abs(d).toFixed(1) + '%') + '</span></div>';
+    var tail = '7d ' + (q.d7 == null ? 'n/a' : q.d7 + '%') + ' \u00b7 30d ' + (q.d30 == null ? 'n/a' : q.d30 + '%');
+    if (cfg.trust_ps){
+      var prem = (q.last / cfg.trust_ps - 1) * 100;
+      h += '<div class="dealprem">' + (prem >= 0 ? '+' : '') + prem.toFixed(1) + '% vs trust $' + cfg.trust_ps.toFixed(2) + ' \u00b7 ' + tail + '</div>';
+    } else {
+      h += '<div class="dealprem">' + tail + '</div>';
+    }
+  }
+  var today = new Date(); today.setHours(0,0,0,0);
+  var ms = ((cfg.milestones) || []).filter(function(m){ return m.date && new Date(m.date) >= today; })
+    .sort(function(a, b){ return a.date < b.date ? -1 : 1; }).slice(0, 4);
+  ms.forEach(function(m){
+    var dd = Math.round((new Date(m.date) - today) / 864e5);
+    h += '<div class="dlrow"><div class="dday' + (dd > 14 ? ' far' : '') + '">D-' + dd + '<small>' + m.date.slice(5) + '</small></div>' +
+      '<p>' + esc(m.label) + '</p></div>';
+  });
+  if (DEAL && DEAL.filings && DEAL.filings.length){
+    document.getElementById('dealasof').textContent = (DEAL.generated || '').slice(0, 10);
+    h += DEAL.filings.slice(0, 6).map(function(f){
+      return '<div class="frow"><span class="fform">' + esc(f.form) + '</span>' +
+        '<span class="fd">' + f.date.slice(5) + '</span>' +
+        '<a href="' + esc(f.url) + '" target="_blank" rel="noopener">' + esc(f.desc) + '</a></div>';
+    }).join('');
+  } else if (!q){
+    h += '<div class="note">Deal data pending the first run.</div>';
+  }
+  el.innerHTML = h;
 }
 
 /* ---------- header ---------- */
@@ -517,17 +584,50 @@ function boot(){
     render();
   });
 
-  /* deadlines */
+  /* deadlines: merged radar (feed + programmes + events + internal gates + deal milestones) */
   var today = new Date(); today.setHours(0,0,0,0);
-  var dls = FEED.items.filter(function(i){ return i.deadline && new Date(i.deadline) >= today; })
-    .sort(function(a,b){ return a.deadline < b.deadline ? -1 : 1; }).slice(0,9);
-  document.getElementById('dlcount').textContent = dls.length ? dls.length + ' open' : '';
+  function dlDate(s){
+    if(!s) return null;
+    var m = String(s).match(/\d{4}-\d{2}-\d{2}/);
+    if(!m) return null;
+    return new Date(m[0] + 'T00:00:00') >= today ? m[0] : null;
+  }
+  function dlUrl(s){
+    var u = String(s || '').split(' ')[0];
+    return u.indexOf('http') === 0 ? u : '';
+  }
+  var RADAR = [];
+  FEED.items.forEach(function(i){
+    var dt = dlDate(i.deadline);
+    if(dt) RADAR.push({date:dt, title:i.title.slice(0,100), url:i.url, what:(i.deadline_label||'Deadline')+' · '+i.source, kind:'feed'});
+  });
+  if (PROG && PROG.items) PROG.items.forEach(function(p){
+    var dt = dlDate(p.deadline);
+    if(dt) RADAR.push({date:dt, title:p.name, url:dlUrl(p.link), what:'Programme deadline · '+(p.sponsor||''), kind:'prog'});
+  });
+  if (CONF && CONF.items) CONF.items.forEach(function(cf){
+    var dt = dlDate(cf.deadline);
+    if(dt) RADAR.push({date:dt, title:cf.name, url:dlUrl(cf.link), what:'Event deadline · '+(cf.organizer||''), kind:'conf'});
+  });
+  if (INTERNAL && INTERNAL.items) INTERNAL.items.forEach(function(g){
+    var dt = dlDate(g.date);
+    if(dt) RADAR.push({date:dt, title:g.label||'Internal gate', url:dlUrl(g.url), what:g.note||'newcleo gate', kind:'gate'});
+  });
+  if (DEALCFG && DEALCFG.milestones) DEALCFG.milestones.forEach(function(m){
+    var dt = dlDate(m.date);
+    if(dt) RADAR.push({date:dt, title:m.label||'Milestone', url:'', what:'Deal milestone', kind:'gate'});
+  });
+  RADAR.sort(function(a,b){ return a.date < b.date ? -1 : 1; });
+  var dls = RADAR.slice(0,12);
+  document.getElementById('dlcount').textContent = RADAR.length ? RADAR.length + ' open' : '';
+  var KTAG = {feed:'', prog:'<span class="dk dkp">FUND</span>', conf:'<span class="dk dkc">EVENT</span>', gate:'<span class="dk dkg">GATE</span>'};
   document.getElementById('deadlines').innerHTML = dls.length ? dls.map(function(i){
-    var d = Math.round((new Date(i.deadline) - today)/864e5);
-    return '<div class="dlrow"><div class="dday'+(d>14?' far':'')+'">D-'+d+'<small>'+i.deadline.slice(5)+'</small></div>'+
-      '<p><a href="'+esc(i.url)+'" target="_blank" rel="noopener">'+esc(i.title.slice(0,100))+'</a>'+
-      '<span class="what">'+esc(i.deadline_label||'Deadline')+' · '+esc(i.source)+'</span></p></div>';
-  }).join('') : '<div class="note">No open comment or response deadlines in the feed.</div>';
+    var d = Math.round((new Date(i.date) - today)/864e5);
+    var lk = i.url ? '<a href="'+esc(i.url)+'" target="_blank" rel="noopener">'+esc(i.title)+'</a>' : esc(i.title);
+    return '<div class="dlrow"><div class="dday'+(d>14?' far':'')+'">D-'+d+'<small>'+i.date.slice(5)+'</small></div>'+
+      '<p>'+(KTAG[i.kind]||'')+lk+
+      '<span class="what">'+esc(i.what)+'</span></p></div>';
+  }).join('') : '<div class="note">No open deadlines across the feed, programmes, events or internal gates.</div>';
 
   /* legislation */
   var bills = FEED.items.filter(function(i){ return i.bucket==='policy'; })
@@ -559,6 +659,7 @@ function boot(){
     setEnt(el.dataset.e);
   });
 
+  renderDeal();
   renderMarkets();
   document.getElementById('mkt').addEventListener('click', function(ev){
     var r = ev.target.closest('.mkrow'); if(!r || !r.dataset.e) return;
@@ -568,7 +669,7 @@ function boot(){
   /* coverage note */
   var wl1 = WL.entities.filter(function(e){return e.tier===1;}).length;
   document.getElementById('coverage').innerHTML =
-    '<b style="color:var(--text)">'+FEED.items.filter(function(i){return i.rel===0;}).length+'</b> routine (score-0) items muted; use Mute routine to reveal. '+
+    '<b style="color:var(--text)">'+FEED.items.filter(function(i){return i.rel===0;}).length+'</b> routine (score-0) items; Mute routine hides them. '+
     'Tracking <b style="color:var(--text)">'+WL.entities.length+'</b> entities from the fuel-cycle and reactor-landscape dashboards ('+wl1+' tier-1). '+
     'Sources live: Federal Register, Grants.gov, NRC ADAMS, SEC EDGAR, OSTI, Google News.'+
     (FEED.sources.datagov?' Regulations.gov + Congress live.':' Regulations.gov + Congress pending api.data.gov key.')+
