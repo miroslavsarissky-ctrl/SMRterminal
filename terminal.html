@@ -108,6 +108,11 @@ a:hover{color:#fff}
 .mkup{color:#3E8C5A}
 .mkdn{color:#C2382E}
 .mq{font:600 10px var(--mono);margin-left:6px}
+/* merged radar origin tags */
+.dk{font:600 8.5px var(--mono);letter-spacing:.08em;border-radius:3px;padding:1px 4px;margin-right:6px;vertical-align:1px}
+.dkp{color:var(--fund);border:1px solid var(--fund)}
+.dkc{color:var(--muted);border:1px solid var(--muted)}
+.dkg{color:var(--orange);border:1px solid var(--orange)}
 /* deal monitor */
 .dealpx{display:grid;grid-template-columns:auto 1fr 54px;gap:10px;align-items:center;margin-bottom:8px}
 .dealpx .big{font:700 19px var(--mono);color:#fff;letter-spacing:.02em}
@@ -382,6 +387,7 @@ footer b{color:var(--muted)}
 <script src="data/quotes.js"></script>
 <script src="data/deal_config.js"></script>
 <script src="data/deal.js"></script>
+<script src="data/internal.js"></script>
 <script src="data/energy.js"></script>
 <script src="data/usmap.js"></script>
 <script src="data/conferences.js"></script>
@@ -401,6 +407,7 @@ var US_MAP = window.US_MAP || null;
 var QUOTES = window.NIT_QUOTES || null;
 var DEAL = window.NIT_DEAL || null;
 var DEALCFG = window.NIT_DEALCFG || null;
+var INTERNAL = window.NIT_INTERNAL || null;
 var EMAP = {}; WL.entities.forEach(function(e){ EMAP[e.id] = e; });
 var T2E = {}; WL.entities.forEach(function(e){ if(e.ticker && !T2E[e.ticker]) T2E[e.ticker] = e.id; });
 /* verified layer: merge sidecar (data/verified.js) onto feed items by id */
@@ -577,17 +584,50 @@ function boot(){
     render();
   });
 
-  /* deadlines */
+  /* deadlines: merged radar (feed + programmes + events + internal gates + deal milestones) */
   var today = new Date(); today.setHours(0,0,0,0);
-  var dls = FEED.items.filter(function(i){ return i.deadline && new Date(i.deadline) >= today; })
-    .sort(function(a,b){ return a.deadline < b.deadline ? -1 : 1; }).slice(0,9);
-  document.getElementById('dlcount').textContent = dls.length ? dls.length + ' open' : '';
+  function dlDate(s){
+    if(!s) return null;
+    var m = String(s).match(/\d{4}-\d{2}-\d{2}/);
+    if(!m) return null;
+    return new Date(m[0] + 'T00:00:00') >= today ? m[0] : null;
+  }
+  function dlUrl(s){
+    var u = String(s || '').split(' ')[0];
+    return u.indexOf('http') === 0 ? u : '';
+  }
+  var RADAR = [];
+  FEED.items.forEach(function(i){
+    var dt = dlDate(i.deadline);
+    if(dt) RADAR.push({date:dt, title:i.title.slice(0,100), url:i.url, what:(i.deadline_label||'Deadline')+' · '+i.source, kind:'feed'});
+  });
+  if (PROG && PROG.items) PROG.items.forEach(function(p){
+    var dt = dlDate(p.deadline);
+    if(dt) RADAR.push({date:dt, title:p.name, url:dlUrl(p.link), what:'Programme deadline · '+(p.sponsor||''), kind:'prog'});
+  });
+  if (CONF && CONF.items) CONF.items.forEach(function(cf){
+    var dt = dlDate(cf.deadline);
+    if(dt) RADAR.push({date:dt, title:cf.name, url:dlUrl(cf.link), what:'Event deadline · '+(cf.organizer||''), kind:'conf'});
+  });
+  if (INTERNAL && INTERNAL.items) INTERNAL.items.forEach(function(g){
+    var dt = dlDate(g.date);
+    if(dt) RADAR.push({date:dt, title:g.label||'Internal gate', url:dlUrl(g.url), what:g.note||'newcleo gate', kind:'gate'});
+  });
+  if (DEALCFG && DEALCFG.milestones) DEALCFG.milestones.forEach(function(m){
+    var dt = dlDate(m.date);
+    if(dt) RADAR.push({date:dt, title:m.label||'Milestone', url:'', what:'Deal milestone', kind:'gate'});
+  });
+  RADAR.sort(function(a,b){ return a.date < b.date ? -1 : 1; });
+  var dls = RADAR.slice(0,12);
+  document.getElementById('dlcount').textContent = RADAR.length ? RADAR.length + ' open' : '';
+  var KTAG = {feed:'', prog:'<span class="dk dkp">FUND</span>', conf:'<span class="dk dkc">EVENT</span>', gate:'<span class="dk dkg">GATE</span>'};
   document.getElementById('deadlines').innerHTML = dls.length ? dls.map(function(i){
-    var d = Math.round((new Date(i.deadline) - today)/864e5);
-    return '<div class="dlrow"><div class="dday'+(d>14?' far':'')+'">D-'+d+'<small>'+i.deadline.slice(5)+'</small></div>'+
-      '<p><a href="'+esc(i.url)+'" target="_blank" rel="noopener">'+esc(i.title.slice(0,100))+'</a>'+
-      '<span class="what">'+esc(i.deadline_label||'Deadline')+' · '+esc(i.source)+'</span></p></div>';
-  }).join('') : '<div class="note">No open comment or response deadlines in the feed.</div>';
+    var d = Math.round((new Date(i.date) - today)/864e5);
+    var lk = i.url ? '<a href="'+esc(i.url)+'" target="_blank" rel="noopener">'+esc(i.title)+'</a>' : esc(i.title);
+    return '<div class="dlrow"><div class="dday'+(d>14?' far':'')+'">D-'+d+'<small>'+i.date.slice(5)+'</small></div>'+
+      '<p>'+(KTAG[i.kind]||'')+lk+
+      '<span class="what">'+esc(i.what)+'</span></p></div>';
+  }).join('') : '<div class="note">No open deadlines across the feed, programmes, events or internal gates.</div>';
 
   /* legislation */
   var bills = FEED.items.filter(function(i){ return i.bucket==='policy'; })
