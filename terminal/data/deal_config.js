@@ -1,0 +1,1 @@
+window.NIT_DEALCFG={"trust_ps":null,"ticker":"NHIC","post_ticker":"NWCL","milestones":[],"note":"Set trust_ps from the latest public filing. Add milestones as {label, date YYYY-MM-DD}. Public dates only while the site is public."};
