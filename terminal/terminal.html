@@ -835,7 +835,7 @@ function render(){
       '<div class="t">'+hhmm(i.ts)+'<br>'+rel(i.ts)+'</div><div class="b"></div>'+
       '<div><h3><a href="'+esc(i.url)+'" target="_blank" rel="noopener">'+esc(i.title)+'</a></h3>'+
       (i.why?'<div class="why">'+esc(i.why)+'</div>':'')+
-      '<div class="meta"><span class="src">'+esc(i.source)+'</span>'+(i.dupes?'<span class="more" title="also carried by '+i.dupes+' other source(s)">+'+i.dupes+'</span>':'')+chips+topics+
+      '<div class="meta"><span class="src">'+esc(i.source)+'</span>'+(i.pub?'<span class="topic">pub '+esc(i.pub)+'</span>':'')+(i.dupes?'<span class="more" title="also carried by '+i.dupes+' other source(s)">+'+i.dupes+'</span>':'')+chips+topics+
       (i.deadline?'<span class="dl">'+esc(i.deadline_label||'Deadline')+' '+i.deadline+'</span>':'')+
       (i.verified?'<span class="vfy">✓ verified</span>':'')+
       '</div></div></div>');
