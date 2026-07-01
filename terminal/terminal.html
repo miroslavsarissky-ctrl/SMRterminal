@@ -245,6 +245,7 @@ footer b{color:var(--muted)}
       <button class="tgl on" data-w="168">7D</button>
       <button class="tgl" data-w="0">ALL</button>
       <button class="tgl" id="vonly">Verified only</button>
+      <button class="tgl on" id="noisef" title="Hide items the verify layer scored zero relevance. Unscored items always show.">Mute routine</button>
       <span class="entflag" id="entflag">Filtered: <span id="entname"></span> <b id="entclear">×</b></span>
     </div>
     <div class="feed" id="feed"></div>
@@ -366,6 +367,7 @@ var EMAP = {}; WL.entities.forEach(function(e){ EMAP[e.id] = e; });
 /* verified layer: merge sidecar (data/verified.js) onto feed items by id */
 var VERD = window.NIT_VERIFIED || {items:{}};
 if (FEED && FEED.items) FEED.items.forEach(function(i){
+  if (VERD.scored && VERD.scored[i.id] != null) i.rel = VERD.scored[i.id];
   var v = VERD.items && VERD.items[i.id];
   if (v){
     i.verified = true;
@@ -382,7 +384,8 @@ var BUCKETS = [
   {k:'news',       l:'News', c:'var(--news)'},
   {k:'social',     l:'X / Social', c:'var(--soc)'}
 ];
-var state = { q:'', windowH:168, buckets:{}, ent:null, vonly:false };
+var state = { q:'', windowH:168, buckets:{}, ent:null, vonly:false, mute:true };
+function isMuted(i){ return state.mute && i.rel === 0; }
 BUCKETS.forEach(function(b){ state.buckets[b.k] = true; });
 
 function esc(s){ var d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
@@ -421,7 +424,7 @@ if (!FEED) {
 
 function boot(){
   /* ticker tape: latest 18 headlines, duplicated for seamless loop */
-  var latest = FEED.items.slice(0,18);
+  var latest = FEED.items.filter(function(i){ return !isMuted(i); }).slice(0,18);
   var seg = latest.map(function(i){
     return '<span class="tk"><i style="color:'+bucketColor(i.bucket)+'">●</i>'+hhmm(i.ts)+' <b>'+esc(i.title.slice(0,110))+'</b></span>';
   }).join('');
@@ -429,10 +432,16 @@ function boot(){
 
   /* KPI strip */
   var k = document.getElementById('kpis');
-  k.innerHTML = BUCKETS.map(function(b){
-    var n = FEED.items.filter(function(i){ return i.bucket===b.k && (Date.now()-new Date(i.ts))/36e5 <= 168; }).length;
-    return '<div class="kpi on" data-k="'+b.k+'" title="Show only this; click others to add them back" style="--c:'+b.c+'"><div class="n">'+n+'</div><div class="l">'+b.l+' \u00b7 7d</div></div>';
-  }).join('');
+  function paintKpis(){
+    k.innerHTML = BUCKETS.map(function(b){
+      var n = FEED.items.filter(function(i){ return i.bucket===b.k && !isMuted(i) && (Date.now()-new Date(i.ts))/36e5 <= 168; }).length;
+      return '<div class="kpi" data-k="'+b.k+'" title="Show only this; click others to add them back" style="--c:'+b.c+'"><div class="n">'+n+'</div><div class="l">'+b.l+' \u00b7 7d</div></div>';
+    }).join('');
+    k.querySelectorAll('.kpi').forEach(function(t){
+      var on = state.buckets[t.dataset.k]; t.classList.toggle('on', on); t.classList.toggle('off', !on);
+    });
+  }
+  paintKpis();
   k.addEventListener('click', function(ev){
     var el = ev.target.closest('.kpi'); if(!el) return;
     var key = el.dataset.k, keys = BUCKETS.map(function(b){return b.k;});
@@ -493,6 +502,7 @@ function boot(){
   /* coverage note */
   var wl1 = WL.entities.filter(function(e){return e.tier===1;}).length;
   document.getElementById('coverage').innerHTML =
+    '<b style="color:var(--text)">'+FEED.items.filter(function(i){return i.rel===0;}).length+'</b> routine (score-0) items muted; use Mute routine to reveal. '+
     'Tracking <b style="color:var(--text)">'+WL.entities.length+'</b> entities from the fuel-cycle and reactor-landscape dashboards ('+wl1+' tier-1). '+
     'Sources live: Federal Register, Grants.gov, NRC ADAMS, SEC EDGAR, OSTI, Google News.'+
     (FEED.sources.datagov?' Regulations.gov + Congress live.':' Regulations.gov + Congress pending api.data.gov key.')+
@@ -508,6 +518,9 @@ function boot(){
   });
   document.getElementById('vonly').addEventListener('click', function(){
     state.vonly = !state.vonly; this.classList.toggle('on', state.vonly); render();
+  });
+  document.getElementById('noisef').addEventListener('click', function(){
+    state.mute = !state.mute; this.classList.toggle('on', state.mute); paintKpis(); render();
   });
   document.getElementById('entclear').addEventListener('click', function(){ setEnt(null); });
   document.getElementById('feed').addEventListener('click', function(ev){
@@ -810,6 +823,7 @@ function paintCap(){
 function render(){
   var items = FEED.items.filter(function(i){
     if (i.bucket==='policy') return false;          // legislation shows in its own panel
+    if (isMuted(i)) return false;                   // verify layer scored it zero relevance
     if (!state.buckets[i.bucket]) return false;
     if (state.windowH && (Date.now()-new Date(i.ts))/36e5 > state.windowH) return false;
     if (state.vonly && !i.verified) return false;
