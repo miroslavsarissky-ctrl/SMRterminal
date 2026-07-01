@@ -32,7 +32,7 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           VERIFY_BACKFILL: ${{ inputs.backfill == true && '1' || '0' }}
-        run: python collectors/verify.py
+        run: python terminal/collectors/verify.py
 
       - name: Commit verified layer
         run: |
