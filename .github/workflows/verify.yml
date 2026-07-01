@@ -1,0 +1,55 @@
+name: verify-layer
+
+on:
+  schedule:
+    - cron: "25 */2 * * *"
+  workflow_dispatch:
+    inputs:
+      backfill:
+        description: "Score the entire current feed (use once, on first run)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: terminal-data
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run verification pass
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          VERIFY_BACKFILL: ${{ inputs.backfill == true && '1' || '0' }}
+        run: python collectors/verify.py
+
+      - name: Commit verified layer
+        run: |
+          git config user.name "verify-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add terminal/data/verified.js
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "verify: update verified layer"
+          for attempt in 1 2 3; do
+            if git push; then
+              exit 0
+            fi
+            git pull --rebase
+            sleep 5
+          done
+          echo "Push failed after retries" >&2
+          exit 1
