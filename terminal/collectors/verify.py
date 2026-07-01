@@ -256,7 +256,9 @@ def main():
         len(items), len(side["scored"]), len(todo),
         " (backfill)" if BACKFILL else "",
     ))
-
+    if not todo:
+        log("nothing new to score")
+        return
     if dry:
         for i in todo[:10]:
             log("would send: %s | %s" % (i["bucket"], i["title"][:80]))
