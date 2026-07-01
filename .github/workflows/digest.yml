@@ -1,0 +1,58 @@
+name: morning-digest
+
+on:
+  schedule:
+    # 11:05 UTC: 07:05 New York in summer, 06:05 in winter.
+    # Change to "5 12 * * 1-5" each November if the hour matters.
+    - cron: "5 11 * * 1-5"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: digest
+  cancel-in-progress: false
+
+jobs:
+  digest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Compose and send digest
+        env:
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          DIGEST_TO: ${{ secrets.DIGEST_TO }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          DIGEST_MOVE_PCT: "5"
+          DIGEST_DEADLINE_DAYS: "10"
+        run: python terminal/collectors/digest.py
+
+      - name: Commit digest state and archive
+        run: |
+          git config user.name "digest-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add terminal/data/digest_state.json terminal/data/digest_latest.md
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "digest: state and archive"
+          for attempt in 1 2 3; do
+            if git push; then
+              exit 0
+            fi
+            git pull --rebase
+            sleep 5
+          done
+          echo "Push failed after retries" >&2
+          exit 1
