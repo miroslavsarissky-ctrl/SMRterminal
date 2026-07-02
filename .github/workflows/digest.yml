@@ -2,9 +2,9 @@ name: morning-digest
 
 on:
   schedule:
-    # 11:05 UTC: 07:05 New York in summer, 06:05 in winter.
-    # Change to "5 12 * * 1-5" each November if the hour matters.
-    - cron: "5 11 * * 1-5"
+    # 07:00 UTC: 09:00 CEST in summer, 08:00 CET in winter.
+    # Change to "0 8 * * 1-5" each November to hold 09:00 year-round.
+    - cron: "0 7 * * 1-5"
   workflow_dispatch:
 
 permissions:
