@@ -1,23 +1,24 @@
-NUCLEAR INTEL DIGEST  Thu 02 Jul 2026
+NUCLEAR INTEL DIGEST  Fri 03 Jul 2026
 
 NWCL DEAL DESK
-NHIC 10.93  1d +0.4%  7d -0.3%  30d -4.5%
+NHIC 11.00  1d +0.6%  7d +1.4%  30d -2.6%
   No new SEC filings.
 
-NEW ON THE VERIFIED LAYER (1)
-  [2] [Award · Fuel fab] 68--High-Assay Low-Enriched Uranium (HALEU) Enrichment
-      DOE HALEU enrichment solicitation directly supports feedstock availability for advanced-reactor deployment including newcleo's fuel cycle.
-      SAM.gov · ENERGY, DEPARTMENT OF | https://sam.gov/workspace/contract/opp/8ddc0b952970484eb583ce224c5fb274/view
+NEW ON THE VERIFIED LAYER (0)
+  Nothing new promoted since the last digest.
 
 DEADLINE RADAR (next 10 days)
-  D-6  2026-07-08  Responses due: [Notice · Nuclear] *Request for Information* Reviewing Smarter: AI Tools for Bui
+  D-5  2026-07-08  Responses due: [Notice · Nuclear] *Request for Information* Reviewing Smarter: AI Tools for Bui
         https://sam.gov/workspace/contract/opp/6bc030a2957b4498ad6c0d944a39cffa/view
-  D-6  2026-07-08  Programme: NRIC Nuclear Energy Launch Pad (Launch Pad INL / Launch Pad USA)
+  D-5  2026-07-08  Programme: NRIC Nuclear Energy Launch Pad (Launch Pad INL / Launch Pad USA)
         https://nric.inl.gov/nuclear-energy-launch-pad-at-idaho-national-laboratory/
-  D-8  2026-07-10  Responses due: [RFP · Recycling] T--G&G DATA REPROCESSING IDIQ
+  D-7  2026-07-10  Responses due: [RFP · Recycling] T--G&G DATA REPROCESSING IDIQ
         https://sam.gov/workspace/contract/opp/2ab5daab0a874068a3bb42092a21773e/view
+  D-10  2026-07-13  Responses due: [RFP · Enrichment] Non-Research Long-Term Care facility needed for the enrichmen
+        https://sam.gov/workspace/contract/opp/6934753cfbdf45f1b93928b67e93355a/view
 
 MARKET MOVES (over 5%)
-  TLN     360.79  -6.1%
+  ASPI      5.63  -8.8%
+  EU        1.29  -5.2%
 
 Terminal: https://miroslavsarissky-ctrl.github.io/SMRterminal/terminal/terminal.html
