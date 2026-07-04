@@ -2,7 +2,6 @@ name: market-quotes
 
 on:
   schedule:
-    # 22:35 UTC weekdays: comfortably after US market close year-round.
     - cron: "35 22 * * 1-5"
   workflow_dispatch:
 
@@ -36,16 +35,21 @@ jobs:
           CONGRESS_API_KEY: ${{ secrets.CONGRESS_API_KEY }}
         run: python terminal/collectors/congress.py
 
+      - name: Fetch generation mix
+        env:
+          EIA_API_KEY: ${{ secrets.EIA_API_KEY }}
+        run: python terminal/collectors/energymix.py
+
       - name: Commit data
         run: |
           git config user.name "quotes-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add terminal/data/quotes.js terminal/data/deal.js terminal/data/legislation.js
+          git add terminal/data/quotes.js terminal/data/deal.js terminal/data/legislation.js terminal/data/energymix.js
           if git diff --cached --quiet; then
             echo "No changes to commit"
             exit 0
           fi
-          git commit -m "data: quotes, deal and legislation update"
+          git commit -m "data: quotes, deal, legislation and mix update"
           for attempt in 1 2 3; do
             if git push; then
               exit 0
