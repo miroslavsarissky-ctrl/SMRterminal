@@ -225,6 +225,13 @@ footer b{color:var(--muted)}
 .elegend .rleg:hover{border-color:var(--line);color:var(--text)}
 .elegend .rleg.on{border-color:var(--orange);color:var(--text)}
 .rswatch{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:7px;vertical-align:-1px}
+.mixh{font:600 9.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:14px 0 6px}
+.mixrow{display:grid;grid-template-columns:9px 64px 1fr 34px;gap:7px;align-items:center;padding:2px 0}
+.mixrow>i{width:9px;height:9px;border-radius:2px}
+.mixrow .ml{font:500 11px var(--mono);color:var(--text)}
+.mixrow .mb{height:5px;background:var(--panel);border-radius:2px;overflow:hidden}
+.mixrow .mb i{display:block;height:100%}
+.mixrow .mp{font:600 10.5px var(--mono);color:var(--muted);text-align:right}
 .edetail{padding:18px}
 .edetail .dname{font-size:17px;font-weight:800;margin-bottom:2px;line-height:1.15}
 .edetail .dmeta{font:500 10px var(--mono);color:var(--dim);margin-bottom:15px}
@@ -399,6 +406,7 @@ footer b{color:var(--muted)}
 <script src="data/legislation.js"></script>
 <script src="data/energy.js"></script>
 <script src="data/rto.js"></script>
+<script src="data/energymix.js"></script>
 <script src="data/usmap.js"></script>
 <script src="data/conferences.js"></script>
 <script src="data/programmes.js"></script>
@@ -412,6 +420,7 @@ var FEED = window.NIT_FEED || null;
 var WL   = window.NIT_WATCHLIST || {entities:[]};
 var ENERGY = window.NIT_ENERGY || null;
 var RTO = window.NIT_RTO || null;
+var MIX = window.NIT_MIX || null;
 var CONF = window.NIT_CONF || null;
 var PROG = window.NIT_PROG || null;
 var US_MAP = window.US_MAP || null;
@@ -791,6 +800,47 @@ function rtoAgg(k){
 }
 function rtoHint(){ document.getElementById('edetail').innerHTML='<div class="dname">RTO territories</div><div class="dhint">Click a territory on the map or in the legend to see average retail prices by customer class.</div>'; }
 
+/* ---- generation mix (data/energymix.js) ---- */
+var MIXGROUPS = [
+  {k:['NG'],  l:'Gas',        c:'#E0A43C'},
+  {k:['COW'], l:'Coal',       c:'#7A6A5A'},
+  {k:['NUC'], l:'Nuclear',    c:'var(--teal)'},
+  {k:['HYC'], l:'Hydro',      c:'#4C86C6'},
+  {k:['WND'], l:'Wind',       c:'#57BFC9'},
+  {k:['SUN'], l:'Solar',      c:'#E7D653'},
+  {k:['GEO'], l:'Geothermal', c:'#C46A4C'},
+  {k:['WWW','WAS'], l:'Biomass', c:'#7FA65A'},
+  {k:['PET','PC'],  l:'Oil',     c:'#8E5FA8'},
+  {k:['OOG','OTH'], l:'Other',   c:'#6B7A82'}
+];
+function mixCalc(list){
+  var tot=0, sums={};
+  list.forEach(function(m){ if(!m)return; tot+=m.total||0;
+    for(var f in m.src) sums[f]=(sums[f]||0)+m.src[f]; });
+  if(!tot) return null;
+  var rows=[], other=0;
+  MIXGROUPS.forEach(function(g){
+    var v=0; g.k.forEach(function(f){ v+=sums[f]||0; });
+    var pct=v/tot*100;
+    if(g.l==='Other'){ other+=pct; return; }
+    if(pct>=0.8) rows.push({l:g.l,c:g.c,p:pct}); else other+=pct;
+  });
+  if(other>=0.05) rows.push({l:'Other',c:'#6B7A82',p:other});
+  rows.sort(function(a,b){return b.p-a.p;});
+  return {rows:rows, tot:tot};
+}
+function mixHTML(agg, period){
+  if(!agg || !agg.rows.length) return '';
+  var max=agg.rows[0].p||1;
+  var h='<div class="mixh">Generation mix '+(period||'')+' \u00b7 utility-scale \u00b7 '+(agg.tot>=1000?(agg.tot/1000).toFixed(0)+' TWh':Math.round(agg.tot)+' GWh')+'</div>';
+  agg.rows.forEach(function(r){
+    h+='<div class="mixrow"><i style="background:'+r.c+'"></i><span class="ml">'+r.l+'</span>'+
+       '<span class="mb"><i style="width:'+(r.p/max*100).toFixed(1)+'%;background:'+r.c+'"></i></span>'+
+       '<span class="mp">'+(r.p<10?r.p.toFixed(1):Math.round(r.p))+'%</span></div>';
+  });
+  return h;
+}
+
 function radIcon(cx,cy,s){
   s=s||1;
   var ri=2.0, ro=5.1, half=30*Math.PI/180, blades='';
@@ -910,6 +960,7 @@ function showState(s){
   } else {
     h+='<div class="dnuke" style="border-color:var(--line);background:none"><div class="lab" style="color:var(--muted)">Nuclear</div><div class="sub" style="margin-top:0">No operating nuclear capacity</div></div>';
   }
+  if(MIX&&MIX.states&&MIX.states[s]) h+=mixHTML(mixCalc([MIX.states[s]]), MIX.states[s].period);
   el.innerHTML=h;
 }
 
@@ -930,6 +981,10 @@ function showRTO(k){
        '<div class="sub">'+a.units+' reactor'+(a.units===1?'':'s')+' \u00b7 '+a.mw.toLocaleString()+' MW summer</div></div>';
   } else {
     h+='<div class="dnuke" style="border-color:var(--line);background:none"><div class="lab" style="color:var(--muted)">Nuclear</div><div class="sub" style="margin-top:0">No operating nuclear capacity</div></div>';
+  }
+  if(MIX&&MIX.states){
+    var mm=t.states.map(function(x){return MIX.states[x];}).filter(Boolean);
+    if(mm.length) h+=mixHTML(mixCalc(mm), MIX.period);
   }
   h+='<div class="dhint" style="margin-top:10px">'+esc(t.states.join(' \u00b7 '))+'</div>';
   h+='<div class="dhint">'+esc(RTO.note||'')+'</div>';
