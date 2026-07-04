@@ -27,6 +27,8 @@ jobs:
         run: python terminal/collectors/quotes.py
 
       - name: Fetch deal filings
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python terminal/collectors/deal.py
 
       - name: Fetch legislation
