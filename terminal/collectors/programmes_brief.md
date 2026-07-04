@@ -15,3 +15,5 @@ Verify each on the sponsor's own site. Prefer: ARPA-E eXCHANGE (arpa-e-foa.energ
 
 ## Discipline
 Confirm the current status and any deadline on the sponsor's own page; never carry forward a prior year's round. Capture the next deadline where one is published. Flag eligibility constraints that matter to a European-owned applicant (for example US-manufacturing conditions on resulting IP). Do not fabricate programmes, amounts, statuses or deadlines. Label anything you cannot confirm on an official source as Low confidence. Fewer, well-verified entries beat a padded list.
+Known-good canonical links, use verbatim when the programme matches:
+- CRADA mechanism: https://www.energy.gov/management/articles/guidance-fast-track-cooperative-research-and-development-agreement-crada
