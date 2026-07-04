@@ -232,6 +232,14 @@ footer b{color:var(--muted)}
 .mixrow .mb{height:5px;background:var(--panel);border-radius:2px;overflow:hidden}
 .mixrow .mb i{display:block;height:100%}
 .mixrow .mp{font:600 10.5px var(--mono);color:var(--muted);text-align:right}
+/* fleet overlay */
+.fp{stroke:#0d1114;stroke-width:1.1;cursor:pointer}
+.fp:hover{stroke:#fff}
+.fp.dim{opacity:.15}
+.fp.restart{fill-opacity:.28;stroke-dasharray:2.5 2}
+#fleetlegend{margin-top:4px}
+.flrow{display:flex;justify-content:space-between;gap:10px;font:500 11px var(--mono);color:var(--text);padding:2px 0}
+.flrow .mp{color:var(--muted)}
 .edetail{padding:18px}
 .edetail .dname{font-size:17px;font-weight:800;margin-bottom:2px;line-height:1.15}
 .edetail .dmeta{font:500 10px var(--mono);color:var(--dim);margin-bottom:15px}
@@ -331,6 +339,9 @@ footer b{color:var(--muted)}
         <button data-m="states" class="on">States</button>
         <button data-m="rto">RTO territories</button>
       </div>
+      <div class="seg" id="fleetseg">
+        <button id="fleetbtn" title="Nuclear fleet by operator">☢ Fleet</button>
+      </div>
       <div class="seg" id="sectorseg">
         <button data-s="all" class="on">All</button>
         <button data-s="res">Residential</button>
@@ -344,6 +355,7 @@ footer b{color:var(--muted)}
       <svg id="usmap" viewBox="0 0 975 610" preserveAspectRatio="xMidYMid meet" role="img" aria-label="US state map"></svg>
       <div id="etip"></div>
       <div class="elegend" id="elegend"></div>
+      <div class="elegend" id="fleetlegend"></div>
     </div>
     <aside class="edetail" id="edetail"></aside>
   </div>
@@ -407,6 +419,7 @@ footer b{color:var(--muted)}
 <script src="data/energy.js"></script>
 <script src="data/rto.js"></script>
 <script src="data/energymix.js"></script>
+<script src="data/plants.js"></script>
 <script src="data/usmap.js"></script>
 <script src="data/conferences.js"></script>
 <script src="data/programmes.js"></script>
@@ -421,6 +434,7 @@ var WL   = window.NIT_WATCHLIST || {entities:[]};
 var ENERGY = window.NIT_ENERGY || null;
 var RTO = window.NIT_RTO || null;
 var MIX = window.NIT_MIX || null;
+var PLANTS = window.NIT_PLANTS || null;
 var CONF = window.NIT_CONF || null;
 var PROG = window.NIT_PROG || null;
 var US_MAP = window.US_MAP || null;
@@ -752,6 +766,16 @@ function boot(){
     var c = ev.target.closest('[data-r]'); if(!c || estate.mode!=='rto') return;
     selectRTO(c.getAttribute('data-r'));
   });
+  document.getElementById('fleetbtn').addEventListener('click', function(){
+    estate.fleet=!estate.fleet; estate.fsel=null; this.classList.toggle('on', estate.fleet);
+    paintFleet();
+  });
+  document.getElementById('fleetlegend').addEventListener('click', function(ev){
+    var c=ev.target.closest('[data-g]'); if(!c) return;
+    var g=c.getAttribute('data-g');
+    estate.fsel = (estate.fsel===g)?null:g;
+    paintFleet(); if(estate.fsel) showFleet(g);
+  });
 
   render();
 }
@@ -765,7 +789,7 @@ function setEnt(id){
 }
 
 /* ============================ ENERGY VIEW ============================ */
-var estate = { sector:'all', built:false, sel:null, mode:'states', rto:null };
+var estate = { sector:'all', built:false, sel:null, mode:'states', rto:null, fleet:false, fsel:null };
 var SECTORLABEL = {all:'All-sector',res:'Residential',com:'Commercial',ind:'Industrial'};
 var SKIPLABEL = {DC:1,DE:1,RI:1,CT:1,NJ:1,MD:1,MA:1,NH:1,VT:1};   // tiny NE states: identified on hover, not crammed labels
 var SNAME = {AL:'Alabama',AK:'Alaska',AZ:'Arizona',AR:'Arkansas',CA:'California',CO:'Colorado',CT:'Connecticut',DE:'Delaware',DC:'District of Columbia',FL:'Florida',GA:'Georgia',HI:'Hawaii',ID:'Idaho',IL:'Illinois',IN:'Indiana',IA:'Iowa',KS:'Kansas',KY:'Kentucky',LA:'Louisiana',ME:'Maine',MD:'Maryland',MA:'Massachusetts',MI:'Michigan',MN:'Minnesota',MS:'Mississippi',MO:'Missouri',MT:'Montana',NE:'Nebraska',NV:'Nevada',NH:'New Hampshire',NJ:'New Jersey',NM:'New Mexico',NY:'New York',NC:'North Carolina',ND:'North Dakota',OH:'Ohio',OK:'Oklahoma',OR:'Oregon',PA:'Pennsylvania',RI:'Rhode Island',SC:'South Carolina',SD:'South Dakota',TN:'Tennessee',TX:'Texas',UT:'Utah',VT:'Vermont',VA:'Virginia',WA:'Washington',WV:'West Virginia',WI:'Wisconsin',WY:'Wyoming'};
@@ -841,6 +865,69 @@ function mixHTML(agg, period){
   return h;
 }
 
+/* ---- nuclear fleet overlay (data/plants.js) ---- */
+function projAlbers(lon, lat){
+  var rad=Math.PI/180, p1=29.5*rad, p2=45.5*rad;
+  var n=(Math.sin(p1)+Math.sin(p2))/2;
+  var C=Math.cos(p1)*Math.cos(p1)+2*n*Math.sin(p1);
+  var lam=(lon+96)*rad, phi=lat*rad, lam0=-0.6*rad, phi0=38.7*rad;
+  var rho=Math.sqrt(C-2*n*Math.sin(phi))/n, rho0=Math.sqrt(C-2*n*Math.sin(phi0))/n;
+  return [487.5+1300*rho*Math.sin(n*(lam-lam0)), 305-1300*(rho0-rho*Math.cos(n*(lam-lam0)))];
+}
+function fleetGW(g){
+  var mw=0,u=0,sites=0;
+  PLANTS.plants.forEach(function(p){ if(p.g===g && !p.s){ mw+=p.mw; u+=p.u; sites++; } });
+  return {mw:mw,u:u,sites:sites};
+}
+function paintFleet(){
+  var layer=document.getElementById('fleetlayer'), leg=document.getElementById('fleetlegend');
+  if(!layer||!leg) return;
+  var nk=document.getElementById('nukeicons');
+  if(!estate.fleet || !PLANTS){ layer.innerHTML=''; leg.innerHTML=''; if(nk) nk.style.display=''; return; }
+  if(nk) nk.style.display='none';
+  var out='';
+  PLANTS.plants.forEach(function(p,i){
+    var xy=projAlbers(p.lon,p.lat), g=PLANTS.groups[p.g]||{};
+    var r=Math.max(3, Math.sqrt(p.mw)*0.16);
+    var cls='fp'+(p.s?' restart':'')+((estate.fsel&&p.g!==estate.fsel)?' dim':'');
+    out+='<circle class="'+cls+'" data-p="'+i+'" cx="'+xy[0].toFixed(1)+'" cy="'+xy[1].toFixed(1)+'" r="'+r.toFixed(1)+'" fill="'+(g.c||'#999')+'"></circle>';
+  });
+  layer.innerHTML=out;
+  var h='';
+  for(var k in PLANTS.groups){
+    var f=fleetGW(k);
+    h+='<span class="rleg'+(estate.fsel===k?' on':'')+'" data-g="'+k+'"><i style="background:'+PLANTS.groups[k].c+'"></i>'+PLANTS.groups[k].l+' '+(f.mw/1000).toFixed(1)+'</span>';
+  }
+  h+='<span class="legunit">operating GW by operator \u00b7 circle area \u2248 site MW \u00b7 dashed = restart pending \u00b7 click an operator</span>';
+  leg.innerHTML=h;
+}
+function showPlant(i){
+  var p=PLANTS.plants[i], g=PLANTS.groups[p.g]||{}, el=document.getElementById('edetail');
+  var st=statesData()[p.st]||{}, pr=st.price||{};
+  function row(k,v){return '<div class="drow"><span class="k">'+k+'</span><span class="vv">'+v+'</span></div>';}
+  var h='<div class="dname"><i class="rswatch" style="background:'+g.c+'"></i>'+esc(p.n)+'</div>';
+  h+='<div class="dmeta">'+esc(p.o)+' \u00b7 '+(SNAME[p.st]||p.st)+(p.s?' \u00b7 '+esc(p.s):'')+'</div>';
+  h+=row('Units', p.u)+row('Capacity', p.mw.toLocaleString()+' MW')+
+     row('State all-sector price', pr.all!=null?pr.all.toFixed(2)+' \u00a2/kWh':'\u2014')+
+     row('State industrial price', pr.ind!=null?pr.ind.toFixed(2)+' \u00a2/kWh':'\u2014');
+  h+='<div class="dhint" style="margin-top:10px">'+esc(PLANTS.source||'')+'</div>';
+  el.innerHTML=h;
+}
+function showFleet(k){
+  var g=PLANTS.groups[k], f=fleetGW(k), el=document.getElementById('edetail');
+  var sites=PLANTS.plants.filter(function(p){return p.g===k;});
+  var stset={}; sites.forEach(function(p){ if(!p.s) stset[p.st]=1; });
+  var h='<div class="dname"><i class="rswatch" style="background:'+g.c+'"></i>'+esc(g.l)+'</div>';
+  h+='<div class="dmeta">'+f.sites+' operating sites \u00b7 '+f.u+' units \u00b7 '+Object.keys(stset).join(' ')+'</div>';
+  h+='<div class="dnuke"><div class="lab">Operating fleet</div><div class="big">'+(f.mw/1000).toFixed(2)+' GW</div>'+
+     '<div class="sub">'+f.mw.toLocaleString()+' MW summer</div></div>';
+  sites.sort(function(a,b){return b.mw-a.mw;}).forEach(function(p){
+    h+='<div class="flrow"><span>'+esc(p.n)+(p.s?' \u00b7 '+esc(p.s):'')+'</span><span class="mp">'+(p.mw/1000).toFixed(2)+'</span></div>';
+  });
+  h+='<div class="dhint" style="margin-top:8px">GW per site \u00b7 '+esc(PLANTS.source||'')+'</div>';
+  el.innerHTML=h;
+}
+
 function radIcon(cx,cy,s){
   s=s||1;
   var ri=2.0, ro=5.1, half=30*Math.PI/180, blades='';
@@ -890,11 +977,16 @@ function buildMap(){
     frag+='<text class="stlabel" x="'+c[0]+'" y="'+(c[1]-6)+'">'+k+'</text>';
     frag+='<text class="stval" data-s="'+k+'" x="'+c[0]+'" y="'+(c[1]+7)+'"></text>';
   }
-  frag+='<g id="nukeicons"></g>';
+  frag+='<g id="nukeicons"></g><g id="fleetlayer"></g>';
   svg.innerHTML=frag;
   placeNukeIcons();                                   // anchors need the paths in the DOM for hit-testing
   var tip=document.getElementById('etip'), col=document.getElementById('emapcol');
   svg.addEventListener('mousemove',function(ev){
+    var fp=ev.target.closest('[data-p]');
+    if(fp && PLANTS){ var pp=PLANTS.plants[+fp.getAttribute('data-p')];
+      var r0=col.getBoundingClientRect(); tip.style.left=(ev.clientX-r0.left)+'px'; tip.style.top=(ev.clientY-r0.top)+'px';
+      tip.innerHTML='<b>'+pp.n+'</b> '+pp.mw.toLocaleString()+' MW \u00b7 '+pp.o; tip.style.display='block'; return;
+    }
     var t=ev.target.closest('[data-s]');
     if(t){ var s=t.getAttribute('data-s'); if(estate.mode!=='rto' && s!==estate.sel) showState(s);
       var r=col.getBoundingClientRect(); tip.style.left=(ev.clientX-r.left)+'px'; tip.style.top=(ev.clientY-r.top)+'px';
@@ -903,7 +995,7 @@ function buildMap(){
     } else { tip.style.display='none'; }
   });
   svg.addEventListener('mouseleave',function(){tip.style.display='none';});
-  svg.addEventListener('click',function(ev){var t=ev.target.closest('[data-s]');if(!t)return;var s=t.getAttribute('data-s');if(estate.mode==='rto'){var k=stateRTO(s);if(k)selectRTO(k);}else showState(s);});
+  svg.addEventListener('click',function(ev){var fp=ev.target.closest('[data-p]');if(fp){showPlant(+fp.getAttribute('data-p'));return;}var t=ev.target.closest('[data-s]');if(!t)return;var s=t.getAttribute('data-s');if(estate.mode==='rto'){var k=stateRTO(s);if(k)selectRTO(k);}else showState(s);});
   estate.built=true;
 }
 
