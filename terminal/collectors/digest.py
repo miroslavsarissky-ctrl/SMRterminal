@@ -219,7 +219,11 @@ def build_text(c):
         L.append(line)
     if c["new_filings"]:
         for f in c["new_filings"][:6]:
-            L.append("  NEW %s  %s  %s" % (f["form"], f["date"], f["url"]))
+            L.append("  NEW %s  %s  %s" % (
+                f["form"], f["date"], f.get("ai_t") or "filing"))
+            if f.get("ai_s"):
+                L.append("      %s" % f["ai_s"])
+            L.append("      %s" % f["url"])
     else:
         L.append("  No new SEC filings.")
     L.append("")
@@ -290,8 +294,14 @@ def build_html(c):
     if c["new_filings"]:
         o.append("<ul style='padding-left:18px'>")
         for f in c["new_filings"][:6]:
-            o.append('<li><b>%s</b> %s <a href="%s">document</a></li>'
-                     % (esc(f["form"]), f["date"], esc(f["url"])))
+            o.append('<li><b>%s</b> %s: %s<br>'
+                     % (esc(f["form"]), f["date"],
+                        esc(f.get("ai_t") or "filing")))
+            if f.get("ai_s"):
+                o.append('<span style="color:#00868a">%s</span><br>'
+                         % esc(f["ai_s"]))
+            o.append('<a href="%s" style="font:11px monospace">'
+                     'document</a></li>' % esc(f["url"]))
         o.append("</ul>")
     else:
         o.append('<p style="color:%s">No new SEC filings.</p>' % mut)

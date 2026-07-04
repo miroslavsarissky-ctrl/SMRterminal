@@ -23,6 +23,8 @@ Design notes
 """
 
 import json
+import os
+import re
 import sys
 import time
 import urllib.request
@@ -52,9 +54,121 @@ FORMS = {
 }
 MAX_FILINGS = 14
 
+# ---- AI titles and summaries (Claude) --------------------------------
+API_URL = "https://api.anthropic.com/v1/messages"
+AI_MODEL = os.environ.get("DEAL_AI_MODEL", "claude-sonnet-4-6")
+AI_MAX = int(os.environ.get("DEAL_AI_MAX", "20"))
+AI_MOCK = os.environ.get("DEAL_AI_MOCK", "0") == "1"
+DOC_CHAR_CAP = 28000
+
+AI_SYSTEM = """You title and summarise SEC filings for an internal \
+monitoring terminal. You are given the text of one filing. Respond with \
+strict JSON only: {"title": "...", "summary": "..."}.
+Rules: the title is at most 12 words, concrete, and names the document \
+type and subject. The summary is exactly two sentences, purely \
+descriptive of what the document contains. British English. Never \
+characterise the merits, valuation or attractiveness of the transaction \
+or any securities; no advice; no quality adjectives; do not speculate \
+beyond the text. No markdown fences, JSON only."""
+
 
 def log(msg):
     print("[deal] " + msg, flush=True)
+
+
+def load_prev_ai():
+    """Carry summaries forward across rebuilds, keyed by document URL."""
+    if not OUT_PATH.exists():
+        return {}
+    try:
+        raw = OUT_PATH.read_text(encoding="utf-8")
+        prev = json.loads(raw[raw.index("{"):].rstrip().rstrip(";"))
+        return {f["url"]: {"ai_t": f["ai_t"], "ai_s": f["ai_s"]}
+                for f in prev.get("filings", []) if f.get("ai_t")}
+    except (ValueError, KeyError, json.JSONDecodeError):
+        return {}
+
+
+def strip_html(html):
+    text = re.sub(r"<(script|style)[^>]*>.*?</\1>", " ", html,
+                  flags=re.S | re.I)
+    text = re.sub(r"<[^>]+>", " ", text)
+    text = re.sub(r"&nbsp;|&#160;|&amp;", " ", text)
+    return re.sub(r"\s+", " ", text).strip()
+
+
+def http_get(url):
+    req = urllib.request.Request(url, headers=UA)
+    with urllib.request.urlopen(req, timeout=40) as resp:
+        return resp.read().decode("utf-8", "ignore")
+
+
+def fetch_doc_text(f):
+    try:
+        text = strip_html(http_get(f["url"]))
+    except Exception as e:
+        log("  ! doc fetch failed %s %s" % (f["date"], repr(e)[:60]))
+        return ""
+    if len(text) >= 800:
+        return text[:DOC_CHAR_CAP]
+    # thin cover page: try the largest exhibit in the accession folder
+    try:
+        folder = f["url"].rsplit("/", 1)[0]
+        idx = json.loads(http_get(folder + "/index.json"))
+        items = [i for i in idx.get("directory", {}).get("item", [])
+                 if i.get("name", "").endswith(".htm")
+                 and folder + "/" + i["name"] != f["url"]]
+        items.sort(key=lambda i: int(i.get("size") or 0), reverse=True)
+        if items:
+            alt = strip_html(http_get(folder + "/" + items[0]["name"]))
+            if len(alt) > len(text):
+                return alt[:DOC_CHAR_CAP]
+    except Exception:
+        pass
+    return text[:DOC_CHAR_CAP]
+
+
+def summarise(text):
+    if AI_MOCK:
+        return {"title": "Mock filing title",
+                "summary": "Mock sentence one. Mock sentence two."}
+    key = os.environ.get("ANTHROPIC_API_KEY", "").strip()
+    if not key:
+        return None
+    body = json.dumps({
+        "model": AI_MODEL, "max_tokens": 300, "temperature": 0,
+        "system": AI_SYSTEM,
+        "messages": [{"role": "user",
+                      "content": "Filing text:\n" + text}],
+    }).encode("utf-8")
+    for delay in (0, 6, 20):
+        if delay:
+            time.sleep(delay)
+        try:
+            req = urllib.request.Request(API_URL, data=body, method="POST",
+                headers={"content-type": "application/json",
+                         "x-api-key": key,
+                         "anthropic-version": "2023-06-01"})
+            with urllib.request.urlopen(req, timeout=90) as resp:
+                data = json.loads(resp.read().decode("utf-8"))
+            out = "".join(b.get("text", "") for b in data.get("content", [])
+                          if b.get("type") == "text").strip()
+            out = re.sub(r"^```(?:json)?\s*|\s*```$", "", out)
+            s, e = out.find("{"), out.rfind("}")
+            got = json.loads(out[s:e + 1])
+            title = str(got.get("title") or "").strip()[:110]
+            summary = str(got.get("summary") or "").strip()[:400]
+            if title and summary:
+                return {"title": title, "summary": summary}
+            return None
+        except urllib.error.HTTPError as err:
+            if err.code not in (429, 500, 502, 503, 529):
+                log("  ! AI HTTP %s" % err.code)
+                return None
+        except Exception as err:
+            log("  ! AI %s" % repr(err)[:70])
+            return None
+    return None
 
 
 def fetch_submissions(cik):
@@ -110,11 +224,42 @@ def main():
         log("fetch failed and no previous file; writing empty shell")
 
     all_filings.sort(key=lambda f: f["date"], reverse=True)
+    kept = all_filings[:MAX_FILINGS]
+
+    # AI titles and summaries: cached rows carry forward, new ones cost
+    # one model call each. Never allowed to break the run.
+    prev_ai = load_prev_ai()
+    have_key = AI_MOCK or bool(
+        os.environ.get("ANTHROPIC_API_KEY", "").strip())
+    if not have_key:
+        log("AI summaries skipped: ANTHROPIC_API_KEY not set")
+    cached = fresh = 0
+    for f in kept:
+        c = prev_ai.get(f["url"])
+        if c:
+            f.update(c); cached += 1
+            continue
+        if not have_key or fresh >= AI_MAX:
+            continue
+        text = fetch_doc_text(f)
+        if len(text) < 400:
+            log("  thin document, no summary: %s %s"
+                % (f["form"], f["date"]))
+            continue
+        got = summarise(text)
+        if got:
+            f["ai_t"], f["ai_s"] = got["title"], got["summary"]
+            fresh += 1
+            log("  summarised %s %s: %s"
+                % (f["form"], f["date"], got["title"][:58]))
+        time.sleep(0.8)
+    log("ai summaries: %d carried forward, %d new" % (cached, fresh))
+
     payload = {
         "generated": datetime.now(timezone.utc).isoformat(
             timespec="seconds"),
         "ciks": [c for c, _ in CIKS],
-        "filings": all_filings[:MAX_FILINGS],
+        "filings": kept,
     }
     body = ("window.NIT_DEAL=" + json.dumps(
         payload, ensure_ascii=False, separators=(",", ":")) + ";\n")
