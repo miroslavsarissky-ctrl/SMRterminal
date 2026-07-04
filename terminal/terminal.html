@@ -257,7 +257,6 @@ footer b{color:var(--muted)}
 <body>
 
 <header class="bar">
-  <img id="logo" alt="newcleo" src="">
   <div class="ttl">Nuclear Intel <span>Terminal</span></div>
   <div class="v">V1 · RAW FEED + VERIFIED LAYER</div>
   <div class="navtabs">
@@ -426,8 +425,6 @@ footer b{color:var(--muted)}
 <script>
 (function(){
 'use strict';
-/* newcleo logo (official asset, embedded) */
-document.getElementById('logo').src = 'data/logo.png';
 
 var FEED = window.NIT_FEED || null;
 var WL   = window.NIT_WATCHLIST || {entities:[]};
@@ -553,8 +550,13 @@ function renderDeal(){
     h += DEAL.filings.slice(0, 6).map(function(f){
       return '<div class="frow"><span class="fform">' + esc(f.form) + '</span>' +
         '<span class="fd">' + f.date.slice(5) + '</span>' +
-        '<a href="' + esc(f.url) + '" target="_blank" rel="noopener">' + esc(f.desc) + '</a></div>';
+        '<a href="' + esc(f.url) + '" target="_blank" rel="noopener"' +
+        (f.ai_s ? ' title="AI summary: ' + esc(f.ai_s) + '"' : '') + '>' +
+        esc(f.ai_t || f.desc) + '</a></div>';
     }).join('');
+    if (DEAL.filings.some(function(f){ return f.ai_t; })){
+      h += '<div class="dhint">Titles and hover summaries are AI-generated from the filed documents; click through to the source.</div>';
+    }
   } else if (!q){
     h += '<div class="note">Deal data pending the first run.</div>';
   }
