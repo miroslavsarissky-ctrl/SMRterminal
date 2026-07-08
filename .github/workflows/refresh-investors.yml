@@ -1,0 +1,43 @@
+name: refresh-investors
+# Rebuilds the Investors tab from EDGAR 13F filings once per season.
+# 13F deadlines are Feb 14, May 15, Aug 14, Nov 14; running on the 20th
+# catches the full season including late filers. Also runnable by hand.
+
+on:
+  schedule:
+    - cron: '0 6 20 2,5,8,11 *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install requests anthropic
+
+      - name: Collect 13F investor data (full depth)
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          RESEARCH_MODEL: claude-sonnet-5
+          INV_AUTO: '1'          # compute the season window from today's date
+          INV_PAGES: '80'        # discovery depth: up to 800 filers/company
+          INV_TABLES: '400'      # info tables fetched per company
+        run: python terminal/collectors/collect_investors.py terminal/data
+
+      - name: Commit refreshed data
+        run: |
+          git config user.name "intel-terminal-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add terminal/data/investors.json terminal/data/investors.js
+          git diff --cached --quiet || git commit -m "investors: 13F season refresh"
+          git push
