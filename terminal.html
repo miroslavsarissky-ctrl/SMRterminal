@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>newcleo · Nuclear Intel Terminal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#15181A; --panel:#1D2124; --panel-2:#23282C; --line:#2C3236;
+  --text:#D6DDE2; --muted:#76878F; --dim:#535F66;
+  --teal:#00B3B6; --teal-deep:#025152; --orange:#F0782E;
+  --reg:#00B3B6; --fund:#F0782E; --fil:#9A8BD0; --news:#8B9BA5; --soc:#5BA8D6; --nrc:#5CB88A; --research:#C9A24B; --policy:#CB5C6B;
+  --lead-light:#B4C1CB; --lead:#768792; --lead-dark:#313132;
+  --font:'Montserrat',system-ui,sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--ink);color:var(--text);font-family:var(--font);font-size:13px;min-height:100vh}
+a{color:inherit;text-decoration:none}
+a:hover{color:#fff}
+
+/* ---------- command bar ---------- */
+.bar{display:flex;align-items:center;gap:18px;padding:10px 18px;border-bottom:1px solid var(--line)}
+.bar img{height:24px;filter:drop-shadow(0 0 1px rgba(255,255,255,.15))}
+.bar .ttl{font-weight:800;font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:#fff}
+.bar .ttl span{color:var(--teal)}
+.bar .v{font:600 10px var(--mono);color:var(--orange);border:1px solid var(--orange);border-radius:3px;padding:2px 6px}
+.bar .right{margin-left:auto;display:flex;align-items:center;gap:16px;font:500 11px var(--mono);color:var(--muted)}
+.clock{color:var(--text)}
+.dot{display:inline-flex;align-items:center;gap:5px}
+.dot i{width:7px;height:7px;border-radius:50%;background:#3E8C5A;display:inline-block}
+.dot.off i{background:#5A4632}
+.dot.warn i{background:#C2382E}
+/* molten lead rule — family signature from the hub */
+.leadrule{height:3px;background:linear-gradient(90deg,var(--lead-light),var(--lead) 30%,var(--lead-dark) 65%,var(--lead) 85%,var(--lead-light))}
+
+/* ---------- ticker tape ---------- */
+.tape{overflow:hidden;border-bottom:1px solid var(--line);background:var(--panel)}
+.tape-in{display:inline-flex;gap:42px;white-space:nowrap;padding:7px 0;animation:tape 90s linear infinite;will-change:transform}
+.tape:hover .tape-in{animation-play-state:paused}
+@keyframes tape{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.tk{font:500 11.5px var(--mono);color:var(--muted)}
+.tk b{color:var(--text);font-weight:500}
+.tk i{font-style:normal;margin-right:8px}
+
+/* ---------- KPI strip ---------- */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));border-bottom:1px solid var(--line)}
+.kpi{padding:10px 18px;border-right:1px solid var(--line);cursor:pointer;transition:background .15s}
+.kpi:last-child{border-right:none}
+.kpi:hover,.kpi.on{background:var(--panel)}
+.kpi .n{font:600 22px var(--mono);line-height:1}
+.kpi .l{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.kpi .l::before{content:'';display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:7px;vertical-align:-1px;background:var(--c)}
+.kpi.off{opacity:.35}
+
+/* ---------- layout ---------- */
+.wrap{display:grid;grid-template-columns:minmax(0,2.1fr) minmax(280px,1fr);gap:0;min-height:calc(100vh - 160px)}
+.main{border-right:1px solid var(--line);min-width:0}
+.rail{display:flex;flex-direction:column}
+
+/* ---------- filters ---------- */
+.filters{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 18px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--ink);z-index:5}
+.search{flex:1;min-width:160px;background:var(--panel);border:1px solid var(--line);border-radius:4px;color:var(--text);font:500 12px var(--mono);padding:7px 11px;outline:none}
+.search:focus{border-color:var(--teal)}
+.tgl{font:600 10.5px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:7px 11px;cursor:pointer;background:none;transition:.15s}
+.tgl:hover{color:var(--text)}
+.tgl.on{color:var(--ink);background:var(--teal);border-color:var(--teal)}
+.entflag{display:none;align-items:center;gap:8px;font:600 11px var(--mono);color:var(--orange);border:1px dashed var(--orange);border-radius:4px;padding:6px 10px}
+.entflag.show{display:inline-flex}
+.entflag b{cursor:pointer}
+
+/* ---------- feed ---------- */
+.feed{padding:6px 0 30px}
+.day{font:600 10px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--dim);padding:14px 18px 6px}
+.item{display:grid;grid-template-columns:64px 4px 1fr;gap:0 14px;padding:9px 18px;border-bottom:1px solid #1A1E21;cursor:default}
+.item:hover{background:var(--panel)}
+.item .t{font:500 11px var(--mono);color:var(--dim);padding-top:2px;text-align:right}
+.item .b{border-radius:2px;background:var(--c,#444)}
+.item h3{font-size:13px;font-weight:600;line-height:1.45;color:var(--text)}
+.item h3 a:hover{color:#fff;text-decoration:underline;text-underline-offset:3px}
+.meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:5px}
+.src{font:500 10.5px var(--mono);color:var(--muted)}
+.chip{font:600 10px var(--font);letter-spacing:.04em;color:var(--lead-light);background:var(--panel-2);border:1px solid var(--line);border-radius:3px;padding:2px 7px;cursor:pointer}
+.chip:hover{border-color:var(--teal);color:var(--teal)}
+.topic{font:500 10px var(--mono);color:var(--dim)}
+.more{font:600 9.5px var(--mono);color:var(--lead);background:var(--panel-2);border-radius:3px;padding:2px 6px}
+.dl{font:600 10px var(--mono);color:var(--orange);border:1px solid #5A4632;border-radius:3px;padding:2px 7px}
+.vfy{font:600 10px var(--mono);color:#3E8C5A}
+.item .why{font:500 10.5px var(--mono);color:var(--teal);line-height:1.5;margin-top:2px}
+.empty{padding:60px 30px;text-align:center;color:var(--muted);font-size:13px;line-height:1.8}
+.empty code{font-family:var(--mono);color:var(--teal)}
+
+/* ---------- right rail ---------- */
+.panelbox{border-bottom:1px solid var(--line);padding:14px 18px 16px}
+.panelbox h2{font-size:10.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:11px}
+.panelbox h2 b{color:var(--orange)}
+/* ---------- investors tab ---------- */
+.invhead{padding:14px 18px 10px;border-bottom:1px solid var(--line)}
+.invhead h2{font:700 15px var(--font);letter-spacing:.12em;text-transform:uppercase;color:var(--text);margin:0 0 3px}
+.invhead .sub{font:500 10.5px var(--mono);color:var(--muted);line-height:1.5}
+.invstats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));border-bottom:1px solid var(--line)}
+.invstats .st{padding:10px 18px;border-right:1px solid var(--line)}
+.invstats .st b{display:block;font:700 17px var(--mono);color:var(--text)}
+.invstats .st span{font:600 9px var(--font);letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.invstats .st.deal b{color:var(--orange)}
+.invctl{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:10px 18px;border-bottom:1px solid var(--line)}
+.invchip{font:600 10px var(--mono);letter-spacing:.05em;color:var(--muted);border:1px solid var(--line);border-radius:3px;padding:3px 9px;background:none;cursor:pointer}
+.invchip:hover{color:var(--text);border-color:var(--muted)}
+.invchip.on{color:#08181c;background:var(--teal);border-color:var(--teal)}
+.invchip.deal.on{background:var(--orange);border-color:var(--orange)}
+.invtgl{font:600 10px var(--font);letter-spacing:.07em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:3px;padding:4px 10px;background:none;cursor:pointer}
+.invtgl.on{color:var(--orange);border-color:var(--orange)}
+.invsearch{font:500 11px var(--mono);color:var(--text);background:var(--panel);border:1px solid var(--line);border-radius:3px;padding:4px 9px;min-width:170px}
+.invgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:10px;padding:14px 18px}
+.invcard{border:1px solid var(--line);border-radius:5px;background:var(--panel);padding:11px 13px;display:flex;flex-direction:column;gap:7px}
+.invcard .nm{display:flex;align-items:baseline;gap:8px;justify-content:space-between}
+.invcard .nm b{font:600 12.5px var(--font);color:var(--text);line-height:1.3}
+.invbadge{font:700 8.5px var(--font);letter-spacing:.08em;border:1px solid var(--orange);color:var(--orange);border-radius:3px;padding:1px 6px;white-space:nowrap}
+.invmeta{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.invtype{font:700 8.5px var(--font);letter-spacing:.07em;text-transform:uppercase;border-radius:3px;padding:2px 7px;border:1px solid}
+.invtype.spec{color:var(--orange);border-color:var(--orange)}
+.invtype.act{color:#5CB88A;border-color:#5CB88A}
+.invtype.hf{color:var(--teal);border-color:var(--teal)}
+.invtype.pas,.invtype.qmm,.invtype.brk{color:var(--muted);border-color:var(--line)}
+.invtype.unk{color:var(--dim);border-color:var(--line)}
+.invmeta .fd{font:500 9.5px var(--mono);color:var(--dim);margin-left:auto}
+.invprof{font:500 10.5px var(--font);color:var(--muted);line-height:1.45}
+.invtot{font:700 18px var(--mono);color:var(--text);letter-spacing:.02em}
+.invtot span{font:600 9px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-left:7px}
+.invpos{display:flex;flex-direction:column;gap:2px}
+.invpos .pr{display:grid;grid-template-columns:52px 1fr auto;gap:8px;font:500 10.5px var(--mono);color:var(--muted);padding:2px 4px;border-radius:3px}
+.invpos .pr b{color:var(--text);font-weight:600}
+.invpos .pr .sh{color:var(--dim)}
+.invpos .pr.sel{background:rgba(0,179,182,.09)}
+.invpos .pr.sel b{color:var(--teal)}
+.invfoot{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:5px;border-top:1px solid var(--line)}
+.invfoot a{font:600 9.5px var(--mono);color:var(--teal);text-decoration:none}
+.invfoot a:hover{text-decoration:underline}
+.invfoot .n{font:500 9.5px var(--mono);color:var(--dim)}
+.invmore{display:block;margin:2px auto 18px;font:600 10.5px var(--mono);color:var(--teal);background:none;border:1px solid var(--line);border-radius:3px;padding:6px 22px;cursor:pointer}
+.invmore:hover{border-color:var(--teal)}
+.invempty{padding:40px 18px;text-align:center;font:500 11px var(--mono);color:var(--muted)}
+
+/* markets rail */
+.mkrow{display:grid;grid-template-columns:44px 1fr 58px 54px;gap:8px;align-items:center;padding:4px 0;cursor:pointer}
+.mkrow .mkt{font:600 11px var(--mono);color:var(--text)}
+.mkrow:hover .mkt{color:#fff}
+.mkrow .mkl{font:500 11px var(--mono);color:var(--muted);text-align:right}
+.mkrow .mkd{font:600 11px var(--mono);text-align:right;white-space:nowrap}
+.mkrow svg{display:block;width:100%;height:16px}
+.mkrow polyline{fill:none;stroke:var(--dim);stroke-width:1.5;vector-effect:non-scaling-stroke}
+.mkrow.pin{border-left:2px solid var(--orange);padding-left:8px;margin-left:-10px}
+.mkrow.pin polyline{stroke:var(--orange)}
+.mkup{color:#3E8C5A}
+.mkdn{color:#C2382E}
+.mq{font:600 10px var(--mono);margin-left:6px}
+/* merged radar origin tags */
+.dk{font:600 8.5px var(--mono);letter-spacing:.08em;border-radius:3px;padding:1px 4px;margin-right:6px;vertical-align:1px}
+.dkp{color:var(--fund);border:1px solid var(--fund)}
+.dkc{color:var(--muted);border:1px solid var(--muted)}
+.dkg{color:var(--orange);border:1px solid var(--orange)}
+/* deal monitor */
+.dealpx{display:grid;grid-template-columns:auto 1fr 54px;gap:10px;align-items:center;margin-bottom:8px}
+.dealpx .big{font:700 19px var(--mono);color:#fff;letter-spacing:.02em}
+.dealpx svg{display:block;width:100%;height:20px}
+.dealpx polyline{fill:none;stroke:var(--orange);stroke-width:1.5;vector-effect:non-scaling-stroke}
+.dealprem{font:500 10.5px var(--mono);color:var(--muted);margin:0 0 10px}
+.frow{display:flex;gap:8px;align-items:baseline;padding:3px 0;line-height:1.35}
+.fform{font:600 9.5px var(--mono);color:var(--fil);border:1px solid var(--fil);border-radius:3px;padding:1px 5px;white-space:nowrap}
+.frow .fd{font:500 10.5px var(--mono);color:var(--dim);white-space:nowrap}
+.frow a{font-size:12px;color:var(--text)}
+.frow a:hover{color:#fff}
+.dlrow{display:grid;grid-template-columns:46px 1fr;gap:10px;padding:7px 0;border-bottom:1px solid #1A1E21;align-items:start}
+.dlrow:last-child{border-bottom:none}
+.dday{font:600 13px var(--mono);color:var(--orange);text-align:center;border:1px solid #5A4632;border-radius:4px;padding:4px 2px;line-height:1.1}
+.dday small{display:block;font-size:8.5px;color:var(--muted);font-weight:500;letter-spacing:.06em}
+.dday.far{color:var(--lead-light);border-color:var(--line)}
+.dlrow p{font-size:11.5px;line-height:1.45;color:var(--text)}
+.dlrow p a:hover{text-decoration:underline;text-underline-offset:3px}
+.dlrow .what{font:500 9.5px var(--mono);color:var(--dim);margin-top:2px;display:block}
+.mover{display:grid;grid-template-columns:1fr 30px;gap:8px;align-items:center;padding:4px 0;cursor:pointer}
+.mover:hover .mn{color:var(--teal)}
+.mn{font-size:11.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mbar{height:4px;background:var(--panel-2);border-radius:2px;overflow:hidden;margin-top:3px}
+.mbar i{display:block;height:100%;background:linear-gradient(90deg,var(--teal-deep),var(--teal))}
+.mc{font:600 11px var(--mono);color:var(--muted);text-align:right}
+.note{font-size:10.5px;color:var(--dim);line-height:1.6;padding-top:4px}
+.billrow{display:grid;grid-template-columns:54px 1fr;gap:10px;padding:7px 0;border-bottom:1px solid #1A1E21;align-items:start}
+.billrow:last-child{border-bottom:none}
+.billno{font:700 11px var(--mono);color:var(--policy);text-align:center;border:1px solid #5A2E36;border-radius:4px;padding:5px 2px;line-height:1.1;white-space:nowrap}
+.billrow p{font-size:11.5px;line-height:1.45;color:var(--text)}
+.billrow p a:hover{text-decoration:underline;text-underline-offset:3px}
+.billrow .what{font:500 9.5px var(--mono);color:var(--dim);margin-top:3px;display:block}
+
+footer{padding:12px 18px;font:500 10px var(--mono);color:var(--dim);border-top:1px solid var(--line)}
+footer b{color:var(--muted)}
+
+@media(max-width:920px){
+  .wrap{grid-template-columns:1fr}
+  .main{border-right:none}
+  .kpis{grid-template-columns:repeat(3,1fr)}
+  .bar .right .hide-m{display:none}
+}
+@media(prefers-reduced-motion:reduce){.tape-in{animation:none}}
+
+/* ---------- tabs + energy ---------- */
+.navtabs{display:flex;gap:4px;margin-left:18px}
+.navtab{font:700 10.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);background:none;border:1px solid var(--line);border-radius:5px;padding:5px 13px;cursor:pointer}
+.navtab.on{color:var(--ink);background:var(--teal);border-color:var(--teal)}
+.navtab:hover:not(.on){color:var(--text);border-color:var(--lead-light)}
+.ehead{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;padding:16px 20px 14px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.etitle{font-size:15px;font-weight:800;letter-spacing:.02em}
+.esub{font:500 10.5px var(--mono);color:var(--dim);margin-top:3px}
+.ectrls{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.seg button{font:600 10.5px var(--mono);color:var(--muted);background:var(--panel);border:none;border-right:1px solid var(--line);padding:6px 12px;cursor:pointer}
+.seg button:last-child{border-right:none}
+.seg button.on{color:var(--ink);background:var(--orange)}
+.seg button:hover:not(.on){color:var(--text)}
+
+/* ---------- conferences / events ---------- */
+.conf-wrap{padding:4px 0 44px}
+.cmonth{font:700 10px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--dim);padding:18px 20px 8px}
+.crow{display:flex;gap:15px;padding:13px 20px;border-bottom:1px solid var(--line);border-left:3px solid var(--lead-dark);transition:background .12s}
+.crow:hover{background:var(--panel)}
+.crow.t1{border-left-color:var(--orange)}
+.crow.t2{border-left-color:var(--teal)}
+.cdate{flex:0 0 58px;font:600 14px var(--mono);color:var(--text);line-height:1.15}
+.cdate small{display:block;font-size:9.5px;color:var(--dim);font-weight:500;margin-top:2px;letter-spacing:.02em}
+.cbody{flex:1;min-width:0}
+.cname{font-weight:700;font-size:13.5px;color:var(--text);line-height:1.35}
+.cname a:hover{color:#fff;text-decoration:underline}
+.cflag{font-size:13px;margin-right:3px}
+.cmeta{font:500 10.5px var(--mono);color:var(--muted);margin-top:3px}
+.crel{font-size:11.5px;color:var(--lead);margin-top:5px;line-height:1.45;max-width:62ch}
+.cchips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;align-items:center}
+.ctag{font:700 9px var(--font);letter-spacing:.07em;text-transform:uppercase;border-radius:3px;padding:2px 7px}
+.ctag.r1{color:var(--ink);background:var(--orange)}
+.ctag.r2{color:var(--ink);background:var(--teal)}
+.ctag.r3{color:var(--lead-light);background:var(--panel-2);border:1px solid var(--line)}
+.cpart{font:600 10px var(--font);color:var(--lead-light);background:var(--panel-2);border:1px solid var(--line);border-radius:3px;padding:2px 7px}
+.cempty{padding:44px 20px;color:var(--dim);font:500 12px var(--mono);text-align:center;line-height:1.6}
+
+/* ---------- capital / programmes (reuses .crow/.cbody/.cname/.cmeta/.crel/.cchips) ---------- */
+.crow.rc-cash{border-left-color:var(--nrc)}
+.crow.rc-inkind{border-left-color:var(--teal)}
+.crow.rc-alloc{border-left-color:var(--lead-dark)}
+.crow.rc-alloc{opacity:.72}
+.cprov{font:600 10.5px var(--mono);color:var(--lead-light);margin-top:4px}
+.ctag.g{color:var(--ink);background:var(--nrc)}
+.ctag.k{color:var(--lead-light);background:var(--panel-2);border:1px solid var(--line);text-transform:none;letter-spacing:.01em;font-weight:600}
+.cstat{font:700 9px var(--font);letter-spacing:.07em;text-transform:uppercase;border-radius:3px;padding:2px 7px;color:var(--muted);background:var(--panel-2);border:1px solid var(--line)}
+.cstat.open{color:var(--nrc);border-color:var(--nrc)}
+.emain{display:grid;grid-template-columns:1fr 322px}
+.emapcol{position:relative;padding:14px 18px 18px;border-right:1px solid var(--line);min-width:0}
+#usmap{width:100%;height:auto;display:block}
+#usmap .st{stroke:var(--ink);stroke-width:.8;cursor:pointer;transition:opacity .08s,stroke .08s}
+#usmap .st:hover{opacity:.82;stroke:var(--text);stroke-width:1.2}
+#usmap .stlabel{font:700 10px var(--mono);fill:#EAF0F1;stroke:#10201E;stroke-width:2.6;paint-order:stroke;text-anchor:middle;dominant-baseline:middle;pointer-events:none}
+#usmap .stval{font:700 9.5px var(--mono);fill:#F4F8F8;stroke:#0C1A18;stroke-width:2.4;paint-order:stroke;text-anchor:middle;dominant-baseline:middle;pointer-events:none}
+#usmap .radicon{pointer-events:none}
+#usmap .rdisc{fill:#FFC400;stroke:#0A0A0A;stroke-width:1.1}
+#usmap .rtref *{fill:#0A0A0A}
+#etip{position:absolute;display:none;pointer-events:none;z-index:6;background:var(--ink);border:1px solid var(--lead-dark);border-radius:5px;padding:5px 9px;font:600 11px var(--mono);color:var(--text);white-space:nowrap;transform:translate(-50%,-135%);box-shadow:0 4px 14px rgba(0,0,0,.5)}
+#etip b{color:var(--teal);font-weight:700}
+.elegend{display:flex;align-items:center;flex-wrap:wrap;gap:4px 0;margin-top:13px;font:600 10px var(--mono);color:var(--lead-light)}
+.elegend span{margin-right:13px;white-space:nowrap;display:inline-flex;align-items:center}
+.elegend i{display:inline-block;width:12px;height:12px;border-radius:2px;margin-right:5px;border:1px solid rgba(0,0,0,.35)}
+.elegend .legunit{color:var(--dim);margin-right:0}
+.elegend .rleg{cursor:pointer;border:1px solid transparent;border-radius:3px;padding:2px 6px 2px 4px;margin-right:7px}
+.elegend .rleg:hover{border-color:var(--line);color:var(--text)}
+.elegend .rleg.on{border-color:var(--orange);color:var(--text)}
+.rswatch{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:7px;vertical-align:-1px}
+.mixh{font:600 9.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:14px 0 6px}
+.mixrow{display:grid;grid-template-columns:9px 64px 1fr 34px;gap:7px;align-items:center;padding:2px 0}
+.mixrow>i{width:9px;height:9px;border-radius:2px}
+.mixrow .ml{font:500 11px var(--mono);color:var(--text)}
+.mixrow .mb{height:5px;background:var(--panel);border-radius:2px;overflow:hidden}
+.mixrow .mb i{display:block;height:100%}
+.mixrow .mp{font:600 10.5px var(--mono);color:var(--muted);text-align:right}
+/* fleet overlay */
+.fp{stroke:#0d1114;stroke-width:1.1;cursor:pointer}
+.fp:hover{stroke:#fff}
+.fp.dim{opacity:.15}
+.fp.restart{fill-opacity:.28;stroke-dasharray:2.5 2}
+#fleetlegend{margin-top:4px}
+.flrow{display:flex;justify-content:space-between;gap:10px;font:500 11px var(--mono);color:var(--text);padding:2px 0}
+.flrow .mp{color:var(--muted)}
+.edetail{padding:18px}
+.edetail .dname{font-size:17px;font-weight:800;margin-bottom:2px;line-height:1.15}
+.edetail .dmeta{font:500 10px var(--mono);color:var(--dim);margin-bottom:15px}
+.edetail .drow{display:flex;justify-content:space-between;align-items:baseline;padding:7px 0;border-bottom:1px solid #1A1E21;font-size:12px}
+.edetail .drow .k{color:var(--muted)}
+.edetail .drow .vv{font:600 12.5px var(--mono);color:var(--text)}
+.edetail .dnuke{margin-top:15px;padding:13px 14px;border:1px solid #2C4A40;border-radius:7px;background:rgba(92,184,138,.07)}
+.edetail .dnuke .lab{font:600 9.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--nrc);margin-bottom:5px}
+.edetail .dnuke .big{font:700 22px var(--mono);color:var(--nrc);line-height:1}
+.edetail .dnuke .sub{font:500 10.5px var(--mono);color:var(--muted);margin-top:4px}
+.edetail .dhint{font-size:10.5px;color:var(--dim);line-height:1.6}
+@media(max-width:920px){.emain{grid-template-columns:1fr}.emapcol{border-right:none}.edetail{border-top:1px solid var(--line)}.navtabs{margin-left:8px}}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="ttl">Nuclear Intel <span>Terminal</span></div>
+  <div class="v">V1 · RAW FEED + VERIFIED LAYER</div>
+  <div class="navtabs">
+    <button class="navtab on" data-v="intel">Intel</button>
+    <button class="navtab" data-v="energy">Energy</button>
+    <button class="navtab" data-v="conf">Events</button>
+    <button class="navtab" data-v="cap">Capital</button>
+    <button class="navtab" data-v="inv">Investors</button>
+  </div>
+  <div class="right">
+    <span class="dot" id="d-fr"><i></i>FED REG</span>
+    <span class="dot" id="d-nrc"><i></i>NRC</span>
+    <span class="dot" id="d-sec"><i></i>EDGAR</span>
+    <span class="dot hide-m" id="d-osti"><i></i>OSTI</span>
+    <span class="dot off hide-m" id="d-datagov"><i></i>REG.GOV</span>
+    <span class="dot off hide-m" id="d-sam"><i></i>SAM.GOV</span>
+    <span class="dot off hide-m" id="d-x"><i></i>X</span>
+    <span id="gen" class="hide-m"></span>
+    <span class="clock" id="clock"></span>
+  </div>
+</header>
+<div class="leadrule"></div>
+
+<div id="view-intel">
+<div class="tape"><div class="tape-in" id="tape"></div></div>
+
+<div class="kpis" id="kpis"></div>
+
+<div class="wrap">
+  <div class="main">
+    <div class="filters">
+      <input class="search" id="q" placeholder="Search titles, companies, topics…">
+      <button class="tgl" data-w="24">24H</button>
+      <button class="tgl on" data-w="168">7D</button>
+      <button class="tgl" data-w="0">ALL</button>
+      <button class="tgl" id="vonly">Verified only</button>
+      <button class="tgl" id="noisef" title="Hide items the verify layer scored zero relevance. Unscored items always show.">Mute routine</button>
+      <span class="entflag" id="entflag">Filtered: <span id="entname"></span> <b id="entclear">×</b></span>
+    </div>
+    <div class="feed" id="feed"></div>
+  </div>
+
+  <aside class="rail">
+    <div class="panelbox">
+      <h2>Deal monitor · NWCL <b id="dealasof"></b></h2>
+      <div id="deal"></div>
+    </div>
+    <div class="panelbox">
+      <h2>Deadline radar <b id="dlcount"></b></h2>
+      <div id="deadlines"></div>
+    </div>
+    <div class="panelbox">
+      <h2>Legislation <b id="billcount"></b></h2>
+      <div id="bills"></div>
+    </div>
+    <div class="panelbox">
+      <h2>Markets · EOD <b id="mktasof"></b></h2>
+      <div id="mkt"></div>
+    </div>
+    <div class="panelbox">
+      <h2>Watchlist movers · 7d</h2>
+      <div id="movers"></div>
+    </div>
+    <div class="panelbox">
+      <h2>Coverage</h2>
+      <div class="note" id="coverage"></div>
+    </div>
+  </aside>
+</div>
+</div><!-- /view-intel -->
+
+<div id="view-energy" hidden>
+  <div class="ehead">
+    <div>
+      <div class="etitle">State electricity economics</div>
+      <div class="esub" id="esub"></div>
+    </div>
+    <div class="ectrls">
+      <div class="seg" id="rtoseg">
+        <button data-m="states" class="on">States</button>
+        <button data-m="rto">RTO territories</button>
+      </div>
+      <div class="seg" id="fleetseg">
+        <button id="fleetbtn" title="Nuclear fleet by operator">☢ Fleet</button>
+      </div>
+      <div class="seg" id="sectorseg">
+        <button data-s="all" class="on">All</button>
+        <button data-s="res">Residential</button>
+        <button data-s="com">Commercial</button>
+        <button data-s="ind">Industrial</button>
+      </div>
+    </div>
+  </div>
+  <div class="emain">
+    <div class="emapcol" id="emapcol">
+      <svg id="usmap" viewBox="0 0 975 610" preserveAspectRatio="xMidYMid meet" role="img" aria-label="US state map"></svg>
+      <div id="etip"></div>
+      <div class="elegend" id="elegend"></div>
+      <div class="elegend" id="fleetlegend"></div>
+    </div>
+    <aside class="edetail" id="edetail"></aside>
+  </div>
+</div>
+
+<div id="view-conf" hidden>
+  <div class="ehead">
+    <div>
+      <div class="etitle">Conference &amp; Event Pipeline</div>
+      <div class="esub" id="csub"></div>
+    </div>
+    <div class="ectrls">
+      <input class="search" id="cq" placeholder="Search events, organisers, cities…" style="min-width:190px">
+      <div class="seg" id="cregion">
+        <button data-r="all" class="on">All</button>
+        <button data-r="International">EU + Intl</button>
+        <button data-r="USA">USA</button>
+      </div>
+      <div class="seg" id="crating">
+        <button data-t="all" class="on">All tiers</button>
+        <button data-t="HIGH">Tier 1</button>
+        <button data-t="MEDIUM">Tier 2</button>
+        <button data-t="LOW">Tier 3</button>
+      </div>
+      <button class="tgl on" id="cupcoming">Upcoming</button>
+    </div>
+  </div>
+  <div class="conf-wrap" id="conflist"></div>
+</div>
+
+<div id="view-cap" hidden>
+  <div class="ehead">
+    <div>
+      <div class="etitle">Capital &amp; Programmes</div>
+      <div class="esub" id="capsub"></div>
+    </div>
+    <div class="ectrls">
+      <input class="search" id="capq" placeholder="Search programmes…" style="min-width:170px">
+      <div class="seg" id="capreg">
+        <button data-r="all" class="on">All</button>
+        <button data-r="cash">Cash R&amp;D</button>
+        <button data-r="inkind">In-kind</button>
+        <button data-r="allocated">Allocated</button>
+      </div>
+      <button class="tgl" id="capopen">Open only</button>
+    </div>
+  </div>
+  <div class="conf-wrap" id="caplist"></div>
+</div>
+
+<div id="view-inv" hidden>
+  <div class="invhead">
+    <h2>Investor Intelligence</h2>
+    <div class="sub" id="invsub"></div>
+  </div>
+  <div class="invstats" id="invstats"></div>
+  <div class="invctl" id="invcompany"></div>
+  <div class="invctl">
+    <span id="invtypes"></span>
+    <button class="invtgl" id="invactive">Active money only</button>
+    <input class="invsearch" id="invq" placeholder="search investor…">
+    <button class="invchip" id="invsortx">sort: exposure</button>
+  </div>
+  <div class="invgrid" id="invgrid"></div>
+  <button class="invmore" id="invmore" hidden>show more</button>
+</div>
+
+<footer>Public primary sources + open news feeds · raw feed is <b>uncorroborated</b> until promoted to the verified layer · newcleo internal market intelligence</footer>
+
+<script src="data/watchlist.js"></script>
+<script src="data/feed.js"></script>
+<script src="data/verified.js"></script>
+<script src="data/quotes.js"></script>
+<script src="data/deal_config.js"></script>
+<script src="data/deal.js"></script>
+<script src="data/internal.js"></script>
+<script src="data/legislation.js"></script>
+<script src="data/energy.js"></script>
+<script src="data/rto.js"></script>
+<script src="data/energymix.js"></script>
+<script src="data/plants.js"></script>
+<script src="data/usmap.js"></script>
+<script src="data/conferences.js"></script>
+<script src="data/programmes.js"></script>
+<script src="data/investors.js"></script>
+<script>
+(function(){
+'use strict';
+
+var FEED = window.NIT_FEED || null;
+var WL   = window.NIT_WATCHLIST || {entities:[]};
+var ENERGY = window.NIT_ENERGY || null;
+var RTO = window.NIT_RTO || null;
+var MIX = window.NIT_MIX || null;
+var PLANTS = window.NIT_PLANTS || null;
+var CONF = window.NIT_CONF || null;
+var PROG = window.NIT_PROG || null;
+var US_MAP = window.US_MAP || null;
+var QUOTES = window.NIT_QUOTES || null;
+var DEAL = window.NIT_DEAL || null;
+var DEALCFG = window.NIT_DEALCFG || null;
+var INTERNAL = window.NIT_INTERNAL || null;
+var EMAP = {}; WL.entities.forEach(function(e){ EMAP[e.id] = e; });
+var T2E = {}; WL.entities.forEach(function(e){ if(e.ticker && !T2E[e.ticker]) T2E[e.ticker] = e.id; });
+/* verified layer: merge sidecar (data/verified.js) onto feed items by id */
+var VERD = window.NIT_VERIFIED || {items:{}};
+if (FEED && FEED.items) FEED.items.forEach(function(i){
+  if (VERD.scored && VERD.scored[i.id] != null) i.rel = VERD.scored[i.id];
+  var v = VERD.items && VERD.items[i.id];
+  if (v){
+    i.verified = true;
+    i.why = v.why || '';
+    if (v.tags && v.tags.length && !(i.topics||[]).length) i.topics = v.tags;
+  }
+});
+var BUCKETS = [
+  {k:'regulatory', l:'Regulatory', c:'var(--reg)'},
+  {k:'nrc',        l:'NRC ADAMS', c:'var(--nrc)'},
+  {k:'funding',    l:'Funding & RFx', c:'var(--fund)'},
+  {k:'filings',    l:'SEC filings', c:'var(--fil)'},
+  {k:'research',   l:'Research', c:'var(--research)'},
+  {k:'news',       l:'News', c:'var(--news)'},
+  {k:'social',     l:'X / Social', c:'var(--soc)'}
+];
+var state = { q:'', windowH:168, buckets:{}, ent:null, vonly:false, mute:false };
+function isMuted(i){ return state.mute && i.rel === 0; }
+BUCKETS.forEach(function(b){ state.buckets[b.k] = true; });
+
+function esc(s){ var d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
+function ename(id){ return EMAP[id] ? EMAP[id].name.replace(/\s*[—–(].*$/,'') : id; }
+function rel(ts){
+  var m = (Date.now() - new Date(ts).getTime())/60000;
+  if (m < 60) return Math.max(1,Math.round(m)) + 'm';
+  if (m < 1440) return Math.round(m/60) + 'h';
+  return Math.round(m/1440) + 'd';
+}
+function hhmm(ts){ var d=new Date(ts); if(/T00:00:00/.test(ts)) return '——'; return ('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2); }
+function dayKey(ts){ return new Date(ts).toDateString(); }
+function bucketColor(k){ var b=BUCKETS.filter(function(x){return x.k===k;})[0]; return b?b.c:'#444'; }
+
+/* ---------- markets rail (data/quotes.js) ---------- */
+function sparkSvg(sp){
+  if(!sp || sp.length < 2) return '<span></span>';
+  var mn = Math.min.apply(null, sp), mx = Math.max.apply(null, sp), rng = (mx - mn) || 1;
+  var pts = sp.map(function(v, i){
+    return (i * (64 / (sp.length - 1))).toFixed(1) + ',' + (15 - 13 * (v - mn) / rng + 1).toFixed(1);
+  }).join(' ');
+  return '<svg viewBox="0 0 64 17" preserveAspectRatio="none"><polyline points="' + pts + '"/></svg>';
+}
+function fmtPrice(v){ return v >= 1000 ? Math.round(v).toLocaleString('en-US') : v.toFixed(2); }
+function d1chip(eid){
+  var tk = EMAP[eid] && EMAP[eid].ticker;
+  var q = tk && QUOTES && QUOTES.tickers && QUOTES.tickers[tk];
+  if(!q || q.d1 == null) return '';
+  return '<span class="mq ' + (q.d1 > 0 ? 'mkup' : q.d1 < 0 ? 'mkdn' : '') + '">' + (q.d1 > 0 ? '+' : '') + q.d1.toFixed(1) + '%</span>';
+}
+function renderMarkets(){
+  var el = document.getElementById('mkt'); if(!el) return;
+  if(!QUOTES || !QUOTES.tickers){
+    el.innerHTML = '<div class="note">Market data pending the first quotes run.</div>';
+    return;
+  }
+  document.getElementById('mktasof').textContent = QUOTES.asof || '';
+  var rows = Object.keys(QUOTES.tickers).map(function(t){ return { t: t, q: QUOTES.tickers[t] }; });
+  var pin = rows.filter(function(r){ return r.t === 'NHIC' || r.t === 'NWCL'; });
+  var rest = rows.filter(function(r){ return r.t !== 'NHIC' && r.t !== 'NWCL'; })
+    .sort(function(a, b){ return Math.abs(b.q.d1 || 0) - Math.abs(a.q.d1 || 0); })
+    .slice(0, 11);
+  el.innerHTML = pin.concat(rest).map(function(r){
+    var d = r.q.d1, cls = d > 0 ? 'mkup' : d < 0 ? 'mkdn' : '';
+    var arr = d > 0 ? '\u25b2' : d < 0 ? '\u25bc' : '\u00b7';
+    var e = T2E[r.t];
+    return '<div class="mkrow' + (pin.indexOf(r) >= 0 ? ' pin' : '') + '"' + (e ? ' data-e="' + e + '"' : '') +
+      ' title="7d ' + (r.q.d7 == null ? 'n/a' : r.q.d7 + '%') + ' \u00b7 30d ' + (r.q.d30 == null ? 'n/a' : r.q.d30 + '%') + '">' +
+      '<span class="mkt">' + r.t + '</span>' + sparkSvg(r.q.spark) +
+      '<span class="mkl">' + fmtPrice(r.q.last) + '</span>' +
+      '<span class="mkd ' + cls + '">' + arr + ' ' + (d == null ? 'n/a' : Math.abs(d).toFixed(1) + '%') + '</span></div>';
+  }).join('');
+}
+
+/* ---------- deal monitor (data/deal.js + data/deal_config.js) ---------- */
+function renderDeal(){
+  var el = document.getElementById('deal'); if(!el) return;
+  var cfg = DEALCFG || {};
+  var tick = cfg.ticker || 'NHIC';
+  var q = QUOTES && QUOTES.tickers && QUOTES.tickers[tick];
+  var h = '';
+  if (q){
+    var d = q.d1, cls = d > 0 ? 'mkup' : d < 0 ? 'mkdn' : '';
+    var arr = d > 0 ? '\u25b2' : d < 0 ? '\u25bc' : '\u00b7';
+    h += '<div class="dealpx"><span class="big">' + fmtPrice(q.last) + '</span>' + sparkSvg(q.spark) +
+      '<span class="mkd ' + cls + '">' + arr + ' ' + (d == null ? 'n/a' : Math.abs(d).toFixed(1) + '%') + '</span></div>';
+    var tail = '7d ' + (q.d7 == null ? 'n/a' : q.d7 + '%') + ' \u00b7 30d ' + (q.d30 == null ? 'n/a' : q.d30 + '%');
+    if (cfg.trust_ps){
+      var prem = (q.last / cfg.trust_ps - 1) * 100;
+      h += '<div class="dealprem">' + (prem >= 0 ? '+' : '') + prem.toFixed(1) + '% vs trust $' + cfg.trust_ps.toFixed(2) + ' \u00b7 ' + tail + '</div>';
+    } else {
+      h += '<div class="dealprem">' + tail + '</div>';
+    }
+  }
+  var today = new Date(); today.setHours(0,0,0,0);
+  var ms = ((cfg.milestones) || []).filter(function(m){ return m.date && new Date(m.date) >= today; })
+    .sort(function(a, b){ return a.date < b.date ? -1 : 1; }).slice(0, 4);
+  ms.forEach(function(m){
+    var dd = Math.round((new Date(m.date) - today) / 864e5);
+    h += '<div class="dlrow"><div class="dday' + (dd > 14 ? ' far' : '') + '">D-' + dd + '<small>' + m.date.slice(5) + '</small></div>' +
+      '<p>' + esc(m.label) + '</p></div>';
+  });
+  if (DEAL && DEAL.filings && DEAL.filings.length){
+    document.getElementById('dealasof').textContent = (DEAL.generated || '').slice(0, 10);
+    h += DEAL.filings.slice(0, 6).map(function(f){
+      return '<div class="frow"><span class="fform">' + esc(f.form) + '</span>' +
+        '<span class="fd">' + f.date.slice(5) + '</span>' +
+        '<a href="' + esc(f.url) + '" target="_blank" rel="noopener"' +
+        (f.ai_s ? ' title="AI summary: ' + esc(f.ai_s) + '"' : '') + '>' +
+        esc(f.ai_t || f.desc) + '</a></div>';
+    }).join('');
+    if (DEAL.filings.some(function(f){ return f.ai_t; })){
+      h += '<div class="dhint">Titles and hover summaries are AI-generated from the filed documents; click through to the source.</div>';
+    }
+  } else if (!q){
+    h += '<div class="note">Deal data pending the first run.</div>';
+  }
+  el.innerHTML = h;
+}
+
+/* ---------- header ---------- */
+function tickClock(){
+  var n = new Date();
+  document.getElementById('clock').textContent =
+    n.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit'}) + ' LOCAL';
+}
+setInterval(tickClock, 1000); tickClock();
+
+if (!FEED) {
+  document.getElementById('feed').innerHTML =
+    '<div class="empty">No data yet.<br>Run <code>python3 collectors/collect.py</code> once, or wait for the first scheduled refresh.<br>This terminal reads <code>data/feed.js</code>.</div>';
+} else {
+  var gen = new Date(FEED.generated);
+  var ageH = (Date.now()-gen.getTime())/3600000;
+  document.getElementById('gen').textContent = 'COLLECTED ' + rel(FEED.generated).toUpperCase() + ' AGO';
+  if (ageH > 2.5) document.getElementById('gen').style.color = 'var(--orange)';
+  if (FEED.sources && FEED.sources.datagov) document.getElementById('d-datagov').classList.remove('off');
+  if (FEED.sources && FEED.sources.sam_gov) document.getElementById('d-sam').classList.remove('off');
+  if (FEED.sources && FEED.sources.x_api)  document.getElementById('d-x').classList.remove('off');
+  boot();
+}
+
+function boot(){
+  /* ticker tape: latest 18 headlines, duplicated for seamless loop */
+  var latest = FEED.items.filter(function(i){ return !isMuted(i); }).slice(0,18);
+  var seg = latest.map(function(i){
+    return '<span class="tk"><i style="color:'+bucketColor(i.bucket)+'">●</i>'+hhmm(i.ts)+' <b>'+esc(i.title.slice(0,110))+'</b></span>';
+  }).join('');
+  document.getElementById('tape').innerHTML = seg + seg;
+
+  /* KPI strip */
+  var k = document.getElementById('kpis');
+  function paintKpis(){
+    k.innerHTML = BUCKETS.map(function(b){
+      var n = FEED.items.filter(function(i){ return i.bucket===b.k && !isMuted(i) && (Date.now()-new Date(i.ts))/36e5 <= 168; }).length;
+      return '<div class="kpi" data-k="'+b.k+'" title="Show only this; click others to add them back" style="--c:'+b.c+'"><div class="n">'+n+'</div><div class="l">'+b.l+' \u00b7 7d</div></div>';
+    }).join('');
+    k.querySelectorAll('.kpi').forEach(function(t){
+      var on = state.buckets[t.dataset.k]; t.classList.toggle('on', on); t.classList.toggle('off', !on);
+    });
+  }
+  paintKpis();
+  k.addEventListener('click', function(ev){
+    var el = ev.target.closest('.kpi'); if(!el) return;
+    var key = el.dataset.k, keys = BUCKETS.map(function(b){return b.k;});
+    if(keys.every(function(x){return state.buckets[x];})){
+      keys.forEach(function(x){ state.buckets[x] = (x===key); });          // all shown -> isolate the clicked category
+    } else {
+      state.buckets[key] = !state.buckets[key];                            // already filtered -> add/remove this one
+      if(!keys.some(function(x){return state.buckets[x];})) keys.forEach(function(x){ state.buckets[x]=true; });  // removed the last -> restore all
+    }
+    k.querySelectorAll('.kpi').forEach(function(t){
+      var on = state.buckets[t.dataset.k]; t.classList.toggle('on', on); t.classList.toggle('off', !on);
+    });
+    render();
+  });
+
+  /* deadlines: merged radar (feed + programmes + events + internal gates + deal milestones) */
+  var today = new Date(); today.setHours(0,0,0,0);
+  function dlDate(s){
+    if(!s) return null;
+    var m = String(s).match(/\d{4}-\d{2}-\d{2}/);
+    if(!m) return null;
+    return new Date(m[0] + 'T00:00:00') >= today ? m[0] : null;
+  }
+  function dlUrl(s){
+    var u = String(s || '').split(' ')[0];
+    return u.indexOf('http') === 0 ? u : '';
+  }
+  var RADAR = [];
+  FEED.items.forEach(function(i){
+    var dt = dlDate(i.deadline);
+    if(dt) RADAR.push({date:dt, title:i.title.slice(0,100), url:i.url, what:(i.deadline_label||'Deadline')+' · '+i.source, kind:'feed'});
+  });
+  if (PROG && PROG.items) PROG.items.forEach(function(p){
+    var dt = dlDate(p.deadline);
+    if(dt) RADAR.push({date:dt, title:p.name, url:dlUrl(p.link), what:'Programme deadline · '+(p.sponsor||''), kind:'prog'});
+  });
+  if (CONF && CONF.items) CONF.items.forEach(function(cf){
+    var dt = dlDate(cf.deadline);
+    if(dt) RADAR.push({date:dt, title:cf.name, url:dlUrl(cf.link), what:'Event deadline · '+(cf.organizer||''), kind:'conf'});
+  });
+  if (INTERNAL && INTERNAL.items) INTERNAL.items.forEach(function(g){
+    var dt = dlDate(g.date);
+    if(dt) RADAR.push({date:dt, title:g.label||'Internal gate', url:dlUrl(g.url), what:g.note||'newcleo gate', kind:'gate'});
+  });
+  if (DEALCFG && DEALCFG.milestones) DEALCFG.milestones.forEach(function(m){
+    var dt = dlDate(m.date);
+    if(dt) RADAR.push({date:dt, title:m.label||'Milestone', url:'', what:'Deal milestone', kind:'gate'});
+  });
+  RADAR.sort(function(a,b){ return a.date < b.date ? -1 : 1; });
+  var dls = RADAR.slice(0,12);
+  document.getElementById('dlcount').textContent = RADAR.length ? RADAR.length + ' open' : '';
+  var KTAG = {feed:'', prog:'<span class="dk dkp">FUND</span>', conf:'<span class="dk dkc">EVENT</span>', gate:'<span class="dk dkg">GATE</span>'};
+  document.getElementById('deadlines').innerHTML = dls.length ? dls.map(function(i){
+    var d = Math.round((new Date(i.date) - today)/864e5);
+    var lk = i.url ? '<a href="'+esc(i.url)+'" target="_blank" rel="noopener">'+esc(i.title)+'</a>' : esc(i.title);
+    return '<div class="dlrow"><div class="dday'+(d>14?' far':'')+'">D-'+d+'<small>'+i.date.slice(5)+'</small></div>'+
+      '<p>'+(KTAG[i.kind]||'')+lk+
+      '<span class="what">'+esc(i.what)+'</span></p></div>';
+  }).join('') : '<div class="note">No open deadlines across the feed, programmes, events or internal gates.</div>';
+
+  /* legislation: Congress.gov sidecar (data/legislation.js) + any feed policy items */
+  var BILLSRC = window.NIT_BILLS || null;
+  var bills = (BILLSRC && BILLSRC.items ? BILLSRC.items.slice() : []);
+  FEED.items.forEach(function(i){
+    if(i.bucket==='policy') bills.push({billno:i.billno||'BILL', title:i.title, url:i.url, status:i.status||'', sponsor:i.sponsor||'', ts:i.ts});
+  });
+  bills.sort(function(a,b){ return (a.ts||'') < (b.ts||'') ? 1 : -1; });
+  bills = bills.slice(0,8);
+  document.getElementById('billcount').textContent = bills.length ? bills.length + ' tracked' : '';
+  document.getElementById('bills').innerHTML = bills.length ? bills.map(function(i){
+    var sub = esc((i.status||'').slice(0,66)) + (i.sponsor ? ' · ' + esc(i.sponsor) : '');
+    return '<div class="billrow"><div class="billno">'+esc(i.billno||'BILL')+'</div>'+
+      '<p><a href="'+esc(i.url)+'" target="_blank" rel="noopener">'+esc(i.title)+'</a>'+
+      '<span class="what">'+sub+'</span></p></div>';
+  }).join('') : '<div class="note">No tracked nuclear bills in the current Congress.</div>';
+
+  /* movers */
+  var counts = {};
+  FEED.items.forEach(function(i){
+    if ((Date.now()-new Date(i.ts))/36e5 > 168) return;
+    i.entities.forEach(function(e){ if(EMAP[e] && EMAP[e].groups.indexOf('agency')<0) counts[e]=(counts[e]||0)+1; });
+  });
+  var top = Object.keys(counts).map(function(k){return [k,counts[k]];})
+    .sort(function(a,b){return b[1]-a[1];}).slice(0,10);
+  var max = top.length ? top[0][1] : 1;
+  document.getElementById('movers').innerHTML = top.map(function(p){
+    return '<div class="mover" data-e="'+p[0]+'"><div><div class="mn">'+esc(ename(p[0]))+d1chip(p[0])+'</div>'+
+      '<div class="mbar"><i style="width:'+Math.round(100*p[1]/max)+'%"></i></div></div>'+
+      '<div class="mc">'+p[1]+'</div></div>';
+  }).join('') || '<div class="note">No watchlist mentions in the last 7 days.</div>';
+  document.getElementById('movers').addEventListener('click', function(ev){
+    var el = ev.target.closest('.mover'); if(!el) return;
+    setEnt(el.dataset.e);
+  });
+
+  renderDeal();
+  renderMarkets();
+  document.getElementById('mkt').addEventListener('click', function(ev){
+    var r = ev.target.closest('.mkrow'); if(!r || !r.dataset.e) return;
+    setEnt(r.dataset.e);
+  });
+
+  /* coverage note */
+  var wl1 = WL.entities.filter(function(e){return e.tier===1;}).length;
+  document.getElementById('coverage').innerHTML =
+    '<b style="color:var(--text)">'+FEED.items.filter(function(i){return i.rel===0;}).length+'</b> routine (score-0) items; Mute routine hides them. '+
+    'Tracking <b style="color:var(--text)">'+WL.entities.length+'</b> entities from the fuel-cycle and reactor-landscape dashboards ('+wl1+' tier-1). '+
+    'Sources live: Federal Register, Grants.gov, NRC ADAMS, SEC EDGAR, OSTI, Google News.'+
+    (FEED.sources.datagov?' Regulations.gov + Congress live.':' Regulations.gov + Congress pending api.data.gov key.')+
+    (FEED.sources.sam_gov?'':' SAM.gov pending API key.')+(FEED.sources.x_api?'':' X pending bearer token.');
+
+  /* filters */
+  document.getElementById('q').addEventListener('input', function(){ state.q=this.value.toLowerCase(); render(); });
+  document.querySelectorAll('.tgl[data-w]').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('.tgl[data-w]').forEach(function(x){x.classList.remove('on');});
+      this.classList.add('on'); state.windowH = +this.dataset.w; render();
+    });
+  });
+  document.getElementById('vonly').addEventListener('click', function(){
+    state.vonly = !state.vonly; this.classList.toggle('on', state.vonly); render();
+  });
+  document.getElementById('noisef').addEventListener('click', function(){
+    state.mute = !state.mute; this.classList.toggle('on', state.mute); paintKpis(); render();
+  });
+  document.getElementById('entclear').addEventListener('click', function(){ setEnt(null); });
+  document.getElementById('feed').addEventListener('click', function(ev){
+    var c = ev.target.closest('.chip'); if(c) setEnt(c.dataset.e);
+  });
+
+  /* tabs + energy controls */
+  document.querySelectorAll('.navtab').forEach(function(t){
+    t.addEventListener('click', function(){
+      document.querySelectorAll('.navtab').forEach(function(x){x.classList.remove('on');});
+      t.classList.add('on');
+      var v = t.dataset.v;
+      document.getElementById('view-intel').hidden = (v!=='intel');
+      document.getElementById('view-energy').hidden = (v!=='energy');
+      document.getElementById('view-conf').hidden = (v!=='conf');
+      document.getElementById('view-cap').hidden = (v!=='cap');
+      document.getElementById('view-inv').hidden = (v!=='inv');
+      if (v==='energy') renderEnergy();
+      if (v==='conf') renderConf();
+      if (v==='cap') renderCap();
+      if (v==='inv') renderInv();
+    });
+  });
+  document.getElementById('sectorseg').addEventListener('click', function(ev){
+    var b = ev.target.closest('button'); if(!b) return;
+    this.querySelectorAll('button').forEach(function(x){x.classList.remove('on');});
+    b.classList.add('on'); estate.sector = b.dataset.s;
+    paintMap();
+    if(estate.mode==='rto' && estate.rto) showRTO(estate.rto);
+  });
+  document.getElementById('rtoseg').addEventListener('click', function(ev){
+    var b = ev.target.closest('button'); if(!b) return;
+    this.querySelectorAll('button').forEach(function(x){x.classList.remove('on');});
+    b.classList.add('on'); estate.mode = b.dataset.m; estate.rto = null;
+    paintMap();
+    if(estate.mode==='rto') rtoHint(); else showState(estate.sel||'TX');
+  });
+  document.getElementById('elegend').addEventListener('click', function(ev){
+    var c = ev.target.closest('[data-r]'); if(!c || estate.mode!=='rto') return;
+    selectRTO(c.getAttribute('data-r'));
+  });
+  document.getElementById('fleetbtn').addEventListener('click', function(){
+    estate.fleet=!estate.fleet; estate.fsel=null; this.classList.toggle('on', estate.fleet);
+    paintFleet();
+  });
+  document.getElementById('fleetlegend').addEventListener('click', function(ev){
+    var c=ev.target.closest('[data-g]'); if(!c) return;
+    var g=c.getAttribute('data-g');
+    estate.fsel = (estate.fsel===g)?null:g;
+    paintFleet(); if(estate.fsel) showFleet(g);
+  });
+
+  render();
+}
+
+function setEnt(id){
+  state.ent = id;
+  var f = document.getElementById('entflag');
+  f.classList.toggle('show', !!id);
+  if (id) document.getElementById('entname').textContent = ename(id);
+  render();
+}
+
+/* ============================ ENERGY VIEW ============================ */
+var estate = { sector:'all', built:false, sel:null, mode:'states', rto:null, fleet:false, fsel:null };
+var SECTORLABEL = {all:'All-sector',res:'Residential',com:'Commercial',ind:'Industrial'};
+var SKIPLABEL = {DC:1,DE:1,RI:1,CT:1,NJ:1,MD:1,MA:1,NH:1,VT:1};   // tiny NE states: identified on hover, not crammed labels
+var SNAME = {AL:'Alabama',AK:'Alaska',AZ:'Arizona',AR:'Arkansas',CA:'California',CO:'Colorado',CT:'Connecticut',DE:'Delaware',DC:'District of Columbia',FL:'Florida',GA:'Georgia',HI:'Hawaii',ID:'Idaho',IL:'Illinois',IN:'Indiana',IA:'Iowa',KS:'Kansas',KY:'Kentucky',LA:'Louisiana',ME:'Maine',MD:'Maryland',MA:'Massachusetts',MI:'Michigan',MN:'Minnesota',MS:'Mississippi',MO:'Missouri',MT:'Montana',NE:'Nebraska',NV:'Nevada',NH:'New Hampshire',NJ:'New Jersey',NM:'New Mexico',NY:'New York',NC:'North Carolina',ND:'North Dakota',OH:'Ohio',OK:'Oklahoma',OR:'Oregon',PA:'Pennsylvania',RI:'Rhode Island',SC:'South Carolina',SD:'South Dakota',TN:'Tennessee',TX:'Texas',UT:'Utah',VT:'Vermont',VA:'Virginia',WA:'Washington',WV:'West Virginia',WI:'Wisconsin',WY:'Wyoming'};
+function STATES(){ return US_MAP ? Object.keys(US_MAP.paths) : []; }
+
+/* five-band quintile palettes: price runs green (cheapest) -> red (priciest); nuclear runs dim -> bright green by capacity */
+var BAND_PRICE = ['#2FA36A','#86BE4B','#E3C03F','#EC8A3E','#D14B3E'];
+var NO_DATA = '#23282C';
+function quantile(sorted,p){ if(!sorted.length)return 0; var i=(sorted.length-1)*p, lo=Math.floor(i), hi=Math.ceil(i); return lo===hi?sorted[lo]:sorted[lo]+(sorted[hi]-sorted[lo])*(i-lo); }
+function quintiles(vals){ var s=vals.slice().sort(function(a,b){return a-b;}); return [quantile(s,0.2),quantile(s,0.4),quantile(s,0.6),quantile(s,0.8)]; }
+function bandOf(v,q){ for(var i=0;i<4;i++) if(v<=q[i]) return i; return 4; }
+function fmt1(x){ return (Math.round(x*10)/10).toString(); }
+function statesData(){ return (ENERGY&&ENERGY.states)||{}; }
+function sectorVals(){var d=statesData(),o=[];STATES().forEach(function(s){var p=d[s]&&d[s].price;if(p&&p[estate.sector]!=null)o.push(p[estate.sector]);});return o;}
+function valLabel(s){var st=statesData()[s]||{},pr=st.price?st.price[estate.sector]:null;return pr!=null?pr.toFixed(2)+' \u00a2/kWh':'\u2014';}
+
+/* ---- RTO territory overlay ---- */
+var _s2r=null;
+function stateRTO(s){
+  if(!_s2r){ _s2r={}; if(RTO&&RTO.territories) for(var k in RTO.territories) RTO.territories[k].states.forEach(function(x){_s2r[x]=k;}); }
+  return _s2r[s]||null;
+}
+function rtoAgg(k){
+  var t=RTO.territories[k], d=statesData();
+  var sums={all:0,res:0,com:0,ind:0}, ns={all:0,res:0,com:0,ind:0}, mw=0, units=0;
+  t.states.forEach(function(s){ var st=d[s]; if(!st)return;
+    ['all','res','com','ind'].forEach(function(c){ var v=st.price&&st.price[c]; if(v!=null){sums[c]+=v; ns[c]++;} });
+    if(st.nuclear){ mw+=st.nuclear.mw||0; units+=st.nuclear.units||0; }
+  });
+  var avg={}; ['all','res','com','ind'].forEach(function(c){ avg[c]=ns[c]?sums[c]/ns[c]:null; });
+  return {avg:avg, mw:mw, units:units, n:t.states.length};
+}
+function rtoHint(){ document.getElementById('edetail').innerHTML='<div class="dname">RTO territories</div><div class="dhint">Click a territory on the map or in the legend to see average retail prices by customer class.</div>'; }
+
+/* ---- generation mix (data/energymix.js) ---- */
+var MIXGROUPS = [
+  {k:['NG'],  l:'Gas',        c:'#E0A43C'},
+  {k:['COW'], l:'Coal',       c:'#7A6A5A'},
+  {k:['NUC'], l:'Nuclear',    c:'var(--teal)'},
+  {k:['HYC'], l:'Hydro',      c:'#4C86C6'},
+  {k:['WND'], l:'Wind',       c:'#57BFC9'},
+  {k:['SUN'], l:'Solar',      c:'#E7D653'},
+  {k:['GEO'], l:'Geothermal', c:'#C46A4C'},
+  {k:['WWW','WAS'], l:'Biomass', c:'#7FA65A'},
+  {k:['PET','PC'],  l:'Oil',     c:'#8E5FA8'},
+  {k:['OOG','OTH'], l:'Other',   c:'#6B7A82'}
+];
+function mixCalc(list){
+  var tot=0, sums={};
+  list.forEach(function(m){ if(!m)return; tot+=m.total||0;
+    for(var f in m.src) sums[f]=(sums[f]||0)+m.src[f]; });
+  if(!tot) return null;
+  var rows=[], other=0;
+  MIXGROUPS.forEach(function(g){
+    var v=0; g.k.forEach(function(f){ v+=sums[f]||0; });
+    var pct=v/tot*100;
+    if(g.l==='Other'){ other+=pct; return; }
+    if(pct>=0.8) rows.push({l:g.l,c:g.c,p:pct}); else other+=pct;
+  });
+  if(other>=0.05) rows.push({l:'Other',c:'#6B7A82',p:other});
+  rows.sort(function(a,b){return b.p-a.p;});
+  return {rows:rows, tot:tot};
+}
+function mixHTML(agg, period){
+  if(!agg || !agg.rows.length) return '';
+  var max=agg.rows[0].p||1;
+  var h='<div class="mixh">Generation mix '+(period||'')+' \u00b7 utility-scale \u00b7 '+(agg.tot>=1000?(agg.tot/1000).toFixed(0)+' TWh':Math.round(agg.tot)+' GWh')+'</div>';
+  agg.rows.forEach(function(r){
+    h+='<div class="mixrow"><i style="background:'+r.c+'"></i><span class="ml">'+r.l+'</span>'+
+       '<span class="mb"><i style="width:'+(r.p/max*100).toFixed(1)+'%;background:'+r.c+'"></i></span>'+
+       '<span class="mp">'+(r.p<10?r.p.toFixed(1):Math.round(r.p))+'%</span></div>';
+  });
+  return h;
+}
+
+/* ---- nuclear fleet overlay (data/plants.js) ---- */
+function projAlbers(lon, lat){
+  var rad=Math.PI/180, p1=29.5*rad, p2=45.5*rad;
+  var n=(Math.sin(p1)+Math.sin(p2))/2;
+  var C=Math.cos(p1)*Math.cos(p1)+2*n*Math.sin(p1);
+  var lam=(lon+96)*rad, phi=lat*rad, lam0=-0.6*rad, phi0=38.7*rad;
+  var rho=Math.sqrt(C-2*n*Math.sin(phi))/n, rho0=Math.sqrt(C-2*n*Math.sin(phi0))/n;
+  return [487.5+1300*rho*Math.sin(n*(lam-lam0)), 305-1300*(rho0-rho*Math.cos(n*(lam-lam0)))];
+}
+function fleetGW(g){
+  var mw=0,u=0,sites=0;
+  PLANTS.plants.forEach(function(p){ if(p.g===g && !p.s){ mw+=p.mw; u+=p.u; sites++; } });
+  return {mw:mw,u:u,sites:sites};
+}
+function paintFleet(){
+  var layer=document.getElementById('fleetlayer'), leg=document.getElementById('fleetlegend');
+  if(!layer||!leg) return;
+  var nk=document.getElementById('nukeicons');
+  if(!estate.fleet || !PLANTS){ layer.innerHTML=''; leg.innerHTML=''; if(nk) nk.style.display=''; return; }
+  if(nk) nk.style.display='none';
+  var out='';
+  PLANTS.plants.forEach(function(p,i){
+    var xy=projAlbers(p.lon,p.lat), g=PLANTS.groups[p.g]||{};
+    var r=Math.max(3, Math.sqrt(p.mw)*0.16);
+    var cls='fp'+(p.s?' restart':'')+((estate.fsel&&p.g!==estate.fsel)?' dim':'');
+    out+='<circle class="'+cls+'" data-p="'+i+'" cx="'+xy[0].toFixed(1)+'" cy="'+xy[1].toFixed(1)+'" r="'+r.toFixed(1)+'" fill="'+(g.c||'#999')+'"></circle>';
+  });
+  layer.innerHTML=out;
+  var h='';
+  for(var k in PLANTS.groups){
+    var f=fleetGW(k);
+    h+='<span class="rleg'+(estate.fsel===k?' on':'')+'" data-g="'+k+'"><i style="background:'+PLANTS.groups[k].c+'"></i>'+PLANTS.groups[k].l+' '+(f.mw/1000).toFixed(1)+'</span>';
+  }
+  h+='<span class="legunit">operating GW by operator \u00b7 circle area \u2248 site MW \u00b7 dashed = restart pending \u00b7 click an operator</span>';
+  leg.innerHTML=h;
+}
+function showPlant(i){
+  var p=PLANTS.plants[i], g=PLANTS.groups[p.g]||{}, el=document.getElementById('edetail');
+  var st=statesData()[p.st]||{}, pr=st.price||{};
+  function row(k,v){return '<div class="drow"><span class="k">'+k+'</span><span class="vv">'+v+'</span></div>';}
+  var h='<div class="dname"><i class="rswatch" style="background:'+g.c+'"></i>'+esc(p.n)+'</div>';
+  h+='<div class="dmeta">'+esc(p.o)+' \u00b7 '+(SNAME[p.st]||p.st)+(p.s?' \u00b7 '+esc(p.s):'')+'</div>';
+  h+=row('Units', p.u)+row('Capacity', p.mw.toLocaleString()+' MW')+
+     row('State all-sector price', pr.all!=null?pr.all.toFixed(2)+' \u00a2/kWh':'\u2014')+
+     row('State industrial price', pr.ind!=null?pr.ind.toFixed(2)+' \u00a2/kWh':'\u2014');
+  h+='<div class="dhint" style="margin-top:10px">'+esc(PLANTS.source||'')+'</div>';
+  el.innerHTML=h;
+}
+function showFleet(k){
+  var g=PLANTS.groups[k], f=fleetGW(k), el=document.getElementById('edetail');
+  var sites=PLANTS.plants.filter(function(p){return p.g===k;});
+  var stset={}; sites.forEach(function(p){ if(!p.s) stset[p.st]=1; });
+  var h='<div class="dname"><i class="rswatch" style="background:'+g.c+'"></i>'+esc(g.l)+'</div>';
+  h+='<div class="dmeta">'+f.sites+' operating sites \u00b7 '+f.u+' units \u00b7 '+Object.keys(stset).join(' ')+'</div>';
+  h+='<div class="dnuke"><div class="lab">Operating fleet</div><div class="big">'+(f.mw/1000).toFixed(2)+' GW</div>'+
+     '<div class="sub">'+f.mw.toLocaleString()+' MW summer</div></div>';
+  sites.sort(function(a,b){return b.mw-a.mw;}).forEach(function(p){
+    h+='<div class="flrow"><span>'+esc(p.n)+(p.s?' \u00b7 '+esc(p.s):'')+'</span><span class="mp">'+(p.mw/1000).toFixed(2)+'</span></div>';
+  });
+  h+='<div class="dhint" style="margin-top:8px">GW per site \u00b7 '+esc(PLANTS.source||'')+'</div>';
+  el.innerHTML=h;
+}
+
+function radIcon(cx,cy,s){
+  s=s||1;
+  var ri=2.0, ro=5.1, half=30*Math.PI/180, blades='';
+  [270,30,150].forEach(function(deg){
+    var a=deg*Math.PI/180, a1=a-half, a2=a+half;
+    function P(r,ang){return (Math.round(r*Math.cos(ang)*10)/10)+' '+(Math.round(r*Math.sin(ang)*10)/10);}
+    blades+='<path d="M'+P(ri,a1)+' L'+P(ro,a1)+' A'+ro+' '+ro+' 0 0 1 '+P(ro,a2)+' L'+P(ri,a2)+' A'+ri+' '+ri+' 0 0 0 '+P(ri,a1)+' Z"/>';
+  });
+  return '<g class="radicon" transform="translate('+cx+' '+cy+') scale('+s+')">'+
+    '<circle class="rdisc" r="7"/>'+
+    '<g class="rtref"><circle r="1.7"/>'+blades+'</g></g>';
+}
+
+function placeNukeIcons(){
+  var svg=document.getElementById('usmap'), nd=statesData(), pt=svg.createSVGPoint(), out='';
+  function inside(el,x,y){ pt.x=x; pt.y=y; return el.isPointInFill(pt); }
+  function clear(el,x,y,R){
+    if(!inside(el,x,y)) return false;
+    for(var a=0;a<360;a+=45){ var r=a*Math.PI/180; if(!inside(el,x+R*Math.cos(r),y+R*Math.sin(r))) return false; }
+    return true;
+  }
+  for(var n in US_MAP.cent){
+    var ns=nd[n]; if(!(ns&&ns.nuclear&&ns.nuclear.mw)) continue;
+    var el=document.querySelector('#usmap path[data-s="'+n+'"]'); if(!el) continue;
+    var bb=el.getBBox(), step=Math.max(2.5, Math.min(bb.width,bb.height)/9), pick=null, pickR=2.5;
+    [8,6,4.5,3].some(function(R){                       // walk clearance down until the badge fits
+      var best=null;
+      for(var gx=bb.x+R; gx<=bb.x+bb.width-R+0.01; gx+=step)
+        for(var gy=bb.y+R; gy<=bb.y+bb.height-R+0.01; gy+=step)
+          if(clear(el,gx,gy,R) && (!best||(gx+gy)<(best[0]+best[1]))) best=[gx,gy];   // upper-left-most clear point
+      if(best){ pick=best; pickR=R; return true; } return false;
+    });
+    if(!pick) pick=US_MAP.cent[n];
+    out+=radIcon(pick[0], pick[1], Math.max(0.45, Math.min(0.82, (pickR-0.3)/7)));
+  }
+  document.getElementById('nukeicons').innerHTML=out;
+}
+
+function buildMap(){
+  if(!US_MAP) return;
+  var svg=document.getElementById('usmap'); svg.setAttribute('viewBox', US_MAP.viewBox);
+  var frag='';
+  for(var s in US_MAP.paths){ frag+='<path class="st" data-s="'+s+'" d="'+US_MAP.paths[s]+'" fill="#23282C"></path>'; }
+  for(var k in US_MAP.cent){
+    if(SKIPLABEL[k])continue;
+    var c=US_MAP.cent[k];
+    frag+='<text class="stlabel" x="'+c[0]+'" y="'+(c[1]-6)+'">'+k+'</text>';
+    frag+='<text class="stval" data-s="'+k+'" x="'+c[0]+'" y="'+(c[1]+7)+'"></text>';
+  }
+  frag+='<g id="nukeicons"></g><g id="fleetlayer"></g>';
+  svg.innerHTML=frag;
+  placeNukeIcons();                                   // anchors need the paths in the DOM for hit-testing
+  var tip=document.getElementById('etip'), col=document.getElementById('emapcol');
+  svg.addEventListener('mousemove',function(ev){
+    var fp=ev.target.closest('[data-p]');
+    if(fp && PLANTS){ var pp=PLANTS.plants[+fp.getAttribute('data-p')];
+      var r0=col.getBoundingClientRect(); tip.style.left=(ev.clientX-r0.left)+'px'; tip.style.top=(ev.clientY-r0.top)+'px';
+      tip.innerHTML='<b>'+pp.n+'</b> '+pp.mw.toLocaleString()+' MW \u00b7 '+pp.o; tip.style.display='block'; return;
+    }
+    var t=ev.target.closest('[data-s]');
+    if(t){ var s=t.getAttribute('data-s'); if(estate.mode!=='rto' && s!==estate.sel) showState(s);
+      var r=col.getBoundingClientRect(); tip.style.left=(ev.clientX-r.left)+'px'; tip.style.top=(ev.clientY-r.top)+'px';
+      var mem=(estate.mode==='rto'&&stateRTO(s))?' \u00b7 '+stateRTO(s):'';
+      tip.innerHTML='<b>'+(SNAME[s]||s)+'</b> '+valLabel(s)+mem; tip.style.display='block';
+    } else { tip.style.display='none'; }
+  });
+  svg.addEventListener('mouseleave',function(){tip.style.display='none';});
+  svg.addEventListener('click',function(ev){var fp=ev.target.closest('[data-p]');if(fp){showPlant(+fp.getAttribute('data-p'));return;}var t=ev.target.closest('[data-s]');if(!t)return;var s=t.getAttribute('data-s');if(estate.mode==='rto'){var k=stateRTO(s);if(k)selectRTO(k);}else showState(s);});
+  estate.built=true;
+}
+
+function setVal(s,txt){ var v=document.querySelector('#usmap text.stval[data-s="'+s+'"]'); if(v) v.textContent=txt; }
+
+function paintMap(){
+  if(!US_MAP) return;
+  var d=statesData();
+  if(estate.mode==='rto' && RTO && RTO.territories){
+    for(var s in US_MAP.paths){
+      var el=document.querySelector('#usmap path[data-s="'+s+'"]'); if(!el)continue;
+      var k=stateRTO(s), tt=k&&RTO.territories[k];
+      el.setAttribute('fill', tt?tt.color:NO_DATA);
+      el.setAttribute('opacity', (estate.rto && k!==estate.rto)?0.22:1);
+      var st=d[s]||{}, pr=st.price?st.price[estate.sector]:null;
+      setVal(s, pr!=null ? Math.round(pr) : '');
+    }
+    var hh='';
+    for(var k2 in RTO.territories){
+      var a=rtoAgg(k2);
+      hh+='<span class="rleg'+(estate.rto===k2?' on':'')+'" data-r="'+k2+'"><i style="background:'+RTO.territories[k2].color+'"></i>'+k2+(a.avg[estate.sector]!=null?' '+a.avg[estate.sector].toFixed(1):'')+'</span>';
+    }
+    hh+='<span class="legunit">'+SECTORLABEL[estate.sector]+' \u00a2/kWh \u00b7 mean of member states \u00b7 click a territory</span>';
+    document.getElementById('elegend').innerHTML=hh;
+    return;
+  }
+  var q = quintiles(sectorVals());
+  for(var s3 in US_MAP.paths){
+    var el3=document.querySelector('#usmap path[data-s="'+s3+'"]'); if(!el3)continue;
+    el3.setAttribute('opacity',1);
+    var st3=d[s3]||{}, pr3=st3.price?st3.price[estate.sector]:null;
+    el3.setAttribute('fill', pr3!=null ? BAND_PRICE[bandOf(pr3,q)] : NO_DATA);
+    setVal(s3, pr3!=null ? Math.round(pr3) : '');
+  }
+  var t=q.map(fmt1), h='';
+  var labp=['<'+t[0], t[0]+'\u2013'+t[1], t[1]+'\u2013'+t[2], t[2]+'\u2013'+t[3], '>'+t[3]];
+  for(var i=0;i<5;i++) h+='<span><i style="background:'+BAND_PRICE[i]+'"></i>'+labp[i]+'</span>';
+  h+='<span class="legunit">'+SECTORLABEL[estate.sector]+' \u00a2/kWh \u00b7 quintiles</span>';
+  document.getElementById('elegend').innerHTML=h;
+}
+
+function showState(s){
+  estate.sel=s;
+  var d=statesData()[s], el=document.getElementById('edetail'), nm=SNAME[s]||s;
+  if(!d){el.innerHTML='<div class="dname">'+nm+'</div><div class="dhint">No EIA data for this state.</div>';return;}
+  var p=d.price||{}, n=d.nuclear;
+  function row(k,v){return '<div class="drow"><span class="k">'+k+'</span><span class="vv">'+v+'</span></div>';}
+  function pc(x){return x!=null? x.toFixed(2)+' ¢':'—';}
+  var h='<div class="dname">'+nm+'</div><div class="dmeta">Retail price '+(ENERGY.price_period||'')+'</div>';
+  h+=row('All sectors',pc(p.all))+row('Residential',pc(p.res))+row('Commercial',pc(p.com))+row('Industrial',pc(p.ind));
+  if(n&&n.mw){
+    h+='<div class="dnuke"><div class="lab">Operating nuclear</div><div class="big">'+(n.mw>=1000?(n.mw/1000).toFixed(2)+' GW':n.mw+' MW')+'</div>'+
+       '<div class="sub">'+n.units+' reactor'+(n.units===1?'':'s')+' · '+n.mw.toLocaleString()+' MW summer</div></div>';
+  } else {
+    h+='<div class="dnuke" style="border-color:var(--line);background:none"><div class="lab" style="color:var(--muted)">Nuclear</div><div class="sub" style="margin-top:0">No operating nuclear capacity</div></div>';
+  }
+  if(MIX&&MIX.states&&MIX.states[s]) h+=mixHTML(mixCalc([MIX.states[s]]), MIX.states[s].period);
+  el.innerHTML=h;
+}
+
+function selectRTO(k){
+  estate.rto = (estate.rto===k ? null : k);
+  paintMap();
+  if(estate.rto) showRTO(k); else rtoHint();
+}
+function showRTO(k){
+  var t=RTO.territories[k], a=rtoAgg(k), el=document.getElementById('edetail');
+  function row(kk,v){return '<div class="drow"><span class="k">'+kk+'</span><span class="vv">'+v+'</span></div>';}
+  function pc(x){return x!=null? x.toFixed(2)+' \u00a2':'\u2014';}
+  var h='<div class="dname"><i class="rswatch" style="background:'+t.color+'"></i>'+esc(t.name)+'</div>';
+  h+='<div class="dmeta">'+a.n+' states \u00b7 retail '+(ENERGY.price_period||'')+' \u00b7 simple mean of member states</div>';
+  h+=row('All sectors',pc(a.avg.all))+row('Residential',pc(a.avg.res))+row('Commercial',pc(a.avg.com))+row('Industrial',pc(a.avg.ind));
+  if(a.mw){
+    h+='<div class="dnuke"><div class="lab">Operating nuclear in territory</div><div class="big">'+(a.mw/1000).toFixed(2)+' GW</div>'+
+       '<div class="sub">'+a.units+' reactor'+(a.units===1?'':'s')+' \u00b7 '+a.mw.toLocaleString()+' MW summer</div></div>';
+  } else {
+    h+='<div class="dnuke" style="border-color:var(--line);background:none"><div class="lab" style="color:var(--muted)">Nuclear</div><div class="sub" style="margin-top:0">No operating nuclear capacity</div></div>';
+  }
+  if(MIX&&MIX.states){
+    var mm=t.states.map(function(x){return MIX.states[x];}).filter(Boolean);
+    if(mm.length) h+=mixHTML(mixCalc(mm), MIX.period);
+  }
+  h+='<div class="dhint" style="margin-top:10px">'+esc(t.states.join(' \u00b7 '))+'</div>';
+  h+='<div class="dhint">'+esc(RTO.note||'')+'</div>';
+  el.innerHTML=h;
+}
+
+function renderEnergy(){
+  if(!ENERGY||!ENERGY.states){
+    document.querySelector('#view-energy .emain').innerHTML='<div class="empty" style="padding:48px 24px">Energy data pending.<br>Set <code>EIA_API_KEY</code> in the workflow and run the collector to populate the map.</div>';
+    document.getElementById('esub').textContent=''; return;
+  }
+  if(!US_MAP){
+    document.querySelector('#view-energy .emain').innerHTML='<div class="empty" style="padding:48px 24px">Map geometry missing.<br>Upload <code>data/usmap.js</code> to render the state map.</div>'; return;
+  }
+  var t=ENERGY.totals||{};
+  document.getElementById('esub').textContent='Retail price '+(ENERGY.price_period||'')+' · nuclear '+(ENERGY.capacity_period||'')+' · EIA'+(t.nuclear_mw?' · '+t.nuclear_states+' states, '+(t.nuclear_mw/1000).toFixed(0)+' GW operating':'');
+  if(!estate.built) buildMap();
+  paintMap();
+  if(estate.mode==='rto'){ if(estate.rto) showRTO(estate.rto); else rtoHint(); }
+  else showState(estate.sel||'TX');
+}
+
+/* ============================ CONFERENCES / EVENTS VIEW ============================ */
+var cstate = { region:'all', tier:'all', q:'', upcoming:true, wired:false };
+var CMON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function cfmtDate(i){
+  if(!i.start) return { big:'TBC', small:'' };
+  var s=i.start.split('-'), e=(i.end||i.start).split('-');
+  var sd=+s[2], ed=+e[2], sm=CMON[+s[1]-1], em=CMON[+e[1]-1];
+  if(i.end && i.end!==i.start){
+    if(sm===em) return { big:sd+'–'+ed, small:sm+' '+s[0] };
+    return { big:sd+' '+sm, small:'– '+ed+' '+em+' '+s[0] };
+  }
+  return { big:String(sd), small:sm+' '+s[0] };
+}
+function cmonthLabel(i){
+  if(!i.start) return 'Dates to confirm';
+  var p=i.start.split('-'); return CMON[+p[1]-1].toUpperCase()+' '+p[0];
+}
+function renderConf(){
+  var el=document.getElementById('conflist');
+  if(!CONF||!CONF.items){ el.innerHTML='<div class="cempty">No conference data loaded.<br>Upload <code>data/conferences.js</code> to populate this tab.</div>'; document.getElementById('csub').textContent=''; return; }
+  var hi=CONF.items.filter(function(x){return x.rating==='HIGH';}).length;
+  document.getElementById('csub').textContent=CONF.count+' events · '+hi+' Tier 1 · verified on organiser sites · seed '+(CONF.generated||'').slice(0,10);
+  if(!cstate.wired){
+    document.getElementById('cregion').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;this.querySelectorAll('button').forEach(function(x){x.classList.remove('on');});b.classList.add('on');cstate.region=b.dataset.r;paintConf();});
+    document.getElementById('crating').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;this.querySelectorAll('button').forEach(function(x){x.classList.remove('on');});b.classList.add('on');cstate.tier=b.dataset.t;paintConf();});
+    document.getElementById('cupcoming').addEventListener('click',function(){cstate.upcoming=!cstate.upcoming;this.classList.toggle('on',cstate.upcoming);paintConf();});
+    document.getElementById('cq').addEventListener('input',function(){cstate.q=this.value.toLowerCase();paintConf();});
+    cstate.wired=true;
+  }
+  paintConf();
+}
+function paintConf(){
+  var today=new Date().toISOString().slice(0,10);
+  var rows=CONF.items.filter(function(i){
+    if(cstate.region!=='all' && i.region!==cstate.region) return false;
+    if(cstate.tier!=='all' && i.rating!==cstate.tier) return false;
+    if(cstate.upcoming && i.end && i.end<today) return false;
+    if(cstate.q){
+      var hay=(i.name+' '+i.organizer+' '+i.city+' '+i.country+' '+i.relevance+' '+i.participation).toLowerCase();
+      if(hay.indexOf(cstate.q)<0) return false;
+    }
+    return true;
+  });
+  var el=document.getElementById('conflist');
+  if(!rows.length){ el.innerHTML='<div class="cempty">No events match these filters.</div>'; return; }
+  var html='', lastMonth='';
+  rows.forEach(function(i){
+    var ml=cmonthLabel(i);
+    if(ml!==lastMonth){ html+='<div class="cmonth">'+ml+'</div>'; lastMonth=ml; }
+    var d=cfmtDate(i), rc=i.rating==='HIGH'?'1':i.rating==='MEDIUM'?'2':'3';
+    var loc=[i.city,i.country].filter(Boolean).join(', ');
+    var nm=i.link?'<a href="'+esc(i.link)+'" target="_blank" rel="noopener">'+esc(i.name)+'</a>':esc(i.name);
+    var tlabel=i.rating==='HIGH'?'Tier 1':i.rating==='MEDIUM'?'Tier 2':'Tier 3';
+    html+='<div class="crow t'+rc+'">'+
+      '<div class="cdate">'+d.big+'<small>'+esc(d.small)+'</small></div>'+
+      '<div class="cbody">'+
+        '<div class="cname">'+(i.flag?'<span class="cflag">'+esc(i.flag)+'</span>':'')+nm+'</div>'+
+        '<div class="cmeta">'+esc(i.organizer)+(loc?' · '+esc(loc):'')+'</div>'+
+        (i.relevance?'<div class="crel">'+esc(i.relevance)+'</div>':'')+
+        '<div class="cchips"><span class="ctag r'+rc+'">'+tlabel+'</span>'+
+          (i.participation?'<span class="cpart">'+esc(i.participation)+'</span>':'')+
+          (i.type?'<span class="cpart">'+esc(i.type)+'</span>':'')+
+          (i.deadline?'<span class="cpart" style="color:var(--orange)">⏱ '+esc(i.deadline)+'</span>':'')+
+        '</div>'+
+      '</div></div>';
+  });
+  el.innerHTML=html;
+}
+
+/* ============================ CAPITAL / PROGRAMMES VIEW ============================ */
+var capstate = { reg:'all', openOnly:false, q:'', wired:false };
+var REG_LABEL = { cash:'Cash \u00b7 competitive R&D', inkind:'In-kind \u00b7 access, material, partnership', allocated:'Largely allocated \u00b7 reference' };
+var REG_ORDER = ['cash','inkind','allocated'];
+function renderCap(){
+  var el=document.getElementById('caplist');
+  if(!PROG||!PROG.items){ el.innerHTML='<div class="cempty">No programme data loaded.<br>Upload <code>data/programmes.js</code> to populate this tab.</div>'; document.getElementById('capsub').textContent=''; return; }
+  document.getElementById('capsub').textContent=PROG.count+' programmes \u00b7 '+PROG.open+' open now \u00b7 tagged by what each provides, not lumped as funding \u00b7 curated '+(PROG.generated||'').slice(0,10);
+  if(!capstate.wired){
+    document.getElementById('capreg').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;this.querySelectorAll('button').forEach(function(x){x.classList.remove('on');});b.classList.add('on');capstate.reg=b.dataset.r;paintCap();});
+    document.getElementById('capopen').addEventListener('click',function(){capstate.openOnly=!capstate.openOnly;this.classList.toggle('on',capstate.openOnly);paintCap();});
+    document.getElementById('capq').addEventListener('input',function(){capstate.q=this.value.toLowerCase();paintCap();});
+    capstate.wired=true;
+  }
+  paintCap();
+}
+function paintCap(){
+  var rows=PROG.items.filter(function(p){
+    if(capstate.reg!=='all' && p.register!==capstate.reg) return false;
+    if(capstate.openOnly && p.status!=='open') return false;
+    if(capstate.q){
+      var hay=(p.name+' '+p.sponsor+' '+p.kind+' '+p.fit+' '+p.funds+' '+p.provides).toLowerCase();
+      if(hay.indexOf(capstate.q)<0) return false;
+    }
+    return true;
+  });
+  var el=document.getElementById('caplist');
+  if(!rows.length){ el.innerHTML='<div class="cempty">No programmes match these filters.</div>'; return; }
+  var html='';
+  REG_ORDER.forEach(function(reg){
+    var grp=rows.filter(function(p){return p.register===reg;});
+    if(!grp.length) return;
+    html+='<div class="cmonth">'+REG_LABEL[reg]+'</div>';
+    grp.forEach(function(p){
+      var rc=reg==='cash'?'cash':reg==='inkind'?'inkind':'alloc';
+      var nm=p.link?'<a href="'+esc(p.link)+'" target="_blank" rel="noopener">'+esc(p.name)+'</a>':esc(p.name);
+      var stopen=p.status==='open'?' open':'';
+      var dl=p.deadline?'<span class="cpart" style="color:var(--orange)">\u23f1 '+esc(p.deadline)+'</span>':(p.deadline_label?'<span class="cstat">'+esc(p.deadline_label)+'</span>':'');
+      html+='<div class="crow rc-'+rc+'">'+
+        '<div class="cbody">'+
+          '<div class="cname">'+nm+'</div>'+
+          '<div class="cmeta">'+esc(p.sponsor)+' \u00b7 '+esc(p.kind)+'</div>'+
+          '<div class="cprov">'+esc(p.provides)+'</div>'+
+          (p.fit?'<div class="crel">'+esc(p.fit)+'</div>':'')+
+          (p.note?'<div class="crel" style="color:var(--dim)">'+esc(p.note)+'</div>':'')+
+          '<div class="cchips">'+
+            '<span class="ctag '+(reg==='cash'?'g':reg==='inkind'?'r2':'r3')+'">'+(reg==='cash'?'Cash':reg==='inkind'?'In-kind':'Allocated')+'</span>'+
+            '<span class="cstat'+stopen+'">'+esc(p.status)+'</span>'+
+            dl+
+          '</div>'+
+        '</div></div>';
+    });
+  });
+  el.innerHTML=html;
+}
+
+function render(){
+  var items = FEED.items.filter(function(i){
+    if (i.bucket==='policy') return false;          // legislation shows in its own panel
+    if (isMuted(i)) return false;                   // verify layer scored it zero relevance
+    if (!state.buckets[i.bucket]) return false;
+    if (state.windowH && (Date.now()-new Date(i.ts))/36e5 > state.windowH) return false;
+    if (state.vonly && !i.verified) return false;
+    if (state.ent && i.entities.indexOf(state.ent) < 0) return false;
+    if (state.q){
+      var blob = (i.title+' '+i.source+' '+i.entities.map(ename).join(' ')+' '+(i.topics||[]).join(' ')).toLowerCase();
+      if (blob.indexOf(state.q) < 0) return false;
+    }
+    return true;
+  });
+  var out = [], lastDay = '';
+  items.slice(0,250).forEach(function(i){
+    var dk = dayKey(i.ts);
+    if (dk !== lastDay){
+      lastDay = dk;
+      out.push('<div class="day">'+new Date(i.ts).toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'})+'</div>');
+    }
+    var chips = i.entities.slice(0,4).map(function(e){
+      return '<span class="chip" data-e="'+e+'">'+esc(ename(e))+'</span>';
+    }).join('');
+    var topics = (i.topics||[]).slice(0,3).map(function(t){return '<span class="topic">#'+esc(t)+'</span>';}).join('');
+    out.push('<div class="item" style="--c:'+bucketColor(i.bucket)+'">'+
+      '<div class="t">'+hhmm(i.ts)+'<br>'+rel(i.ts)+'</div><div class="b"></div>'+
+      '<div><h3><a href="'+esc(i.url)+'" target="_blank" rel="noopener">'+esc(i.title)+'</a></h3>'+
+      (i.why?'<div class="why">'+esc(i.why)+'</div>':'')+
+      '<div class="meta"><span class="src">'+esc(i.source)+'</span>'+(i.pub?'<span class="topic">pub '+esc(i.pub)+'</span>':'')+(i.dupes?'<span class="more" title="also carried by '+i.dupes+' other source(s)">+'+i.dupes+'</span>':'')+chips+topics+
+      (i.deadline?'<span class="dl">'+esc(i.deadline_label||'Deadline')+' '+i.deadline+'</span>':'')+
+      (i.verified?'<span class="vfy">✓ verified</span>':'')+
+      '</div></div></div>');
+  });
+  document.getElementById('feed').innerHTML = out.join('') ||
+    '<div class="empty">Nothing matches these filters.<br>Widen the time window or clear the search.</div>';
+}
+
+/* periodic data refresh without page reload */
+setInterval(function(){
+  var s = document.createElement('script');
+  s.src = 'data/feed.js?ts=' + Date.now();
+  s.onload = function(){ if (window.NIT_FEED && window.NIT_FEED.generated !== (FEED&&FEED.generated)){ location.reload(); } };
+  document.body.appendChild(s);
+}, 5*60*1000);
+})();
+
+/* ================= INVESTORS TAB ================= */
+const INV = window.NIT_INV || null;
+let invInit=false, invCo='ALL', invType='ALL', invActiveOnly=false, invQ='', invSort='total', invShown=48;
+const INV_TYPES=[['ALL','All'],['Nuclear / energy specialist','Specialist'],['Active manager','Active'],
+ ['Hedge fund / multi-strategy','Hedge fund'],['Passive / index','Passive'],['Quant / market-maker','Quant/MM'],
+ ['Broker / wealth platform','Broker'],['','Unclassified']];
+const INV_LOWSIG=new Set(['Passive / index','Quant / market-maker','Broker / wealth platform']);
+function invMoney(v){ if(v>=1e9)return '$'+(v/1e9).toFixed(2)+'B'; if(v>=1e6)return '$'+(v/1e6).toFixed(1)+'M'; if(v>=1e3)return '$'+(v/1e3).toFixed(0)+'k'; return '$'+v; }
+function invTypeCls(t){ return t==='Nuclear / energy specialist'?'spec':t==='Active manager'?'act':t==='Hedge fund / multi-strategy'?'hf':t==='Passive / index'?'pas':t==='Quant / market-maker'?'qmm':t==='Broker / wealth platform'?'brk':'unk'; }
+function invTypeShort(t){ const m={'Nuclear / energy specialist':'Specialist','Active manager':'Active','Hedge fund / multi-strategy':'Hedge fund','Passive / index':'Passive','Quant / market-maker':'Quant/MM','Broker / wealth platform':'Broker'}; return m[t]||'—'; }
+function renderInv(){
+  if(invInit){ paintInv(); return; }
+  invInit=true;
+  const el=document.getElementById('invgrid');
+  if(!INV||!INV.items){ el.innerHTML='<div class="invempty">No investor data loaded.<br>Upload <code>data/investors.js</code> to populate this tab.</div>'; return; }
+  document.getElementById('invsub').textContent=`13F ${INV.season} season · long US-listed equity only · option rows excluded · values as of quarter end, filed up to 45 days later · hover a company chip for parse coverage`;
+  document.getElementById('invsub').title=INV.caveats;
+  const tot=INV.items.reduce((a,i)=>a+i.total,0), spec=INV.items.filter(i=>i.type==='Nuclear / energy specialist').length,
+        nh=INV.items.filter(i=>i.nhic).length, act=INV.items.filter(i=>i.type&&!INV_LOWSIG.has(i.type)).length;
+  document.getElementById('invstats').innerHTML=
+    `<div class="st"><b>${invMoney(tot)}</b><span>tracked 13F capital</span></div>`+
+    `<div class="st"><b>${INV.count}</b><span>institutional investors</span></div>`+
+    `<div class="st"><b>${act}</b><span>active-money holders</span></div>`+
+    `<div class="st deal"><b>${nh}</b><span>hold NHIC (NWCL deal)</span></div>`+
+    `<div class="st"><b>${spec}</b><span>nuclear specialists</span></div>`;
+  const co=document.getElementById('invcompany');
+  co.innerHTML=['ALL',...INV.universe.map(u=>u.ticker)].map(t=>{
+    const u=INV.universe.find(x=>x.ticker===t);
+    const cls=t==='NHIC'?'invchip deal':'invchip';
+    const tip=u?`${u.company} — ${u.parsed} of ${u.fts_filers} 13F filers parsed (majors prioritised)`:'all companies';
+    return `<button class="${cls}" data-co="${t}" title="${tip}">${t==='ALL'?'ALL COMPANIES':t}</button>`; }).join('');
+  co.addEventListener('click',e=>{ const b=e.target.closest('[data-co]'); if(!b)return; invCo=b.dataset.co; invShown=48; paintInv(); });
+  const ty=document.getElementById('invtypes');
+  ty.innerHTML=INV_TYPES.map(([v,l])=>`<button class="invchip" data-ty="${v}">${l}</button>`).join(' ');
+  ty.addEventListener('click',e=>{ const b=e.target.closest('[data-ty]'); if(!b)return; invType=b.dataset.ty; invShown=48; paintInv(); });
+  document.getElementById('invactive').addEventListener('click',()=>{ invActiveOnly=!invActiveOnly; invShown=48; paintInv(); });
+  document.getElementById('invq').addEventListener('input',e=>{ invQ=e.target.value.toLowerCase(); invShown=48; paintInv(); });
+  document.getElementById('invsortx').addEventListener('click',()=>{ invSort=invSort==='total'?'names':'total'; invShown=48; paintInv(); });
+  document.getElementById('invmore').addEventListener('click',()=>{ invShown+=48; paintInv(); });
+  paintInv();
+}
+function paintInv(){
+  const el=document.getElementById('invgrid'); if(!INV||!INV.items)return;
+  document.querySelectorAll('#invcompany .invchip').forEach(b=>b.classList.toggle('on',b.dataset.co===invCo));
+  document.querySelectorAll('#invtypes .invchip').forEach(b=>b.classList.toggle('on',b.dataset.ty===invType));
+  document.getElementById('invactive').classList.toggle('on',invActiveOnly);
+  document.getElementById('invsortx').textContent='sort: '+(invSort==='total'?'exposure':'names held');
+  let rows=INV.items.filter(i=>{
+    if(invCo!=='ALL'&&!i.positions.some(p=>p.t===invCo))return false;
+    if(invType!=='ALL'&&(i.type||'')!==invType)return false;
+    if(invActiveOnly&&(!i.type||INV_LOWSIG.has(i.type)))return false;
+    if(invQ&&!i.name.toLowerCase().includes(invQ))return false;
+    return true; });
+  const key=i=> invCo!=='ALL' ? (i.positions.find(p=>p.t===invCo)||{v:0}).v : i.total;
+  rows.sort((a,b)=> invSort==='names' ? (b.names_held-a.names_held||key(b)-key(a)) : key(b)-key(a));
+  const show=rows.slice(0,invShown);
+  el.innerHTML = show.length? show.map(i=>{
+    const pos=i.positions.slice(0,8).map(p=>`<div class="pr${p.t===invCo?' sel':''}"><b>${p.t}</b><span>${invMoney(p.v)}</span><span class="sh">${p.sh.toLocaleString()} sh</span></div>`).join('');
+    return `<div class="invcard">
+      <div class="nm"><b>${i.name}</b>${i.nhic?'<span class="invbadge">HOLDS NHIC</span>':''}</div>
+      <div class="invmeta"><span class="invtype ${invTypeCls(i.type)}">${invTypeShort(i.type)}</span><span class="fd">filed ${i.filed}</span></div>
+      ${i.profile?`<div class="invprof">${i.profile}</div>`:''}
+      <div class="invtot">${invMoney(i.total)}<span>universe exposure</span></div>
+      <div class="invpos">${pos}</div>
+      <div class="invfoot"><span class="n">${i.names_held} name${i.names_held>1?'s':''} held</span><a href="${i.url}" target="_blank" rel="noopener">13F filings ↗</a></div>
+    </div>`; }).join('') : '<div class="invempty">No investors match the current filters.</div>';
+  const more=document.getElementById('invmore');
+  more.hidden = rows.length<=invShown;
+  more.textContent = `show more (${rows.length-invShown} remaining)`;
+}
+
+</script>
+</body>
+</html>
