@@ -62,6 +62,9 @@ UNIVERSE = [
     ('ASPI', 'ASP Isotopes', '"ASP ISOTOPES"', r'ASP\s*ISOTOP'),
     ('BWXT', 'BWX Technologies', '"BWX TECHNOLOGIES"', r'BWX\s*TECH'),
     ('CCJ',  'Cameco', 'CAMECO', r'CAMECO'),
+    ('IMSR', 'Terrestrial Energy', '"TERRESTRIAL ENERGY"', r'TERRESTRIAL\s*ENERGY'),
+    ('NKLR', 'Terra Innovatum', '"TERRA INNOVATUM"', r'TERRA\s*INNOVATUM'),
+    ('UEC',  'Uranium Energy Corp', '"URANIUM ENERGY"', r'URANIUM\s+ENERGY'),
     ('NHIC', 'NewHold Investment Corp III (newcleo de-SPAC)', 'NEWHOLD', r'NEWHOLD'),
 ]
 
