@@ -1346,11 +1346,11 @@ const INV = window.NIT_INV || null;
 let invInit=false, invCo='ALL', invType='ALL', invActiveOnly=false, invQ='', invSort='total', invShown=48;
 const INV_TYPES=[['ALL','All'],['Nuclear / energy specialist','Specialist'],['Active manager','Active'],
  ['Hedge fund / multi-strategy','Hedge fund'],['Passive / index','Passive'],['Quant / market-maker','Quant/MM'],
- ['Broker / wealth platform','Broker'],['','Unclassified']];
+ ['Broker / wealth platform','Broker'],['Sovereign / pension','Sov/Pension'],['','Unclassified']];
 const INV_LOWSIG=new Set(['Passive / index','Quant / market-maker','Broker / wealth platform']);
 function invMoney(v){ if(v>=1e9)return '$'+(v/1e9).toFixed(2)+'B'; if(v>=1e6)return '$'+(v/1e6).toFixed(1)+'M'; if(v>=1e3)return '$'+(v/1e3).toFixed(0)+'k'; return '$'+v; }
-function invTypeCls(t){ return t==='Nuclear / energy specialist'?'spec':t==='Active manager'?'act':t==='Hedge fund / multi-strategy'?'hf':t==='Passive / index'?'pas':t==='Quant / market-maker'?'qmm':t==='Broker / wealth platform'?'brk':'unk'; }
-function invTypeShort(t){ const m={'Nuclear / energy specialist':'Specialist','Active manager':'Active','Hedge fund / multi-strategy':'Hedge fund','Passive / index':'Passive','Quant / market-maker':'Quant/MM','Broker / wealth platform':'Broker'}; return m[t]||'—'; }
+function invTypeCls(t){ return t==='Nuclear / energy specialist'?'spec':t==='Active manager'?'act':t==='Hedge fund / multi-strategy'?'hf':t==='Sovereign / pension'?'act':t==='Passive / index'?'pas':t==='Quant / market-maker'?'qmm':t==='Broker / wealth platform'?'brk':'unk'; }
+function invTypeShort(t){ const m={'Nuclear / energy specialist':'Specialist','Active manager':'Active','Hedge fund / multi-strategy':'Hedge fund','Passive / index':'Passive','Quant / market-maker':'Quant/MM','Broker / wealth platform':'Broker','Sovereign / pension':'Sov/Pension'}; return m[t]||'—'; }
 function renderInv(){
   if(invInit){ paintInv(); return; }
   invInit=true;
