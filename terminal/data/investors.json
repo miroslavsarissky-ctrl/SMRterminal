@@ -1918,7 +1918,7 @@
   {
    "cik": "0001457320",
    "name": "EXCHANGE TRADED CONCEPTS, LLC",
-   "type": "",
+   "type": "Passive / index",
    "profile": "",
    "total": 203240896,
    "names_held": 11,
@@ -1986,7 +1986,7 @@
   {
    "cik": "0001732541",
    "name": "Defiance ETFs, LLC",
-   "type": "",
+   "type": "Passive / index",
    "profile": "",
    "total": 200679224,
    "names_held": 6,
@@ -2388,7 +2388,7 @@
   {
    "cik": "0000938206",
    "name": "DRIEHAUS CAPITAL MANAGEMENT LLC",
-   "type": "",
+   "type": "Active manager",
    "profile": "",
    "total": 146334329,
    "names_held": 3,
@@ -2517,7 +2517,7 @@
   {
    "cik": "0001166588",
    "name": "BNP PARIBAS FINANCIAL MARKETS",
-   "type": "",
+   "type": "Broker / wealth platform",
    "profile": "",
    "total": 128819695,
    "names_held": 9,
@@ -2681,7 +2681,7 @@
   {
    "cik": "0001056288",
    "name": "FEDERATED HERMES, INC.  (FHI)",
-   "type": "",
+   "type": "Active manager",
    "profile": "",
    "total": 113392456,
    "names_held": 5,
@@ -2863,7 +2863,7 @@
   {
    "cik": "0001257391",
    "name": "WHITEBOX ADVISORS LLC",
-   "type": "",
+   "type": "Hedge fund / multi-strategy",
    "profile": "",
    "total": 95120550,
    "names_held": 2,
@@ -3489,7 +3489,7 @@
   {
    "cik": "0000919079",
    "name": "CALIFORNIA PUBLIC EMPLOYEES RETIREMENT SYSTEM",
-   "type": "",
+   "type": "Sovereign / pension",
    "profile": "",
    "total": 51703762,
    "names_held": 3,
@@ -3517,7 +3517,7 @@
   {
    "cik": "0001167557",
    "name": "AQR CAPITAL MANAGEMENT LLC",
-   "type": "",
+   "type": "Hedge fund / multi-strategy",
    "profile": "",
    "total": 48430575,
    "names_held": 7,
@@ -3565,7 +3565,7 @@
   {
    "cik": "0001881567",
    "name": "Clear Street Group Inc.",
-   "type": "",
+   "type": "Broker / wealth platform",
    "profile": "",
    "total": 45366921,
    "names_held": 5,
@@ -3735,7 +3735,7 @@
   {
    "cik": "0001535845",
    "name": "HEALTHCARE OF ONTARIO PENSION PLAN TRUST FUND",
-   "type": "",
+   "type": "Sovereign / pension",
    "profile": "",
    "total": 38142512,
    "names_held": 3,
@@ -3864,7 +3864,7 @@
   {
    "cik": "0001578621",
    "name": "LMR Partners LLP",
-   "type": "",
+   "type": "Hedge fund / multi-strategy",
    "profile": "",
    "total": 33289516,
    "names_held": 6,
@@ -4311,7 +4311,7 @@
   {
    "cik": "0001024896",
    "name": "CANTOR FITZGERALD, L. P.",
-   "type": "",
+   "type": "Broker / wealth platform",
    "profile": "",
    "total": 26833490,
    "names_held": 2,
@@ -4537,7 +4537,7 @@
   {
    "cik": "0001463559",
    "name": "Alberta Investment Management Corp",
-   "type": "",
+   "type": "Sovereign / pension",
    "profile": "",
    "total": 21045411,
    "names_held": 3,
@@ -4860,7 +4860,7 @@
   {
    "cik": "0001592828",
    "name": "Empowered Funds, LLC",
-   "type": "",
+   "type": "Passive / index",
    "profile": "",
    "total": 16383005,
    "names_held": 6,
@@ -5035,7 +5035,7 @@
   {
    "cik": "0001275218",
    "name": "ALGERT GLOBAL LLC",
-   "type": "",
+   "type": "Active manager",
    "profile": "",
    "total": 12545000,
    "names_held": 4,
@@ -5149,7 +5149,7 @@
   {
    "cik": "0001167456",
    "name": "AQR Arbitrage LLC",
-   "type": "",
+   "type": "Hedge fund / multi-strategy",
    "profile": "",
    "total": 11863914,
    "names_held": 2,
@@ -5370,7 +5370,7 @@
   {
    "cik": "0001666606",
    "name": "Mint Tower Capital Management B.V.",
-   "type": "",
+   "type": "Hedge fund / multi-strategy",
    "profile": "",
    "total": 10889000,
    "names_held": 1,
@@ -5388,7 +5388,7 @@
   {
    "cik": "0001393825",
    "name": "Hudson Bay Capital Management LP",
-   "type": "",
+   "type": "Hedge fund / multi-strategy",
    "profile": "",
    "total": 10824657,
    "names_held": 5,
@@ -5426,7 +5426,7 @@
   {
    "cik": "0001346554",
    "name": "TENOR CAPITAL MANAGEMENT Co., L.P.",
-   "type": "",
+   "type": "Hedge fund / multi-strategy",
    "profile": "",
    "total": 10534000,
    "names_held": 1,
@@ -5566,7 +5566,7 @@
   {
    "cik": "0001604488",
    "name": "First Trust Capital Management L.P.",
-   "type": "",
+   "type": "Passive / index",
    "profile": "",
    "total": 9648746,
    "names_held": 1,
@@ -7494,7 +7494,7 @@
   {
    "cik": "0001454027",
    "name": "Verition Fund Management LLC",
-   "type": "",
+   "type": "Hedge fund / multi-strategy",
    "profile": "",
    "total": 4260922,
    "names_held": 2,
@@ -8941,7 +8941,7 @@
   {
    "cik": "0001481986",
    "name": "DRW Securities, LLC",
-   "type": "",
+   "type": "Quant / market-maker",
    "profile": "",
    "total": 1723769,
    "names_held": 5,
@@ -10708,7 +10708,7 @@
   {
    "cik": "0001464811",
    "name": "B. Riley Wealth Advisors, Inc.",
-   "type": "",
+   "type": "Broker / wealth platform",
    "profile": "",
    "total": 402786,
    "names_held": 2,
