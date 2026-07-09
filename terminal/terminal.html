@@ -1398,7 +1398,7 @@ function paintInv(){
   rows.sort((a,b)=> invSort==='names' ? (b.names_held-a.names_held||key(b)-key(a)) : key(b)-key(a));
   const show=rows.slice(0,invShown);
   el.innerHTML = show.length? show.map(i=>{
-    const pos=i.positions.slice(0,8).map(p=>`<div class="pr${p.t===invCo?' sel':''}"><b>${p.t}</b><span>${invMoney(p.v)}</span><span class="sh">${p.sh.toLocaleString()} sh</span></div>`).join('');
+    const pos=i.positions.slice(0,12).map(p=>`<div class="pr${p.t===invCo?' sel':''}"><b>${p.t}</b><span>${invMoney(p.v)}</span><span class="sh">${p.sh.toLocaleString()} sh</span></div>`).join('');
     return `<div class="invcard">
       <div class="nm"><b>${i.name}</b>${i.nhic?'<span class="invbadge">HOLDS NHIC</span>':''}</div>
       <div class="invmeta"><span class="invtype ${invTypeCls(i.type)}">${invTypeShort(i.type)}</span><span class="fd">filed ${i.filed}</span></div>
