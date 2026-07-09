@@ -1358,14 +1358,6 @@ function renderInv(){
   if(!INV||!INV.items){ el.innerHTML='<div class="invempty">No investor data loaded.<br>Upload <code>data/investors.js</code> to populate this tab.</div>'; return; }
   document.getElementById('invsub').textContent=`13F ${INV.season} season · long US-listed equity only · option rows excluded · values as of quarter end, filed up to 45 days later · hover a company chip for parse coverage`;
   document.getElementById('invsub').title=INV.caveats;
-  const tot=INV.items.reduce((a,i)=>a+i.total,0), spec=INV.items.filter(i=>i.type==='Nuclear / energy specialist').length,
-        nh=INV.items.filter(i=>i.nhic).length, act=INV.items.filter(i=>i.type&&!INV_LOWSIG.has(i.type)).length;
-  document.getElementById('invstats').innerHTML=
-    `<div class="st"><b>${invMoney(tot)}</b><span>tracked 13F capital</span></div>`+
-    `<div class="st"><b>${INV.count}</b><span>institutional investors</span></div>`+
-    `<div class="st"><b>${act}</b><span>active-money holders</span></div>`+
-    `<div class="st deal"><b>${nh}</b><span>hold NHIC (NWCL deal)</span></div>`+
-    `<div class="st"><b>${spec}</b><span>nuclear specialists</span></div>`;
   const co=document.getElementById('invcompany');
   co.innerHTML=['ALL',...INV.universe.map(u=>u.ticker)].map(t=>{
     const u=INV.universe.find(x=>x.ticker===t);
@@ -1396,6 +1388,17 @@ function paintInv(){
     return true; });
   const key=i=> invCo!=='ALL' ? (i.positions.find(p=>p.t===invCo)||{v:0}).v : i.total;
   rows.sort((a,b)=> invSort==='names' ? (b.names_held-a.names_held||key(b)-key(a)) : key(b)-key(a));
+  const cap = invCo==='ALL' ? rows.reduce((a,i)=>a+i.total,0) : rows.reduce((a,i)=>a+key(i),0);
+  const act=rows.filter(i=>i.type&&!INV_LOWSIG.has(i.type)).length,
+        nh=rows.filter(i=>i.nhic).length,
+        spec=rows.filter(i=>i.type==='Nuclear / energy specialist').length;
+  const filt = invCo!=='ALL'||invType!=='ALL'||invActiveOnly||!!invQ;
+  document.getElementById('invstats').innerHTML=
+    `<div class="st"><b>${invMoney(cap)}</b><span>${invCo==='ALL'?'tracked 13F capital':invCo+' capital in selection'}</span></div>`+
+    `<div class="st"><b>${rows.length}</b><span>${filt?'matching investors':'institutional investors'}</span></div>`+
+    `<div class="st"><b>${act}</b><span>active-money holders</span></div>`+
+    `<div class="st deal"><b>${nh}</b><span>hold NHIC (NWCL deal)</span></div>`+
+    `<div class="st"><b>${spec}</b><span>nuclear specialists</span></div>`;
   const show=rows.slice(0,invShown);
   el.innerHTML = show.length? show.map(i=>{
     const pos=i.positions.slice(0,12).map(p=>`<div class="pr${p.t===invCo?' sel':''}"><b>${p.t}</b><span>${invMoney(p.v)}</span><span class="sh">${p.sh.toLocaleString()} sh</span></div>`).join('');
