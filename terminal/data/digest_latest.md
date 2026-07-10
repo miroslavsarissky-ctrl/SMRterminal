@@ -1,56 +1,46 @@
-NUCLEAR INTEL DIGEST  Thu 09 Jul 2026
+NUCLEAR INTEL DIGEST  Fri 10 Jul 2026
 
 NWCL DEAL DESK
-NHIC 10.87  1d +0.2%  7d -0.2%  30d -2.5%
-  NEW 425  2026-07-08  Form 425: NewHold III and newcleo SPAC Business Combination F-4 Filing
-      This Form 425 announces that NewHold Investment Corp. III and newcleo Ltd. have filed a registration statement on Form F-4 with the SEC in connection with a proposed business combination, with the combined entity expected to list on Nasdaq under the ticker symbol NWCL. The filing discloses that the transaction, agreed on 27 May 2026, is expected to close in the second half of 2026 and anticipates 
-      https://www.sec.gov/Archives/edgar/data/2043699/000121390026076182/ea0297354-425_newcleo.htm
+NHIC 10.92  1d +0.5%  7d -0.1%  30d -2.0%
+  NEW 425  2026-07-09  Form 425: NewCleo Ltd Employee Stock Option Q&A Filing
+      This Form 425 filing by NewCleo Ltd contains an English translation of a Q&A document prepared following an employee information session held on 7 July 2026, addressing questions about the exercise of stock options in connection with a proposed business combination with NewHold Investment Corp III. The document covers topics including vesting schedules, conversion factors, taxation under French la
+      https://www.sec.gov/Archives/edgar/data/2043699/000095010326010470/dp249918_425-questions.htm
+  NEW 425  2026-07-09  Form 425: NewCleo and NewHold Investment Corp III SPAC Merger Presentation
+      This Form 425 filing by NewCleo Ltd. contains an English translation of slides presented to employees on 7 July 2026 regarding a proposed business combination between NewCleo Ltd. and NewHold Investment Corp III. The filing includes standard regulatory disclosures concerning the forthcoming Registration Statement, proxy statement/prospectus, participant solicitation information, and forward-lookin
+      https://www.sec.gov/Archives/edgar/data/2043699/000095010326010469/dp249916_425-presentation.htm
+  NEW 425  2026-07-09  NewCleo Ltd Form 425: Employee Stock Option Exercise Window Presentation
+      This Form 425 filing contains an English translation of a recorded employee information session held by NewCleo Ltd on 7 July 2026, covering the mechanics of stock options, the exercise window open from 6 to 10 July 2026, and the process for converting vested options into shares. The session also addresses the share consolidation conversion factor, a 180-day post-closing lock-up period, an earn-ou
+      https://www.sec.gov/Archives/edgar/data/2043699/000095010326010468/dp249917_425-script.htm
 
-NEW ON THE VERIFIED LAYER (12)
-  [3] NewHold Investment Corp. III — 425 names newcleo
-      Direct SEC filing on newcleo's SPAC merger with NewHold Investment Corp. III (NHIC); capital-markets milestone for US listing.
-      SEC EDGAR · full-text | https://www.sec.gov/Archives/edgar/data/2043699/000121390026076182/0001213900-26-076182-index.htm
-  [3] 3. SRMC-CWDA-2026-00041. Rev. 0, Memo-Crosswalk of U.S. NRC Monitoring Factors for SRS SDF to Prop Exper Design for Clos Cap and Geo Centrifug Experiments
-      Savannah River Site closure and experimental design directly relevant to newcleo's SRS deployment pathway.
-      NRC ADAMS | https://www.nrc.gov/docs/ML2618/ML26189A017.pdf
-  [3] newcleo files 425 (17 Jun)
-      newcleo SEC filing directly relevant to capital markets and SPAC listing via NHIC.
-      SEC EDGAR | https://www.sec.gov/Archives/edgar/data/2043699/000095010326009160/0000950103-26-009160-index.htm
-  [3] Oklo Inc. files 10-Q/A (17 Jun)
-      Oklo is newcleo's DOE surplus plutonium utilisation programme partner; its filings track joint fuel-cycle strategy.
-      SEC EDGAR | https://www.sec.gov/Archives/edgar/data/1849056/000184905626000037/0001849056-26-000037-index.htm
-  [2] Withholding Proprietary Information From Public Disclosure - Oklo, Inc. Slides For The May 7, 2026, Meeting On Oklo's Aurora Reliability And Integrity Management (RIM) Program Overview
-      Oklo fuel-cycle development under DOE programme partnership; Aurora RIM programme relevant to newcleo's fast-reactor licensing pathway.
-      NRC ADAMS | https://www.nrc.gov/docs/ML2617/ML26176A496.pdf
-  [2] Updates to the HTR-PROTEUS HALEU Benchmark Using Modern Analysis Methodologies
-      HALEU benchmark research supports advanced-reactor fuel qualification; relevant to newcleo's fuel-cycle strategy.
-      OSTI | https://www.osti.gov/biblio/3376941
-  [2] Letter to Miranda Montgomery SHPO Tennessee Historical Commission Re Orano Section 106 Consultation
-      Orano reprocessing activity relevant to fuel-cycle recycling ecosystem and feedstock sourcing.
-      NRC ADAMS | https://www.nrc.gov/docs/ML2617/ML26176A278.pdf
-  [2] Ltr to John Raymond Johnson Governor Absentee Shawnee Tribe Re Orano Section 106 Consultation
-      Orano reprocessing activity relevant to fuel-cycle recycling ecosystem and feedstock sourcing.
-      NRC ADAMS | https://www.nrc.gov/docs/ML2617/ML26176A065.pdf
-  [2] Ltr to David Sickey Chairman Coushatta Tribe of Louisiana Re Orano Section 106 Consultation
-      Orano reprocessing activity relevant to fuel-cycle recycling ecosystem and feedstock sourcing.
-      NRC ADAMS | https://www.nrc.gov/docs/ML2618/ML26188A194.pdf
-  [2] Ltr to Sena Yesslith Principal Chief Seminole Nation of Oklahoma Re Orano Section 106 Consultation
-      Orano reprocessing activity relevant to fuel-cycle recycling ecosystem and feedstock sourcing.
-      NRC ADAMS | https://www.nrc.gov/docs/ML2618/ML26188A203.pdf
-  [2] Ltr to Stephanie Bryan Chairwoman Poarch Band of Chreek Indians Re Orano Section 106 Consultation
-      Orano reprocessing activity relevant to fuel-cycle recycling ecosystem and feedstock sourcing.
-      NRC ADAMS | https://www.nrc.gov/docs/ML2618/ML26188A204.pdf
-  [2] Ltr to Glenna Wallace Chief Eastern Shawnee Tribe of Oklahoma Re Orano Section 106 Consultation
-      Orano reprocessing activity relevant to fuel-cycle recycling ecosystem and feedstock sourcing.
-      NRC ADAMS | https://www.nrc.gov/docs/ML2618/ML26188A195.pdf
+NEW ON THE VERIFIED LAYER (6)
+  [3] newcleo files 425 (09 Jul)
+      newcleo SEC Form 425 filing directly relevant to NHIC merger and US listing process.
+      SEC EDGAR | https://www.sec.gov/Archives/edgar/data/2043699/000095010326010470/0000950103-26-010470-index.htm
+  [3] [Notice · Nuclear] Request for Application: NRIC Nuclear Energy Launch Pad
+      Direct solicitation for DOE Nuclear Energy Launch Pad programme, newcleo's primary US deployment pathway.
+      SAM.gov · ENERGY, DEPARTMENT OF | https://sam.gov/workspace/contract/opp/23ac86ddf5324627b48e7b8e812342d7/view
+  [2] X-Energy, LLC - Enclosure 2: MRA-00-200-RPT-2000520, Revision 5, "XENITH Principal Design Criteria Licensing Topical Report," Redacted, Publicly Available Version
+      X-Energy XENITH advanced reactor licensing topical reports inform NRC Part 53 precedent for newcleo's LFR pathway.
+      NRC ADAMS | https://www.nrc.gov/docs/ML2618/ML26181A261.pdf
+  [2] Enclosure 3: MRA-00-220-RPT-2000582, Revision 2, "XENITH Parametric Source Term Topical Report," Redacted, Publicly Available Version
+      XENITH source term topical report establishes NRC advanced-reactor licensing standards relevant to newcleo's design.
+      NRC ADAMS | https://www.nrc.gov/docs/ML2618/ML26181A313.pdf
+  [2] Depletion Benchmark for a High-Assay Low-Enriched Uranium Fuel Experiment in the Advanced Test Reactor
+      HALEU fuel development directly relevant to advanced reactor deployment pathways newcleo may utilise.
+      OSTI | https://www.osti.gov/biblio/3377107
+  [2] Attachment 2: HI-2115090, Revision 9, "Final Safety Analysis Report on the HI-STORM UMAX Canister Storage System" (Non-Proprietary Version)
+      SHINE canister-storage system FSAR; SHINE is newcleo's recycling feedstock partner.
+      NRC ADAMS | https://www.nrc.gov/docs/ML2618/ML26182A303.pdf
 
 DEADLINE RADAR (next 10 days)
-  D-1  2026-07-10  Responses due: [RFP · Recycling] T--G&G DATA REPROCESSING IDIQ
+  D-0  2026-07-10  Responses due: [RFP · Recycling] T--G&G DATA REPROCESSING IDIQ
         https://sam.gov/workspace/contract/opp/2ab5daab0a874068a3bb42092a21773e/view
-  D-4  2026-07-13  Responses due: [RFP · Enrichment] Non-Research Long-Term Care facility needed for the enrichmen
+  D-3  2026-07-13  Responses due: [RFP · Enrichment] Non-Research Long-Term Care facility needed for the enrichmen
         https://sam.gov/workspace/contract/opp/6934753cfbdf45f1b93928b67e93355a/view
-  D-8  2026-07-17  Responses due: [Notice · AMR] TECHNOLOGY LICENSING OPPORTUNITY: Advanced Metal Hydride Microrea
+  D-7  2026-07-17  Responses due: [Notice · AMR] TECHNOLOGY LICENSING OPPORTUNITY: Advanced Metal Hydride Microrea
         https://sam.gov/workspace/contract/opp/c20b7117f0604ed49807c3835f197e8b/view
+  D-10  2026-07-20  Comments close: [Notice] Vistra Operations Company LLC; Energy Harbor Nuclear Generation LLC; Be
+        https://www.federalregister.gov/documents/2026/06/18/2026-12233/vistra-operations-company-llc-energy-harbor-nuclear-generation-llc-beaver-valley-power-station-unit
 
 MARKET MOVES (over 5%)
   No watchlist ticker moved more than 5%.
