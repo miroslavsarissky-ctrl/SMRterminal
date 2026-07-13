@@ -65,6 +65,8 @@ UNIVERSE = [
     ('IMSR', 'Terrestrial Energy', '"TERRESTRIAL ENERGY"', r'TERRESTRIAL\s*ENERGY'),
     ('NKLR', 'Terra Innovatum', '"TERRA INNOVATUM"', r'TERRA\s*INNOVATUM'),
     ('UEC',  'Uranium Energy Corp', '"URANIUM ENERGY"', r'URANIUM\s+ENERGY'),
+    ('XE',   'X-energy (IPO 24 Apr 2026; institutional register appears with Q2 filings, 20 Aug refresh)',
+             '"X-ENERGY"', r'\bX[\s\-]?ENERGY'),
     ('NHIC', 'NewHold Investment Corp III (newcleo de-SPAC)', 'NEWHOLD', r'NEWHOLD'),
 ]
 
