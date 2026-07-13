@@ -1,11 +1,11 @@
 {
- "generated": "2026-07-08T22:50:38+00:00",
+ "generated": "2026-07-13T12:42:10+00:00",
  "season": "Q1 2026",
  "window": {
   "start": "2026-04-01",
   "end": "2026-06-30"
  },
- "count": 452,
+ "count": 453,
  "universe": [
   {
    "ticker": "OKLO",
@@ -90,6 +90,13 @@
    "fts_filers": 435,
    "parsed": 45,
    "holders_found": 45
+  },
+  {
+   "ticker": "XE",
+   "company": "X-energy (IPO 24 Apr 2026; institutional register appears with Q2 filings, 20 Aug refresh)",
+   "fts_filers": 1,
+   "parsed": 1,
+   "holders_found": 1
   }
  ],
  "items": [
@@ -2025,6 +2032,34 @@
    ],
    "filed": "2026-05-15",
    "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001732541&type=13F&dateb=&owner=include&count=10"
+  },
+  {
+   "cik": "0000740913",
+   "name": "REAVES W H & CO INC",
+   "type": "",
+   "profile": "",
+   "total": 186677817,
+   "names_held": 3,
+   "nhic": false,
+   "positions": [
+    {
+     "t": "CCJ",
+     "v": 122390980,
+     "sh": 1126885
+    },
+    {
+     "t": "LEU",
+     "v": 36786846,
+     "sh": 211918
+    },
+    {
+     "t": "XE",
+     "v": 27499991,
+     "sh": 1891802
+    }
+   ],
+   "filed": "2026-05-07",
+   "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000740913&type=13F&dateb=&owner=include&count=10"
   },
   {
    "cik": "0001697748",
