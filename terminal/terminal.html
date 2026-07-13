@@ -1374,7 +1374,7 @@ function invTypeCls(t){ return t==='Nuclear / energy specialist'?'spec':t==='Act
 function invTypeShort(t){ const m={'Nuclear / energy specialist':'Specialist','Active manager':'Active','Hedge fund / multi-strategy':'Hedge fund','Passive / index':'Passive','Quant / market-maker':'Quant/MM','Broker / wealth platform':'Broker','Sovereign / pension':'Sov/Pension'}; return m[t]||'—'; }
 const INV_WDEF={t_spec:40,t_act:30,t_sov:25,t_hf:15,t_pas:0,t_qmm:0,t_brk:0,t_unk:0,per:4,cap:20,prerev:15,thr1:100,pts1:15,thr2:10,pts2:10,thr3:1,pts3:5,min:0};
 const INV_WKEY={'Nuclear / energy specialist':'t_spec','Active manager':'t_act','Sovereign / pension':'t_sov','Hedge fund / multi-strategy':'t_hf','Passive / index':'t_pas','Quant / market-maker':'t_qmm','Broker / wealth platform':'t_brk'};
-const INV_PREREV=new Set(['OKLO','NKLR','IMSR','NNE','LTBR']);
+const INV_PREREV=new Set(['OKLO','NKLR','IMSR','NNE','LTBR','XE']);
 let invView='cards', invWbSort='score', invWbDir=-1, invW=(()=>{try{const x=localStorage.getItem('nitInvW'); if(x) return {...INV_WDEF,...JSON.parse(x)};}catch(e){} return {...INV_WDEF};})();
 function invSaveW(){ try{localStorage.setItem('nitInvW', JSON.stringify(invW));}catch(e){} }
 function invScore(i){
