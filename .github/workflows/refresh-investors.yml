@@ -38,6 +38,6 @@ jobs:
         run: |
           git config user.name "intel-terminal-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add terminal/data/investors.json terminal/data/investors.js
+          git add terminal/data/investors.json terminal/data/investors.js terminal/data/inv_history.json terminal/data/inv_history.js
           git diff --cached --quiet || git commit -m "investors: 13F season refresh"
           git push

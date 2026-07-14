@@ -1,0 +1,33 @@
+name: backfill-investor-history
+# One-off (re-runnable) full-depth backfill of prior 13F seasons for every investor in the
+# current dataset. Exact per-CIK pulls; checkpoint-free in Actions (fresh runner). Run once
+# via workflow_dispatch after deploying; the quarterly collector appends future seasons.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: pip install requests
+      - name: Backfill investor share history (all CIKs, two seasons)
+        env:
+          HIST_LIMIT: '0'
+        run: python terminal/collectors/backfill_history.py terminal/data
+      - name: Commit history
+        run: |
+          git config user.name "intel-terminal-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add terminal/data/inv_history.json terminal/data/inv_history.js
+          git diff --cached --quiet || git commit -m "investors: share-history backfill"
+          git push
