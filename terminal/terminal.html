@@ -319,6 +319,10 @@ footer b{color:var(--muted)}
 .op.dim{opacity:.12}
 .op.sig{stroke:#F0782E;stroke-width:2}
 .op.sig:hover{stroke:#fff}
+.pspark{display:block}
+.pchg.up{color:#5CB88A}.pchg.dn{color:#C7625C}
+.prisk{color:#C7625C;font-weight:700}
+.invwb td.tk{color:var(--teal);font-weight:700}
 #offlegend .bglyph{display:inline-block;border-radius:50%;background:var(--muted);vertical-align:middle;margin-right:5px;border:1px solid #0d1114}
 #fleetlegend{margin-top:4px}
 .flrow{display:flex;justify-content:space-between;gap:10px;font:500 11px var(--mono);color:var(--text);padding:2px 0}
@@ -349,6 +353,7 @@ footer b{color:var(--muted)}
     <button class="navtab" data-v="cap">Capital</button>
     <button class="navtab" data-v="inv">Investors</button>
     <button class="navtab" data-v="off">Offtakers</button>
+    <button class="navtab" data-v="peers">Listed Peers</button>
   </div>
   <div class="right">
     <span class="dot" id="d-fr"><i></i>FED REG</span>
@@ -513,6 +518,15 @@ footer b{color:var(--muted)}
   <button class="invmore" id="invmore" hidden>show more</button>
 </div>
 
+<div id="view-peers" hidden>
+  <div class="invhead">
+    <h2>Listed Peer Companies</h2>
+    <div class="sub" id="psub"></div>
+  </div>
+  <div class="invstats" id="pstats"></div>
+  <div class="invwbwrap" style="padding-top:12px"><table class="invwb" id="ptable"></table></div>
+</div>
+
 <div id="view-off" hidden>
   <div class="invhead">
     <h2>Demand Intelligence — Major Offtakers</h2>
@@ -539,6 +553,7 @@ footer b{color:var(--muted)}
 <script src="data/deal.js"></script>
 <script src="data/internal.js"></script>
 <script src="data/legislation.js"></script>
+<script src="data/congress.js"></script>
 <script src="data/energy.js"></script>
 <script src="data/rto.js"></script>
 <script src="data/energymix.js"></script>
@@ -548,6 +563,7 @@ footer b{color:var(--muted)}
 <script src="data/programmes.js"></script>
 <script src="data/investors.js"></script>
 <script src="data/offtakers.js"></script>
+<script src="data/peers.js"></script>
 <script>
 (function(){
 'use strict';
@@ -793,11 +809,16 @@ function boot(){
 
   /* legislation: Congress.gov sidecar (data/legislation.js) + any feed policy items */
   var BILLSRC = window.NIT_BILLS || null;
-  var bills = (BILLSRC && BILLSRC.items ? BILLSRC.items.slice() : []);
+  var CONGSRC = window.NIT_CONGRESS || null;
+  var bills = (CONGSRC && CONGSRC.items ? CONGSRC.items.slice() : []);
+  var haveNo = {}; bills.forEach(function(b){ haveNo[(b.billno||'').replace('★ ','')]=1; });
+  (BILLSRC && BILLSRC.items ? BILLSRC.items : []).forEach(function(b){
+    if(!haveNo[(b.billno||'').replace('★ ','')]) bills.push(b);
+  });
   FEED.items.forEach(function(i){
     if(i.bucket==='policy') bills.push({billno:i.billno||'BILL', title:i.title, url:i.url, status:i.status||'', sponsor:i.sponsor||'', ts:i.ts});
   });
-  bills.sort(function(a,b){ return (a.ts||'') < (b.ts||'') ? 1 : -1; });
+  bills.sort(function(a,b){ if(!!a.tracked!==!!b.tracked) return a.tracked?-1:1; return (a.ts||'') < (b.ts||'') ? 1 : -1; });
   bills = bills.slice(0,8);
   document.getElementById('billcount').textContent = bills.length ? bills.length + ' tracked' : '';
   document.getElementById('bills').innerHTML = bills.length ? bills.map(function(i){
@@ -873,11 +894,13 @@ function boot(){
       document.getElementById('view-cap').hidden = (v!=='cap');
       document.getElementById('view-inv').hidden = (v!=='inv');
       document.getElementById('view-off').hidden = (v!=='off');
+      document.getElementById('view-peers').hidden = (v!=='peers');
       if (v==='energy') renderEnergy();
       if (v==='conf') renderConf();
       if (v==='cap') renderCap();
       if (v==='inv') renderInv();
       if (v==='off') renderOff();
+      if (v==='peers') renderPeers();
     });
   });
   document.getElementById('sectorseg').addEventListener('click', function(ev){
@@ -1680,6 +1703,65 @@ function paintOff(){
       ${sitesHtml?`<div class="offsites">${sitesHtml}</div>`:''}
       <div class="offfoot"><span>${i.n_sites?i.n_sites+' reporting sites · '+(i.states||[]).slice(0,8).join(' '):(i.mw?i.mw.toLocaleString()+' MW announced':'')}</span><span>${i.co2e?Math.round(i.co2e/1000).toLocaleString()+' ktCO2e':''}</span></div>
     </div>`;}).join('') : '<div class="invempty">No offtakers match.</div>';
+}
+
+
+/* ================= LISTED PEERS TAB ================= */
+const PEERS = window.NIT_PEERS || null;
+let peersInit=false, pSort='mcap', pDir=-1;
+function pM(v){ if(v==null) return '—'; const a=Math.abs(v); if(a>=1e9) return '$'+(v/1e9).toFixed(2)+'B'; if(a>=1e6) return '$'+(v/1e6).toFixed(0)+'M'; if(a>=1e3) return '$'+(v/1e3).toFixed(0)+'k'; return '$'+Math.round(v); }
+function pChg(v){ return v==null?'—':`<span class="pchg ${v>=0?'up':'dn'}">${v>0?'+':''}${v.toFixed(1)}%</span>`; }
+function pSpark(a){ if(!a||a.length<3) return ''; const w=64,h=16,mn=Math.min(...a),mx=Math.max(...a),rg=(mx-mn)||1;
+  const pts=a.map((v,i)=>`${(i/(a.length-1)*w).toFixed(1)},${(h-2-(v-mn)/rg*(h-4)).toFixed(1)}`).join(' ');
+  const up=a[a.length-1]>=a[0];
+  return `<svg class="pspark" width="${w}" height="${h}"><polyline points="${pts}" fill="none" stroke="${up?'#5CB88A':'#C7625C'}" stroke-width="1.3"/></svg>`; }
+const P_COLS=[['t','Ticker'],['name','Company'],['px','Px'],['chg30','30d'],['chg90','90d'],['spark',''],
+ ['mcap','Mcap'],['cash','Liquidity'],['burn_q','Burn/q'],['runway_q','Runway'],['rev_q','Rev/q'],
+ ['dil_qoq','Dil. QoQ'],['ins_net','Insider 90d'],['si_pct','SI %'],['dtc','DtC'],['url','SEC']];
+function renderPeers(){
+  if(peersInit){ paintPeers(); return; }
+  peersInit=true;
+  if(!PEERS||!PEERS.items){ document.getElementById('ptable').innerHTML='<tr><td class="invempty">No peer data — upload data/peers.js</td></tr>'; return; }
+  document.getElementById('psub').textContent=`SEC XBRL vitals + EDGAR Form 4 (90d) + market data · liquidity = cash + short-term investments · generated ${PEERS.generated.slice(0,10)}`;
+  document.getElementById('psub').title=PEERS.caveats;
+  document.getElementById('ptable').addEventListener('click',e=>{
+    const th=e.target.closest('th[data-pk]'); if(!th)return;
+    const k=th.dataset.pk; if(pSort===k) pDir*=-1; else {pSort=k; pDir = (k==='t'||k==='name')?1:-1;}
+    paintPeers(); });
+  paintPeers();
+}
+function paintPeers(){
+  const it=PEERS.items;
+  const mc=it.reduce((a,i)=>a+(i.mcap||0),0);
+  const rws=it.filter(i=>i.runway_q!=null&&!i.trust).map(i=>i.runway_q).sort((a,b)=>a-b);
+  const med=rws.length?rws[Math.floor(rws.length/2)]:null;
+  const risk=it.filter(i=>i.runway_q!=null&&i.runway_q<4&&!i.trust).length;
+  const buyers=it.filter(i=>(i.ins_net||0)>0).length;
+  document.getElementById('pstats').innerHTML=
+    `<div class="st"><b>${it.length}</b><span>listed peers</span></div>`+
+    `<div class="st"><b>${pM(mc)}</b><span>combined market cap</span></div>`+
+    `<div class="st"><b>${med??'—'}</b><span>median runway (qtrs)</span></div>`+
+    `<div class="st deal"><b>${risk}</b><span>runway under 4 qtrs</span></div>`+
+    `<div class="st"><b>${buyers}</b><span>net insider buyers 90d</span></div>`;
+  const arrow=k=> pSort===k?(pDir<0?' ↓':' ↑'):'';
+  const hd='<tr>'+P_COLS.map(([k,l])=> l===''?'<th></th>':`<th class="srt${['px','chg30','chg90','mcap','cash','burn_q','runway_q','rev_q','dil_qoq','ins_net','si_pct','dtc'].includes(k)?' num':''}" data-pk="${k}">${l}${arrow(k)}</th>`).join('')+'</tr>';
+  const rows=[...it].sort((a,b)=>{const x=a[pSort],y=b[pSort];
+    if(x==null&&y==null)return 0; if(x==null)return 1; if(y==null)return -1;
+    return (x<y?-1:x>y?1:0)*pDir;});
+  const body=rows.map(i=>{
+    const rw=i.trust?'—':(i.runway_q==null?'—':(i.runway_q>=99?'99+':i.runway_q.toFixed(1)));
+    const rwc=(!i.trust&&i.runway_q!=null&&i.runway_q<4)?' prisk':'';
+    return `<tr><td class="tk">${i.t}</td><td class="nm" title="${i.name}${i.trust?' (SPAC — trust assets)':''}">${i.name}</td>`+
+    `<td class="num">${i.px!=null?'$'+i.px:'—'}</td><td class="num">${pChg(i.chg30)}</td><td class="num">${pChg(i.chg90)}</td>`+
+    `<td>${pSpark(i.spark)}</td><td class="num">${pM(i.mcap)}</td>`+
+    `<td class="num" title="as of ${i.cash_date||''}${i.trust?' · trust':''}">${pM(i.cash)}</td>`+
+    `<td class="num">${i.trust?'—':pM(i.burn_q)}</td><td class="num${rwc}">${rw}</td>`+
+    `<td class="num">${pM(i.rev_q)}</td><td class="num">${i.dil_qoq==null?'—':pChg(i.dil_qoq)}</td>`+
+    `<td class="num">${i.ins_net==null?'—':`<span class="pchg ${i.ins_net>=0?'up':'dn'}">${pM(i.ins_net)}</span>`}</td>`+
+    `<td class="num" title="FINRA consolidated · settlement ${i.si_date||''} · % of shares outstanding">${i.si_pct==null?'—':i.si_pct.toFixed(1)+'%'}</td>`+
+    `<td class="num" title="days to cover at avg daily volume">${i.dtc==null?'—':i.dtc.toFixed(1)}</td>`+
+    `<td><a href="${i.url}" target="_blank" rel="noopener">10-Q ↗</a></td></tr>`; }).join('');
+  document.getElementById('ptable').innerHTML=hd+body;
 }
 
 </script>
