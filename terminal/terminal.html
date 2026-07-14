@@ -314,6 +314,10 @@ footer b{color:var(--muted)}
 .fp:hover{stroke:#fff}
 .fp.dim{opacity:.15}
 .fp.restart{fill-opacity:.28;stroke-dasharray:2.5 2}
+.op{stroke:#0d1114;stroke-width:1;cursor:pointer}
+.op:hover{stroke:#fff;stroke-width:1.5}
+.op.dim{opacity:.12}
+#offlegend .bglyph{display:inline-block;border-radius:50%;background:var(--muted);vertical-align:middle;margin-right:5px;border:1px solid #0d1114}
 #fleetlegend{margin-top:4px}
 .flrow{display:flex;justify-content:space-between;gap:10px;font:500 11px var(--mono);color:var(--text);padding:2px 0}
 .flrow .mp{color:var(--muted)}
@@ -900,10 +904,10 @@ function boot(){
     paintOffMap();
   });
   document.getElementById('offlegend').addEventListener('click', function(ev){
-    var c=ev.target.closest('[data-os]'); if(!c) return;
-    var k=c.getAttribute('data-os');
-    estate.ofsel=(estate.ofsel===k)?null:k;
-    paintOffMap();
+    var cs=ev.target.closest('[data-os]');
+    if(cs){ var k=cs.getAttribute('data-os'); estate.ofsel=(estate.ofsel===k)?null:k; paintOffMap(); return; }
+    var cb=ev.target.closest('[data-ob]');
+    if(cb){ var b=cb.getAttribute('data-ob'); estate.oband=(estate.oband===b)?null:b; paintOffMap(); }
   });
   document.getElementById('fleetlegend').addEventListener('click', function(ev){
     var c=ev.target.closest('[data-g]'); if(!c) return;
@@ -924,7 +928,7 @@ function setEnt(id){
 }
 
 /* ============================ ENERGY VIEW ============================ */
-var estate = { sector:'all', built:false, sel:null, mode:'states', rto:null, fleet:false, fsel:null, off:false, ofsel:null };
+var estate = { sector:'all', built:false, sel:null, mode:'states', rto:null, fleet:false, fsel:null, off:false, ofsel:null, oband:null };
 var SECTORLABEL = {all:'All-sector',res:'Residential',com:'Commercial',ind:'Industrial'};
 var SKIPLABEL = {DC:1,DE:1,RI:1,CT:1,NJ:1,MD:1,MA:1,NH:1,VT:1};   // tiny NE states: identified on hover, not crammed labels
 var SNAME = {AL:'Alabama',AK:'Alaska',AZ:'Arizona',AR:'Arkansas',CA:'California',CO:'Colorado',CT:'Connecticut',DE:'Delaware',DC:'District of Columbia',FL:'Florida',GA:'Georgia',HI:'Hawaii',ID:'Idaho',IL:'Illinois',IN:'Indiana',IA:'Iowa',KS:'Kansas',KY:'Kentucky',LA:'Louisiana',ME:'Maine',MD:'Maryland',MA:'Massachusetts',MI:'Michigan',MN:'Minnesota',MS:'Mississippi',MO:'Missouri',MT:'Montana',NE:'Nebraska',NV:'Nevada',NH:'New Hampshire',NJ:'New Jersey',NM:'New Mexico',NY:'New York',NC:'North Carolina',ND:'North Dakota',OH:'Ohio',OK:'Oklahoma',OR:'Oregon',PA:'Pennsylvania',RI:'Rhode Island',SC:'South Carolina',SD:'South Dakota',TN:'Tennessee',TX:'Texas',UT:'Utah',VT:'Vermont',VA:'Virginia',WA:'Washington',WV:'West Virginia',WI:'Wisconsin',WY:'Wyoming'};
@@ -1039,25 +1043,38 @@ function paintFleet(){
 function paintOffMap(){
   var layer=document.getElementById('offlayer'), leg=document.getElementById('offlegend');
   if(!layer||!leg) return;
-  if(!estate.off||!OFF){ layer.innerHTML=''; leg.innerHTML=''; return; }
-  var out='', bySec={};
+  if(!estate.off||!OFF){ layer.innerHTML=''; leg.innerHTML=''; window.OFF_SITES=[]; return; }
+  var BANDS=[
+    {k:'B4', min:8000, r:11,  l:'>8 TWh'},
+    {k:'B3', min:2000, r:8,   l:'2\u20138 TWh'},
+    {k:'B2', min:500,  r:5.6, l:'0.5\u20132 TWh'},
+    {k:'B1', min:0,    r:3.6, l:'<0.5 TWh'}];
+  function bandOf(g){ for(var i=0;i<BANDS.length;i++){ if((g||0)>=BANDS[i].min) return BANDS[i]; } return BANDS[BANDS.length-1]; }
+  var out='', bySec={}, byBand={}, flat=[];
   OFF.items.forEach(function(i){
     if(i.sector==='DATA CENTERS') return;
     (i.sites||[]).forEach(function(sx){
       if(!sx.lat||!sx.lon) return;
-      var xy=projAlbers(sx.lon,sx.lat), c=offColor(i.sector);
-      var r=Math.max(2.2, Math.sqrt(sx.gwh||1)*0.075);
-      var dim=(estate.ofsel&&i.sector!==estate.ofsel)?' opacity="0.15"':'';
+      var b=bandOf(sx.gwh), xy=projAlbers(sx.lon,sx.lat), c=offColor(i.sector);
       bySec[i.sector]=(bySec[i.sector]||0)+(sx.gwh||0);
-      out+='<circle cx="'+xy[0].toFixed(1)+'" cy="'+xy[1].toFixed(1)+'" r="'+r.toFixed(1)+'" fill="'+c+'" fill-opacity="0.55" stroke="'+c+'" stroke-width="0.6"'+dim+'><title>'+i.name.replace(/"/g,'')+' — '+sx.n+' ('+sx.st+') · est. '+offGwh(sx.gwh)+'/yr</title></circle>';
+      byBand[b.k]=(byBand[b.k]||0)+1;
+      var dim=(estate.ofsel&&i.sector!==estate.ofsel)||(estate.oband&&b.k!==estate.oband);
+      var ix=flat.length;
+      flat.push({p:i.name, n:sx.n, st:sx.st, sec:i.sector, gwh:sx.gwh});
+      out+='<circle class="op'+(dim?' dim':'')+'" data-o="'+ix+'" cx="'+xy[0].toFixed(1)+'" cy="'+xy[1].toFixed(1)+'" r="'+b.r+'" fill="'+c+'"></circle>';
     });
   });
+  window.OFF_SITES=flat;
   layer.innerHTML=out;
   var h='';
   Object.keys(bySec).forEach(function(k){
     h+='<span class="rleg'+(estate.ofsel===k?' on':'')+'" data-os="'+k+'"><i style="background:'+offColor(k)+'"></i>'+k+' '+(bySec[k]/1000).toFixed(0)+'</span>';
   });
-  if(h) h+='<span class="legunit">est. TWh/yr demand by sector · circle area ≈ site GWh · EPA GHGRP RY'+OFF.year+' · click a sector</span>';
+  BANDS.forEach(function(b){
+    var d=Math.round(b.r*2*0.9);
+    h+='<span class="rleg'+(estate.oband===b.k?' on':'')+'" data-ob="'+b.k+'"><span class="bglyph" style="width:'+d+'px;height:'+d+'px"></span>'+b.l+' ('+(byBand[b.k]||0)+')</span>';
+  });
+  h+='<span class="legunit">est. TWh/yr by sector \u00b7 size band = site demand \u00b7 EPA GHGRP RY'+OFF.year+' \u00b7 click sector or band to focus \u00b7 hover a dot</span>';
   leg.innerHTML=h;
 }
 function showPlant(i){
@@ -1145,6 +1162,11 @@ function buildMap(){
     if(fp && PLANTS){ var pp=PLANTS.plants[+fp.getAttribute('data-p')];
       var r0=col.getBoundingClientRect(); tip.style.left=(ev.clientX-r0.left)+'px'; tip.style.top=(ev.clientY-r0.top)+'px';
       tip.innerHTML='<b>'+pp.n+'</b> '+pp.mw.toLocaleString()+' MW \u00b7 '+pp.o; tip.style.display='block'; return;
+    }
+    var op=ev.target.closest('[data-o]');
+    if(op && window.OFF_SITES){ var so=OFF_SITES[+op.getAttribute('data-o')];
+      var r1=col.getBoundingClientRect(); tip.style.left=(ev.clientX-r1.left)+'px'; tip.style.top=(ev.clientY-r1.top)+'px';
+      tip.innerHTML='<b>'+so.p+'</b> '+so.n+' ('+so.st+') \u00b7 '+so.sec+' \u00b7 est. '+offGwh(so.gwh)+'/yr'; tip.style.display='block'; return;
     }
     var t=ev.target.closest('[data-s]');
     if(t){ var s=t.getAttribute('data-s'); if(estate.mode!=='rto' && s!==estate.sel) showState(s);
