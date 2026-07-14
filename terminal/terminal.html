@@ -155,6 +155,11 @@ a:hover{color:#fff}
 .invwb td.nm{color:var(--text);font-weight:600;max-width:280px;overflow:hidden;text-overflow:ellipsis}
 .invwb td.sc{color:var(--teal);font-weight:700}
 .invwb tr:hover td{background:rgba(0,179,182,.05)}
+.dq{font:700 8.5px var(--mono);border-radius:2px;padding:0.5px 4px;margin-left:6px}
+.dq.up{color:#5CB88A}.dq.dn{color:#C7625C}.dq.fl{color:var(--dim)}
+.dq.nw{color:var(--teal);border:1px solid var(--teal);padding:0 4px}
+.prx{font:600 9.5px var(--mono);color:#C7625C;margin-top:3px;padding:0 2px}
+.pr.ex b{color:#C7625C}.pr.ex .sh{color:#C7625C}
 .invwb td .nhb{font:700 8px var(--font);color:var(--orange);border:1px solid var(--orange);border-radius:2px;padding:0 4px;margin-left:6px}
 .invwb a{color:var(--teal);text-decoration:none}
 .invwbwrap{padding:0 18px 18px;overflow-x:auto}
@@ -256,6 +261,7 @@ footer b{color:var(--muted)}
 .dchip.cool{color:var(--muted);border-color:var(--line)}
 .fcst{font:700 8px var(--font);letter-spacing:.08em;color:#B08FC9;border:1px solid #B08FC9;border-radius:2px;padding:1px 5px;margin-left:7px;vertical-align:1px}
 .foamore{padding:7px 18px;font:500 10px var(--mono);color:var(--dim)}
+.stbadge{font:700 8px var(--font);letter-spacing:.08em;color:#B08FC9;border:1px solid #B08FC9;border-radius:2px;padding:0.5px 5px;margin-left:7px;vertical-align:1px}
 .navtab{font:700 10.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);background:none;border:1px solid var(--line);border-radius:5px;padding:5px 13px;cursor:pointer}
 .navtab.on{color:var(--ink);background:var(--teal);border-color:var(--teal)}
 .navtab:hover:not(.on){color:var(--text);border-color:var(--lead-light)}
@@ -515,6 +521,7 @@ footer b{color:var(--muted)}
         <button data-r="cash">Cash R&amp;D</button>
         <button data-r="inkind">In-kind</button>
         <button data-r="allocated">Allocated</button>
+        <button data-r="state">State</button>
       </div>
       <button class="tgl" id="capopen">Open only</button>
     </div>
@@ -543,6 +550,7 @@ footer b{color:var(--muted)}
   <div class="invctl">
     <span id="invtypes"></span>
     <button class="invtgl" id="invactive">Active money only</button>
+    <button class="invtgl" id="invacc" title="at least one position increased q/q (or opened new)">▲ Accumulating</button>
     <input class="invsearch" id="invq" placeholder="search investor…">
     <button class="invchip" id="invsortx">sort: exposure</button>
     <button class="invtgl" id="invview">view: workbook</button>
@@ -599,6 +607,7 @@ footer b{color:var(--muted)}
 <script src="data/conferences.js"></script>
 <script src="data/programmes.js"></script>
 <script src="data/investors.js"></script>
+<script src="data/inv_history.js"></script>
 <script src="data/offtakers.js"></script>
 <script src="data/peers.js"></script>
 <script>
@@ -1445,7 +1454,8 @@ function renderCap(){
 }
 function paintCap(){
   var rows=PROG.items.filter(function(p){
-    if(capstate.reg!=='all' && p.register!==capstate.reg) return false;
+    if(capstate.reg==='state'){ if(p.level!=='state') return false; }
+    else if(capstate.reg!=='all' && p.register!==capstate.reg) return false;
     if(capstate.openOnly && p.status!=='open') return false;
     if(capstate.q){
       var hay=(p.name+' '+p.sponsor+' '+p.kind+' '+p.fit+' '+p.funds+' '+p.provides).toLowerCase();
@@ -1468,7 +1478,7 @@ function paintCap(){
       html+='<div class="crow rc-'+rc+'">'+
         '<div class="cbody">'+
           '<div class="cname">'+nm+'</div>'+
-          '<div class="cmeta">'+esc(p.sponsor)+' \u00b7 '+esc(p.kind)+'</div>'+
+          '<div class="cmeta">'+esc(p.sponsor)+' \u00b7 '+esc(p.kind)+(p.level==='state'?' <span class="stbadge">STATE</span>':'')+'</div>'+
           '<div class="cprov">'+esc(p.provides)+'</div>'+
           (p.fit?'<div class="crel">'+esc(p.fit)+'</div>':'')+
           (p.note?'<div class="crel" style="color:var(--dim)">'+esc(p.note)+'</div>':'')+
@@ -1532,7 +1542,7 @@ setInterval(function(){
 
 /* ================= INVESTORS TAB ================= */
 const INV = window.NIT_INV || null;
-let invInit=false, invCo='ALL', invType='ALL', invActiveOnly=false, invQ='', invSort='total', invShown=48;
+let invInit=false, invCo='ALL', invType='ALL', invActiveOnly=false, invAccOnly=false, invQ='', invSort='total', invShown=48;
 const INV_TYPES=[['ALL','All'],['Nuclear / energy specialist','Specialist'],['Active manager','Active'],
  ['Hedge fund / multi-strategy','Hedge fund'],['Passive / index','Passive'],['Quant / market-maker','Quant/MM'],
  ['Broker / wealth platform','Broker'],['Sovereign / pension','Sov/Pension'],['','Unclassified']];
@@ -1540,7 +1550,7 @@ const INV_LOWSIG=new Set(['Passive / index','Quant / market-maker','Broker / wea
 function invMoney(v){ if(v>=1e9)return '$'+(v/1e9).toFixed(2)+'B'; if(v>=1e6)return '$'+(v/1e6).toFixed(1)+'M'; if(v>=1e3)return '$'+(v/1e3).toFixed(0)+'k'; return '$'+v; }
 function invTypeCls(t){ return t==='Nuclear / energy specialist'?'spec':t==='Active manager'?'act':t==='Hedge fund / multi-strategy'?'hf':t==='Sovereign / pension'?'act':t==='Passive / index'?'pas':t==='Quant / market-maker'?'qmm':t==='Broker / wealth platform'?'brk':'unk'; }
 function invTypeShort(t){ const m={'Nuclear / energy specialist':'Specialist','Active manager':'Active','Hedge fund / multi-strategy':'Hedge fund','Passive / index':'Passive','Quant / market-maker':'Quant/MM','Broker / wealth platform':'Broker','Sovereign / pension':'Sov/Pension'}; return m[t]||'—'; }
-const INV_WDEF={t_spec:40,t_act:30,t_sov:25,t_hf:15,t_pas:0,t_qmm:0,t_brk:0,t_unk:0,per:4,cap:20,prerev:15,thr1:100,pts1:15,thr2:10,pts2:10,thr3:1,pts3:5,min:0};
+const INV_WDEF={t_spec:40,t_act:30,t_sov:25,t_hf:15,t_pas:0,t_qmm:0,t_brk:0,t_unk:0,per:4,cap:20,prerev:15,mom:5,thr1:100,pts1:15,thr2:10,pts2:10,thr3:1,pts3:5,min:0};
 const INV_WKEY={'Nuclear / energy specialist':'t_spec','Active manager':'t_act','Sovereign / pension':'t_sov','Hedge fund / multi-strategy':'t_hf','Passive / index':'t_pas','Quant / market-maker':'t_qmm','Broker / wealth platform':'t_brk'};
 const INV_PREREV=new Set(['OKLO','NKLR','IMSR','NNE','LTBR','XE','FISN','HDRN']);
 let invView='cards', invWbSort='score', invWbDir=-1, invW=(()=>{try{const x=localStorage.getItem('nitInvW'); if(x) return {...INV_WDEF,...JSON.parse(x)};}catch(e){} return {...INV_WDEF};})();
@@ -1549,12 +1559,13 @@ function invScore(i){
   let s=invW[INV_WKEY[i.type]||'t_unk']||0;
   s+=Math.min(invW.cap, i.names_held*invW.per);
   if(i.positions.some(p=>INV_PREREV.has(p.t))) s+=invW.prerev;
+  if(i.cmp_q) s+=Math.max(-3,Math.min(3,(i.adds_q||0)-(i.trims_q||0)))*invW.mom;
   const mm=i.total/1e6;
   s+= mm>=invW.thr1?invW.pts1: mm>=invW.thr2?invW.pts2: mm>=invW.thr3?invW.pts3:0;
   return s;
 }
 const INV_WLBL=[['whead','Type points'],['t_spec','Specialist'],['t_act','Active mgr'],['t_sov','Sov/Pension'],['t_hf','Hedge fund'],['t_pas','Passive'],['t_qmm','Quant/MM'],['t_brk','Broker'],['t_unk','Unclassified'],
- ['whead','Breadth + conviction'],['per','Per name held'],['cap','Breadth cap'],['prerev','Pre-revenue bonus'],
+ ['whead','Breadth + conviction'],['per','Per name held'],['cap','Breadth cap'],['prerev','Pre-revenue bonus'],['mom','Momentum / net add (±3 cap)'],
  ['whead','Size thresholds ($mm) and points'],['thr1','Large ≥'],['pts1','Large pts'],['thr2','Mid ≥'],['pts2','Mid pts'],['thr3','Entry ≥'],['pts3','Entry pts'],
  ['whead','View'],['min','Min score (workbook)']];
 function invDrawer(){
@@ -1567,10 +1578,11 @@ function invDrawer(){
 }
 function invCsv(rows){
   const esc=v=>{v=String(v==null?'':v); return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;};
-  const head=['Rank','Investor','Type','Score','Exposure_USD','Names_Held','Pre_Revenue','Holds_NHIC','Positions','Filed','CIK','EDGAR_URL'];
+  const head=['Rank','Investor','Type','Score','Exposure_USD','Names_Held','Adds_QoQ','Trims_QoQ','Exits_QoQ','Accumulating','Pre_Revenue','Holds_NHIC','Positions','Filed','CIK','EDGAR_URL'];
   const lines=[head.join(',')];
   rows.forEach((i,ix)=>{
     lines.push([ix+1,esc(i.name),esc(i.type||'Unclassified'),invScore(i),i.total,i.names_held,
+      i.cmp_q?(i.adds_q||0):'',i.cmp_q?(i.trims_q||0):'',esc((i.exits_q||[]).join(' ')),i.has_add?'Y':'',
       i.positions.some(p=>INV_PREREV.has(p.t))?'Y':'N', i.nhic?'Y':'N',
       esc(i.positions.map(p=>`${p.t}:$${p.v}:${p.sh}sh`).join('; ')), i.filed, esc(i.cik), esc(i.url)].join(','));
   });
@@ -1583,10 +1595,18 @@ function invExport(rows){
   a.download=`nit_investors_${tag}${new Date().toISOString().slice(0,10)}.csv`;
   document.body.appendChild(a); a.click(); a.remove();
 }
+function invDq(p){
+  if(p.new_q) return '<span class="dq nw">NEW</span>';
+  if(p.psh_q){ const d=(p.sh/p.psh_q-1)*100;
+    if(Math.abs(d)<0.5) return '<span class="dq fl">·</span>';
+    const yt = p.new_y ? ' · y/y NEW' : (p.psh_y ? ' · y/y '+(((p.sh/p.psh_y-1)*100)>0?'+':'')+((p.sh/p.psh_y-1)*100).toFixed(0)+'%' : '');
+    return `<span class="dq ${d>0?'up':'dn'}" title="${p.psh_q.toLocaleString()} sh last qtr${yt}">${d>0?'▲':'▼'}${Math.abs(d)>=100?Math.round(Math.abs(d)):Math.abs(d).toFixed(0)}%</span>`; }
+  return '';
+}
 function invWbTable(rows){
   const arrow=k=> invWbSort===k?(invWbDir<0?' ↓':' ↑'):'';
-  const hd=`<tr><th>#</th><th class="srt" data-ws="name">Investor</th><th>Type</th><th class="srt num" data-ws="score">Score${arrow('score')}</th><th class="srt num" data-ws="exp">Exposure${arrow('exp')}</th><th class="srt num" data-ws="names">Names${arrow('names')}</th><th>Pre-rev</th><th>Key positions</th><th>Filed</th><th></th></tr>`;
-  const body=rows.map((i,ix)=>`<tr><td class="num">${ix+1}</td><td class="nm" title="${i.name}">${i.name}${i.nhic?'<span class="nhb">NHIC</span>':''}</td><td>${invTypeShort(i.type)}</td><td class="num sc">${invScore(i)}</td><td class="num">${invMoney(i.total)}</td><td class="num">${i.names_held}</td><td>${i.positions.some(p=>INV_PREREV.has(p.t))?'Y':'—'}</td><td>${i.positions.slice(0,4).map(p=>p.t+' '+invMoney(p.v)).join(' · ')}</td><td>${i.filed}</td><td><a href="${i.url}" target="_blank" rel="noopener">13F ↗</a></td></tr>`).join('');
+  const hd=`<tr><th>#</th><th class="srt" data-ws="name">Investor</th><th>Type</th><th class="srt num" data-ws="score">Score${arrow('score')}</th><th class="srt num" data-ws="exp">Exposure${arrow('exp')}</th><th class="srt num" data-ws="names">Names${arrow('names')}</th><th class="num">ΔQ a/t</th><th>Pre-rev</th><th>Key positions</th><th>Filed</th><th></th></tr>`;
+  const body=rows.map((i,ix)=>`<tr><td class="num">${ix+1}</td><td class="nm" title="${i.name}">${i.name}${i.nhic?'<span class="nhb">NHIC</span>':''}</td><td>${invTypeShort(i.type)}</td><td class="num sc">${invScore(i)}</td><td class="num">${invMoney(i.total)}</td><td class="num">${i.names_held}</td><td class="num">${i.cmp_q?`${i.adds_q||0}/${i.trims_q||0}`:'—'}</td><td>${i.positions.some(p=>INV_PREREV.has(p.t))?'Y':'—'}</td><td>${i.positions.slice(0,4).map(p=>p.t+' '+invMoney(p.v)).join(' · ')}</td><td>${i.filed}</td><td><a href="${i.url}" target="_blank" rel="noopener">13F ↗</a></td></tr>`).join('');
   return `<div class="invwbwrap"><table class="invwb"><thead>${hd}</thead><tbody>${body}</tbody></table></div>`;
 }
 function renderInv(){
@@ -1595,7 +1615,7 @@ function renderInv(){
   const el=document.getElementById('invgrid');
   if(!INV||!INV.items){ el.innerHTML='<div class="invempty">No investor data loaded.<br>Upload <code>data/investors.js</code> to populate this tab.</div>'; return; }
   document.getElementById('invsub').textContent=`13F ${INV.season} season · long US-listed equity only · option rows excluded · values as of quarter end, filed up to 45 days later · hover a company chip for parse coverage`;
-  document.getElementById('invsub').title=INV.caveats;
+  document.getElementById('invsub').title=INV.caveats + (INV.delta_vs?` · Δ vs ${INV.delta_vs.q} (q/q) and ${INV.delta_vs.y} (y/y); n/c = filer not covered in the prior-season sample.`:'');
   const co=document.getElementById('invcompany');
   co.innerHTML=['ALL',...INV.universe.map(u=>u.ticker)].map(t=>{
     const u=INV.universe.find(x=>x.ticker===t);
@@ -1607,6 +1627,7 @@ function renderInv(){
   ty.innerHTML=INV_TYPES.map(([v,l])=>`<button class="invchip" data-ty="${v}">${l}</button>`).join(' ');
   ty.addEventListener('click',e=>{ const b=e.target.closest('[data-ty]'); if(!b)return; invType=b.dataset.ty; invShown=48; paintInv(); });
   document.getElementById('invactive').addEventListener('click',()=>{ invActiveOnly=!invActiveOnly; invShown=48; paintInv(); });
+  document.getElementById('invacc').addEventListener('click',()=>{ invAccOnly=!invAccOnly; invShown=48; paintInv(); });
   document.getElementById('invq').addEventListener('input',e=>{ invQ=e.target.value.toLowerCase(); invShown=48; paintInv(); });
   document.getElementById('invsortx').addEventListener('click',()=>{ invSort=invSort==='total'?'names':'total'; invShown=48; paintInv(); });
   document.getElementById('invmore').addEventListener('click',()=>{ invShown+=48; paintInv(); });
@@ -1623,11 +1644,13 @@ function paintInv(){
   document.querySelectorAll('#invcompany .invchip').forEach(b=>b.classList.toggle('on',b.dataset.co===invCo));
   document.querySelectorAll('#invtypes .invchip').forEach(b=>b.classList.toggle('on',b.dataset.ty===invType));
   document.getElementById('invactive').classList.toggle('on',invActiveOnly);
+  document.getElementById('invacc').classList.toggle('on',invAccOnly);
   document.getElementById('invsortx').textContent='sort: '+(invSort==='total'?'exposure':'names held');
   let rows=INV.items.filter(i=>{
     if(invCo!=='ALL'&&!i.positions.some(p=>p.t===invCo))return false;
     if(invType!=='ALL'&&(i.type||'')!==invType)return false;
     if(invActiveOnly&&(!i.type||INV_LOWSIG.has(i.type)))return false;
+    if(invAccOnly&&!i.has_add)return false;
     if(invQ&&!i.name.toLowerCase().includes(invQ))return false;
     return true; });
   const key=i=> invCo!=='ALL' ? (i.positions.find(p=>p.t===invCo)||{v:0}).v : i.total;
@@ -1637,7 +1660,7 @@ function paintInv(){
         nh=rows.filter(i=>i.nhic).length,
         spec=rows.filter(i=>i.type==='Nuclear / energy specialist').length;
   if(invView==='wb' && invW.min>0) rows=rows.filter(i=>invScore(i)>=invW.min);
-  const filt = invCo!=='ALL'||invType!=='ALL'||invActiveOnly||!!invQ;
+  const filt = invCo!=='ALL'||invType!=='ALL'||invActiveOnly||invAccOnly||!!invQ;
   document.getElementById('invstats').innerHTML=
     `<div class="st"><b>${invMoney(cap)}</b><span>${invCo==='ALL'?'tracked 13F capital':invCo+' capital in selection'}</span></div>`+
     `<div class="st"><b>${rows.length}</b><span>${filt?'matching investors':'institutional investors'}</span></div>`+
@@ -1659,13 +1682,15 @@ function paintInv(){
   }
   const show=rows.slice(0,invShown);
   el.innerHTML = show.length? show.map(i=>{
-    const pos=i.positions.slice(0,12).map(p=>`<div class="pr${p.t===invCo?' sel':''}"><b>${p.t}</b><span>${invMoney(p.v)}</span><span class="sh">${p.sh.toLocaleString()} sh</span></div>`).join('');
+    const pos=i.positions.slice(0,12).map(p=>`<div class="pr${p.t===invCo?' sel':''}"><b>${p.t}</b><span>${invMoney(p.v)}</span><span class="sh">${p.sh.toLocaleString()} sh</span>${invDq(p)}</div>`).join('')
+      + ((i.exits_q&&i.exits_q.length)?`<div class="pr ex"><b>EXITED</b><span class="sh">${i.exits_q.join(' · ')}</span></div>`:'');
     return `<div class="invcard">
       <div class="nm"><b>${i.name}</b>${i.nhic?'<span class="invbadge">HOLDS NHIC</span>':''}</div>
       <div class="invmeta"><span class="invtype ${invTypeCls(i.type)}">${invTypeShort(i.type)}</span><span class="fd">filed ${i.filed}</span></div>
       ${i.profile?`<div class="invprof">${i.profile}</div>`:''}
       <div class="invtot">${invMoney(i.total)}<span>universe exposure</span></div>
       <div class="invpos">${pos}</div>
+      ${(i.exits_q&&i.exits_q.length)?`<div class="prx" title="held last quarter, absent now">exited: ${i.exits_q.join(' · ')}</div>`:''}
       <div class="invfoot"><span class="n">${i.names_held} name${i.names_held>1?'s':''} held</span><a href="${i.url}" target="_blank" rel="noopener">13F filings ↗</a></div>
     </div>`; }).join('') : '<div class="invempty">No investors match the current filters.</div>';
   const more=document.getElementById('invmore');
