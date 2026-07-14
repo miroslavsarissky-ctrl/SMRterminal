@@ -317,6 +317,8 @@ footer b{color:var(--muted)}
 .op{stroke:#0d1114;stroke-width:1;cursor:pointer}
 .op:hover{stroke:#fff;stroke-width:1.5}
 .op.dim{opacity:.12}
+.op.sig{stroke:#F0782E;stroke-width:2}
+.op.sig:hover{stroke:#fff}
 #offlegend .bglyph{display:inline-block;border-radius:50%;background:var(--muted);vertical-align:middle;margin-right:5px;border:1px solid #0d1114}
 #fleetlegend{margin-top:4px}
 .flrow{display:flex;justify-content:space-between;gap:10px;font:500 11px var(--mono);color:var(--text);padding:2px 0}
@@ -520,7 +522,8 @@ footer b{color:var(--muted)}
   <div class="invctl" id="offsector"></div>
   <div class="invctl">
     <input class="invsearch" id="offq" placeholder="search offtaker…">
-    <button class="invchip" id="offsort">sort: GWh</button>
+    <button class="invchip" id="offsort" title="est. demand: biggest energy buyers first · plant count: widest multi-site fleets first (replication prospects)">sort: est. demand</button>
+    <button class="invtgl" id="offsig">◈ nuclear signals</button>
     <button class="invtgl" id="offexport">export CSV</button>
   </div>
   <div class="invgrid" id="offgrid"></div>
@@ -1059,9 +1062,10 @@ function paintOffMap(){
       bySec[i.sector]=(bySec[i.sector]||0)+(sx.gwh||0);
       byBand[b.k]=(byBand[b.k]||0)+1;
       var dim=(estate.ofsel&&i.sector!==estate.ofsel)||(estate.oband&&b.k!==estate.oband);
+      var sig=(i.signals||[]).length;
       var ix=flat.length;
-      flat.push({p:i.name, n:sx.n, st:sx.st, sec:i.sector, gwh:sx.gwh});
-      out+='<circle class="op'+(dim?' dim':'')+'" data-o="'+ix+'" cx="'+xy[0].toFixed(1)+'" cy="'+xy[1].toFixed(1)+'" r="'+b.r+'" fill="'+c+'"></circle>';
+      flat.push({p:i.name, n:sx.n, st:sx.st, sec:i.sector, gwh:sx.gwh, mwth:sx.mwth||0});
+      out+='<circle class="op'+(dim?' dim':'')+(sig?' sig':'')+'" data-o="'+ix+'" cx="'+xy[0].toFixed(1)+'" cy="'+xy[1].toFixed(1)+'" r="'+b.r+'" fill="'+c+'"></circle>';
     });
   });
   window.OFF_SITES=flat;
@@ -1166,7 +1170,7 @@ function buildMap(){
     var op=ev.target.closest('[data-o]');
     if(op && window.OFF_SITES){ var so=OFF_SITES[+op.getAttribute('data-o')];
       var r1=col.getBoundingClientRect(); tip.style.left=(ev.clientX-r1.left)+'px'; tip.style.top=(ev.clientY-r1.top)+'px';
-      tip.innerHTML='<b>'+so.p+'</b> '+so.n+' ('+so.st+') \u00b7 '+so.sec+' \u00b7 est. '+offGwh(so.gwh)+'/yr'; tip.style.display='block'; return;
+      tip.innerHTML='<b>'+so.p+'</b> '+so.n+' ('+so.st+') \u00b7 '+so.sec+' \u00b7 est. '+offGwh(so.gwh)+'/yr'+(so.mwth?' \u00b7 '+so.mwth.toLocaleString()+' MWth rated':''); tip.style.display='block'; return;
     }
     var t=ev.target.closest('[data-s]');
     if(t){ var s=t.getAttribute('data-s'); if(estate.mode!=='rto' && s!==estate.sel) showState(s);
@@ -1598,13 +1602,14 @@ function paintInv(){
 
 /* ================= OFFTAKERS TAB + ENERGY OVERLAY ================= */
 const OFF = window.NIT_OFF || null;
-let offInit=false, offSec='ALL', offQ='', offSortK='gwh';
+let offInit=false, offSec='ALL', offQ='', offSortK='gwh', offSigOnly=false;
 function offGwh(v){ if(v==null) return '—'; if(v>=1000) return (v/1000).toFixed(1)+' TWh'; return Math.round(v).toLocaleString()+' GWh'; }
 function offColor(sec){ return (OFF&&OFF.sector_colors&&OFF.sector_colors[sec])||'#8A9AA6'; }
 function offRows(){
   if(!OFF||!OFF.items) return [];
   let rows=OFF.items.filter(i=>{
     if(offSec!=='ALL'&&i.sector!==offSec) return false;
+    if(offSigOnly&&!(i.signals||[]).length) return false;
     if(offQ&&!i.name.toLowerCase().includes(offQ)) return false;
     return true; });
   rows.sort((a,b)=> offSortK==='sites' ? ((b.n_sites||0)-(a.n_sites||0)||(b.gwh||0)-(a.gwh||0)) : ((b.gwh||0)-(a.gwh||0)));
@@ -1622,6 +1627,7 @@ function renderOff(){
   sc.addEventListener('click',e=>{ const b=e.target.closest('[data-os]'); if(!b)return; offSec=b.dataset.os; paintOff(); });
   document.getElementById('offq').addEventListener('input',e=>{ offQ=e.target.value.toLowerCase(); paintOff(); });
   document.getElementById('offsort').addEventListener('click',()=>{ offSortK=offSortK==='gwh'?'sites':'gwh'; paintOff(); });
+  document.getElementById('offsig').addEventListener('click',()=>{ offSigOnly=!offSigOnly; paintOff(); });
   document.getElementById('offexport').addEventListener('click',()=>{
     const esc=v=>{v=String(v==null?'':v); return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;};
     const rows=offRows();
@@ -1634,10 +1640,25 @@ function renderOff(){
   });
   paintOff();
 }
+const OFF_FUELN={gas:'gas',coal:'coal',pet:'oil/petcoke',oth:'process/other gas'};
+function offFuelLine(i){
+  const f=i.fuels||{}; const tot=Object.values(f).reduce((a,b)=>a+b,0);
+  if(!i.mwth&&!tot) return '';
+  let bits=[];
+  if(i.mwth) bits.push(i.mwth.toLocaleString()+' MW<sub>th</sub> rated');
+  if(tot){
+    const mix=Object.entries(f).sort((a,b)=>b[1]-a[1]).map(([k,v])=>OFF_FUELN[k]+' '+Math.round(100*v/tot)+'%').join(' · ');
+    bits.push('heat: '+mix);
+  }
+  let h='<div class="offsplit">⌁ '+bits.join(' · ')+'</div>';
+  if((i.gwh_bio||0)>300) h+='<div class="offsplit" style="color:#7D9B4E">+ '+offGwh(i.gwh_bio)+' biomass steam (biogenic, excl. from ranking)</div>';
+  return h;
+}
 function paintOff(){
   const rows=offRows();
   document.querySelectorAll('#offsector .invchip').forEach(b=>b.classList.toggle('on',b.dataset.os===offSec));
-  document.getElementById('offsort').textContent='sort: '+(offSortK==='gwh'?'GWh':'sites');
+  document.getElementById('offsort').textContent='sort: '+(offSortK==='gwh'?'est. demand':'plant count');
+  document.getElementById('offsig').classList.toggle('on',offSigOnly);
   const gw=rows.reduce((a,i)=>a+(i.gwh||0),0), sites=rows.reduce((a,i)=>a+(i.n_sites||0),0),
         dcs=rows.filter(i=>i.sector==='DATA CENTERS').length, sig=rows.filter(i=>(i.signals||[]).length).length;
   document.getElementById('offstats').innerHTML=
@@ -1654,6 +1675,7 @@ function paintOff(){
       <div class="invmeta"><span class="offbadge" style="color:${c};border-color:${c}">${i.sector}</span>${i.note?`<span class="fd">${i.note}</span>`:''}</div>
       <div class="offtot">${offGwh(i.gwh)}<span>est. demand/yr</span></div>
       ${i.gwh_e!=null&&i.gwh_th?`<div class="offsplit">≈ ${offGwh(i.gwh_e)} electric · ${offGwh(i.gwh_th)} heat</div>`:''}
+      ${offFuelLine(i)}
       ${(i.signals||[]).length?`<div class="offsig">◈ ${i.signals[0]}</div>`:''}
       ${sitesHtml?`<div class="offsites">${sitesHtml}</div>`:''}
       <div class="offfoot"><span>${i.n_sites?i.n_sites+' reporting sites · '+(i.states||[]).slice(0,8).join(' '):(i.mw?i.mw.toLocaleString()+' MW announced':'')}</span><span>${i.co2e?Math.round(i.co2e/1000).toLocaleString()+' ktCO2e':''}</span></div>
