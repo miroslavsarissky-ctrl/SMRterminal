@@ -54,7 +54,23 @@ def build_prompt(brief_path, tracker_items):
         brief = f.read()
     tracker = json.dumps([{k: it.get(k) for k in ('name', 'dates', 'start', 'end', 'city', 'status', 'deadline')}
                           for it in tracker_items], ensure_ascii=False)
+    extra = ''
+    if 'programmes' in os.path.basename(brief_path):
+        gp = os.path.join(HERE, '..', 'data', 'grants.json')
+        if os.path.exists(gp):
+            try:
+                g = json.load(open(gp))
+                cands = [f"{i['number']} | {i['title']} | {i['agency']} | closes {i['close'] or '?'}"
+                         for i in g.get('items', []) if i.get('doe')][:25]
+                if cands:
+                    extra = ("\nDeterministic candidates pulled from the Grants.gov API (primary source). "
+                             "Verify each on grants.gov or the DOE FOA page, classify into the correct register "
+                             "(cash / in-kind / allocated), skip anything not nuclear-relevant, and prefer these "
+                             "exact numbers and close dates over memory:\n- " + "\n- ".join(cands) + "\n")
+            except Exception:
+                pass
     return (f"{brief}\n\n---\nRUNTIME INPUTS\nCurrent date: {TODAY}\nTime window: {WINDOW} from the current date.\n"
+            f"{extra}"
             f"Existing tracker (return ONLY net-new items plus flagged changes to these):\n{tracker}\n")
 
 
