@@ -136,6 +136,60 @@ def load_bulk(year):
     df['naics'] = df['naics'].astype('Int64').astype(str)
     return df[['fid', 'name', 'st', 'lat', 'lon', 'naics', 'co2e']].to_dict('records')
 
+FUEL_EF = {'gas': 0.0561, 'coal': 0.0946, 'pet': 0.0733, 'oth': 0.080}   # tCO2 per GJ
+BIO_EF = 0.112
+FUEL_BUCKET = {'Natural Gas': 'gas', 'Fuel Gas': 'gas', 'Coal': 'coal',
+               'Petroleum Products': 'pet'}
+UNITS_ZIP = 'https://www.epa.gov/system/files/other-files/2024-10/emissions_by_unit_and_fuel_type_c_d_aa.zip'
+
+def load_units(year):
+    """Per-facility unit layer from EPA's unit/fuel file: rated heat capacity (MWth),
+    fossil combustion CO2 split by fuel bucket, and biogenic CO2. Cached as JSON after
+    the first parse because the xlsb read is slow."""
+    cache = f'/tmp/off_units_{year}.json'
+    if os.path.exists(cache):
+        return {int(k): v for k, v in json.load(open(cache)).items()}
+    import io, zipfile
+    import pandas as pd
+    xp = f'/tmp/off_units_{year}.xlsb'
+    if not os.path.exists(xp):
+        r = requests.get(UNITS_ZIP, headers=UA, timeout=240)
+        z = zipfile.ZipFile(io.BytesIO(r.content))
+        open(xp, 'wb').write(z.read([n for n in z.namelist() if n.endswith('.xlsb')][0]))
+    def sheet(name):
+        raw = pd.read_excel(xp, sheet_name=name, engine='pyxlsb', header=None, nrows=10)
+        hdr = [i for i in range(10) if raw.iloc[i].astype(str).str.contains('Facility Id', na=False).any()][0]
+        df = pd.read_excel(xp, sheet_name=name, engine='pyxlsb', header=hdr)
+        df.columns = [str(c).strip() for c in df.columns]
+        return df[df['Reporting Year'] == int(year)]
+    fu = sheet('FUEL_DATA')
+    fmap = {}
+    for _, r in fu.iterrows():
+        b = FUEL_BUCKET.get(str(r['General Fuel Type']).strip(), 'oth')
+        fmap.setdefault((int(r['Facility Id']), str(r['Unit Name'])), set()).add(b)
+    un = sheet('UNIT_DATA')
+    capc = [c for c in un.columns if 'Heat Input' in c][0]
+    co2c = [c for c in un.columns if 'non-biogenic' in c][0]
+    bioc = [c for c in un.columns if 'Biogenic' in c][0]
+    out = {}
+    for _, r in un.iterrows():
+        fid = int(r['Facility Id'])
+        d = out.setdefault(fid, {'mwth': 0.0, 'f': {'gas': 0, 'coal': 0, 'pet': 0, 'oth': 0}, 'bio': 0.0})
+        cap = pd.to_numeric(pd.Series([r[capc]]), errors='coerce').iloc[0]
+        if cap == cap:
+            d['mwth'] += float(cap) * 0.293
+        co2 = pd.to_numeric(pd.Series([r[co2c]]), errors='coerce').iloc[0]
+        if co2 == co2 and co2 > 0:
+            buckets = fmap.get((fid, str(r['Unit Name']))) or {'oth'}
+            for b in buckets:
+                d['f'][b] += float(co2) / len(buckets)
+        bio = pd.to_numeric(pd.Series([r[bioc]]), errors='coerce').iloc[0]
+        if bio == bio and bio > 0:
+            d['bio'] += float(bio)
+    json.dump(out, open(cache, 'w'))
+    print(f'  unit layer: {len(out)} facilities cached')
+    return out
+
 def parent_map(naics):
     """facility_id -> parent string, from the (fast) Envirofacts dimension endpoint."""
     out = {}
@@ -144,8 +198,14 @@ def parent_map(naics):
             out[int(f['facility_id'])] = f.get('parent_company') or ''
     return out
 
+INDUSTRIAL_SIGNALS = [
+    ('DOW',   'X-energy Xe-100 deployment at Seadrift, TX — NRC construction permit application filed'),
+    ('NUCOR', 'NuScale investor; Helion fusion PPA; exploring advanced nuclear for steel mills'),
+]
+
 def collect_industrial():
     rows = load_bulk(YEAR)
+    units = load_units(YEAR)
     parents, meta = {}, []
     for sector, naics_list in SECTORS.items():
         fac_count = 0
@@ -162,17 +222,33 @@ def collect_industrial():
             fac_count += 1
             e, th = est_gwh(sector, co2e)
             pname = parent_of(pmap.get(int(f['fid']), ''))
+            if pname == 'Independent / undisclosed':
+                pname = str(f['name'] or '?').title()[:44]      # orphan facility stands as its own entry
             p = parents.setdefault((pname, sector), {
                 'name': pname, 'sector': sector, 'co2e': 0.0, 'gwh_e': 0.0, 'gwh_th': 0.0,
                 'sites': [], 'states': set()})
             p['co2e'] += co2e; p['gwh_e'] += e; p['gwh_th'] += th
+            uu = units.get(int(f['fid']))
+            smw = 0
+            if uu:
+                smw = uu['mwth']
+                p['mwth'] = p.get('mwth', 0) + uu['mwth']
+                fu = p.setdefault('fuels', {'gas': 0, 'coal': 0, 'pet': 0, 'oth': 0})
+                for b, t in uu['f'].items():
+                    fu[b] += (t / FUEL_EF[b]) / 3600          # tCO2 -> GJ -> GWh_th
+                p['gwh_bio'] = p.get('gwh_bio', 0) + (uu['bio'] / BIO_EF) / 3600
             st = f['st'] or ''
             p['states'].add(st)
             p['sites'].append({'n': str(f['name'] or '?').title()[:48], 'st': st,
                                'lat': round(float(f['lat'] or 0), 3), 'lon': round(float(f['lon'] or 0), 3),
-                               'co2e': round(co2e), 'gwh': round(e + th, 1)})
+                               'co2e': round(co2e), 'gwh': round(e + th, 1), 'mwth': round(smw)})
         meta.append({'sector': sector, 'facilities': fac_count})
         print(f'  {sector:10} facilities={fac_count}')
+    for p in parents.values():
+        up = p['name'].upper()
+        for key, sig in INDUSTRIAL_SIGNALS:
+            if key in up:
+                p.setdefault('signals', []).append(sig)
     return parents, meta
 
 def main(out_dir=DATA):
@@ -186,7 +262,10 @@ def main(out_dir=DATA):
                       'gwh_e': round(p['gwh_e'], 1), 'gwh_th': round(p['gwh_th'], 1),
                       'co2e': round(p['co2e']), 'n_sites': len(p['sites']),
                       'states': sorted(x for x in p['states'] if x),
-                      'sites': p['sites'][:8], 'note': '', 'signals': []})
+                      'mwth': round(p.get('mwth', 0)),
+                      'fuels': {k: round(v, 1) for k, v in p.get('fuels', {}).items() if v > 0.05},
+                      'gwh_bio': round(p.get('gwh_bio', 0), 1),
+                      'sites': p['sites'][:8], 'note': '', 'signals': p.get('signals', [])})
     for name, mw, signal in DC_SEED:
         gwh = round(mw * 8.76 * 0.80, 0) if mw else None
         items.append({'name': name, 'sector': 'DATA CENTERS', 'gwh': gwh, 'gwh_e': gwh, 'gwh_th': 0,
@@ -214,7 +293,9 @@ def main(out_dir=DATA):
                           'MWh/tCO2e; refining 0.070 tCO2/GJ + 0.05 MWh/tCO2e; pulp & paper gas-EF + 0.15 '
                           'MWh/tCO2e (fossil share only — biomass steam not visible); food & biofuels gas-EF '
                           '+ 0.08; minerals (lime + glass) blended kiln/furnace heat + 0.06. Semiconductors: '
-                          'no GWh claimed — GHGRP sees process gases only, electricity is scope 2. Data '
+                          'no GWh claimed — GHGRP sees process gases only, electricity is scope 2. Unit layer: rated heat capacity (MWth) and heat-by-fuel from EPA unit/fuel reporting '
+                          '(fuel-specific EFs: gas .0561, coal .0946, petroleum .0733 tCO2/GJ); biomass steam '
+                          'from biogenic CO2 at .112, shown separately and excluded from ranking. Data '
                           'centres: curated announced MW x 8.76 x 0.80. Screening estimates, not metered '
                           'data; reported CO2e shown alongside.')}
     os.makedirs(out_dir, exist_ok=True)
