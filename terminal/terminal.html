@@ -165,6 +165,8 @@ a:hover{color:#fff}
 .dq.yy{border:none;color:var(--dim);padding:0.5px 2px;margin-left:4px}
 .dq.yy.yup{color:#6FA98A}
 .dq.yy.ydn{color:#B98A85}
+.dq.cx{border-bottom:1px dashed currentColor;border-radius:0;padding-bottom:0}
+.cxn{font:500 9px var(--mono);color:var(--dim);margin-top:3px;padding:0 2px}
 .pr.ex b{color:#C7625C}.pr.ex .sh{color:#C7625C}
 .invwb td .nhb{font:700 8px var(--font);color:var(--orange);border:1px solid var(--orange);border-radius:2px;padding:0 4px;margin-left:6px}
 .invwb a{color:var(--teal);text-decoration:none}
@@ -1611,6 +1613,13 @@ function invDq(p){
       const txt=Math.abs(dy)>=300?('×'+r.toFixed(1)):((dy>0?'+':'')+dy.toFixed(0)+'%');
       return `<span class="dq yy ${dy>0?'yup':'ydn'}" title="${p.psh_y.toLocaleString()} sh a year ago">y ${txt}</span>`; }
     return ''; })();
+  if(p.cxq!=null){
+    const cq=p.cxq, up=cq!=='new'&&cq>0, txt=cq==='new'?'NEW':((cq>0?'▲':cq<0?'▼':'▬')+Math.abs(cq)+'%');
+    let out=`<span class="dq cx ${cq==='new'?'nw':up?'up':cq<0?'dn':'fl'}" title="complex-level q/q: sum of all successor entities vs the pre-restructure filer — per-entity split undisclosed">cx ${txt}</span>`;
+    if(p.cxy!=null){ const cy=p.cxy, t2=cy==='new'?'NEW':((cy>0?'+':'')+cy+'%');
+      out+=`<span class="dq yy ${cy!=='new'&&cy>0?'yup':cy!=='new'&&cy<0?'ydn':''}" title="complex-level y/y">y ${t2}</span>`; }
+    return out;
+  }
   if(p.new_q) return '<span class="dq nw" title="not held last quarter">NEW</span>'+ych;
   if(p.psh_q){ const d=(p.sh/p.psh_q-1)*100;
     if(Math.abs(d)<0.5) return '<span class="dq fl" title="'+p.psh_q.toLocaleString()+' sh last qtr — unchanged">·</span>'+ych;
@@ -1708,6 +1717,7 @@ function paintInv(){
       <div class="invtot">${invMoney(i.total)}<span>universe exposure</span></div>
       <div class="invpos">${pos}</div>
       ${(i.exits_q&&i.exits_q.length)?`<div class="prx" title="held last quarter, absent now">exited: ${i.exits_q.join(' · ')}</div>`:''}
+      ${i.cx?`<div class="cxn">deltas shown at ${i.cx}-complex level — entity created in the Q1 2026 restructuring</div>`:''}
       <div class="invfoot"><span class="n">${i.names_held} name${i.names_held>1?'s':''} held</span><a href="${i.url}" target="_blank" rel="noopener">13F filings ↗</a></div>
     </div>`; }).join('') : '<div class="invempty">No investors match the current filters.</div>';
   const more=document.getElementById('invmore');
