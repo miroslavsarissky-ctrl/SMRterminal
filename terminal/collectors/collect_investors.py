@@ -67,6 +67,9 @@ UNIVERSE = [
     ('UEC',  'Uranium Energy Corp', '"URANIUM ENERGY"', r'URANIUM\s+ENERGY'),
     ('XE',   'X-energy (IPO 24 Apr 2026; institutional register appears with Q2 filings, 20 Aug refresh)',
              '"X-ENERGY"', r'\bX[\s\-]?ENERGY'),
+    ('FRMI', 'Fermi Inc (nuclear-powered AI campus developer)', '"FERMI INC"', r'^FERMI\b'),
+    ('FISN', 'Deep Fission (IPO Jun 2026; register appears from Q2 filings)', '"DEEP FISSION"', r'DEEP\s*FISSION'),
+    ('HDRN', 'Hadron Energy (de-SPAC closed Jun 2026; register appears from Q2 filings)', '"HADRON ENERGY"', r'\bHADRON'),
     ('NHIC', 'NewHold Investment Corp III (newcleo de-SPAC)', 'NEWHOLD', r'NEWHOLD'),
 ]
 
@@ -85,7 +88,7 @@ MAJOR = re.compile(r'VANGUARD|BLACKROCK|STATE STREET|FMR|FIDELITY|GEODE|NORTHERN
                    r'CAPITAL RESEARCH|BAILLIE|ALLIANCEBERNSTEIN|NUVEEN|MILLENNIUM|CITADEL|POINT72|'
                    r'TWO SIGMA|D\.?\s*E\.?\s*SHAW|RENAISSANCE|JANE STREET|SUSQUEHANNA|GOLDMAN|'
                    r'MORGAN STANLEY|JPMORGAN|BANK OF AMERICA|UBS|WELLS FARGO|SCHWAB|SABA|POLAR ASSET|'
-                   r'MAGNETAR|BOOTHBAY|ARISTEIA|RIVERNORTH|GLAZER|FIR TREE|HIGHBRIDGE|VIRTU|HUDSON RIVER', re.I)
+                   r'MAGNETAR|BOOTHBAY|ARISTEIA|RIVERNORTH|GLAZER|FIR TREE|HIGHBRIDGE|VIRTU|HUDSON RIVER|PENTWATER', re.I)
 
 TYPE_RULES = [
     ('Nuclear / energy specialist', r'SEGRA|ENCOMPASS|SPROTT|ELECTRON CAPITAL|MASSIF|GOEHRING'),
@@ -380,6 +383,119 @@ def enrich_via_claude(items):
         print('  ! enrich:', ex)
         return 0
 
+
+HIST_PATH = os.path.join(DATA, 'investors_history.json')
+
+def hist_load():
+    try:
+        return json.load(open(HIST_PATH))
+    except Exception:
+        return {'seasons': {}, 'names': {}}
+
+def hist_save(h):
+    json.dump(h, open(HIST_PATH, 'w'), ensure_ascii=False)
+
+def hist_record(h, season, items):
+    h['seasons'][season] = {i['cik']: {p['t']: p['sh'] for p in i['positions']} for i in items}
+    for i in items:
+        h['names'][i['cik']] = i['name']
+
+def season_key(lbl):
+    q, y = lbl.split(); return (int(y), int(q[1]))
+
+def prior_labels(season):
+    """(previous quarter label, same quarter last year label)."""
+    y, q = season_key(season)[0], season_key(season)[1]
+    pq = f'Q{q-1} {y}' if q > 1 else f'Q4 {y-1}'
+    return pq, f'Q{q} {y-1}'
+
+def annotate_deltas(items, h, season):
+    pq, py = prior_labels(season)
+    sq, sy = h['seasons'].get(pq, {}), h['seasons'].get(py, {})
+    def tickers_present(sn):
+        out = set()
+        for pos in sn.values(): out.update(pos.keys())
+        return out
+    tq, ty = tickers_present(sq), tickers_present(sy)
+    # split guard: median holder-level ratio per ticker vs prev quarter
+    suppress = set()
+    for t in tq:
+        ratios = []
+        for i in items:
+            cur = next((p['sh'] for p in i['positions'] if p['t'] == t), None)
+            prev = sq.get(i['cik'], {}).get(t)
+            if cur and prev: ratios.append(cur / prev)
+        if len(ratios) >= 5:
+            ratios.sort(); med = ratios[len(ratios)//2]
+            if med < 0.75 or med > 1.33:
+                suppress.add(t); print(f'  ! split-like shift on {t} (median x{med:.2f}) — q/q deltas suppressed')
+    adds_total = 0
+    for i in items:
+        prevq, prevy = sq.get(i['cik']), sy.get(i['cik'])
+        i['cmp_q'], i['cmp_y'] = prevq is not None, prevy is not None
+        adds = trims = 0
+        for p in i['positions']:
+            t = p['t']
+            if prevq is not None and t not in suppress:
+                ps = prevq.get(t)
+                if ps: p['psh_q'] = ps; adds += 1 if p['sh'] > ps * 1.005 else 0; trims += 1 if p['sh'] < ps * 0.995 else 0
+                elif t in tq: p['new_q'] = True; adds += 1
+            if prevy is not None:
+                psy = prevy.get(t)
+                if psy: p['psh_y'] = psy
+                elif t in ty: p['new_y'] = True
+        if prevq is not None:
+            i['exits_q'] = sorted(t for t in prevq if t not in {p['t'] for p in i['positions']})[:6]
+            i['adds_q'], i['trims_q'] = adds, trims
+            i['has_add'] = adds > 0
+            adds_total += 1 if adds > 0 else 0
+    print(f'  deltas vs {pq} ({len(sq)} filers) / {py} ({len(sy)}): {adds_total} accumulating')
+    return pq, py
+
+
+def annotate_deltas(items, out_dir, season):
+    """Bake q/q and y/y share deltas into items from inv_history.json (client contract:
+    p.new_q/p.psh_q/p.new_y/p.psh_y, i.cmp_q/adds_q/trims_q/exits_q/has_add)."""
+    hp = os.path.join(out_dir, 'inv_history.json')
+    if not os.path.exists(hp):
+        return
+    try:
+        hist = json.load(open(hp))
+    except Exception:
+        return
+    m = re.match(r'Q(\d) (\d{4})', season or '')
+    if not m:
+        return
+    q, y = int(m.group(1)), int(m.group(2))
+    prevQ = f'Q4 {y-1}' if q == 1 else f'Q{q-1} {y}'
+    prevY = f'Q{q} {y-1}'
+    S = {s2['label']: s2['holders'] for s2 in hist.get('seasons', [])}
+    hq, hy = S.get(prevQ), S.get(prevY)
+    for it in items:
+        pq = hq.get(it['cik']) if hq else None
+        py = hy.get(it['cik']) if hy else None
+        it['cmp_q'] = pq is not None
+        adds = trims = 0
+        for p in it['positions']:
+            if pq is not None:
+                a = pq.get(p['t'], 0)
+                if a == 0:
+                    p['new_q'] = True; adds += 1
+                else:
+                    p['psh_q'] = a
+                    if p['sh'] > a * 1.005: adds += 1
+                    elif p['sh'] < a * 0.995: trims += 1
+            if py is not None:
+                b = py.get(p['t'], 0)
+                if b == 0:
+                    p['new_y'] = True
+                else:
+                    p['psh_y'] = b
+        it['adds_q'] = adds; it['trims_q'] = trims
+        it['has_add'] = adds > 0
+        it['exits_q'] = sorted(t for t, v in (pq or {}).items()
+                               if v > 0 and not any(p['t'] == t for p in it['positions']))
+
 def main(out_dir=DATA):
     print(f'collect_investors: season {SEASON} ({START}..{END}) pages={PAGES} tables={TABLES}')
     investors, meta = collect()
@@ -398,8 +514,13 @@ def main(out_dir=DATA):
     if n:
         print(f'  enriched via Claude: {n}')
     items.sort(key=lambda i: -i['total'])
+    h = hist_load()
+    hist_record(h, SEASON, items)
+    hist_save(h)
+    pq, py = annotate_deltas(items, h, SEASON)
     payload = {'generated': NOW.strftime('%Y-%m-%dT%H:%M:%S+00:00'), 'season': SEASON,
                'window': {'start': START, 'end': END}, 'count': len(items),
+               'delta_vs': {'q': pq, 'y': py},
                'universe': meta, 'items': items,
                'caveats': '13F-HR long US-listed equity only; excludes shorts, option rows, private and PIPE '
                           'stakes; values as of quarter end, filed up to 45 days later. Vanguard restructured its 13F reporting across multiple entities in Q1 2026; Vanguard Fiduciary Trust is included, full complex coverage is being tracked.'}
@@ -414,7 +535,23 @@ def main(out_dir=DATA):
             print(f'  !! refusing to write: {len(items)} investors is under 40% of the existing '
                   f'{prev_n} (looks like a partial/failed run, not real churn); keeping current data')
             return
+    annotate_deltas(items, out_dir, payload['season'])
     json.dump(payload, open(os.path.join(out_dir, 'investors.json'), 'w'), ensure_ascii=False, indent=1)
+    # append this season's share snapshot to the history file (deltas computed client-side)
+    hp = os.path.join(out_dir, 'inv_history.json')
+    try:
+        hist = json.load(open(hp)) if os.path.exists(hp) else {'seasons': [], 'names': {}}
+        hist['seasons'] = [s2 for s2 in hist['seasons'] if s2['label'] != payload['season']]
+        hist['seasons'].append({'label': payload['season'],
+            'holders': {it['cik']: {p['t']: p['sh'] for p in it['positions']} for it in items}})
+        hist['seasons'] = hist['seasons'][-8:]
+        for it in items:
+            hist['names'][it['cik']] = it['name']
+        hist['generated'] = payload['generated']
+        json.dump(hist, open(hp, 'w'), ensure_ascii=False)
+        open(os.path.join(out_dir, 'inv_history.js'), 'w').write('window.NIT_INVH = ' + json.dumps(hist, ensure_ascii=False) + ';')
+    except Exception as e:
+        print('history append skipped:', e)
     open(os.path.join(out_dir, 'investors.js'), 'w').write('window.NIT_INV = ' + json.dumps(payload, ensure_ascii=False) + ';')
     print(f'investors: {len(items)} across {len(meta)} companies -> investors.json/js')
 
