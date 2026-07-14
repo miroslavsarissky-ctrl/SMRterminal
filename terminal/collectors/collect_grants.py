@@ -48,6 +48,7 @@ def main(out_dir=DATA):
                'keywords': KWS, 'items': items}
     os.makedirs(out_dir, exist_ok=True)
     json.dump(payload, open(os.path.join(out_dir, 'grants.json'), 'w'), ensure_ascii=False, indent=1)
+    open(os.path.join(out_dir, 'grants.js'), 'w').write('window.NIT_GRANTS = ' + json.dumps(payload, ensure_ascii=False) + ';')
     print(f'grants: {len(items)} candidate opportunities ({sum(1 for i in items if i["doe"])} DOE-family)')
     for i in items[:6]:
         print(f"   {i['number']:22} close={i['close'] or '—':10} {i['title'][:52]}")
