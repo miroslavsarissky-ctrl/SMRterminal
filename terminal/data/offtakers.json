@@ -1,0 +1,4644 @@
+{
+ "generated": "2026-07-14T02:29:01+00:00",
+ "year": "2023",
+ "sector_colors": {
+  "STEEL": "#9DB2C4",
+  "CEMENT": "#C9A26B",
+  "CHEMICALS": "#5CB88A",
+  "ALUMINIUM": "#7FB3D5",
+  "DATA CENTERS": "#F0782E"
+ },
+ "universe": [
+  {
+   "sector": "STEEL",
+   "facilities": 121
+  },
+  {
+   "sector": "CEMENT",
+   "facilities": 89
+  },
+  {
+   "sector": "ALUMINIUM",
+   "facilities": 10
+  },
+  {
+   "sector": "CHEMICALS",
+   "facilities": 248
+  }
+ ],
+ "count": 120,
+ "items": [
+  {
+   "name": "Cf Industries Holdings Inc",
+   "sector": "CHEMICALS",
+   "gwh": 103956.5,
+   "gwh_e": 2057.9,
+   "gwh_th": 101898.5,
+   "co2e": 20579424,
+   "n_sites": 6,
+   "states": [
+    "IA",
+    "LA",
+    "MS",
+    "OK"
+   ],
+   "sites": [
+    {
+     "n": "Cf Industries Nitrogen, Llc - Donaldsonville Nit",
+     "st": "LA",
+     "lat": 30.087,
+     "lon": -90.958,
+     "co2e": 9475266,
+     "gwh": 47864.1
+    },
+    {
+     "n": "Verdigris Plt",
+     "st": "OK",
+     "lat": 36.234,
+     "lon": -95.719,
+     "co2e": 3354663,
+     "gwh": 16946.0
+    },
+    {
+     "n": "Cf Industries Nitrogen, Llc-Port Neal Nitrogen C",
+     "st": "IA",
+     "lat": 42.336,
+     "lon": -96.378,
+     "co2e": 3191237,
+     "gwh": 16120.5
+    },
+    {
+     "n": "Cf Industries Nitrogen, Llc - Yazoo City Facilit",
+     "st": "MS",
+     "lat": 32.905,
+     "lon": -90.383,
+     "co2e": 2433917,
+     "gwh": 12294.9
+    },
+    {
+     "n": "Terra International (Oklahoma) Llc",
+     "st": "OK",
+     "lat": 36.437,
+     "lon": -99.471,
+     "co2e": 1190500,
+     "gwh": 6013.8
+    },
+    {
+     "n": "Cf Industries East Point, Llc",
+     "st": "LA",
+     "lat": 29.965,
+     "lon": -90.262,
+     "co2e": 933843,
+     "gwh": 4717.3
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Cleveland-Cliffs Inc",
+   "sector": "STEEL",
+   "gwh": 92420.1,
+   "gwh_e": 6207.3,
+   "gwh_th": 86212.8,
+   "co2e": 24829293,
+   "n_sites": 17,
+   "states": [
+    "IL",
+    "IN",
+    "MI",
+    "OH",
+    "PA",
+    "WV"
+   ],
+   "sites": [
+    {
+     "n": "Cleveland-Cliffs Burns Harbor Llc",
+     "st": "IN",
+     "lat": 41.634,
+     "lon": -87.131,
+     "co2e": 7644163,
+     "gwh": 28453.3
+    },
+    {
+     "n": "Cleveland-Cliffs Steel Llc",
+     "st": "IN",
+     "lat": 41.68,
+     "lon": -87.426,
+     "co2e": 5783021,
+     "gwh": 21525.7
+    },
+    {
+     "n": "Cleveland-Cliffs Cleveland Works Llc",
+     "st": "OH",
+     "lat": 41.474,
+     "lon": -81.673,
+     "co2e": 4269452,
+     "gwh": 15891.8
+    },
+    {
+     "n": "Cleveland-Cliffs Steel Corporation - Middletown ",
+     "st": "OH",
+     "lat": 39.497,
+     "lon": -84.39,
+     "co2e": 3512088,
+     "gwh": 13072.8
+    },
+    {
+     "n": "Cleveland-Cliffs Steel Corporation Dearborn Work",
+     "st": "MI",
+     "lat": 42.302,
+     "lon": -83.163,
+     "co2e": 1006823,
+     "gwh": 3747.6
+    },
+    {
+     "n": "Ironunits Llc",
+     "st": "OH",
+     "lat": 41.675,
+     "lon": -83.478,
+     "co2e": 802938,
+     "gwh": 2988.7
+    },
+    {
+     "n": "Cleveland-Cliffs Steel Llc",
+     "st": "IN",
+     "lat": 41.651,
+     "lon": -87.459,
+     "co2e": 703787,
+     "gwh": 2619.7
+    },
+    {
+     "n": "Cleveland-Cliffs Steel Corporation /Butler Works",
+     "st": "PA",
+     "lat": 40.829,
+     "lon": -79.943,
+     "co2e": 269985,
+     "gwh": 1004.9
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Dow Inc",
+   "sector": "CHEMICALS",
+   "gwh": 75839.6,
+   "gwh_e": 1501.3,
+   "gwh_th": 74338.2,
+   "co2e": 15013347,
+   "n_sites": 9,
+   "states": [
+    "KY",
+    "LA",
+    "TX",
+    "WV"
+   ],
+   "sites": [
+    {
+     "n": "Dow Texas Operations Freeport",
+     "st": "TX",
+     "lat": 28.98,
+     "lon": -95.342,
+     "co2e": 5215287,
+     "gwh": 26344.9
+    },
+    {
+     "n": "St Charles Operations (Taft/Star) Union Carbide ",
+     "st": "LA",
+     "lat": 29.983,
+     "lon": -90.444,
+     "co2e": 2757259,
+     "gwh": 13928.2
+    },
+    {
+     "n": "Plaquemine Cogen Facility",
+     "st": "LA",
+     "lat": 30.322,
+     "lon": -91.239,
+     "co2e": 2717565,
+     "gwh": 13727.7
+    },
+    {
+     "n": "The Dow Chemical Company -- Louisiana Operations",
+     "st": "LA",
+     "lat": 30.321,
+     "lon": -91.239,
+     "co2e": 2249995,
+     "gwh": 11365.8
+    },
+    {
+     "n": "Sabine River Operations",
+     "st": "TX",
+     "lat": 30.055,
+     "lon": -93.754,
+     "co2e": 908296,
+     "gwh": 4588.2
+    },
+    {
+     "n": "Ucc Seadrift Operations",
+     "st": "TX",
+     "lat": 28.511,
+     "lon": -96.772,
+     "co2e": 583731,
+     "gwh": 2948.7
+    },
+    {
+     "n": "Rohm And Haas Texas Deer Park Plant",
+     "st": "TX",
+     "lat": 29.732,
+     "lon": -95.101,
+     "co2e": 332103,
+     "gwh": 1677.6
+    },
+    {
+     "n": "Dow Silicones Corporation",
+     "st": "KY",
+     "lat": 38.707,
+     "lon": -85.105,
+     "co2e": 166597,
+     "gwh": 841.6
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Air Products & Chemicals Inc",
+   "sector": "CHEMICALS",
+   "gwh": 71088.9,
+   "gwh_e": 1407.3,
+   "gwh_th": 69681.6,
+   "co2e": 14072905,
+   "n_sites": 27,
+   "states": [
+    "CA",
+    "DE",
+    "IL",
+    "KY",
+    "LA",
+    "MI",
+    "TX"
+   ],
+   "sites": [
+    {
+     "n": "Air Products Port Arthur Facility",
+     "st": "TX",
+     "lat": 29.866,
+     "lon": -93.971,
+     "co2e": 2335031,
+     "gwh": 11795.4
+    },
+    {
+     "n": "Air Products And Chemicals - Norco Smr",
+     "st": "LA",
+     "lat": 30.017,
+     "lon": -90.409,
+     "co2e": 1102168,
+     "gwh": 5567.6
+    },
+    {
+     "n": "Air Products Baytown 3 Facility",
+     "st": "TX",
+     "lat": 29.752,
+     "lon": -94.909,
+     "co2e": 1020473,
+     "gwh": 5154.9
+    },
+    {
+     "n": "Air Products And Chemicals Inc - Garyville",
+     "st": "LA",
+     "lat": 30.1,
+     "lon": -90.649,
+     "co2e": 987351,
+     "gwh": 4987.6
+    },
+    {
+     "n": "Air Products And Chemicals, Inc. - Br Smr",
+     "st": "LA",
+     "lat": 30.488,
+     "lon": -91.164,
+     "co2e": 916362,
+     "gwh": 4629.0
+    },
+    {
+     "n": "Air Products West Coast Hydrogen Llc - Torrance",
+     "st": "CA",
+     "lat": 33.869,
+     "lon": -118.332,
+     "co2e": 881224,
+     "gwh": 4451.5
+    },
+    {
+     "n": "Air Products And Chemicals Inc. Luling Smr Facil",
+     "st": "LA",
+     "lat": 29.931,
+     "lon": -90.347,
+     "co2e": 861624,
+     "gwh": 4352.5
+    },
+    {
+     "n": "Air Products Wilmington Hydrogen Plant",
+     "st": "CA",
+     "lat": 33.781,
+     "lon": -118.241,
+     "co2e": 827474,
+     "gwh": 4180.0
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Us Steel Corp",
+   "sector": "STEEL",
+   "gwh": 64570.8,
+   "gwh_e": 4336.8,
+   "gwh_th": 60233.9,
+   "co2e": 17347373,
+   "n_sites": 8,
+   "states": [
+    "AL",
+    "AR",
+    "IL",
+    "IN",
+    "MI",
+    "PA"
+   ],
+   "sites": [
+    {
+     "n": "Us Steel Corp - Gary Works",
+     "st": "IN",
+     "lat": 41.613,
+     "lon": -87.328,
+     "co2e": 10928816,
+     "gwh": 40679.5
+    },
+    {
+     "n": "Us Steel (Edgar Thomson)",
+     "st": "PA",
+     "lat": 40.392,
+     "lon": -79.856,
+     "co2e": 3576537,
+     "gwh": 13312.7
+    },
+    {
+     "n": "Us Steel - Granite City",
+     "st": "IL",
+     "lat": 38.695,
+     "lon": -90.137,
+     "co2e": 1757626,
+     "gwh": 6542.3
+    },
+    {
+     "n": "Big River Steel Llc",
+     "st": "AR",
+     "lat": 35.697,
+     "lon": -90.037,
+     "co2e": 380303,
+     "gwh": 1415.6
+    },
+    {
+     "n": "Us Steel - Irvin Works",
+     "st": "PA",
+     "lat": 40.337,
+     "lon": -79.911,
+     "co2e": 362318,
+     "gwh": 1348.6
+    },
+    {
+     "n": "Us Steel (Fairfield Works)",
+     "st": "AL",
+     "lat": 33.483,
+     "lon": -86.926,
+     "co2e": 243031,
+     "gwh": 904.6
+    },
+    {
+     "n": "Us Steel - Great Lakes Works",
+     "st": "MI",
+     "lat": 42.258,
+     "lon": -83.139,
+     "co2e": 73499,
+     "gwh": 273.6
+    },
+    {
+     "n": "Us Steel - Fairless Hills Plant",
+     "st": "PA",
+     "lat": 40.165,
+     "lon": -74.747,
+     "co2e": 25241,
+     "gwh": 94.0
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Alcoa Corp",
+   "sector": "ALUMINIUM",
+   "gwh": 45390.6,
+   "gwh_e": 43117.1,
+   "gwh_th": 2273.6,
+   "co2e": 5161904,
+   "n_sites": 3,
+   "states": [
+    "IN",
+    "NY",
+    "WA"
+   ],
+   "sites": [
+    {
+     "n": "Alcoa Inc - Warrick Operations",
+     "st": "IN",
+     "lat": 37.915,
+     "lon": -87.333,
+     "co2e": 4867519,
+     "gwh": 42802.0
+    },
+    {
+     "n": "Alcoa Usa Corp.",
+     "st": "NY",
+     "lat": 44.966,
+     "lon": -74.894,
+     "co2e": 285852,
+     "gwh": 2513.6
+    },
+    {
+     "n": "Alcoa Intalco Works",
+     "st": "WA",
+     "lat": 48.846,
+     "lon": -122.706,
+     "co2e": 8533,
+     "gwh": 75.0
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Linde Inc",
+   "sector": "CHEMICALS",
+   "gwh": 44388.9,
+   "gwh_e": 878.7,
+   "gwh_th": 43510.2,
+   "co2e": 8787322,
+   "n_sites": 18,
+   "states": [
+    "AL",
+    "CA",
+    "DE",
+    "IN",
+    "LA",
+    "MI",
+    "NY",
+    "OH",
+    "TX",
+    "UT"
+   ],
+   "sites": [
+    {
+     "n": "Linde - Whiting, In 5&6",
+     "st": "IN",
+     "lat": 41.669,
+     "lon": -87.473,
+     "co2e": 1624864,
+     "gwh": 8208.0
+    },
+    {
+     "n": "Linde Facility 0379",
+     "st": "TX",
+     "lat": 29.89,
+     "lon": -93.937,
+     "co2e": 1050581,
+     "gwh": 5307.0
+    },
+    {
+     "n": "Linde Inc, St. Charles Facility",
+     "st": "LA",
+     "lat": 30.001,
+     "lon": -90.395,
+     "co2e": 1031341,
+     "gwh": 5209.8
+    },
+    {
+     "n": "Linde- Sweeny Hydrogen Plant",
+     "st": "TX",
+     "lat": 29.063,
+     "lon": -95.743,
+     "co2e": 986226,
+     "gwh": 4981.9
+    },
+    {
+     "n": "Linde Clear Lake Hyco Plant",
+     "st": "TX",
+     "lat": 29.635,
+     "lon": -95.069,
+     "co2e": 878234,
+     "gwh": 4436.4
+    },
+    {
+     "n": "Linde Facility 0497",
+     "st": "TX",
+     "lat": 29.89,
+     "lon": -93.948,
+     "co2e": 692578,
+     "gwh": 3498.5
+    },
+    {
+     "n": "Linde Inc",
+     "st": "OH",
+     "lat": 41.637,
+     "lon": -83.495,
+     "co2e": 593125,
+     "gwh": 2996.2
+    },
+    {
+     "n": "Linde Inc",
+     "st": "LA",
+     "lat": 30.139,
+     "lon": -93.527,
+     "co2e": 500244,
+     "gwh": 2527.0
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Koch Industries Inc",
+   "sector": "CHEMICALS",
+   "gwh": 38539.5,
+   "gwh_e": 762.9,
+   "gwh_th": 37776.6,
+   "co2e": 7629352,
+   "n_sites": 8,
+   "states": [
+    "IA",
+    "KS",
+    "LA",
+    "NE",
+    "OK",
+    "TX"
+   ],
+   "sites": [
+    {
+     "n": "Koch Feritlizer Enid Llc Enid Nitrogen Plt",
+     "st": "OK",
+     "lat": 36.379,
+     "lon": -97.765,
+     "co2e": 2379962,
+     "gwh": 12022.3
+    },
+    {
+     "n": "Inv Nylon Chemicals Americas Victoria Site",
+     "st": "TX",
+     "lat": 28.689,
+     "lon": -96.942,
+     "co2e": 1518293,
+     "gwh": 7669.6
+    },
+    {
+     "n": "Koch Fertilizer Ft. Dodge, Llc",
+     "st": "IA",
+     "lat": 42.499,
+     "lon": -94.017,
+     "co2e": 1025233,
+     "gwh": 5178.9
+    },
+    {
+     "n": "Koch Fertilizer Beatrice, Llc",
+     "st": "NE",
+     "lat": 40.319,
+     "lon": -96.841,
+     "co2e": 795150,
+     "gwh": 4016.7
+    },
+    {
+     "n": "Koch Methanol St. James",
+     "st": "LA",
+     "lat": 29.983,
+     "lon": -90.876,
+     "co2e": 652496,
+     "gwh": 3296.1
+    },
+    {
+     "n": "Inv Propylene, Llc",
+     "st": "TX",
+     "lat": 29.706,
+     "lon": -95.251,
+     "co2e": 556363,
+     "gwh": 2810.5
+    },
+    {
+     "n": "Koch Fertilizer Dodge City, Llc",
+     "st": "KS",
+     "lat": 37.78,
+     "lon": -100.006,
+     "co2e": 541912,
+     "gwh": 2737.5
+    },
+    {
+     "n": "Invista Orange Site",
+     "st": "TX",
+     "lat": 30.054,
+     "lon": -93.752,
+     "co2e": 159943,
+     "gwh": 807.9
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Lyondellbasell Industries Inc",
+   "sector": "CHEMICALS",
+   "gwh": 34925.2,
+   "gwh_e": 691.4,
+   "gwh_th": 34233.8,
+   "co2e": 6913853,
+   "n_sites": 9,
+   "states": [
+    "IA",
+    "IL",
+    "LA",
+    "TX"
+   ],
+   "sites": [
+    {
+     "n": "Channelview Complex",
+     "st": "TX",
+     "lat": 29.831,
+     "lon": -95.116,
+     "co2e": 1940433,
+     "gwh": 9802.0
+    },
+    {
+     "n": "Equistar Chemicals Laporte Complex",
+     "st": "TX",
+     "lat": 29.717,
+     "lon": -95.068,
+     "co2e": 1315541,
+     "gwh": 6645.4
+    },
+    {
+     "n": "Equistar Corpus Christi Plant",
+     "st": "TX",
+     "lat": 27.81,
+     "lon": -97.594,
+     "co2e": 1311004,
+     "gwh": 6622.5
+    },
+    {
+     "n": "Louisiana Integrated Polyethylene Jv Llc",
+     "st": "LA",
+     "lat": 30.245,
+     "lon": -93.276,
+     "co2e": 965533,
+     "gwh": 4877.4
+    },
+    {
+     "n": "Equistar Chemicals Lp",
+     "st": "IA",
+     "lat": 41.807,
+     "lon": -90.296,
+     "co2e": 502998,
+     "gwh": 2540.9
+    },
+    {
+     "n": "Lyondell Chemical Channelview",
+     "st": "TX",
+     "lat": 29.831,
+     "lon": -95.116,
+     "co2e": 449254,
+     "gwh": 2269.4
+    },
+    {
+     "n": "Equistar Chemicals Lp",
+     "st": "IL",
+     "lat": 41.413,
+     "lon": -88.33,
+     "co2e": 268440,
+     "gwh": 1356.0
+    },
+    {
+     "n": "Lcc Bayport Lyondell",
+     "st": "TX",
+     "lat": 29.61,
+     "lon": -95.05,
+     "co2e": 114513,
+     "gwh": 578.5
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "American Air Liquide Holdings Inc",
+   "sector": "CHEMICALS",
+   "gwh": 31160.7,
+   "gwh_e": 616.9,
+   "gwh_th": 30543.8,
+   "co2e": 6168626,
+   "n_sites": 12,
+   "states": [
+    "CA",
+    "LA",
+    "NV",
+    "TX",
+    "WA"
+   ],
+   "sites": [
+    {
+     "n": "Bayou Cogeneration Plant",
+     "st": "TX",
+     "lat": 29.622,
+     "lon": -95.046,
+     "co2e": 2017198,
+     "gwh": 10189.8
+    },
+    {
+     "n": "Air Liquide Large Industries Us Lp - Rodeo Hydro",
+     "st": "CA",
+     "lat": 38.048,
+     "lon": -122.257,
+     "co2e": 821122,
+     "gwh": 4147.9
+    },
+    {
+     "n": "La Porte Steam Methane Reformer",
+     "st": "TX",
+     "lat": 29.651,
+     "lon": -95.054,
+     "co2e": 780670,
+     "gwh": 3943.5
+    },
+    {
+     "n": "Air Liquid Large Industries Us, Lp",
+     "st": "CA",
+     "lat": 33.906,
+     "lon": -118.402,
+     "co2e": 617757,
+     "gwh": 3120.6
+    },
+    {
+     "n": "Air Liquide America Corp",
+     "st": "TX",
+     "lat": 32.448,
+     "lon": -94.688,
+     "co2e": 481525,
+     "gwh": 2432.4
+    },
+    {
+     "n": "Air Liquide Large Industries Us - Smr",
+     "st": "TX",
+     "lat": 29.621,
+     "lon": -95.044,
+     "co2e": 399378,
+     "gwh": 2017.4
+    },
+    {
+     "n": "Air Liquide America Corp.",
+     "st": "LA",
+     "lat": 30.21,
+     "lon": -90.991,
+     "co2e": 370413,
+     "gwh": 1871.1
+    },
+    {
+     "n": "Air Liquide - Corpus Christi Smr",
+     "st": "TX",
+     "lat": 27.814,
+     "lon": -97.472,
+     "co2e": 342879,
+     "gwh": 1732.0
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Chevron Corp",
+   "sector": "CHEMICALS",
+   "gwh": 24787.6,
+   "gwh_e": 490.7,
+   "gwh_th": 24296.9,
+   "co2e": 4907007,
+   "n_sites": 6,
+   "states": [
+    "IL",
+    "LA",
+    "TX"
+   ],
+   "sites": [
+    {
+     "n": "Chevron Phillips Chemical Company Lp Cedar Bayou",
+     "st": "TX",
+     "lat": 29.826,
+     "lon": -94.922,
+     "co2e": 2103735,
+     "gwh": 10627.0
+    },
+    {
+     "n": "Chevron Phillips - Sweeny Complex",
+     "st": "TX",
+     "lat": 29.082,
+     "lon": -95.742,
+     "co2e": 1002446,
+     "gwh": 5063.8
+    },
+    {
+     "n": "Chevron Phillips Chemical Company, Lp Port Arthu",
+     "st": "TX",
+     "lat": 29.85,
+     "lon": -93.977,
+     "co2e": 861803,
+     "gwh": 4353.4
+    },
+    {
+     "n": "Americas Styrenics Llc - St James Plant",
+     "st": "LA",
+     "lat": 30.08,
+     "lon": -90.916,
+     "co2e": 771321,
+     "gwh": 3896.3
+    },
+    {
+     "n": "Chevron Oronite Oak Point",
+     "st": "LA",
+     "lat": 29.808,
+     "lon": -90.013,
+     "co2e": 141735,
+     "gwh": 716.0
+    },
+    {
+     "n": "Reg Seneca, Llc",
+     "st": "IL",
+     "lat": 41.307,
+     "lon": -88.59,
+     "co2e": 25966,
+     "gwh": 131.2
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Nutrien Us Topco Llc",
+   "sector": "CHEMICALS",
+   "gwh": 23253.8,
+   "gwh_e": 460.3,
+   "gwh_th": 22793.5,
+   "co2e": 4603368,
+   "n_sites": 3,
+   "states": [
+    "GA",
+    "LA",
+    "OH"
+   ],
+   "sites": [
+    {
+     "n": "Pcs Nitrogen Fertilizer Lp - Geismar Agricultura",
+     "st": "LA",
+     "lat": 30.226,
+     "lon": -91.053,
+     "co2e": 1666091,
+     "gwh": 8416.2
+    },
+    {
+     "n": "Pcs Nitrogen Fertilizer, L.P.",
+     "st": "GA",
+     "lat": 33.47,
+     "lon": -81.97,
+     "co2e": 1566702,
+     "gwh": 7914.2
+    },
+    {
+     "n": "Pcs Nitrogen Ohio, L.P.",
+     "st": "OH",
+     "lat": 40.711,
+     "lon": -84.138,
+     "co2e": 1370575,
+     "gwh": 6923.4
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Nucor Corp",
+   "sector": "STEEL",
+   "gwh": 20745.5,
+   "gwh_e": 1393.4,
+   "gwh_th": 19352.1,
+   "co2e": 5573413,
+   "n_sites": 24,
+   "states": [
+    "AL",
+    "AR",
+    "FL",
+    "IL",
+    "IN",
+    "KY",
+    "LA",
+    "MO",
+    "MS",
+    "NC",
+    "NE",
+    "NY",
+    "OH",
+    "SC",
+    "TN",
+    "TX",
+    "UT",
+    "WA"
+   ],
+   "sites": [
+    {
+     "n": "Nucor Steel Louisiana Llc",
+     "st": "LA",
+     "lat": 30.081,
+     "lon": -90.861,
+     "co2e": 1086837,
+     "gwh": 4045.5
+    },
+    {
+     "n": "Nucor Steel - Berkeley",
+     "st": "SC",
+     "lat": 33.004,
+     "lon": -79.882,
+     "co2e": 598948,
+     "gwh": 2229.4
+    },
+    {
+     "n": "Nucor Steel Decatur",
+     "st": "AL",
+     "lat": 34.639,
+     "lon": -87.089,
+     "co2e": 452134,
+     "gwh": 1682.9
+    },
+    {
+     "n": "Nucor Steel Gallatin Llc",
+     "st": "KY",
+     "lat": 38.767,
+     "lon": -85.004,
+     "co2e": 378216,
+     "gwh": 1407.8
+    },
+    {
+     "n": "Nucor-Yamato Steel Co",
+     "st": "AR",
+     "lat": 35.892,
+     "lon": -89.784,
+     "co2e": 375417,
+     "gwh": 1397.4
+    },
+    {
+     "n": "Nucor Steel - Arkansas",
+     "st": "AR",
+     "lat": 35.944,
+     "lon": -89.724,
+     "co2e": 372389,
+     "gwh": 1386.1
+    },
+    {
+     "n": "Nucor Steel Indiana",
+     "st": "IN",
+     "lat": 39.975,
+     "lon": -86.83,
+     "co2e": 255383,
+     "gwh": 950.6
+    },
+    {
+     "n": "Nucor Steel - Utah",
+     "st": "UT",
+     "lat": 41.883,
+     "lon": -112.196,
+     "co2e": 243503,
+     "gwh": 906.4
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Basf Corp",
+   "sector": "CHEMICALS",
+   "gwh": 18270.3,
+   "gwh_e": 361.7,
+   "gwh_th": 17908.6,
+   "co2e": 3616817,
+   "n_sites": 6,
+   "states": [
+    "AL",
+    "LA",
+    "MI",
+    "TX"
+   ],
+   "sites": [
+    {
+     "n": "Basf Totalenergies Petrochemicals Llc",
+     "st": "TX",
+     "lat": 29.952,
+     "lon": -93.887,
+     "co2e": 1906827,
+     "gwh": 9632.3
+    },
+    {
+     "n": "Basf Corp - Geismar Site",
+     "st": "LA",
+     "lat": 30.198,
+     "lon": -91.004,
+     "co2e": 934158,
+     "gwh": 4718.9
+    },
+    {
+     "n": "Basf Freeport Site",
+     "st": "TX",
+     "lat": 29.002,
+     "lon": -95.4,
+     "co2e": 646435,
+     "gwh": 3265.5
+    },
+    {
+     "n": "Basf Corporation",
+     "st": "AL",
+     "lat": 31.279,
+     "lon": -88.004,
+     "co2e": 52411,
+     "gwh": 264.8
+    },
+    {
+     "n": "Basf Corp - Pasadena Plant",
+     "st": "TX",
+     "lat": 29.732,
+     "lon": -95.152,
+     "co2e": 42022,
+     "gwh": 212.3
+    },
+    {
+     "n": "Basf Corporation",
+     "st": "MI",
+     "lat": 42.219,
+     "lon": -83.147,
+     "co2e": 34964,
+     "gwh": 176.6
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Westlake Corp",
+   "sector": "CHEMICALS",
+   "gwh": 13924.6,
+   "gwh_e": 275.7,
+   "gwh_th": 13648.9,
+   "co2e": 2756534,
+   "n_sites": 2,
+   "states": [
+    "LA"
+   ],
+   "sites": [
+    {
+     "n": "Westlake Us 2 Llc",
+     "st": "LA",
+     "lat": 30.221,
+     "lon": -93.283,
+     "co2e": 2689617,
+     "gwh": 13586.5
+    },
+    {
+     "n": "Westlake Chemicals & Vinyls Llc",
+     "st": "LA",
+     "lat": 30.252,
+     "lon": -93.284,
+     "co2e": 66917,
+     "gwh": 338.0
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Shell Petroleum Inc",
+   "sector": "CHEMICALS",
+   "gwh": 13384.1,
+   "gwh_e": 265.0,
+   "gwh_th": 13119.1,
+   "co2e": 2649534,
+   "n_sites": 2,
+   "states": [
+    "LA",
+    "PA"
+   ],
+   "sites": [
+    {
+     "n": "Shell Chemical Appalachia Llc",
+     "st": "PA",
+     "lat": 40.672,
+     "lon": -80.336,
+     "co2e": 1579719,
+     "gwh": 7979.9
+    },
+    {
+     "n": "Shell Chemical Co - Geismar Plant",
+     "st": "LA",
+     "lat": 30.184,
+     "lon": -90.993,
+     "co2e": 1069814,
+     "gwh": 5404.1
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Holcim Participationsinc",
+   "sector": "CEMENT",
+   "gwh": 12637.4,
+   "gwh_e": 1389.4,
+   "gwh_th": 11247.9,
+   "co2e": 11043419,
+   "n_sites": 12,
+   "states": [
+    "AL",
+    "CO",
+    "IL",
+    "MD",
+    "MI",
+    "MO",
+    "OH",
+    "OK",
+    "PA",
+    "SC",
+    "TX",
+    "UT"
+   ],
+   "sites": [
+    {
+     "n": "Holcim (Us) Inc Ste Genevieve Plant",
+     "st": "MO",
+     "lat": 38.11,
+     "lon": -90.258,
+     "co2e": 2967851,
+     "gwh": 3396.2
+    },
+    {
+     "n": "Holcim (Us) Inc. D/B/A Lafarge Alpena",
+     "st": "MI",
+     "lat": 45.072,
+     "lon": -83.405,
+     "co2e": 1769013,
+     "gwh": 2024.3
+    },
+    {
+     "n": "Holcim (Us) Inc",
+     "st": "TX",
+     "lat": 32.513,
+     "lon": -96.971,
+     "co2e": 1253349,
+     "gwh": 1434.3
+    },
+    {
+     "n": "Holcim (Us) Inc.",
+     "st": "SC",
+     "lat": 33.277,
+     "lon": -80.43,
+     "co2e": 1205311,
+     "gwh": 1379.3
+    },
+    {
+     "n": "Holcim (Us) Inc. - Portland Plant",
+     "st": "CO",
+     "lat": 38.329,
+     "lon": -105.009,
+     "co2e": 737083,
+     "gwh": 843.5
+    },
+    {
+     "n": "Holcim (Us) Inc",
+     "st": "AL",
+     "lat": 30.535,
+     "lon": -88.112,
+     "co2e": 615636,
+     "gwh": 704.5
+    },
+    {
+     "n": "Holcim (Us) Inc. Devil\\S Slide Plant",
+     "st": "UT",
+     "lat": 41.063,
+     "lon": -111.532,
+     "co2e": 579152,
+     "gwh": 662.7
+    },
+    {
+     "n": "Holcim (Us), Inc.",
+     "st": "MD",
+     "lat": 39.652,
+     "lon": -77.68,
+     "co2e": 451527,
+     "gwh": 516.7
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Cvr Energy Inc",
+   "sector": "CHEMICALS",
+   "gwh": 12369.0,
+   "gwh_e": 244.9,
+   "gwh_th": 12124.2,
+   "co2e": 2448601,
+   "n_sites": 2,
+   "states": [
+    "IL",
+    "KS"
+   ],
+   "sites": [
+    {
+     "n": "Coffeyville Resources Nitrogen Fert.",
+     "st": "KS",
+     "lat": 37.045,
+     "lon": -95.605,
+     "co2e": 1640985,
+     "gwh": 8289.4
+    },
+    {
+     "n": "East Dubuque Nitrogen Fertilizers, Llc",
+     "st": "IL",
+     "lat": 42.443,
+     "lon": -90.557,
+     "co2e": 807616,
+     "gwh": 4079.7
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Eastman Chemical Co",
+   "sector": "CHEMICALS",
+   "gwh": 11897.2,
+   "gwh_e": 235.5,
+   "gwh_th": 11661.7,
+   "co2e": 2355200,
+   "n_sites": 5,
+   "states": [
+    "AL",
+    "FL",
+    "LA",
+    "TX"
+   ],
+   "sites": [
+    {
+     "n": "Eastman Chemical - Texas Operations",
+     "st": "TX",
+     "lat": 32.447,
+     "lon": -94.692,
+     "co2e": 2220078,
+     "gwh": 11214.7
+    },
+    {
+     "n": "Taminco Us Llc",
+     "st": "LA",
+     "lat": 30.251,
+     "lon": -91.092,
+     "co2e": 48424,
+     "gwh": 244.6
+    },
+    {
+     "n": "Ineos Acetyls Chemicals Texas City Inc",
+     "st": "TX",
+     "lat": 29.38,
+     "lon": -94.894,
+     "co2e": 45803,
+     "gwh": 231.4
+    },
+    {
+     "n": "Taminco Us Llc",
+     "st": "FL",
+     "lat": 30.581,
+     "lon": -87.138,
+     "co2e": 38765,
+     "gwh": 195.8
+    },
+    {
+     "n": "Solutia Inc Anniston Plant",
+     "st": "AL",
+     "lat": 33.651,
+     "lon": -85.852,
+     "co2e": 2130,
+     "gwh": 10.8
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Indorama Ventures Usa Holdings Lp",
+   "sector": "CHEMICALS",
+   "gwh": 10282.1,
+   "gwh_e": 203.5,
+   "gwh_th": 10078.6,
+   "co2e": 2035469,
+   "n_sites": 4,
+   "states": [
+    "AL",
+    "LA",
+    "TX"
+   ],
+   "sites": [
+    {
+     "n": "Indorama Ventures Oxides Llc",
+     "st": "TX",
+     "lat": 29.973,
+     "lon": -93.957,
+     "co2e": 1210395,
+     "gwh": 6114.3
+    },
+    {
+     "n": "Indorama Ventures Olefin",
+     "st": "LA",
+     "lat": 30.191,
+     "lon": -93.326,
+     "co2e": 525224,
+     "gwh": 2653.2
+    },
+    {
+     "n": "Indorama Ventures, Xylenes And Pta, Llc",
+     "st": "AL",
+     "lat": 34.64,
+     "lon": -87.058,
+     "co2e": 258727,
+     "gwh": 1307.0
+    },
+    {
+     "n": "Indorama Ventures Oxides Llc",
+     "st": "TX",
+     "lat": 29.419,
+     "lon": -95.239,
+     "co2e": 41123,
+     "gwh": 207.7
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Occidental Petroleum Corp",
+   "sector": "CHEMICALS",
+   "gwh": 10267.9,
+   "gwh_e": 203.3,
+   "gwh_th": 10064.6,
+   "co2e": 2032652,
+   "n_sites": 3,
+   "states": [
+    "LA",
+    "TX"
+   ],
+   "sites": [
+    {
+     "n": "Occidental Chemical Corporation Ingleside Plant",
+     "st": "TX",
+     "lat": 27.887,
+     "lon": -97.233,
+     "co2e": 1803754,
+     "gwh": 9111.6
+    },
+    {
+     "n": "Occidental Chemical Corporation - Geismar Plant",
+     "st": "LA",
+     "lat": 30.182,
+     "lon": -90.987,
+     "co2e": 148931,
+     "gwh": 752.3
+    },
+    {
+     "n": "Oxy Vinyls Lp - Deer Park Vcm Facility",
+     "st": "TX",
+     "lat": 29.725,
+     "lon": -95.113,
+     "co2e": 79967,
+     "gwh": 403.9
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Westlake Chemical Corp",
+   "sector": "CHEMICALS",
+   "gwh": 10031.0,
+   "gwh_e": 198.6,
+   "gwh_th": 9832.4,
+   "co2e": 1985750,
+   "n_sites": 4,
+   "states": [
+    "KY",
+    "LA"
+   ],
+   "sites": [
+    {
+     "n": "Westlake Petrochemicals Lp - Ethylene Manufactur",
+     "st": "LA",
+     "lat": 30.162,
+     "lon": -93.379,
+     "co2e": 1068186,
+     "gwh": 5395.9
+    },
+    {
+     "n": "Westlake Vinyls Inc",
+     "st": "KY",
+     "lat": 37.047,
+     "lon": -88.327,
+     "co2e": 489941,
+     "gwh": 2474.9
+    },
+    {
+     "n": "Westlake Vinyls Co Lp",
+     "st": "LA",
+     "lat": 30.209,
+     "lon": -91.011,
+     "co2e": 261435,
+     "gwh": 1320.6
+    },
+    {
+     "n": "Westlake Styrene Llc - Styrene Monomer Productio",
+     "st": "LA",
+     "lat": 30.177,
+     "lon": -93.357,
+     "co2e": 166187,
+     "gwh": 839.5
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Steel Dynamics Inc",
+   "sector": "STEEL",
+   "gwh": 9103.4,
+   "gwh_e": 611.4,
+   "gwh_th": 8492.0,
+   "co2e": 2445697,
+   "n_sites": 7,
+   "states": [
+    "IN",
+    "MS",
+    "TX",
+    "VA",
+    "WV"
+   ],
+   "sites": [
+    {
+     "n": "Steel Dynamics Inc",
+     "st": "IN",
+     "lat": 41.364,
+     "lon": -84.914,
+     "co2e": 982503,
+     "gwh": 3657.1
+    },
+    {
+     "n": "Steel Dynamics Columbus, Llc",
+     "st": "MS",
+     "lat": 33.444,
+     "lon": -88.576,
+     "co2e": 498162,
+     "gwh": 1854.3
+    },
+    {
+     "n": "Steel Dynamics. Inc. (Sdi), Structual And Rail D",
+     "st": "IN",
+     "lat": 41.124,
+     "lon": -85.396,
+     "co2e": 328103,
+     "gwh": 1221.3
+    },
+    {
+     "n": "Steel Dynamics Southwest, Llc",
+     "st": "TX",
+     "lat": 28.057,
+     "lon": -97.465,
+     "co2e": 297362,
+     "gwh": 1106.8
+    },
+    {
+     "n": "Steel Dynamics, Inc. (Sdi)",
+     "st": "IN",
+     "lat": 39.877,
+     "lon": -86.482,
+     "co2e": 186944,
+     "gwh": 695.8
+    },
+    {
+     "n": "Roanoke Electric Steel Corporation",
+     "st": "VA",
+     "lat": 37.273,
+     "lon": -79.999,
+     "co2e": 97145,
+     "gwh": 361.6
+    },
+    {
+     "n": "Swva, Inc.",
+     "st": "WV",
+     "lat": 38.426,
+     "lon": -82.425,
+     "co2e": 55478,
+     "gwh": 206.5
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Century Aluminum Co",
+   "sector": "ALUMINIUM",
+   "gwh": 8669.6,
+   "gwh_e": 8235.4,
+   "gwh_th": 434.3,
+   "co2e": 985925,
+   "n_sites": 3,
+   "states": [
+    "KY",
+    "SC"
+   ],
+   "sites": [
+    {
+     "n": "Century Aluminum Sebree Llc",
+     "st": "KY",
+     "lat": 37.656,
+     "lon": -87.507,
+     "co2e": 564341,
+     "gwh": 4962.5
+    },
+    {
+     "n": "Century Aluminum Of South Carolina, Inc.",
+     "st": "SC",
+     "lat": 33.052,
+     "lon": -80.054,
+     "co2e": 421583,
+     "gwh": 3707.1
+    },
+    {
+     "n": "Century Aluminum Of Kentucky",
+     "st": "KY",
+     "lat": 37.945,
+     "lon": -86.788,
+     "co2e": 0,
+     "gwh": 0.0
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "OpenAI / Stargate (Crusoe)",
+   "sector": "DATA CENTERS",
+   "gwh": 8410.0,
+   "gwh_e": 8410.0,
+   "gwh_th": 0,
+   "co2e": null,
+   "n_sites": null,
+   "states": [],
+   "sites": [],
+   "mw": 1200,
+   "note": "curated; announced campus MW",
+   "signals": [
+    "Abilene TX campus, ~1.2 GW announced"
+   ]
+  },
+  {
+   "name": "Lsb Industries Inc",
+   "sector": "CHEMICALS",
+   "gwh": 8203.5,
+   "gwh_e": 162.4,
+   "gwh_th": 8041.1,
+   "co2e": 1623983,
+   "n_sites": 3,
+   "states": [
+    "AL",
+    "AR",
+    "TX"
+   ],
+   "sites": [
+    {
+     "n": "El Dorado Chemical Company",
+     "st": "AR",
+     "lat": 33.249,
+     "lon": -92.662,
+     "co2e": 1027772,
+     "gwh": 5191.8
+    },
+    {
+     "n": "Cherokee Nitrogen",
+     "st": "AL",
+     "lat": 34.803,
+     "lon": -87.94,
+     "co2e": 485513,
+     "gwh": 2452.6
+    },
+    {
+     "n": "El Dorado Nitrogen Llc",
+     "st": "TX",
+     "lat": 29.763,
+     "lon": -94.91,
+     "co2e": 110698,
+     "gwh": 559.2
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Exxon Mobil Corp",
+   "sector": "CHEMICALS",
+   "gwh": 8070.9,
+   "gwh_e": 159.8,
+   "gwh_th": 7911.1,
+   "co2e": 1597730,
+   "n_sites": 1,
+   "states": [
+    "TX"
+   ],
+   "sites": [
+    {
+     "n": "Gulf Coast Growth Ventures Llc",
+     "st": "TX",
+     "lat": 27.925,
+     "lon": -97.316,
+     "co2e": 1597730,
+     "gwh": 8070.9
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Dyno Nobel",
+   "sector": "CHEMICALS",
+   "gwh": 7247.1,
+   "gwh_e": 143.5,
+   "gwh_th": 7103.6,
+   "co2e": 1434652,
+   "n_sites": 3,
+   "states": [
+    "MO",
+    "OR",
+    "WY"
+   ],
+   "sites": [
+    {
+     "n": "Dyno Nobel Incorporated Nitrogen Division",
+     "st": "MO",
+     "lat": 39.43,
+     "lon": -91.023,
+     "co2e": 860677,
+     "gwh": 4347.7
+    },
+    {
+     "n": "Cheyenne Plant",
+     "st": "WY",
+     "lat": 41.095,
+     "lon": -104.908,
+     "co2e": 383736,
+     "gwh": 1938.4
+    },
+    {
+     "n": "Dyno Nobel",
+     "st": "OR",
+     "lat": 45.911,
+     "lon": -122.824,
+     "co2e": 190239,
+     "gwh": 961.0
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Olin Corp",
+   "sector": "CHEMICALS",
+   "gwh": 7092.3,
+   "gwh_e": 140.4,
+   "gwh_th": 6951.9,
+   "co2e": 1404000,
+   "n_sites": 1,
+   "states": [
+    "TX"
+   ],
+   "sites": [
+    {
+     "n": "Olin Blue Cube, Freeport, Tx",
+     "st": "TX",
+     "lat": 28.969,
+     "lon": -95.38,
+     "co2e": 1404000,
+     "gwh": 7092.3
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Gramercy Holdings I Llc",
+   "sector": "ALUMINIUM",
+   "gwh": 7060.7,
+   "gwh_e": 6707.0,
+   "gwh_th": 353.7,
+   "co2e": 802950,
+   "n_sites": 1,
+   "states": [
+    "LA"
+   ],
+   "sites": [
+    {
+     "n": "Atlantic Alumina, Gramercy Operations",
+     "st": "LA",
+     "lat": 30.067,
+     "lon": -90.702,
+     "co2e": 802950,
+     "gwh": 7060.7
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Iowa Fertlizer Co Llc",
+   "sector": "CHEMICALS",
+   "gwh": 6819.8,
+   "gwh_e": 135.0,
+   "gwh_th": 6684.8,
+   "co2e": 1350065,
+   "n_sites": 1,
+   "states": [
+    "IA"
+   ],
+   "sites": [
+    {
+     "n": "Iowa Fertilizer Company",
+     "st": "IA",
+     "lat": 40.69,
+     "lon": -91.23,
+     "co2e": 1350065,
+     "gwh": 6819.8
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Amazon (AWS)",
+   "sector": "DATA CENTERS",
+   "gwh": 6728.0,
+   "gwh_e": 6728.0,
+   "gwh_th": 0,
+   "co2e": null,
+   "n_sites": null,
+   "states": [],
+   "sites": [],
+   "mw": 960,
+   "note": "curated; announced campus MW",
+   "signals": [
+    "Susquehanna nuclear-adjacent campus (up to 960 MW ISA); X-energy SMR development agreement"
+   ]
+  },
+  {
+   "name": "Linde Gas North America Llc",
+   "sector": "CHEMICALS",
+   "gwh": 6500.0,
+   "gwh_e": 128.7,
+   "gwh_th": 6371.3,
+   "co2e": 1286746,
+   "n_sites": 1,
+   "states": [
+    "TX"
+   ],
+   "sites": [
+    {
+     "n": "Linde Inc Texas City Hydrogen Complex",
+     "st": "TX",
+     "lat": 29.375,
+     "lon": -94.942,
+     "co2e": 1286746,
+     "gwh": 6500.0
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Rc Lonestar Inc",
+   "sector": "CEMENT",
+   "gwh": 6401.9,
+   "gwh_e": 703.9,
+   "gwh_th": 5698.0,
+   "co2e": 5594428,
+   "n_sites": 7,
+   "states": [
+    "IN",
+    "MO",
+    "OK",
+    "PA",
+    "TN",
+    "TX"
+   ],
+   "sites": [
+    {
+     "n": "River Cement Company Dba Buzzi Unicem Usa",
+     "st": "MO",
+     "lat": 38.18,
+     "lon": -90.337,
+     "co2e": 1557125,
+     "gwh": 1781.9
+    },
+    {
+     "n": "Lone Star Industries Inc",
+     "st": "IN",
+     "lat": 39.617,
+     "lon": -86.869,
+     "co2e": 1028904,
+     "gwh": 1177.4
+    },
+    {
+     "n": "Lone Star Industries",
+     "st": "MO",
+     "lat": 37.268,
+     "lon": -89.538,
+     "co2e": 866805,
+     "gwh": 991.9
+    },
+    {
+     "n": "Signal Mountain Cement Co",
+     "st": "TN",
+     "lat": 35.101,
+     "lon": -85.345,
+     "co2e": 814743,
+     "gwh": 932.3
+    },
+    {
+     "n": "Lone Star Industries, Inc. /Dba/ Buzzi Unicem Us",
+     "st": "TX",
+     "lat": 32.25,
+     "lon": -100.458,
+     "co2e": 632181,
+     "gwh": 723.4
+    },
+    {
+     "n": "Hercules Cement Stockertown Plt Quarry",
+     "st": "PA",
+     "lat": 40.754,
+     "lon": -75.26,
+     "co2e": 438412,
+     "gwh": 501.7
+    },
+    {
+     "n": "Lone Star Ind Inc Dba Buzzi Unicem Usa Pryor Cem",
+     "st": "OK",
+     "lat": 36.296,
+     "lon": -95.331,
+     "co2e": 256257,
+     "gwh": 293.2
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Eagle Materials Inc",
+   "sector": "CEMENT",
+   "gwh": 6318.9,
+   "gwh_e": 694.8,
+   "gwh_th": 5624.2,
+   "co2e": 5521937,
+   "n_sites": 8,
+   "states": [
+    "IL",
+    "KY",
+    "MO",
+    "NV",
+    "OH",
+    "OK",
+    "TX",
+    "WY"
+   ],
+   "sites": [
+    {
+     "n": "Kosmos Cement Co",
+     "st": "KY",
+     "lat": 38.035,
+     "lon": -85.906,
+     "co2e": 1320866,
+     "gwh": 1511.5
+    },
+    {
+     "n": "Texas Lehigh Cement Company Lp",
+     "st": "TX",
+     "lat": 30.071,
+     "lon": -97.857,
+     "co2e": 818238,
+     "gwh": 936.3
+    },
+    {
+     "n": "Illinois Cement Co",
+     "st": "IL",
+     "lat": 41.329,
+     "lon": -89.082,
+     "co2e": 761561,
+     "gwh": 871.5
+    },
+    {
+     "n": "Central Plains Cement Company Llc",
+     "st": "MO",
+     "lat": 39.144,
+     "lon": -94.395,
+     "co2e": 745107,
+     "gwh": 852.7
+    },
+    {
+     "n": "Mountain Cement Co",
+     "st": "WY",
+     "lat": 41.261,
+     "lon": -105.603,
+     "co2e": 522258,
+     "gwh": 597.6
+    },
+    {
+     "n": "Central Plains Cement Company",
+     "st": "OK",
+     "lat": 36.194,
+     "lon": -95.812,
+     "co2e": 490542,
+     "gwh": 561.3
+    },
+    {
+     "n": "Fairborn Cement Company Llc",
+     "st": "OH",
+     "lat": 39.778,
+     "lon": -83.966,
+     "co2e": 478200,
+     "gwh": 547.2
+    },
+    {
+     "n": "Nevada Cement Company",
+     "st": "NV",
+     "lat": 39.62,
+     "lon": -119.263,
+     "co2e": 385165,
+     "gwh": 440.8
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Advansix Inc",
+   "sector": "CHEMICALS",
+   "gwh": 6202.1,
+   "gwh_e": 122.8,
+   "gwh_th": 6079.3,
+   "co2e": 1227774,
+   "n_sites": 1,
+   "states": [
+    "VA"
+   ],
+   "sites": [
+    {
+     "n": "Advansix Incorporated - Hopewell",
+     "st": "VA",
+     "lat": 37.181,
+     "lon": -77.162,
+     "co2e": 1227774,
+     "gwh": 6202.1
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Cemex Inc",
+   "sector": "CEMENT",
+   "gwh": 6170.9,
+   "gwh_e": 678.5,
+   "gwh_th": 5492.4,
+   "co2e": 5392570,
+   "n_sites": 7,
+   "states": [
+    "AL",
+    "CA",
+    "CO",
+    "FL",
+    "TN",
+    "TX"
+   ],
+   "sites": [
+    {
+     "n": "Cemex Construction Materials Pacific Llc",
+     "st": "CA",
+     "lat": 34.397,
+     "lon": -117.15,
+     "co2e": 1816908,
+     "gwh": 2079.2
+    },
+    {
+     "n": "Cemex Construction Materials South, Llc",
+     "st": "TX",
+     "lat": 29.672,
+     "lon": -98.175,
+     "co2e": 1065672,
+     "gwh": 1219.5
+    },
+    {
+     "n": "Brooksville South Cement Plant",
+     "st": "FL",
+     "lat": 28.582,
+     "lon": -82.431,
+     "co2e": 731488,
+     "gwh": 837.1
+    },
+    {
+     "n": "Cemex Miami",
+     "st": "FL",
+     "lat": 25.786,
+     "lon": -80.421,
+     "co2e": 575920,
+     "gwh": 659.0
+    },
+    {
+     "n": "Cemex Southeast Llc, Demopolis Plant",
+     "st": "AL",
+     "lat": 32.513,
+     "lon": -87.816,
+     "co2e": 517396,
+     "gwh": 592.1
+    },
+    {
+     "n": "Cemex Construction Materials Atlantic Llc",
+     "st": "TN",
+     "lat": 36.023,
+     "lon": -83.834,
+     "co2e": 441463,
+     "gwh": 505.2
+    },
+    {
+     "n": "Cemex Construction Materials South Llc",
+     "st": "CO",
+     "lat": 40.202,
+     "lon": -105.237,
+     "co2e": 243722,
+     "gwh": 278.9
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Celanese Corp",
+   "sector": "CHEMICALS",
+   "gwh": 5900.5,
+   "gwh_e": 116.8,
+   "gwh_th": 5783.7,
+   "co2e": 1168076,
+   "n_sites": 2,
+   "states": [
+    "TX"
+   ],
+   "sites": [
+    {
+     "n": "Clear Lake Plant",
+     "st": "TX",
+     "lat": 29.624,
+     "lon": -95.063,
+     "co2e": 763279,
+     "gwh": 3855.7
+    },
+    {
+     "n": "Ticona Polymers Incorporated",
+     "st": "TX",
+     "lat": 27.567,
+     "lon": -97.825,
+     "co2e": 404796,
+     "gwh": 2044.8
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Bayport Polymers Llc",
+   "sector": "CHEMICALS",
+   "gwh": 5897.2,
+   "gwh_e": 116.7,
+   "gwh_th": 5780.5,
+   "co2e": 1167421,
+   "n_sites": 1,
+   "states": [
+    "TX"
+   ],
+   "sites": [
+    {
+     "n": "Bayport Polymers Llc Ethane Cracker",
+     "st": "TX",
+     "lat": 29.96,
+     "lon": -93.896,
+     "co2e": 1167421,
+     "gwh": 5897.2
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Ascend Performance Materials Holdings Inc",
+   "sector": "CHEMICALS",
+   "gwh": 5843.8,
+   "gwh_e": 115.7,
+   "gwh_th": 5728.1,
+   "co2e": 1156847,
+   "n_sites": 2,
+   "states": [
+    "AL",
+    "TX"
+   ],
+   "sites": [
+    {
+     "n": "Ascend (Decatur Plant)",
+     "st": "AL",
+     "lat": 34.634,
+     "lon": -87.024,
+     "co2e": 603219,
+     "gwh": 3047.1
+    },
+    {
+     "n": "Ascend Performance Materials Chocolate Bayou Fac",
+     "st": "TX",
+     "lat": 29.257,
+     "lon": -95.214,
+     "co2e": 553628,
+     "gwh": 2796.6
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Aramco Services Co",
+   "sector": "CHEMICALS",
+   "gwh": 5715.4,
+   "gwh_e": 113.1,
+   "gwh_th": 5602.3,
+   "co2e": 1131434,
+   "n_sites": 1,
+   "states": [
+    "TX"
+   ],
+   "sites": [
+    {
+     "n": "Motiva Port Arthur Chemicals",
+     "st": "TX",
+     "lat": 29.893,
+     "lon": -93.973,
+     "co2e": 1131434,
+     "gwh": 5715.4
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Crh Americas Inc",
+   "sector": "CEMENT",
+   "gwh": 5648.6,
+   "gwh_e": 621.1,
+   "gwh_th": 5027.6,
+   "co2e": 4936177,
+   "n_sites": 8,
+   "states": [
+    "FL",
+    "KS",
+    "MT",
+    "NE",
+    "OR",
+    "TX",
+    "UT"
+   ],
+   "sites": [
+    {
+     "n": "Ash Grove Cement Co-Chanute Plant",
+     "st": "KS",
+     "lat": 37.699,
+     "lon": -95.46,
+     "co2e": 1299990,
+     "gwh": 1487.6
+    },
+    {
+     "n": "Ash Grove Cement Company",
+     "st": "TX",
+     "lat": 32.52,
+     "lon": -97.007,
+     "co2e": 642168,
+     "gwh": 734.9
+    },
+    {
+     "n": "Ash Grove Cement Company-Louisville",
+     "st": "NE",
+     "lat": 41.006,
+     "lon": -96.155,
+     "co2e": 612375,
+     "gwh": 700.8
+    },
+    {
+     "n": "Ash Grove Cement Company-Durkee",
+     "st": "OR",
+     "lat": 44.542,
+     "lon": -117.421,
+     "co2e": 580298,
+     "gwh": 664.1
+    },
+    {
+     "n": "Suwannee American Cement Company, Llc",
+     "st": "FL",
+     "lat": 28.761,
+     "lon": -82.025,
+     "co2e": 567263,
+     "gwh": 649.1
+    },
+    {
+     "n": "Ash Grove Cement Company-Leamington",
+     "st": "UT",
+     "lat": 39.508,
+     "lon": -112.262,
+     "co2e": 548943,
+     "gwh": 628.2
+    },
+    {
+     "n": "Suwannee American Cement",
+     "st": "FL",
+     "lat": 29.962,
+     "lon": -82.85,
+     "co2e": 361182,
+     "gwh": 413.3
+    },
+    {
+     "n": "Ash Grove Cement Company-Montana City",
+     "st": "MT",
+     "lat": 46.544,
+     "lon": -111.921,
+     "co2e": 323958,
+     "gwh": 370.7
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Methanex Usa Llc",
+   "sector": "CHEMICALS",
+   "gwh": 5068.9,
+   "gwh_e": 100.3,
+   "gwh_th": 4968.6,
+   "co2e": 1003452,
+   "n_sites": 1,
+   "states": [
+    "LA"
+   ],
+   "sites": [
+    {
+     "n": "Methanex Usa, Llc - Geismar Methanol Plant",
+     "st": "LA",
+     "lat": 30.206,
+     "lon": -91.021,
+     "co2e": 1003452,
+     "gwh": 5068.9
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Heidelberg Materials Us Cement Llc",
+   "sector": "CEMENT",
+   "gwh": 4775.1,
+   "gwh_e": 525.0,
+   "gwh_th": 4250.1,
+   "co2e": 4172792,
+   "n_sites": 6,
+   "states": [
+    "AL",
+    "IA",
+    "IN",
+    "MD"
+   ],
+   "sites": [
+    {
+     "n": "Heidelberg Materials Us Cement Llc",
+     "st": "MD",
+     "lat": 39.56,
+     "lon": -77.171,
+     "co2e": 1857878,
+     "gwh": 2126.0
+    },
+    {
+     "n": "Heidelberg Materials Us Cement Llc",
+     "st": "IN",
+     "lat": 38.739,
+     "lon": -86.457,
+     "co2e": 833267,
+     "gwh": 953.5
+    },
+    {
+     "n": "Hm Cement Southeast Llc",
+     "st": "AL",
+     "lat": 33.54,
+     "lon": -86.543,
+     "co2e": 522543,
+     "gwh": 598.0
+    },
+    {
+     "n": "Lehigh Cement Co Llc",
+     "st": "IA",
+     "lat": 43.179,
+     "lon": -93.212,
+     "co2e": 446400,
+     "gwh": 510.8
+    },
+    {
+     "n": "Heidelberg Materials",
+     "st": "IN",
+     "lat": 40.735,
+     "lon": -86.433,
+     "co2e": 444881,
+     "gwh": 509.1
+    },
+    {
+     "n": "Heidelberg Materials Us Cement Llc",
+     "st": "IN",
+     "lat": 38.416,
+     "lon": -85.749,
+     "co2e": 67822,
+     "gwh": 77.6
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Sasol Usa Corp",
+   "sector": "CHEMICALS",
+   "gwh": 4752.8,
+   "gwh_e": 94.1,
+   "gwh_th": 4658.7,
+   "co2e": 940881,
+   "n_sites": 1,
+   "states": [
+    "LA"
+   ],
+   "sites": [
+    {
+     "n": "Sasol Chemicals (Usa) Llc - Lake Charles Chemica",
+     "st": "LA",
+     "lat": 30.259,
+     "lon": -93.294,
+     "co2e": 940881,
+     "gwh": 4752.8
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Taiheiyo Cement Usa Inc",
+   "sector": "CEMENT",
+   "gwh": 4085.7,
+   "gwh_e": 449.2,
+   "gwh_th": 3636.5,
+   "co2e": 3570394,
+   "n_sites": 4,
+   "states": [
+    "AZ",
+    "CA"
+   ],
+   "sites": [
+    {
+     "n": "Calportland Company Oro Grande Plant",
+     "st": "CA",
+     "lat": 34.605,
+     "lon": -117.338,
+     "co2e": 1424150,
+     "gwh": 1629.7
+    },
+    {
+     "n": "Calportland Company Mojave Plant",
+     "st": "CA",
+     "lat": 35.038,
+     "lon": -118.298,
+     "co2e": 991489,
+     "gwh": 1134.6
+    },
+    {
+     "n": "Calportland Company Rillito Plant",
+     "st": "AZ",
+     "lat": 32.411,
+     "lon": -111.151,
+     "co2e": 789422,
+     "gwh": 903.4
+    },
+    {
+     "n": "Calportland Redding Cement Plant",
+     "st": "CA",
+     "lat": 40.737,
+     "lon": -122.322,
+     "co2e": 365332,
+     "gwh": 418.1
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Matheson Tri-Gas Inc",
+   "sector": "CHEMICALS",
+   "gwh": 4065.9,
+   "gwh_e": 80.5,
+   "gwh_th": 3985.4,
+   "co2e": 804886,
+   "n_sites": 6,
+   "states": [
+    "AL",
+    "IL",
+    "OH",
+    "WA"
+   ],
+   "sites": [
+    {
+     "n": "Matheson - Lemont Plant",
+     "st": "IL",
+     "lat": 41.639,
+     "lon": -88.103,
+     "co2e": 440482,
+     "gwh": 2225.1
+    },
+    {
+     "n": "Matheson - Lima Iii Plant",
+     "st": "OH",
+     "lat": 40.722,
+     "lon": -84.113,
+     "co2e": 111875,
+     "gwh": 565.1
+    },
+    {
+     "n": "Matheson - Lima I Plant",
+     "st": "OH",
+     "lat": 40.722,
+     "lon": -84.113,
+     "co2e": 82794,
+     "gwh": 418.2
+    },
+    {
+     "n": "Matheson - Lima Ii Plant",
+     "st": "OH",
+     "lat": 40.722,
+     "lon": -84.113,
+     "co2e": 80852,
+     "gwh": 408.4
+    },
+    {
+     "n": "Matheson - Anacortes Hydrogen Plant",
+     "st": "WA",
+     "lat": 48.466,
+     "lon": -122.565,
+     "co2e": 53407,
+     "gwh": 269.8
+    },
+    {
+     "n": "Matheson - Saraland Plant",
+     "st": "AL",
+     "lat": 30.791,
+     "lon": -88.059,
+     "co2e": 35477,
+     "gwh": 179.2
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "The Chemours Co",
+   "sector": "CHEMICALS",
+   "gwh": 3985.4,
+   "gwh_e": 78.9,
+   "gwh_th": 3906.5,
+   "co2e": 788960,
+   "n_sites": 6,
+   "states": [
+    "AR",
+    "KY",
+    "NC",
+    "NJ",
+    "TX",
+    "WV"
+   ],
+   "sites": [
+    {
+     "n": "Chemours Louisville Works",
+     "st": "KY",
+     "lat": 38.217,
+     "lon": -85.842,
+     "co2e": 486171,
+     "gwh": 2455.9
+    },
+    {
+     "n": "Chemours Belle Plant",
+     "st": "WV",
+     "lat": 38.243,
+     "lon": -81.556,
+     "co2e": 98685,
+     "gwh": 498.5
+    },
+    {
+     "n": "Chemours - Corpus Christi Plant",
+     "st": "TX",
+     "lat": 27.919,
+     "lon": -97.285,
+     "co2e": 91071,
+     "gwh": 460.0
+    },
+    {
+     "n": "Chemours Chambers Works",
+     "st": "NJ",
+     "lat": 39.682,
+     "lon": -75.491,
+     "co2e": 53438,
+     "gwh": 269.9
+    },
+    {
+     "n": "Chemours Company - Fayetteville Works",
+     "st": "NC",
+     "lat": 34.842,
+     "lon": -78.839,
+     "co2e": 46277,
+     "gwh": 233.8
+    },
+    {
+     "n": "Chemours El Dorado",
+     "st": "AR",
+     "lat": 33.11,
+     "lon": -92.675,
+     "co2e": 13319,
+     "gwh": 67.3
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Argos Usa Llc",
+   "sector": "CEMENT",
+   "gwh": 3811.7,
+   "gwh_e": 419.1,
+   "gwh_th": 3392.6,
+   "co2e": 3330955,
+   "n_sites": 4,
+   "states": [
+    "AL",
+    "FL",
+    "SC",
+    "WV"
+   ],
+   "sites": [
+    {
+     "n": "Argos Cement Llc. - Roberta Plant",
+     "st": "AL",
+     "lat": 33.104,
+     "lon": -86.799,
+     "co2e": 1058822,
+     "gwh": 1211.6
+    },
+    {
+     "n": "Argos Usa -Martinsburg",
+     "st": "WV",
+     "lat": 39.435,
+     "lon": -77.978,
+     "co2e": 846192,
+     "gwh": 968.3
+    },
+    {
+     "n": "Argos Cement Llc",
+     "st": "FL",
+     "lat": 29.691,
+     "lon": -82.582,
+     "co2e": 808554,
+     "gwh": 925.3
+    },
+    {
+     "n": "Argos Cement Llc - Harleyville Plant",
+     "st": "SC",
+     "lat": 33.226,
+     "lon": -80.453,
+     "co2e": 617387,
+     "gwh": 706.5
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Agrium Us Inc",
+   "sector": "CHEMICALS",
+   "gwh": 3785.7,
+   "gwh_e": 74.9,
+   "gwh_th": 3710.8,
+   "co2e": 749427,
+   "n_sites": 2,
+   "states": [
+    "TX",
+    "WA"
+   ],
+   "sites": [
+    {
+     "n": "Agrium Us Borger Nitrogen Operations",
+     "st": "TX",
+     "lat": 35.641,
+     "lon": -101.42,
+     "co2e": 736028,
+     "gwh": 3718.0
+    },
+    {
+     "n": "Agrium Us Inc - Kfo",
+     "st": "WA",
+     "lat": 46.166,
+     "lon": -119.017,
+     "co2e": 13400,
+     "gwh": 67.7
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Nc Holdings Usa Inc",
+   "sector": "CHEMICALS",
+   "gwh": 3726.0,
+   "gwh_e": 73.8,
+   "gwh_th": 3652.2,
+   "co2e": 737598,
+   "n_sites": 1,
+   "states": [
+    "LA"
+   ],
+   "sites": [
+    {
+     "n": "Nova Chemicals Olefins Llc",
+     "st": "LA",
+     "lat": 30.233,
+     "lon": -91.051,
+     "co2e": 737598,
+     "gwh": 3726.0
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Firewater Llc",
+   "sector": "CHEMICALS",
+   "gwh": 3690.4,
+   "gwh_e": 73.1,
+   "gwh_th": 3617.3,
+   "co2e": 730559,
+   "n_sites": 1,
+   "states": [
+    "TX"
+   ],
+   "sites": [
+    {
+     "n": "Natgasoline Llc",
+     "st": "TX",
+     "lat": 30.028,
+     "lon": -94.058,
+     "co2e": 730559,
+     "gwh": 3690.4
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Sk Capital Partners Lp",
+   "sector": "CHEMICALS",
+   "gwh": 3687.6,
+   "gwh_e": 73.0,
+   "gwh_th": 3614.6,
+   "co2e": 730010,
+   "n_sites": 1,
+   "states": [
+    "TX"
+   ],
+   "sites": [
+    {
+     "n": "Tpc Group Llc",
+     "st": "TX",
+     "lat": 29.698,
+     "lon": -95.255,
+     "co2e": 730010,
+     "gwh": 3687.6
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Oci Partners Lp",
+   "sector": "CHEMICALS",
+   "gwh": 3654.6,
+   "gwh_e": 72.3,
+   "gwh_th": 3582.3,
+   "co2e": 723476,
+   "n_sites": 1,
+   "states": [
+    "TX"
+   ],
+   "sites": [
+    {
+     "n": "Oci Beaumont Llc",
+     "st": "TX",
+     "lat": 30.017,
+     "lon": -94.035,
+     "co2e": 723476,
+     "gwh": 3654.6
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Lotte Chemical Usa Corp",
+   "sector": "CHEMICALS",
+   "gwh": 3480.3,
+   "gwh_e": 68.9,
+   "gwh_th": 3411.4,
+   "co2e": 688970,
+   "n_sites": 1,
+   "states": [
+    "LA"
+   ],
+   "sites": [
+    {
+     "n": "Lacc, Llc Us / Lotte Chemical Louisiana Llc",
+     "st": "LA",
+     "lat": 30.214,
+     "lon": -93.309,
+     "co2e": 688970,
+     "gwh": 3480.3
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Globe Specialty Metals Inc",
+   "sector": "STEEL",
+   "gwh": 3439.8,
+   "gwh_e": 231.0,
+   "gwh_th": 3208.8,
+   "co2e": 924135,
+   "n_sites": 4,
+   "states": [
+    "AL",
+    "OH",
+    "WV"
+   ],
+   "sites": [
+    {
+     "n": "Wva Manufacturing, Llc",
+     "st": "WV",
+     "lat": 38.138,
+     "lon": -81.278,
+     "co2e": 414450,
+     "gwh": 1542.7
+    },
+    {
+     "n": "Ferroglobe Usa Metallurgical Inc. Fka-Globe Meta",
+     "st": "OH",
+     "lat": 39.584,
+     "lon": -81.68,
+     "co2e": 293877,
+     "gwh": 1093.9
+    },
+    {
+     "n": "Ferroglobe Usa Bridgeport, Llc, Fka-Tennessee Al",
+     "st": "AL",
+     "lat": 34.945,
+     "lon": -85.7,
+     "co2e": 158998,
+     "gwh": 591.8
+    },
+    {
+     "n": "Ferroglobe Usa Metallurgical, Inc. Fka Globe Met",
+     "st": "AL",
+     "lat": 32.38,
+     "lon": -86.993,
+     "co2e": 56810,
+     "gwh": 211.5
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Magnitude 7 Metals Llc",
+   "sector": "ALUMINIUM",
+   "gwh": 3297.8,
+   "gwh_e": 3132.6,
+   "gwh_th": 165.2,
+   "co2e": 375032,
+   "n_sites": 1,
+   "states": [
+    "MO"
+   ],
+   "sites": [
+    {
+     "n": "Magnitude 7 Metals Llc",
+     "st": "MO",
+     "lat": 36.511,
+     "lon": -89.565,
+     "co2e": 375032,
+     "gwh": 3297.8
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Marathon Petroleum Corp",
+   "sector": "CHEMICALS",
+   "gwh": 3249.2,
+   "gwh_e": 64.3,
+   "gwh_th": 3184.9,
+   "co2e": 643227,
+   "n_sites": 2,
+   "states": [
+    "CA",
+    "ND"
+   ],
+   "sites": [
+    {
+     "n": "Martinez Renewable Fuel Facility",
+     "st": "CA",
+     "lat": 38.025,
+     "lon": -122.064,
+     "co2e": 576198,
+     "gwh": 2910.6
+    },
+    {
+     "n": "Marathon Petroleum Corporation",
+     "st": "ND",
+     "lat": 47.088,
+     "lon": -102.948,
+     "co2e": 67029,
+     "gwh": 338.6
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Commercial Metals Co",
+   "sector": "STEEL",
+   "gwh": 3203.4,
+   "gwh_e": 215.2,
+   "gwh_th": 2988.3,
+   "co2e": 860624,
+   "n_sites": 8,
+   "states": [
+    "AL",
+    "AZ",
+    "FL",
+    "NJ",
+    "OK",
+    "SC",
+    "TN",
+    "TX"
+   ],
+   "sites": [
+    {
+     "n": "Structural Metals Inc",
+     "st": "TX",
+     "lat": 29.579,
+     "lon": -98.024,
+     "co2e": 213757,
+     "gwh": 795.7
+    },
+    {
+     "n": "Cmc Steel Sc",
+     "st": "SC",
+     "lat": 33.963,
+     "lon": -81.05,
+     "co2e": 131133,
+     "gwh": 488.1
+    },
+    {
+     "n": "Cmc Steel Tennessee",
+     "st": "TN",
+     "lat": 35.978,
+     "lon": -83.956,
+     "co2e": 124968,
+     "gwh": 465.2
+    },
+    {
+     "n": "Cmc Steel Florida",
+     "st": "FL",
+     "lat": 30.288,
+     "lon": -81.978,
+     "co2e": 96117,
+     "gwh": 357.8
+    },
+    {
+     "n": "Smi Steel Llc",
+     "st": "AL",
+     "lat": 33.534,
+     "lon": -86.758,
+     "co2e": 95473,
+     "gwh": 355.4
+    },
+    {
+     "n": "Cmc Steel New Jersey",
+     "st": "NJ",
+     "lat": 40.48,
+     "lon": -74.321,
+     "co2e": 75627,
+     "gwh": 281.5
+    },
+    {
+     "n": "Cmc Steel Arizona",
+     "st": "AZ",
+     "lat": 33.285,
+     "lon": -111.586,
+     "co2e": 67984,
+     "gwh": 253.0
+    },
+    {
+     "n": "Cmc Steel Oklahoma, Llc",
+     "st": "OK",
+     "lat": 33.998,
+     "lon": -96.404,
+     "co2e": 55566,
+     "gwh": 206.8
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Gerdau Usa Inc",
+   "sector": "STEEL",
+   "gwh": 3118.4,
+   "gwh_e": 209.4,
+   "gwh_th": 2909.0,
+   "co2e": 837780,
+   "n_sites": 9,
+   "states": [
+    "AR",
+    "GA",
+    "IA",
+    "MI",
+    "NC",
+    "TN",
+    "TX",
+    "VA"
+   ],
+   "sites": [
+    {
+     "n": "Chaparral Steel Midlothian Plant",
+     "st": "TX",
+     "lat": 32.458,
+     "lon": -97.037,
+     "co2e": 272961,
+     "gwh": 1016.0
+    },
+    {
+     "n": "Gerdau Macsteel Monroe",
+     "st": "MI",
+     "lat": 41.897,
+     "lon": -83.362,
+     "co2e": 115863,
+     "gwh": 431.3
+    },
+    {
+     "n": "Chaparral Steel",
+     "st": "VA",
+     "lat": 37.179,
+     "lon": -77.447,
+     "co2e": 103874,
+     "gwh": 386.6
+    },
+    {
+     "n": "Gerdau Ameristeel",
+     "st": "TN",
+     "lat": 35.724,
+     "lon": -88.818,
+     "co2e": 88005,
+     "gwh": 327.6
+    },
+    {
+     "n": "Gerdau Ameristeel Cartersville Steel Mill",
+     "st": "GA",
+     "lat": 34.243,
+     "lon": -84.798,
+     "co2e": 86209,
+     "gwh": 320.9
+    },
+    {
+     "n": "Gerdau - Fort Smith Mill",
+     "st": "AR",
+     "lat": 35.303,
+     "lon": -94.375,
+     "co2e": 76305,
+     "gwh": 284.0
+    },
+    {
+     "n": "Gerdau Ameristeel Us, Inc - Charlotte Mill",
+     "st": "NC",
+     "lat": 35.339,
+     "lon": -80.831,
+     "co2e": 50136,
+     "gwh": 186.6
+    },
+    {
+     "n": "Gerdau Ameristeel Us Inc",
+     "st": "IA",
+     "lat": 41.586,
+     "lon": -91.042,
+     "co2e": 31887,
+     "gwh": 118.7
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Martin Marietta Materials Inc",
+   "sector": "CEMENT",
+   "gwh": 2987.2,
+   "gwh_e": 328.4,
+   "gwh_th": 2658.7,
+   "co2e": 2610404,
+   "n_sites": 2,
+   "states": [
+    "TX"
+   ],
+   "sites": [
+    {
+     "n": "Martin Marietta North Texas Cement, Llc",
+     "st": "TX",
+     "lat": 32.463,
+     "lon": -97.026,
+     "co2e": 1321287,
+     "gwh": 1512.0
+    },
+    {
+     "n": "Martin Marietta South Texas Cement, Llc",
+     "st": "TX",
+     "lat": 29.804,
+     "lon": -98.04,
+     "co2e": 1289116,
+     "gwh": 1475.2
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Shell Usa",
+   "sector": "CHEMICALS",
+   "gwh": 2646.7,
+   "gwh_e": 52.4,
+   "gwh_th": 2594.3,
+   "co2e": 523941,
+   "n_sites": 1,
+   "states": [
+    "TX"
+   ],
+   "sites": [
+    {
+     "n": "Shell Deer Park Chemical",
+     "st": "TX",
+     "lat": 29.722,
+     "lon": -95.127,
+     "co2e": 523941,
+     "gwh": 2646.7
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Gcc Of America Inc",
+   "sector": "CEMENT",
+   "gwh": 2620.6,
+   "gwh_e": 288.1,
+   "gwh_th": 2332.5,
+   "co2e": 2290078,
+   "n_sites": 5,
+   "states": [
+    "CO",
+    "MT",
+    "NM",
+    "SD",
+    "TX"
+   ],
+   "sites": [
+    {
+     "n": "Gcc Dacotah",
+     "st": "SD",
+     "lat": 44.09,
+     "lon": -103.272,
+     "co2e": 817514,
+     "gwh": 935.5
+    },
+    {
+     "n": "Gcc Rio Grande Inc",
+     "st": "CO",
+     "lat": 38.129,
+     "lon": -104.607,
+     "co2e": 608677,
+     "gwh": 696.5
+    },
+    {
+     "n": "Gcc Permian, Llc",
+     "st": "TX",
+     "lat": 31.704,
+     "lon": -102.392,
+     "co2e": 309171,
+     "gwh": 353.8
+    },
+    {
+     "n": "Gcc Rio Grande, Inc. Tijeras Plant",
+     "st": "NM",
+     "lat": 35.071,
+     "lon": -106.392,
+     "co2e": 304227,
+     "gwh": 348.1
+    },
+    {
+     "n": "Trident",
+     "st": "MT",
+     "lat": 45.949,
+     "lon": -111.475,
+     "co2e": 250489,
+     "gwh": 286.6
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Ssab Us Holding Inc",
+   "sector": "STEEL",
+   "gwh": 2349.7,
+   "gwh_e": 157.8,
+   "gwh_th": 2191.9,
+   "co2e": 631273,
+   "n_sites": 2,
+   "states": [
+    "AL",
+    "IA"
+   ],
+   "sites": [
+    {
+     "n": "Ssab Alabama Incorporated",
+     "st": "AL",
+     "lat": 30.943,
+     "lon": -88.013,
+     "co2e": 335797,
+     "gwh": 1249.9
+    },
+    {
+     "n": "Ssab Iowa Inc.",
+     "st": "IA",
+     "lat": 41.486,
+     "lon": -90.823,
+     "co2e": 295476,
+     "gwh": 1099.8
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Ineos Usa Llc",
+   "sector": "CHEMICALS",
+   "gwh": 2243.2,
+   "gwh_e": 44.4,
+   "gwh_th": 2198.8,
+   "co2e": 444069,
+   "n_sites": 2,
+   "states": [
+    "OH",
+    "TX"
+   ],
+   "sites": [
+    {
+     "n": "Green Lake Plant",
+     "st": "TX",
+     "lat": 28.428,
+     "lon": -96.499,
+     "co2e": 325990,
+     "gwh": 1646.7
+    },
+    {
+     "n": "Ineos Nitriles Usa Llc",
+     "st": "OH",
+     "lat": 40.717,
+     "lon": -84.132,
+     "co2e": 118079,
+     "gwh": 596.5
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Lsb Chemical Llc",
+   "sector": "CHEMICALS",
+   "gwh": 2160.5,
+   "gwh_e": 42.8,
+   "gwh_th": 2117.8,
+   "co2e": 427703,
+   "n_sites": 1,
+   "states": [
+    "OK"
+   ],
+   "sites": [
+    {
+     "n": "Lsb Chemical L.L.C.",
+     "st": "OK",
+     "lat": 36.241,
+     "lon": -95.278,
+     "co2e": 427703,
+     "gwh": 2160.5
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Titan America Llc",
+   "sector": "CEMENT",
+   "gwh": 2114.5,
+   "gwh_e": 232.5,
+   "gwh_th": 1882.0,
+   "co2e": 1847777,
+   "n_sites": 2,
+   "states": [
+    "FL",
+    "VA"
+   ],
+   "sites": [
+    {
+     "n": "Tarmac Pennsuco Complex",
+     "st": "FL",
+     "lat": 25.874,
+     "lon": -80.376,
+     "co2e": 1048280,
+     "gwh": 1199.6
+    },
+    {
+     "n": "Roanoke Cement Co - Cloverdale",
+     "st": "VA",
+     "lat": 37.46,
+     "lon": -79.995,
+     "co2e": 799497,
+     "gwh": 914.9
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "xAI",
+   "sector": "DATA CENTERS",
+   "gwh": 2102.0,
+   "gwh_e": 2102.0,
+   "gwh_th": 0,
+   "co2e": null,
+   "n_sites": null,
+   "states": [],
+   "sites": [],
+   "mw": 300,
+   "note": "curated; announced campus MW",
+   "signals": []
+  },
+  {
+   "name": "Freeport-Mcmoran Inc",
+   "sector": "CHEMICALS",
+   "gwh": 2101.1,
+   "gwh_e": 41.6,
+   "gwh_th": 2059.5,
+   "co2e": 415929,
+   "n_sites": 1,
+   "states": [
+    "AZ"
+   ],
+   "sites": [
+    {
+     "n": "Apache Nitrogen Products - Plant",
+     "st": "AZ",
+     "lat": 31.88,
+     "lon": -110.24,
+     "co2e": 415929,
+     "gwh": 2101.1
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Am/Ns Calvert Llc",
+   "sector": "STEEL",
+   "gwh": 2100.6,
+   "gwh_e": 141.1,
+   "gwh_th": 1959.5,
+   "co2e": 564329,
+   "n_sites": 1,
+   "states": [
+    "AL"
+   ],
+   "sites": [
+    {
+     "n": "Am/Ns Calvert, Llc",
+     "st": "AL",
+     "lat": 31.146,
+     "lon": -87.993,
+     "co2e": 564329,
+     "gwh": 2100.6
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Arcelormittal Holdings Llc",
+   "sector": "STEEL",
+   "gwh": 2073.0,
+   "gwh_e": 139.2,
+   "gwh_th": 1933.8,
+   "co2e": 556933,
+   "n_sites": 1,
+   "states": [
+    "TX"
+   ],
+   "sites": [
+    {
+     "n": "Arcelormittal Texas Hbi",
+     "st": "TX",
+     "lat": 27.889,
+     "lon": -97.278,
+     "co2e": 556933,
+     "gwh": 2073.0
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Versum Materials Inc",
+   "sector": "CHEMICALS",
+   "gwh": 2038.5,
+   "gwh_e": 40.4,
+   "gwh_th": 1998.1,
+   "co2e": 403544,
+   "n_sites": 1,
+   "states": [
+    "PA"
+   ],
+   "sites": [
+    {
+     "n": "Versum Materials Us, Llc",
+     "st": "PA",
+     "lat": 40.836,
+     "lon": -76.031,
+     "co2e": 403544,
+     "gwh": 2038.5
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Oq Corp",
+   "sector": "CHEMICALS",
+   "gwh": 1908.0,
+   "gwh_e": 37.8,
+   "gwh_th": 1870.2,
+   "co2e": 377710,
+   "n_sites": 1,
+   "states": [
+    "TX"
+   ],
+   "sites": [
+    {
+     "n": "Oq Corp Bay City Plant",
+     "st": "TX",
+     "lat": 28.862,
+     "lon": -96.021,
+     "co2e": 377710,
+     "gwh": 1908.0
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "National Cement Co Inc",
+   "sector": "CEMENT",
+   "gwh": 1806.7,
+   "gwh_e": 198.6,
+   "gwh_th": 1608.1,
+   "co2e": 1578846,
+   "n_sites": 2,
+   "states": [
+    "AL",
+    "CA"
+   ],
+   "sites": [
+    {
+     "n": "National Cement Company Inc.",
+     "st": "AL",
+     "lat": 33.734,
+     "lon": -86.155,
+     "co2e": 895357,
+     "gwh": 1024.6
+    },
+    {
+     "n": "National Cement Co Of California Inc",
+     "st": "CA",
+     "lat": 34.82,
+     "lon": -118.749,
+     "co2e": 683489,
+     "gwh": 782.1
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Arkema Delaware Inc",
+   "sector": "CHEMICALS",
+   "gwh": 1786.0,
+   "gwh_e": 35.4,
+   "gwh_th": 1750.6,
+   "co2e": 353552,
+   "n_sites": 4,
+   "states": [
+    "KY",
+    "TX"
+   ],
+   "sites": [
+    {
+     "n": "Arkema, Inc.",
+     "st": "KY",
+     "lat": 37.057,
+     "lon": -88.366,
+     "co2e": 105680,
+     "gwh": 533.8
+    },
+    {
+     "n": "Arkema Beaumont Plant",
+     "st": "TX",
+     "lat": 30.06,
+     "lon": -94.059,
+     "co2e": 84320,
+     "gwh": 425.9
+    },
+    {
+     "n": "Arkema Inc Clear Lake",
+     "st": "TX",
+     "lat": 29.621,
+     "lon": -95.064,
+     "co2e": 81833,
+     "gwh": 413.4
+    },
+    {
+     "n": "American Acryl Pasadena",
+     "st": "TX",
+     "lat": 29.609,
+     "lon": -95.054,
+     "co2e": 81719,
+     "gwh": 412.8
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Cstn Holdings Inc",
+   "sector": "CHEMICALS",
+   "gwh": 1677.5,
+   "gwh_e": 33.2,
+   "gwh_th": 1644.3,
+   "co2e": 332073,
+   "n_sites": 1,
+   "states": [
+    "LA"
+   ],
+   "sites": [
+    {
+     "n": "Cornerstone Chemical Company",
+     "st": "LA",
+     "lat": 29.959,
+     "lon": -90.27,
+     "co2e": 332073,
+     "gwh": 1677.5
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Bluescope Steel Investments Inc",
+   "sector": "STEEL",
+   "gwh": 1647.0,
+   "gwh_e": 110.6,
+   "gwh_th": 1536.4,
+   "co2e": 442491,
+   "n_sites": 1,
+   "states": [
+    "OH"
+   ],
+   "sites": [
+    {
+     "n": "North Star Bluescope Steel Llc *",
+     "st": "OH",
+     "lat": 41.568,
+     "lon": -84.038,
+     "co2e": 442491,
+     "gwh": 1647.0
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Votorantim Cimentos North America Inc",
+   "sector": "CEMENT",
+   "gwh": 1631.5,
+   "gwh_e": 179.4,
+   "gwh_th": 1452.1,
+   "co2e": 1425742,
+   "n_sites": 1,
+   "states": [
+    "MI"
+   ],
+   "sites": [
+    {
+     "n": "St Marys Cement Inc",
+     "st": "MI",
+     "lat": 45.317,
+     "lon": -85.299,
+     "co2e": 1425742,
+     "gwh": 1631.5
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Giant Cement Holding Inc",
+   "sector": "CEMENT",
+   "gwh": 1626.8,
+   "gwh_e": 178.9,
+   "gwh_th": 1447.9,
+   "co2e": 1421610,
+   "n_sites": 3,
+   "states": [
+    "ME",
+    "PA",
+    "SC"
+   ],
+   "sites": [
+    {
+     "n": "Keystone Cement Company",
+     "st": "PA",
+     "lat": 40.715,
+     "lon": -75.401,
+     "co2e": 684874,
+     "gwh": 783.7
+    },
+    {
+     "n": "Giant Cement Company",
+     "st": "SC",
+     "lat": 33.243,
+     "lon": -80.442,
+     "co2e": 499783,
+     "gwh": 571.9
+    },
+    {
+     "n": "Dragon Cement",
+     "st": "ME",
+     "lat": 44.084,
+     "lon": -69.157,
+     "co2e": 236953,
+     "gwh": 271.2
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Summit Materials Inc",
+   "sector": "CEMENT",
+   "gwh": 1590.7,
+   "gwh_e": 174.9,
+   "gwh_th": 1415.8,
+   "co2e": 1390088,
+   "n_sites": 2,
+   "states": [
+    "IA",
+    "MO"
+   ],
+   "sites": [
+    {
+     "n": "Davenport Plant",
+     "st": "IA",
+     "lat": 41.459,
+     "lon": -90.695,
+     "co2e": 841277,
+     "gwh": 962.7
+    },
+    {
+     "n": "Continental Cement Company Llc",
+     "st": "MO",
+     "lat": 39.679,
+     "lon": -91.314,
+     "co2e": 548811,
+     "gwh": 628.0
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Sabic Innovative Plastics Us Llc",
+   "sector": "CHEMICALS",
+   "gwh": 1574.4,
+   "gwh_e": 31.2,
+   "gwh_th": 1543.2,
+   "co2e": 311663,
+   "n_sites": 1,
+   "states": [
+    "LA"
+   ],
+   "sites": [
+    {
+     "n": "Cos-Mar Company, Styrene Monomer Plant",
+     "st": "LA",
+     "lat": 30.225,
+     "lon": -91.069,
+     "co2e": 311663,
+     "gwh": 1574.4
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Hanson Lehigh Inc",
+   "sector": "CEMENT",
+   "gwh": 1448.8,
+   "gwh_e": 159.3,
+   "gwh_th": 1289.5,
+   "co2e": 1266067,
+   "n_sites": 3,
+   "states": [
+    "NY",
+    "PA"
+   ],
+   "sites": [
+    {
+     "n": "Heidelberg Materials Us Cement Llc/ Nazareth",
+     "st": "PA",
+     "lat": 40.73,
+     "lon": -75.301,
+     "co2e": 646387,
+     "gwh": 739.7
+    },
+    {
+     "n": "Heidelberg Materials/Evansville Cement Plt & Qua",
+     "st": "PA",
+     "lat": 40.472,
+     "lon": -75.895,
+     "co2e": 558292,
+     "gwh": 638.9
+    },
+    {
+     "n": "Heidelberg Materials Us Cement Llc",
+     "st": "NY",
+     "lat": 43.306,
+     "lon": -73.621,
+     "co2e": 61388,
+     "gwh": 70.2
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Evonik Corp",
+   "sector": "CHEMICALS",
+   "gwh": 1441.2,
+   "gwh_e": 28.5,
+   "gwh_th": 1412.7,
+   "co2e": 285304,
+   "n_sites": 4,
+   "states": [
+    "AL",
+    "IL",
+    "LA",
+    "NC"
+   ],
+   "sites": [
+    {
+     "n": "Evonik Corporation",
+     "st": "AL",
+     "lat": 30.517,
+     "lon": -88.14,
+     "co2e": 135166,
+     "gwh": 682.8
+    },
+    {
+     "n": "Evonik Corporation",
+     "st": "IL",
+     "lat": 40.565,
+     "lon": -89.725,
+     "co2e": 73207,
+     "gwh": 369.8
+    },
+    {
+     "n": "Evonik Superabsorber Llc",
+     "st": "LA",
+     "lat": 30.045,
+     "lon": -90.61,
+     "co2e": 40427,
+     "gwh": 204.2
+    },
+    {
+     "n": "Evonik Superabsorber Llc",
+     "st": "NC",
+     "lat": 36.044,
+     "lon": -79.788,
+     "co2e": 36504,
+     "gwh": 184.4
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Ash Grove Cement Co",
+   "sector": "CEMENT",
+   "gwh": 1432.7,
+   "gwh_e": 157.5,
+   "gwh_th": 1275.2,
+   "co2e": 1252026,
+   "n_sites": 2,
+   "states": [
+    "AR",
+    "WA"
+   ],
+   "sites": [
+    {
+     "n": "Ash Grove Cement-Foreman",
+     "st": "AR",
+     "lat": 33.694,
+     "lon": -94.417,
+     "co2e": 884375,
+     "gwh": 1012.0
+    },
+    {
+     "n": "Ash Grove Cement Company-Seattle",
+     "st": "WA",
+     "lat": 47.568,
+     "lon": -122.343,
+     "co2e": 367651,
+     "gwh": 420.7
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Evraz Inc North America",
+   "sector": "STEEL",
+   "gwh": 1369.9,
+   "gwh_e": 92.0,
+   "gwh_th": 1277.9,
+   "co2e": 368037,
+   "n_sites": 2,
+   "states": [
+    "CO",
+    "OR"
+   ],
+   "sites": [
+    {
+     "n": "Cf & I Steel L P/ Dba Rocky Mountain Steel Mills",
+     "st": "CO",
+     "lat": 38.233,
+     "lon": -104.607,
+     "co2e": 275194,
+     "gwh": 1024.3
+    },
+    {
+     "n": "Evraz Oregon Steel",
+     "st": "OR",
+     "lat": 45.628,
+     "lon": -122.781,
+     "co2e": 92843,
+     "gwh": 345.6
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Mitsubishi Cement Corp",
+   "sector": "CEMENT",
+   "gwh": 1349.2,
+   "gwh_e": 148.3,
+   "gwh_th": 1200.8,
+   "co2e": 1178982,
+   "n_sites": 1,
+   "states": [
+    "CA"
+   ],
+   "sites": [
+    {
+     "n": "Mitsubishi Cement Corp Cushenbury Cement Plant",
+     "st": "CA",
+     "lat": 34.438,
+     "lon": -116.891,
+     "co2e": 1178982,
+     "gwh": 1349.2
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Holcim Participationsinc - Ravena Plant",
+   "sector": "CEMENT",
+   "gwh": 1282.7,
+   "gwh_e": 141.0,
+   "gwh_th": 1141.7,
+   "co2e": 1120895,
+   "n_sites": 1,
+   "states": [
+    "NY"
+   ],
+   "sites": [
+    {
+     "n": "Lafarge Ravena Cement Plant",
+     "st": "NY",
+     "lat": 42.546,
+     "lon": -73.672,
+     "co2e": 1120895,
+     "gwh": 1282.7
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Timkensteel Corp",
+   "sector": "STEEL",
+   "gwh": 1192.4,
+   "gwh_e": 80.1,
+   "gwh_th": 1112.3,
+   "co2e": 320347,
+   "n_sites": 1,
+   "states": [
+    "OH"
+   ],
+   "sites": [
+    {
+     "n": "Timkensteel Corp (1576000613)",
+     "st": "OH",
+     "lat": 40.781,
+     "lon": -81.397,
+     "co2e": 320347,
+     "gwh": 1192.4
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Monarch Cement Co",
+   "sector": "CEMENT",
+   "gwh": 1075.3,
+   "gwh_e": 118.2,
+   "gwh_th": 957.1,
+   "co2e": 939681,
+   "n_sites": 1,
+   "states": [
+    "KS"
+   ],
+   "sites": [
+    {
+     "n": "Monarch Cement Company (The)",
+     "st": "KS",
+     "lat": 37.797,
+     "lon": -95.431,
+     "co2e": 939681,
+     "gwh": 1075.3
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "North American Stainless",
+   "sector": "STEEL",
+   "gwh": 1024.0,
+   "gwh_e": 68.8,
+   "gwh_th": 955.2,
+   "co2e": 275108,
+   "n_sites": 1,
+   "states": [
+    "KY"
+   ],
+   "sites": [
+    {
+     "n": "North American Stainless",
+     "st": "KY",
+     "lat": 38.735,
+     "lon": -85.003,
+     "co2e": 275108,
+     "gwh": 1024.0
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Charter Manufacturing Co Inc",
+   "sector": "STEEL",
+   "gwh": 1020.6,
+   "gwh_e": 68.5,
+   "gwh_th": 952.0,
+   "co2e": 274186,
+   "n_sites": 2,
+   "states": [
+    "OH",
+    "WI"
+   ],
+   "sites": [
+    {
+     "n": "Charter Steel",
+     "st": "WI",
+     "lat": 43.397,
+     "lon": -87.95,
+     "co2e": 143251,
+     "gwh": 533.2
+    },
+    {
+     "n": "Charter Steel Cleveland *",
+     "st": "OH",
+     "lat": 41.443,
+     "lon": -81.664,
+     "co2e": 130935,
+     "gwh": 487.4
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Ashland Global Holdings Inc",
+   "sector": "CHEMICALS",
+   "gwh": 1006.9,
+   "gwh_e": 19.9,
+   "gwh_th": 987.0,
+   "co2e": 199333,
+   "n_sites": 3,
+   "states": [
+    "KY",
+    "OH",
+    "TX"
+   ],
+   "sites": [
+    {
+     "n": "Isp Lima Llc",
+     "st": "OH",
+     "lat": 40.718,
+     "lon": -84.116,
+     "co2e": 92551,
+     "gwh": 467.5
+    },
+    {
+     "n": "Isp Chemicals Llc",
+     "st": "KY",
+     "lat": 37.048,
+     "lon": -88.359,
+     "co2e": 71343,
+     "gwh": 360.4
+    },
+    {
+     "n": "Isp Technologies Texas City Plant",
+     "st": "TX",
+     "lat": 29.429,
+     "lon": -94.969,
+     "co2e": 35438,
+     "gwh": 179.0
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Meglobal Americas Inc",
+   "sector": "CHEMICALS",
+   "gwh": 949.8,
+   "gwh_e": 18.8,
+   "gwh_th": 931.0,
+   "co2e": 188017,
+   "n_sites": 1,
+   "states": [
+    "TX"
+   ],
+   "sites": [
+    {
+     "n": "Meglobal Oyster Creek",
+     "st": "TX",
+     "lat": 28.98,
+     "lon": -95.334,
+     "co2e": 188017,
+     "gwh": 949.8
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Honeywell International Inc",
+   "sector": "CHEMICALS",
+   "gwh": 935.0,
+   "gwh_e": 18.5,
+   "gwh_th": 916.5,
+   "co2e": 185099,
+   "n_sites": 2,
+   "states": [
+    "LA"
+   ],
+   "sites": [
+    {
+     "n": "Honeywell International Inc - Geismar Complex",
+     "st": "LA",
+     "lat": 30.222,
+     "lon": -91.052,
+     "co2e": 153749,
+     "gwh": 776.7
+    },
+    {
+     "n": "Honeywell International Inc - Baton Rouge Plant",
+     "st": "LA",
+     "lat": 30.474,
+     "lon": -91.183,
+     "co2e": 31350,
+     "gwh": 158.4
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Phoenix Cement Co",
+   "sector": "CEMENT",
+   "gwh": 879.0,
+   "gwh_e": 96.6,
+   "gwh_th": 782.4,
+   "co2e": 768127,
+   "n_sites": 1,
+   "states": [
+    "AZ"
+   ],
+   "sites": [
+    {
+     "n": "Phoenix Cement Company\\S Clarkdale Facility",
+     "st": "AZ",
+     "lat": 34.78,
+     "lon": -112.084,
+     "co2e": 768127,
+     "gwh": 879.0
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Carpenter Technology Corp",
+   "sector": "STEEL",
+   "gwh": 854.2,
+   "gwh_e": 57.4,
+   "gwh_th": 796.9,
+   "co2e": 229493,
+   "n_sites": 2,
+   "states": [
+    "PA"
+   ],
+   "sites": [
+    {
+     "n": "Carpenter Technology",
+     "st": "PA",
+     "lat": 40.361,
+     "lon": -75.937,
+     "co2e": 168155,
+     "gwh": 625.9
+    },
+    {
+     "n": "Carpenter Technology - Latrobe Operations",
+     "st": "PA",
+     "lat": 40.303,
+     "lon": -79.373,
+     "co2e": 61339,
+     "gwh": 228.3
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Futurefuel Corp",
+   "sector": "CHEMICALS",
+   "gwh": 833.0,
+   "gwh_e": 16.5,
+   "gwh_th": 816.5,
+   "co2e": 164909,
+   "n_sites": 1,
+   "states": [
+    "AR"
+   ],
+   "sites": [
+    {
+     "n": "Futurefuel Chemical Company",
+     "st": "AR",
+     "lat": 35.722,
+     "lon": -91.525,
+     "co2e": 164909,
+     "gwh": 833.0
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Emery Oleochemicals Llc",
+   "sector": "CHEMICALS",
+   "gwh": 818.8,
+   "gwh_e": 16.2,
+   "gwh_th": 802.6,
+   "co2e": 162084,
+   "n_sites": 1,
+   "states": [
+    "OH"
+   ],
+   "sites": [
+    {
+     "n": "Emery Oleochemicals, Llc",
+     "st": "OH",
+     "lat": 39.179,
+     "lon": -84.505,
+     "co2e": 162084,
+     "gwh": 818.8
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Berkshire Hathaway Inc",
+   "sector": "CHEMICALS",
+   "gwh": 788.7,
+   "gwh_e": 15.6,
+   "gwh_th": 773.1,
+   "co2e": 156132,
+   "n_sites": 3,
+   "states": [
+    "OH",
+    "TX"
+   ],
+   "sites": [
+    {
+     "n": "Lubrizol Deer Park Plant",
+     "st": "TX",
+     "lat": 29.717,
+     "lon": -95.113,
+     "co2e": 102178,
+     "gwh": 516.1
+    },
+    {
+     "n": "Lubrizol Corporation",
+     "st": "OH",
+     "lat": 41.72,
+     "lon": -81.274,
+     "co2e": 33808,
+     "gwh": 170.8
+    },
+    {
+     "n": "Lubrizol Bayport Plant",
+     "st": "TX",
+     "lat": 29.638,
+     "lon": -95.053,
+     "co2e": 20146,
+     "gwh": 101.8
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Georgian American Alloys Inc",
+   "sector": "STEEL",
+   "gwh": 761.3,
+   "gwh_e": 51.1,
+   "gwh_th": 710.1,
+   "co2e": 204520,
+   "n_sites": 1,
+   "states": [
+    "KY"
+   ],
+   "sites": [
+    {
+     "n": "Cc Metals & Alloys, Llc",
+     "st": "KY",
+     "lat": 37.056,
+     "lon": -88.351,
+     "co2e": 204520,
+     "gwh": 761.3
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Allegheny Technologies Inc",
+   "sector": "STEEL",
+   "gwh": 721.7,
+   "gwh_e": 48.5,
+   "gwh_th": 673.2,
+   "co2e": 193886,
+   "n_sites": 4,
+   "states": [
+    "OH",
+    "PA"
+   ],
+   "sites": [
+    {
+     "n": "Brackenridge Plant",
+     "st": "PA",
+     "lat": 40.608,
+     "lon": -79.729,
+     "co2e": 121704,
+     "gwh": 453.0
+    },
+    {
+     "n": "Vandergrift Facility",
+     "st": "PA",
+     "lat": 40.6,
+     "lon": -79.568,
+     "co2e": 36310,
+     "gwh": 135.2
+    },
+    {
+     "n": "Jessop Steel, Llc Washington Facility",
+     "st": "PA",
+     "lat": 40.176,
+     "lon": -80.275,
+     "co2e": 31117,
+     "gwh": 115.8
+    },
+    {
+     "n": "Jewel Acquisition - Louisville Facility",
+     "st": "OH",
+     "lat": 40.836,
+     "lon": -81.274,
+     "co2e": 4756,
+     "gwh": 17.7
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Bayer Us Holding Lp",
+   "sector": "CHEMICALS",
+   "gwh": 692.5,
+   "gwh_e": 13.7,
+   "gwh_th": 678.8,
+   "co2e": 137093,
+   "n_sites": 2,
+   "states": [
+    "IA",
+    "LA"
+   ],
+   "sites": [
+    {
+     "n": "Bayer Cropscience Lp",
+     "st": "IA",
+     "lat": 41.352,
+     "lon": -91.084,
+     "co2e": 73944,
+     "gwh": 373.5
+    },
+    {
+     "n": "Bayer Cropscience Lp - Luling Site",
+     "st": "LA",
+     "lat": 29.924,
+     "lon": -90.352,
+     "co2e": 63150,
+     "gwh": 319.0
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Davis Mining & Manufacturing Inc",
+   "sector": "CHEMICALS",
+   "gwh": 636.1,
+   "gwh_e": 12.6,
+   "gwh_th": 623.5,
+   "co2e": 125932,
+   "n_sites": 1,
+   "states": [
+    "TN"
+   ],
+   "sites": [
+    {
+     "n": "Us Nitrogen Llc",
+     "st": "TN",
+     "lat": 36.194,
+     "lon": -83.003,
+     "co2e": 125932,
+     "gwh": 636.1
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Microsoft",
+   "sector": "DATA CENTERS",
+   "gwh": null,
+   "gwh_e": null,
+   "gwh_th": 0,
+   "co2e": null,
+   "n_sites": null,
+   "states": [],
+   "sites": [],
+   "mw": null,
+   "note": "curated; MW not disclosed",
+   "signals": [
+    "20-yr PPA to restart Three Mile Island Unit 1 (Crane, 835 MW)"
+   ]
+  },
+  {
+   "name": "Google",
+   "sector": "DATA CENTERS",
+   "gwh": null,
+   "gwh_e": null,
+   "gwh_th": 0,
+   "co2e": null,
+   "n_sites": null,
+   "states": [],
+   "sites": [],
+   "mw": null,
+   "note": "curated; MW not disclosed",
+   "signals": [
+    "Kairos Power master agreement (500 MW by 2035); nuclear PPAs"
+   ]
+  },
+  {
+   "name": "Meta",
+   "sector": "DATA CENTERS",
+   "gwh": null,
+   "gwh_e": null,
+   "gwh_th": 0,
+   "co2e": null,
+   "n_sites": null,
+   "states": [],
+   "sites": [],
+   "mw": null,
+   "note": "curated; MW not disclosed",
+   "signals": [
+    "20-yr PPA with Constellation for Clinton (1.1 GW) from 2027"
+   ]
+  },
+  {
+   "name": "Oracle",
+   "sector": "DATA CENTERS",
+   "gwh": null,
+   "gwh_e": null,
+   "gwh_th": 0,
+   "co2e": null,
+   "n_sites": null,
+   "states": [],
+   "sites": [],
+   "mw": null,
+   "note": "curated; MW not disclosed",
+   "signals": [
+    "Gigawatt-scale AI campus announced, SMR-powered design stated"
+   ]
+  },
+  {
+   "name": "Switch",
+   "sector": "DATA CENTERS",
+   "gwh": null,
+   "gwh_e": null,
+   "gwh_th": 0,
+   "co2e": null,
+   "n_sites": null,
+   "states": [],
+   "sites": [],
+   "mw": null,
+   "note": "curated; MW not disclosed",
+   "signals": [
+    "Oklo master agreement framework (up to 12 GW long-term)"
+   ]
+  },
+  {
+   "name": "Equinix",
+   "sector": "DATA CENTERS",
+   "gwh": null,
+   "gwh_e": null,
+   "gwh_th": 0,
+   "co2e": null,
+   "n_sites": null,
+   "states": [],
+   "sites": [],
+   "mw": null,
+   "note": "curated; MW not disclosed",
+   "signals": [
+    "Oklo pre-order agreement (500 MW); Radiant microreactor order"
+   ]
+  },
+  {
+   "name": "CoreWeave",
+   "sector": "DATA CENTERS",
+   "gwh": null,
+   "gwh_e": null,
+   "gwh_th": 0,
+   "co2e": null,
+   "n_sites": null,
+   "states": [],
+   "sites": [],
+   "mw": null,
+   "note": "curated; MW not disclosed",
+   "signals": []
+  },
+  {
+   "name": "Vantage Data Centers",
+   "sector": "DATA CENTERS",
+   "gwh": null,
+   "gwh_e": null,
+   "gwh_th": 0,
+   "co2e": null,
+   "n_sites": null,
+   "states": [],
+   "sites": [],
+   "mw": null,
+   "note": "curated; MW not disclosed",
+   "signals": []
+  },
+  {
+   "name": "QTS (Blackstone)",
+   "sector": "DATA CENTERS",
+   "gwh": null,
+   "gwh_e": null,
+   "gwh_th": 0,
+   "co2e": null,
+   "n_sites": null,
+   "states": [],
+   "sites": [],
+   "mw": null,
+   "note": "curated; MW not disclosed",
+   "signals": []
+  },
+  {
+   "name": "Digital Realty",
+   "sector": "DATA CENTERS",
+   "gwh": null,
+   "gwh_e": null,
+   "gwh_th": 0,
+   "co2e": null,
+   "n_sites": null,
+   "states": [],
+   "sites": [],
+   "mw": null,
+   "note": "curated; MW not disclosed",
+   "signals": []
+  },
+  {
+   "name": "Aligned Data Centers",
+   "sector": "DATA CENTERS",
+   "gwh": null,
+   "gwh_e": null,
+   "gwh_th": 0,
+   "co2e": null,
+   "n_sites": null,
+   "states": [],
+   "sites": [],
+   "mw": null,
+   "note": "curated; MW not disclosed",
+   "signals": []
+  },
+  {
+   "name": "Compass Datacenters",
+   "sector": "DATA CENTERS",
+   "gwh": null,
+   "gwh_e": null,
+   "gwh_th": 0,
+   "co2e": null,
+   "n_sites": null,
+   "states": [],
+   "sites": [],
+   "mw": null,
+   "note": "curated; MW not disclosed",
+   "signals": []
+  },
+  {
+   "name": "STACK Infrastructure",
+   "sector": "DATA CENTERS",
+   "gwh": null,
+   "gwh_e": null,
+   "gwh_th": 0,
+   "co2e": null,
+   "n_sites": null,
+   "states": [],
+   "sites": [],
+   "mw": null,
+   "note": "curated; MW not disclosed",
+   "signals": []
+  },
+  {
+   "name": "CyrusOne",
+   "sector": "DATA CENTERS",
+   "gwh": null,
+   "gwh_e": null,
+   "gwh_th": 0,
+   "co2e": null,
+   "n_sites": null,
+   "states": [],
+   "sites": [],
+   "mw": null,
+   "note": "curated; MW not disclosed",
+   "signals": []
+  },
+  {
+   "name": "EdgeConneX",
+   "sector": "DATA CENTERS",
+   "gwh": null,
+   "gwh_e": null,
+   "gwh_th": 0,
+   "co2e": null,
+   "n_sites": null,
+   "states": [],
+   "sites": [],
+   "mw": null,
+   "note": "curated; MW not disclosed",
+   "signals": []
+  },
+  {
+   "name": "NTT Global Data Centers",
+   "sector": "DATA CENTERS",
+   "gwh": null,
+   "gwh_e": null,
+   "gwh_th": 0,
+   "co2e": null,
+   "n_sites": null,
+   "states": [],
+   "sites": [],
+   "mw": null,
+   "note": "curated; MW not disclosed",
+   "signals": []
+  },
+  {
+   "name": "Iron Mountain Data Centers",
+   "sector": "DATA CENTERS",
+   "gwh": null,
+   "gwh_e": null,
+   "gwh_th": 0,
+   "co2e": null,
+   "n_sites": null,
+   "states": [],
+   "sites": [],
+   "mw": null,
+   "note": "curated; MW not disclosed",
+   "signals": []
+  }
+ ],
+ "method": "Industrial demand estimated from EPA GHGRP reported CO2e (RY2023) using sector factors: cement 3.4 GJ/t clinker heat + 0.105 MWh/t power; steel blended 0.080 tCO2/GJ fuel + 0.25 MWh/tCO2e power; aluminium 14.2 MWh/t Al; chemicals gas-EF heat + 0.10 MWh/tCO2e power. Data centres: curated, announced MW x 8.76 x 0.80. Screening estimates, not metered data; reported CO2e shown alongside."
+}
