@@ -158,6 +158,19 @@ a:hover{color:#fff}
 .invwb td .nhb{font:700 8px var(--font);color:var(--orange);border:1px solid var(--orange);border-radius:2px;padding:0 4px;margin-left:6px}
 .invwb a{color:var(--teal);text-decoration:none}
 .invwbwrap{padding:0 18px 18px;overflow-x:auto}
+/* ---------- offtakers tab ---------- */
+.offcard{border:1px solid var(--line);border-radius:5px;background:var(--panel);padding:11px 13px;display:flex;flex-direction:column;gap:7px}
+.offcard .nm b{font:600 12.5px var(--font);color:var(--text)}
+.offbadge{font:700 8.5px var(--font);letter-spacing:.07em;text-transform:uppercase;border-radius:3px;padding:2px 7px;border:1px solid}
+.offtot{font:700 18px var(--mono);color:var(--text)}
+.offtot span{font:600 9px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-left:7px}
+.offsplit{font:500 10px var(--mono);color:var(--muted)}
+.offsites{display:flex;flex-direction:column;gap:2px}
+.offsites .sr{display:grid;grid-template-columns:1fr 34px auto;gap:8px;font:500 10px var(--mono);color:var(--muted)}
+.offsites .sr b{color:var(--text);font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.offsig{font:500 10px var(--font);color:var(--orange);line-height:1.4}
+.offfoot{display:flex;justify-content:space-between;margin-top:auto;padding-top:5px;border-top:1px solid var(--line);font:500 9.5px var(--mono);color:var(--dim)}
+#offlegend .rleg i{border-radius:50%}
 
 /* markets rail */
 .mkrow{display:grid;grid-template-columns:44px 1fr 58px 54px;gap:8px;align-items:center;padding:4px 0;cursor:pointer}
@@ -329,6 +342,7 @@ footer b{color:var(--muted)}
     <button class="navtab" data-v="conf">Events</button>
     <button class="navtab" data-v="cap">Capital</button>
     <button class="navtab" data-v="inv">Investors</button>
+    <button class="navtab" data-v="off">Offtakers</button>
   </div>
   <div class="right">
     <span class="dot" id="d-fr"><i></i>FED REG</span>
@@ -405,6 +419,7 @@ footer b{color:var(--muted)}
       </div>
       <div class="seg" id="fleetseg">
         <button id="fleetbtn" title="Nuclear fleet by operator">☢ Fleet</button>
+        <button id="offbtn" title="Major offtakers: industrial + data centres, est. GWh/yr">⚡ Offtakers</button>
       </div>
       <div class="seg" id="sectorseg">
         <button data-s="all" class="on">All</button>
@@ -420,6 +435,7 @@ footer b{color:var(--muted)}
       <div id="etip"></div>
       <div class="elegend" id="elegend"></div>
       <div class="elegend" id="fleetlegend"></div>
+      <div class="elegend" id="offlegend"></div>
     </div>
     <aside class="edetail" id="edetail"></aside>
   </div>
@@ -491,6 +507,21 @@ footer b{color:var(--muted)}
   <button class="invmore" id="invmore" hidden>show more</button>
 </div>
 
+<div id="view-off" hidden>
+  <div class="invhead">
+    <h2>Demand Intelligence — Major Offtakers</h2>
+    <div class="sub" id="offsub"></div>
+  </div>
+  <div class="invstats" id="offstats"></div>
+  <div class="invctl" id="offsector"></div>
+  <div class="invctl">
+    <input class="invsearch" id="offq" placeholder="search offtaker…">
+    <button class="invchip" id="offsort">sort: GWh</button>
+    <button class="invtgl" id="offexport">export CSV</button>
+  </div>
+  <div class="invgrid" id="offgrid"></div>
+</div>
+
 <footer>Public primary sources + open news feeds · raw feed is <b>uncorroborated</b> until promoted to the verified layer · newcleo internal market intelligence</footer>
 
 <script src="data/watchlist.js"></script>
@@ -509,6 +540,7 @@ footer b{color:var(--muted)}
 <script src="data/conferences.js"></script>
 <script src="data/programmes.js"></script>
 <script src="data/investors.js"></script>
+<script src="data/offtakers.js"></script>
 <script>
 (function(){
 'use strict';
@@ -833,10 +865,12 @@ function boot(){
       document.getElementById('view-conf').hidden = (v!=='conf');
       document.getElementById('view-cap').hidden = (v!=='cap');
       document.getElementById('view-inv').hidden = (v!=='inv');
+      document.getElementById('view-off').hidden = (v!=='off');
       if (v==='energy') renderEnergy();
       if (v==='conf') renderConf();
       if (v==='cap') renderCap();
       if (v==='inv') renderInv();
+      if (v==='off') renderOff();
     });
   });
   document.getElementById('sectorseg').addEventListener('click', function(ev){
@@ -861,6 +895,16 @@ function boot(){
     estate.fleet=!estate.fleet; estate.fsel=null; this.classList.toggle('on', estate.fleet);
     paintFleet();
   });
+  document.getElementById('offbtn').addEventListener('click', function(){
+    estate.off=!estate.off; estate.ofsel=null; this.classList.toggle('on', estate.off);
+    paintOffMap();
+  });
+  document.getElementById('offlegend').addEventListener('click', function(ev){
+    var c=ev.target.closest('[data-os]'); if(!c) return;
+    var k=c.getAttribute('data-os');
+    estate.ofsel=(estate.ofsel===k)?null:k;
+    paintOffMap();
+  });
   document.getElementById('fleetlegend').addEventListener('click', function(ev){
     var c=ev.target.closest('[data-g]'); if(!c) return;
     var g=c.getAttribute('data-g');
@@ -880,7 +924,7 @@ function setEnt(id){
 }
 
 /* ============================ ENERGY VIEW ============================ */
-var estate = { sector:'all', built:false, sel:null, mode:'states', rto:null, fleet:false, fsel:null };
+var estate = { sector:'all', built:false, sel:null, mode:'states', rto:null, fleet:false, fsel:null, off:false, ofsel:null };
 var SECTORLABEL = {all:'All-sector',res:'Residential',com:'Commercial',ind:'Industrial'};
 var SKIPLABEL = {DC:1,DE:1,RI:1,CT:1,NJ:1,MD:1,MA:1,NH:1,VT:1};   // tiny NE states: identified on hover, not crammed labels
 var SNAME = {AL:'Alabama',AK:'Alaska',AZ:'Arizona',AR:'Arkansas',CA:'California',CO:'Colorado',CT:'Connecticut',DE:'Delaware',DC:'District of Columbia',FL:'Florida',GA:'Georgia',HI:'Hawaii',ID:'Idaho',IL:'Illinois',IN:'Indiana',IA:'Iowa',KS:'Kansas',KY:'Kentucky',LA:'Louisiana',ME:'Maine',MD:'Maryland',MA:'Massachusetts',MI:'Michigan',MN:'Minnesota',MS:'Mississippi',MO:'Missouri',MT:'Montana',NE:'Nebraska',NV:'Nevada',NH:'New Hampshire',NJ:'New Jersey',NM:'New Mexico',NY:'New York',NC:'North Carolina',ND:'North Dakota',OH:'Ohio',OK:'Oklahoma',OR:'Oregon',PA:'Pennsylvania',RI:'Rhode Island',SC:'South Carolina',SD:'South Dakota',TN:'Tennessee',TX:'Texas',UT:'Utah',VT:'Vermont',VA:'Virginia',WA:'Washington',WV:'West Virginia',WI:'Wisconsin',WY:'Wyoming'};
@@ -992,6 +1036,30 @@ function paintFleet(){
   h+='<span class="legunit">operating GW by operator \u00b7 circle area \u2248 site MW \u00b7 dashed = restart pending \u00b7 click an operator</span>';
   leg.innerHTML=h;
 }
+function paintOffMap(){
+  var layer=document.getElementById('offlayer'), leg=document.getElementById('offlegend');
+  if(!layer||!leg) return;
+  if(!estate.off||!OFF){ layer.innerHTML=''; leg.innerHTML=''; return; }
+  var out='', bySec={};
+  OFF.items.forEach(function(i){
+    if(i.sector==='DATA CENTERS') return;
+    (i.sites||[]).forEach(function(sx){
+      if(!sx.lat||!sx.lon) return;
+      var xy=projAlbers(sx.lon,sx.lat), c=offColor(i.sector);
+      var r=Math.max(2.2, Math.sqrt(sx.gwh||1)*0.075);
+      var dim=(estate.ofsel&&i.sector!==estate.ofsel)?' opacity="0.15"':'';
+      bySec[i.sector]=(bySec[i.sector]||0)+(sx.gwh||0);
+      out+='<circle cx="'+xy[0].toFixed(1)+'" cy="'+xy[1].toFixed(1)+'" r="'+r.toFixed(1)+'" fill="'+c+'" fill-opacity="0.55" stroke="'+c+'" stroke-width="0.6"'+dim+'><title>'+i.name.replace(/"/g,'')+' — '+sx.n+' ('+sx.st+') · est. '+offGwh(sx.gwh)+'/yr</title></circle>';
+    });
+  });
+  layer.innerHTML=out;
+  var h='';
+  Object.keys(bySec).forEach(function(k){
+    h+='<span class="rleg'+(estate.ofsel===k?' on':'')+'" data-os="'+k+'"><i style="background:'+offColor(k)+'"></i>'+k+' '+(bySec[k]/1000).toFixed(0)+'</span>';
+  });
+  if(h) h+='<span class="legunit">est. TWh/yr demand by sector · circle area ≈ site GWh · EPA GHGRP RY'+OFF.year+' · click a sector</span>';
+  leg.innerHTML=h;
+}
 function showPlant(i){
   var p=PLANTS.plants[i], g=PLANTS.groups[p.g]||{}, el=document.getElementById('edetail');
   var st=statesData()[p.st]||{}, pr=st.price||{};
@@ -1068,7 +1136,7 @@ function buildMap(){
     frag+='<text class="stlabel" x="'+c[0]+'" y="'+(c[1]-6)+'">'+k+'</text>';
     frag+='<text class="stval" data-s="'+k+'" x="'+c[0]+'" y="'+(c[1]+7)+'"></text>';
   }
-  frag+='<g id="nukeicons"></g><g id="fleetlayer"></g>';
+  frag+='<g id="nukeicons"></g><g id="offlayer"></g><g id="fleetlayer"></g>';
   svg.innerHTML=frag;
   placeNukeIcons();                                   // anchors need the paths in the DOM for hit-testing
   var tip=document.getElementById('etip'), col=document.getElementById('emapcol');
@@ -1374,7 +1442,7 @@ function invTypeCls(t){ return t==='Nuclear / energy specialist'?'spec':t==='Act
 function invTypeShort(t){ const m={'Nuclear / energy specialist':'Specialist','Active manager':'Active','Hedge fund / multi-strategy':'Hedge fund','Passive / index':'Passive','Quant / market-maker':'Quant/MM','Broker / wealth platform':'Broker','Sovereign / pension':'Sov/Pension'}; return m[t]||'—'; }
 const INV_WDEF={t_spec:40,t_act:30,t_sov:25,t_hf:15,t_pas:0,t_qmm:0,t_brk:0,t_unk:0,per:4,cap:20,prerev:15,thr1:100,pts1:15,thr2:10,pts2:10,thr3:1,pts3:5,min:0};
 const INV_WKEY={'Nuclear / energy specialist':'t_spec','Active manager':'t_act','Sovereign / pension':'t_sov','Hedge fund / multi-strategy':'t_hf','Passive / index':'t_pas','Quant / market-maker':'t_qmm','Broker / wealth platform':'t_brk'};
-const INV_PREREV=new Set(['OKLO','NKLR','IMSR','NNE','LTBR','XE']);
+const INV_PREREV=new Set(['OKLO','NKLR','IMSR','NNE','LTBR','XE','FISN','HDRN']);
 let invView='cards', invWbSort='score', invWbDir=-1, invW=(()=>{try{const x=localStorage.getItem('nitInvW'); if(x) return {...INV_WDEF,...JSON.parse(x)};}catch(e){} return {...INV_WDEF};})();
 function invSaveW(){ try{localStorage.setItem('nitInvW', JSON.stringify(invW));}catch(e){} }
 function invScore(i){
@@ -1503,6 +1571,71 @@ function paintInv(){
   const more=document.getElementById('invmore');
   more.hidden = rows.length<=invShown;
   more.textContent = `show more (${rows.length-invShown} remaining)`;
+}
+
+
+/* ================= OFFTAKERS TAB + ENERGY OVERLAY ================= */
+const OFF = window.NIT_OFF || null;
+let offInit=false, offSec='ALL', offQ='', offSortK='gwh';
+function offGwh(v){ if(v==null) return '—'; if(v>=1000) return (v/1000).toFixed(1)+' TWh'; return Math.round(v).toLocaleString()+' GWh'; }
+function offColor(sec){ return (OFF&&OFF.sector_colors&&OFF.sector_colors[sec])||'#8A9AA6'; }
+function offRows(){
+  if(!OFF||!OFF.items) return [];
+  let rows=OFF.items.filter(i=>{
+    if(offSec!=='ALL'&&i.sector!==offSec) return false;
+    if(offQ&&!i.name.toLowerCase().includes(offQ)) return false;
+    return true; });
+  rows.sort((a,b)=> offSortK==='sites' ? ((b.n_sites||0)-(a.n_sites||0)||(b.gwh||0)-(a.gwh||0)) : ((b.gwh||0)-(a.gwh||0)));
+  return rows;
+}
+function renderOff(){
+  if(offInit){ paintOff(); return; }
+  offInit=true;
+  if(!OFF||!OFF.items){ document.getElementById('offgrid').innerHTML='<div class="invempty">No offtaker data loaded.<br>Upload <code>data/offtakers.js</code>.</div>'; return; }
+  document.getElementById('offsub').textContent=`EPA GHGRP RY${OFF.year} bulk data + curated data-centre layer · estimated demand in GWh/yr (hover for method) · annual refresh each October`;
+  document.getElementById('offsub').title=OFF.method;
+  const secs=['ALL',...Object.keys(OFF.sector_colors)];
+  const sc=document.getElementById('offsector');
+  sc.innerHTML=secs.map(x=>`<button class="invchip" data-os="${x}">${x==='ALL'?'ALL SECTORS':x}</button>`).join('');
+  sc.addEventListener('click',e=>{ const b=e.target.closest('[data-os]'); if(!b)return; offSec=b.dataset.os; paintOff(); });
+  document.getElementById('offq').addEventListener('input',e=>{ offQ=e.target.value.toLowerCase(); paintOff(); });
+  document.getElementById('offsort').addEventListener('click',()=>{ offSortK=offSortK==='gwh'?'sites':'gwh'; paintOff(); });
+  document.getElementById('offexport').addEventListener('click',()=>{
+    const esc=v=>{v=String(v==null?'':v); return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;};
+    const rows=offRows();
+    const lines=[['Rank','Offtaker','Sector','Est_GWh_yr','Est_GWh_electric','Est_GWh_thermal','Reported_tCO2e','Sites','States','Signals'].join(',')];
+    rows.forEach((i,ix)=>lines.push([ix+1,esc(i.name),i.sector,i.gwh??'',i.gwh_e??'',i.gwh_th??'',i.co2e??'',i.n_sites??'',esc((i.states||[]).join(' ')),esc((i.signals||[]).join('; '))].join(',')));
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(new Blob(['\ufeff'+lines.join('\r\n')],{type:'text/csv;charset=utf-8'}));
+    a.download=`nit_offtakers_${offSec!=='ALL'?offSec.toLowerCase()+'_':''}${new Date().toISOString().slice(0,10)}.csv`;
+    document.body.appendChild(a); a.click(); a.remove();
+  });
+  paintOff();
+}
+function paintOff(){
+  const rows=offRows();
+  document.querySelectorAll('#offsector .invchip').forEach(b=>b.classList.toggle('on',b.dataset.os===offSec));
+  document.getElementById('offsort').textContent='sort: '+(offSortK==='gwh'?'GWh':'sites');
+  const gw=rows.reduce((a,i)=>a+(i.gwh||0),0), sites=rows.reduce((a,i)=>a+(i.n_sites||0),0),
+        dcs=rows.filter(i=>i.sector==='DATA CENTERS').length, sig=rows.filter(i=>(i.signals||[]).length).length;
+  document.getElementById('offstats').innerHTML=
+    `<div class="st"><b>${offGwh(gw)}</b><span>est. demand${offSec!=='ALL'?' in selection':'/yr tracked'}</span></div>`+
+    `<div class="st"><b>${rows.length}</b><span>offtakers</span></div>`+
+    `<div class="st"><b>${sites.toLocaleString()}</b><span>industrial sites</span></div>`+
+    `<div class="st deal"><b>${sig}</b><span>nuclear procurement signals</span></div>`+
+    `<div class="st"><b>${dcs}</b><span>data-centre platforms</span></div>`;
+  document.getElementById('offgrid').innerHTML = rows.length? rows.map(i=>{
+    const c=offColor(i.sector);
+    const sitesHtml=(i.sites||[]).slice(0,5).map(sx=>`<div class="sr"><b title="${sx.n}">${sx.n}</b><span>${sx.st}</span><span>${offGwh(sx.gwh)}</span></div>`).join('');
+    return `<div class="offcard">
+      <div class="nm"><b>${i.name}</b></div>
+      <div class="invmeta"><span class="offbadge" style="color:${c};border-color:${c}">${i.sector}</span>${i.note?`<span class="fd">${i.note}</span>`:''}</div>
+      <div class="offtot">${offGwh(i.gwh)}<span>est. demand/yr</span></div>
+      ${i.gwh_e!=null&&i.gwh_th?`<div class="offsplit">≈ ${offGwh(i.gwh_e)} electric · ${offGwh(i.gwh_th)} heat</div>`:''}
+      ${(i.signals||[]).length?`<div class="offsig">◈ ${i.signals[0]}</div>`:''}
+      ${sitesHtml?`<div class="offsites">${sitesHtml}</div>`:''}
+      <div class="offfoot"><span>${i.n_sites?i.n_sites+' reporting sites · '+(i.states||[]).slice(0,8).join(' '):(i.mw?i.mw.toLocaleString()+' MW announced':'')}</span><span>${i.co2e?Math.round(i.co2e/1000).toLocaleString()+' ktCO2e':''}</span></div>
+    </div>`;}).join('') : '<div class="invempty">No offtakers match.</div>';
 }
 
 </script>
