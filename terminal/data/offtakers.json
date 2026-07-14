@@ -1,5 +1,5 @@
 {
- "generated": "2026-07-14T03:11:49+00:00",
+ "generated": "2026-07-14T07:12:38+00:00",
  "year": "2023",
  "sector_colors": {
   "STEEL": "#9DB2C4",
@@ -66,6 +66,13 @@
     "LA",
     "TX"
    ],
+   "mwth": 8099,
+   "fuels": {
+    "gas": 33477.3,
+    "pet": 116.1,
+    "oth": 50521.2
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Exxonmobil Bt Site",
@@ -73,7 +80,8 @@
      "lat": 29.739,
      "lon": -95.022,
      "co2e": 12693547,
-     "gwh": 51005.9
+     "gwh": 51005.9,
+     "mwth": 3662
     },
     {
      "n": "Exxonmobil Beaumont Refinery",
@@ -81,7 +89,8 @@
      "lat": 30.064,
      "lon": -94.07,
      "co2e": 5979837,
-     "gwh": 24028.5
+     "gwh": 24028.5,
+     "mwth": 2736
     },
     {
      "n": "Exxonmobil Baton Rouge Refinery And Chemical Pla",
@@ -89,7 +98,8 @@
      "lat": 30.485,
      "lon": -91.174,
      "co2e": 5914862,
-     "gwh": 23767.4
+     "gwh": 23767.4,
+     "mwth": 944
     },
     {
      "n": "Exxonmobil Oil Joliet Refinery",
@@ -97,7 +107,8 @@
      "lat": 41.417,
      "lon": -88.183,
      "co2e": 2601421,
-     "gwh": 10453.2
+     "gwh": 10453.2,
+     "mwth": 757
     }
    ],
    "note": "",
@@ -125,6 +136,13 @@
     "UT",
     "WA"
    ],
+   "mwth": 5652,
+   "fuels": {
+    "gas": 25452.4,
+    "pet": 7110.0,
+    "oth": 41047.3
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Galveston Bay Refinery",
@@ -132,7 +150,8 @@
      "lat": 29.378,
      "lon": -94.933,
      "co2e": 6633324,
-     "gwh": 26654.4
+     "gwh": 26654.4,
+     "mwth": 535
     },
     {
      "n": "Los Angeles Refinery (Lar)",
@@ -140,7 +159,8 @@
      "lat": 33.824,
      "lon": -118.232,
      "co2e": 6118906,
-     "gwh": 24587.3
+     "gwh": 24587.3,
+     "mwth": 1047
     },
     {
      "n": "Garyville Refinery",
@@ -148,7 +168,8 @@
      "lat": 30.061,
      "lon": -90.594,
      "co2e": 4207065,
-     "gwh": 16905.1
+     "gwh": 16905.1,
+     "mwth": 922
     },
     {
      "n": "Catlettsburg Refining, Llc",
@@ -156,7 +177,8 @@
      "lat": 38.375,
      "lon": -82.604,
      "co2e": 2238478,
-     "gwh": 8994.8
+     "gwh": 8994.8,
+     "mwth": 303
     },
     {
      "n": "Robinson Refinery",
@@ -164,7 +186,8 @@
      "lat": 39.0,
      "lon": -87.722,
      "co2e": 1826459,
-     "gwh": 7339.2
+     "gwh": 7339.2,
+     "mwth": 852
     },
     {
      "n": "Tesoro Corporation-Anacortes Refinery",
@@ -172,7 +195,8 @@
      "lat": 48.49,
      "lon": -122.564,
      "co2e": 1202267,
-     "gwh": 4831.0
+     "gwh": 4831.0,
+     "mwth": 792
     },
     {
      "n": "Detroit Refinery",
@@ -180,7 +204,8 @@
      "lat": 42.281,
      "lon": -83.153,
      "co2e": 928748,
-     "gwh": 3731.9
+     "gwh": 3731.9,
+     "mwth": 199
     },
     {
      "n": "St. Paul Park Refining Company, Llc",
@@ -188,7 +213,8 @@
      "lat": 44.851,
      "lon": -93.002,
      "co2e": 883680,
-     "gwh": 3550.8
+     "gwh": 3550.8,
+     "mwth": 52
     }
    ],
    "note": "",
@@ -208,6 +234,12 @@
     "MS",
     "OK"
    ],
+   "mwth": 4964,
+   "fuels": {
+    "gas": 28588.6,
+    "pet": 38.4
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Cf Industries Nitrogen, Llc - Donaldsonville Nit",
@@ -215,7 +247,8 @@
      "lat": 30.087,
      "lon": -90.958,
      "co2e": 9475266,
-     "gwh": 47864.1
+     "gwh": 47864.1,
+     "mwth": 3678
     },
     {
      "n": "Verdigris Plt",
@@ -223,7 +256,8 @@
      "lat": 36.234,
      "lon": -95.719,
      "co2e": 3354663,
-     "gwh": 16946.0
+     "gwh": 16946.0,
+     "mwth": 311
     },
     {
      "n": "Cf Industries Nitrogen, Llc-Port Neal Nitrogen C",
@@ -231,7 +265,8 @@
      "lat": 42.336,
      "lon": -96.378,
      "co2e": 3191237,
-     "gwh": 16120.5
+     "gwh": 16120.5,
+     "mwth": 159
     },
     {
      "n": "Cf Industries Nitrogen, Llc - Yazoo City Facilit",
@@ -239,7 +274,8 @@
      "lat": 32.905,
      "lon": -90.383,
      "co2e": 2433917,
-     "gwh": 12294.9
+     "gwh": 12294.9,
+     "mwth": 302
     },
     {
      "n": "Terra International (Oklahoma) Llc",
@@ -247,7 +283,8 @@
      "lat": 36.437,
      "lon": -99.471,
      "co2e": 1190500,
-     "gwh": 6013.8
+     "gwh": 6013.8,
+     "mwth": 234
     },
     {
      "n": "Cf Industries East Point, Llc",
@@ -255,7 +292,8 @@
      "lat": 29.965,
      "lon": -90.262,
      "co2e": 933843,
-     "gwh": 4717.3
+     "gwh": 4717.3,
+     "mwth": 280
     }
    ],
    "note": "",
@@ -277,6 +315,13 @@
     "PA",
     "WV"
    ],
+   "mwth": 8698,
+   "fuels": {
+    "gas": 24324.6,
+    "pet": 6.7,
+    "oth": 43450.1
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Cleveland-Cliffs Burns Harbor Llc",
@@ -284,7 +329,8 @@
      "lat": 41.634,
      "lon": -87.131,
      "co2e": 7644163,
-     "gwh": 28453.3
+     "gwh": 28453.3,
+     "mwth": 2217
     },
     {
      "n": "Cleveland-Cliffs Steel Llc",
@@ -292,7 +338,8 @@
      "lat": 41.68,
      "lon": -87.426,
      "co2e": 5783021,
-     "gwh": 21525.7
+     "gwh": 21525.7,
+     "mwth": 1046
     },
     {
      "n": "Cleveland-Cliffs Cleveland Works Llc",
@@ -300,7 +347,8 @@
      "lat": 41.474,
      "lon": -81.673,
      "co2e": 4269452,
-     "gwh": 15891.8
+     "gwh": 15891.8,
+     "mwth": 802
     },
     {
      "n": "Cleveland-Cliffs Steel Corporation - Middletown ",
@@ -308,7 +356,8 @@
      "lat": 39.497,
      "lon": -84.39,
      "co2e": 3512088,
-     "gwh": 13072.8
+     "gwh": 13072.8,
+     "mwth": 736
     },
     {
      "n": "Cleveland-Cliffs Steel Corporation Dearborn Work",
@@ -316,7 +365,8 @@
      "lat": 42.302,
      "lon": -83.163,
      "co2e": 1006823,
-     "gwh": 3747.6
+     "gwh": 3747.6,
+     "mwth": 1596
     },
     {
      "n": "Ironunits Llc",
@@ -324,7 +374,8 @@
      "lat": 41.675,
      "lon": -83.478,
      "co2e": 802938,
-     "gwh": 2988.7
+     "gwh": 2988.7,
+     "mwth": 495
     },
     {
      "n": "Cleveland-Cliffs Steel Llc",
@@ -332,7 +383,8 @@
      "lat": 41.651,
      "lon": -87.459,
      "co2e": 703787,
-     "gwh": 2619.7
+     "gwh": 2619.7,
+     "mwth": 143
     },
     {
      "n": "Cleveland-Cliffs Steel Corporation /Butler Works",
@@ -340,7 +392,8 @@
      "lat": 40.829,
      "lon": -79.943,
      "co2e": 269985,
-     "gwh": 1004.9
+     "gwh": 1004.9,
+     "mwth": 155
     }
    ],
    "note": "",
@@ -361,6 +414,13 @@
     "TN",
     "TX"
    ],
+   "mwth": 11583,
+   "fuels": {
+    "gas": 4103.0,
+    "pet": 39.9,
+    "oth": 36522.0
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Valero Refining Co - Cali Fornia Benicia Refiner",
@@ -368,7 +428,8 @@
      "lat": 38.072,
      "lon": -122.14,
      "co2e": 2996794,
-     "gwh": 12041.9
+     "gwh": 12041.9,
+     "mwth": 608
     },
     {
      "n": "Valero Refining - New Orleans, L.L.C.",
@@ -376,7 +437,8 @@
      "lat": 29.985,
      "lon": -90.393,
      "co2e": 2848808,
-     "gwh": 11447.2
+     "gwh": 11447.2,
+     "mwth": 1733
     },
     {
      "n": "Valero Corpus Christi Refinery",
@@ -384,7 +446,8 @@
      "lat": 27.818,
      "lon": -97.483,
      "co2e": 2752818,
-     "gwh": 11061.5
+     "gwh": 11061.5,
+     "mwth": 1313
     },
     {
      "n": "Premcor Refining Group Incorporated Portarthur R",
@@ -392,7 +455,8 @@
      "lat": 29.868,
      "lon": -93.968,
      "co2e": 2185760,
-     "gwh": 8782.9
+     "gwh": 8782.9,
+     "mwth": 1483
     },
     {
      "n": "Valero Refining Texas City Refinery",
@@ -400,7 +464,8 @@
      "lat": 29.369,
      "lon": -94.911,
      "co2e": 2159863,
-     "gwh": 8678.9
+     "gwh": 8678.9,
+     "mwth": 1515
     },
     {
      "n": "Diamond Shamrock Refining Company, L.P.",
@@ -408,7 +473,8 @@
      "lat": 35.952,
      "lon": -101.874,
      "co2e": 1366131,
-     "gwh": 5489.5
+     "gwh": 5489.5,
+     "mwth": 110
     },
     {
      "n": "Valero Refining Houston Refinery",
@@ -416,7 +482,8 @@
      "lat": 29.722,
      "lon": -95.254,
      "co2e": 1266021,
-     "gwh": 5087.2
+     "gwh": 5087.2,
+     "mwth": 764
     },
     {
      "n": "Valero Refining Co. (Prev. Premcor Refining, Pre",
@@ -424,7 +491,8 @@
      "lat": 35.086,
      "lon": -90.083,
      "co2e": 1201210,
-     "gwh": 4826.8
+     "gwh": 4826.8,
+     "mwth": 890
     }
    ],
    "note": "",
@@ -445,6 +513,13 @@
     "TX",
     "WV"
    ],
+   "mwth": 11164,
+   "fuels": {
+    "gas": 33484.3,
+    "pet": 14.9,
+    "oth": 18820.3
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Dow Texas Operations Freeport",
@@ -452,7 +527,8 @@
      "lat": 28.98,
      "lon": -95.342,
      "co2e": 5215287,
-     "gwh": 26344.9
+     "gwh": 26344.9,
+     "mwth": 4117
     },
     {
      "n": "St Charles Operations (Taft/Star) Union Carbide ",
@@ -460,7 +536,8 @@
      "lat": 29.983,
      "lon": -90.444,
      "co2e": 2757259,
-     "gwh": 13928.2
+     "gwh": 13928.2,
+     "mwth": 3025
     },
     {
      "n": "Plaquemine Cogen Facility",
@@ -468,7 +545,8 @@
      "lat": 30.322,
      "lon": -91.239,
      "co2e": 2717565,
-     "gwh": 13727.7
+     "gwh": 13727.7,
+     "mwth": 0
     },
     {
      "n": "The Dow Chemical Company -- Louisiana Operations",
@@ -476,7 +554,8 @@
      "lat": 30.321,
      "lon": -91.239,
      "co2e": 2249995,
-     "gwh": 11365.8
+     "gwh": 11365.8,
+     "mwth": 1983
     },
     {
      "n": "Sabine River Operations",
@@ -484,7 +563,8 @@
      "lat": 30.055,
      "lon": -93.754,
      "co2e": 908296,
-     "gwh": 4588.2
+     "gwh": 4588.2,
+     "mwth": 381
     },
     {
      "n": "Ucc Seadrift Operations",
@@ -492,7 +572,8 @@
      "lat": 28.511,
      "lon": -96.772,
      "co2e": 583731,
-     "gwh": 2948.7
+     "gwh": 2948.7,
+     "mwth": 790
     },
     {
      "n": "Rohm And Haas Texas Deer Park Plant",
@@ -500,7 +581,8 @@
      "lat": 29.732,
      "lon": -95.101,
      "co2e": 332103,
-     "gwh": 1677.6
+     "gwh": 1677.6,
+     "mwth": 450
     },
     {
      "n": "Dow Silicones Corporation",
@@ -508,11 +590,14 @@
      "lat": 38.707,
      "lon": -85.105,
      "co2e": 166597,
-     "gwh": 841.6
+     "gwh": 841.6,
+     "mwth": 62
     }
    ],
    "note": "",
-   "signals": []
+   "signals": [
+    "X-energy Xe-100 deployment at Seadrift, TX — NRC construction permit application filed"
+   ]
   },
   {
    "name": "Phillips 66",
@@ -532,6 +617,13 @@
     "TX",
     "WA"
    ],
+   "mwth": 8091,
+   "fuels": {
+    "gas": 4020.2,
+    "pet": 109.6,
+    "oth": 33727.4
+   },
+   "gwh_bio": 265.8,
    "sites": [
     {
      "n": "Wrb Refining Lp Wood River Refinery",
@@ -539,7 +631,8 @@
      "lat": 38.837,
      "lon": -90.067,
      "co2e": 4197008,
-     "gwh": 16864.6
+     "gwh": 16864.6,
+     "mwth": 703
     },
     {
      "n": "Phillips 66 Bayway Refinery",
@@ -547,7 +640,8 @@
      "lat": 40.64,
      "lon": -74.219,
      "co2e": 2112076,
-     "gwh": 8486.9
+     "gwh": 8486.9,
+     "mwth": 390
     },
     {
      "n": "Sweeny Refinery",
@@ -555,7 +649,8 @@
      "lat": 29.071,
      "lon": -95.75,
      "co2e": 1967425,
-     "gwh": 7905.6
+     "gwh": 7905.6,
+     "mwth": 937
     },
     {
      "n": "Phillips 66 Ponca City Refinery",
@@ -563,7 +658,8 @@
      "lat": 36.682,
      "lon": -97.09,
      "co2e": 1899802,
-     "gwh": 7633.9
+     "gwh": 7633.9,
+     "mwth": 1179
     },
     {
      "n": "Phillips 66 Los Angeles Refinery - Wilmington Pl",
@@ -571,7 +667,8 @@
      "lat": 33.774,
      "lon": -118.291,
      "co2e": 1825648,
-     "gwh": 7335.9
+     "gwh": 7335.9,
+     "mwth": 158
     },
     {
      "n": "Phillips 66 Co - Lake Charles Refinery",
@@ -579,7 +676,8 @@
      "lat": 30.242,
      "lon": -93.274,
      "co2e": 1694915,
-     "gwh": 6810.6
+     "gwh": 6810.6,
+     "mwth": 815
     },
     {
      "n": "Borger Refinery",
@@ -587,7 +685,8 @@
      "lat": 35.703,
      "lon": -101.363,
      "co2e": 1367497,
-     "gwh": 5494.9
+     "gwh": 5494.9,
+     "mwth": 2321
     },
     {
      "n": "San Francisco Refinery At Rodeo",
@@ -595,7 +694,8 @@
      "lat": 38.044,
      "lon": -122.253,
      "co2e": 1034931,
-     "gwh": 4158.6
+     "gwh": 4158.6,
+     "mwth": 459
     }
    ],
    "note": "",
@@ -618,6 +718,12 @@
     "MI",
     "TX"
    ],
+   "mwth": 910,
+   "fuels": {
+    "gas": 3422.8,
+    "oth": 269.5
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Air Products Port Arthur Facility",
@@ -625,7 +731,8 @@
      "lat": 29.866,
      "lon": -93.971,
      "co2e": 2335031,
-     "gwh": 11795.4
+     "gwh": 11795.4,
+     "mwth": 757
     },
     {
      "n": "Air Products And Chemicals - Norco Smr",
@@ -633,7 +740,8 @@
      "lat": 30.017,
      "lon": -90.409,
      "co2e": 1102168,
-     "gwh": 5567.6
+     "gwh": 5567.6,
+     "mwth": 0
     },
     {
      "n": "Air Products Baytown 3 Facility",
@@ -641,7 +749,8 @@
      "lat": 29.752,
      "lon": -94.909,
      "co2e": 1020473,
-     "gwh": 5154.9
+     "gwh": 5154.9,
+     "mwth": 0
     },
     {
      "n": "Air Products And Chemicals Inc - Garyville",
@@ -649,7 +758,8 @@
      "lat": 30.1,
      "lon": -90.649,
      "co2e": 987351,
-     "gwh": 4987.6
+     "gwh": 4987.6,
+     "mwth": 0
     },
     {
      "n": "Air Products And Chemicals, Inc. - Br Smr",
@@ -657,7 +767,8 @@
      "lat": 30.488,
      "lon": -91.164,
      "co2e": 916362,
-     "gwh": 4629.0
+     "gwh": 4629.0,
+     "mwth": 0
     },
     {
      "n": "Air Products West Coast Hydrogen Llc - Torrance",
@@ -665,7 +776,8 @@
      "lat": 33.869,
      "lon": -118.332,
      "co2e": 881224,
-     "gwh": 4451.5
+     "gwh": 4451.5,
+     "mwth": 0
     },
     {
      "n": "Air Products And Chemicals Inc. Luling Smr Facil",
@@ -673,7 +785,8 @@
      "lat": 29.931,
      "lon": -90.347,
      "co2e": 861624,
-     "gwh": 4352.5
+     "gwh": 4352.5,
+     "mwth": 0
     },
     {
      "n": "Air Products Wilmington Hydrogen Plant",
@@ -681,7 +794,8 @@
      "lat": 33.781,
      "lon": -118.241,
      "co2e": 827474,
-     "gwh": 4180.0
+     "gwh": 4180.0,
+     "mwth": 0
     }
    ],
    "note": "",
@@ -703,6 +817,13 @@
     "MI",
     "PA"
    ],
+   "mwth": 6270,
+   "fuels": {
+    "gas": 12974.2,
+    "pet": 3932.9,
+    "oth": 35651.2
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Us Steel Corp - Gary Works",
@@ -710,7 +831,8 @@
      "lat": 41.613,
      "lon": -87.328,
      "co2e": 10928816,
-     "gwh": 40679.5
+     "gwh": 40679.5,
+     "mwth": 2852
     },
     {
      "n": "Us Steel (Edgar Thomson)",
@@ -718,7 +840,8 @@
      "lat": 40.392,
      "lon": -79.856,
      "co2e": 3576537,
-     "gwh": 13312.7
+     "gwh": 13312.7,
+     "mwth": 978
     },
     {
      "n": "Us Steel - Granite City",
@@ -726,7 +849,8 @@
      "lat": 38.695,
      "lon": -90.137,
      "co2e": 1757626,
-     "gwh": 6542.3
+     "gwh": 6542.3,
+     "mwth": 830
     },
     {
      "n": "Us Steel (Clairton Coke)",
@@ -734,7 +858,8 @@
      "lat": 40.31,
      "lon": -79.882,
      "co2e": 769566,
-     "gwh": 2864.5
+     "gwh": 2864.5,
+     "mwth": 1057
     },
     {
      "n": "Big River Steel Llc",
@@ -742,7 +867,8 @@
      "lat": 35.697,
      "lon": -90.037,
      "co2e": 380303,
-     "gwh": 1415.6
+     "gwh": 1415.6,
+     "mwth": 64
     },
     {
      "n": "Us Steel - Irvin Works",
@@ -750,7 +876,8 @@
      "lat": 40.337,
      "lon": -79.911,
      "co2e": 362318,
-     "gwh": 1348.6
+     "gwh": 1348.6,
+     "mwth": 107
     },
     {
      "n": "Us Steel (Fairfield Works)",
@@ -758,7 +885,8 @@
      "lat": 33.483,
      "lon": -86.926,
      "co2e": 243031,
-     "gwh": 904.6
+     "gwh": 904.6,
+     "mwth": 312
     },
     {
      "n": "Us Steel - Great Lakes Works",
@@ -766,7 +894,8 @@
      "lat": 42.258,
      "lon": -83.139,
      "co2e": 73499,
-     "gwh": 273.6
+     "gwh": 273.6,
+     "mwth": 50
     }
    ],
    "note": "",
@@ -791,6 +920,14 @@
     "NE",
     "OH"
    ],
+   "mwth": 1509,
+   "fuels": {
+    "gas": 26280.8,
+    "coal": 10312.3,
+    "pet": 2.4,
+    "oth": 5218.6
+   },
+   "gwh_bio": 436.1,
    "sites": [
     {
      "n": "Archer Daniels Midland Co.",
@@ -798,7 +935,8 @@
      "lat": 39.867,
      "lon": -88.885,
      "co2e": 3819217,
-     "gwh": 19216.3
+     "gwh": 19216.3,
+     "mwth": 167
     },
     {
      "n": "Adm Corn Processing",
@@ -806,7 +944,8 @@
      "lat": 41.919,
      "lon": -91.686,
      "co2e": 2746519,
-     "gwh": 13819.0
+     "gwh": 13819.0,
+     "mwth": 166
     },
     {
      "n": "Adm Corn Processing",
@@ -814,7 +953,8 @@
      "lat": 41.82,
      "lon": -90.212,
      "co2e": 1945777,
-     "gwh": 9790.1
+     "gwh": 9790.1,
+     "mwth": 80
     },
     {
      "n": "Archer Daniel Midland Company",
@@ -822,7 +962,8 @@
      "lat": 41.421,
      "lon": -97.289,
      "co2e": 1115108,
-     "gwh": 5610.6
+     "gwh": 5610.6,
+     "mwth": 86
     },
     {
      "n": "Archer Daniels Midland",
@@ -830,7 +971,8 @@
      "lat": 44.471,
      "lon": -95.784,
      "co2e": 165659,
-     "gwh": 833.5
+     "gwh": 833.5,
+     "mwth": 100
     },
     {
      "n": "Adm Quincy",
@@ -838,7 +980,8 @@
      "lat": 39.904,
      "lon": -91.411,
      "co2e": 112816,
-     "gwh": 567.6
+     "gwh": 567.6,
+     "mwth": 40
     },
     {
      "n": "Adm Soybean Processing - Des Moines",
@@ -846,7 +989,8 @@
      "lat": 41.626,
      "lon": -93.583,
      "co2e": 108458,
-     "gwh": 545.7
+     "gwh": 545.7,
+     "mwth": 177
     },
     {
      "n": "Archer Daniels Midland Company",
@@ -854,7 +998,8 @@
      "lat": 40.867,
      "lon": -96.619,
      "co2e": 99125,
-     "gwh": 498.7
+     "gwh": 498.7,
+     "mwth": 164
     }
    ],
    "note": "",
@@ -873,6 +1018,13 @@
     "MS",
     "UT"
    ],
+   "mwth": 2710,
+   "fuels": {
+    "gas": 9455.6,
+    "pet": 1.9,
+    "oth": 21167.7
+   },
+   "gwh_bio": 79.4,
    "sites": [
     {
      "n": "Chevron Pascagoula Refinery",
@@ -880,7 +1032,8 @@
      "lat": 30.344,
      "lon": -88.494,
      "co2e": 4784595,
-     "gwh": 19225.7
+     "gwh": 19225.7,
+     "mwth": 842
     },
     {
      "n": "Chevron Prods.Co. Richmond Refy",
@@ -888,7 +1041,8 @@
      "lat": 37.939,
      "lon": -122.396,
      "co2e": 4366329,
-     "gwh": 17545.0
+     "gwh": 17545.0,
+     "mwth": 651
     },
     {
      "n": "Chevron Products, El Segundo Refinery",
@@ -896,7 +1050,8 @@
      "lat": 33.908,
      "lon": -118.409,
      "co2e": 3250629,
-     "gwh": 13061.9
+     "gwh": 13061.9,
+     "mwth": 954
     },
     {
      "n": "Chevron Products Co - Salt Lake Refinery",
@@ -904,7 +1059,8 @@
      "lat": 40.825,
      "lon": -111.931,
      "co2e": 491480,
-     "gwh": 1974.9
+     "gwh": 1974.9,
+     "mwth": 262
     }
    ],
    "note": "",
@@ -923,6 +1079,13 @@
     "NY",
     "WA"
    ],
+   "mwth": 65,
+   "fuels": {
+    "gas": 398.1,
+    "coal": 13465.0,
+    "pet": 0.1
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Alcoa Inc - Warrick Operations",
@@ -930,7 +1093,8 @@
      "lat": 37.915,
      "lon": -87.333,
      "co2e": 4867519,
-     "gwh": 42802.0
+     "gwh": 42802.0,
+     "mwth": 26
     },
     {
      "n": "Alcoa Usa Corp.",
@@ -938,7 +1102,8 @@
      "lat": 44.966,
      "lon": -74.894,
      "co2e": 285852,
-     "gwh": 2513.6
+     "gwh": 2513.6,
+     "mwth": 14
     },
     {
      "n": "Alcoa Intalco Works",
@@ -946,7 +1111,8 @@
      "lat": 48.846,
      "lon": -122.706,
      "co2e": 8533,
-     "gwh": 75.0
+     "gwh": 75.0,
+     "mwth": 25
     }
    ],
    "note": "",
@@ -972,6 +1138,11 @@
     "TX",
     "UT"
    ],
+   "mwth": 341,
+   "fuels": {
+    "gas": 1085.4
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Linde - Whiting, In 5&6",
@@ -979,7 +1150,8 @@
      "lat": 41.669,
      "lon": -87.473,
      "co2e": 1624864,
-     "gwh": 8208.0
+     "gwh": 8208.0,
+     "mwth": 1
     },
     {
      "n": "Linde Facility 0379",
@@ -987,7 +1159,8 @@
      "lat": 29.89,
      "lon": -93.937,
      "co2e": 1050581,
-     "gwh": 5307.0
+     "gwh": 5307.0,
+     "mwth": 99
     },
     {
      "n": "Linde Inc, St. Charles Facility",
@@ -995,7 +1168,8 @@
      "lat": 30.001,
      "lon": -90.395,
      "co2e": 1031341,
-     "gwh": 5209.8
+     "gwh": 5209.8,
+     "mwth": 107
     },
     {
      "n": "Linde- Sweeny Hydrogen Plant",
@@ -1003,7 +1177,8 @@
      "lat": 29.063,
      "lon": -95.743,
      "co2e": 986226,
-     "gwh": 4981.9
+     "gwh": 4981.9,
+     "mwth": 0
     },
     {
      "n": "Linde Clear Lake Hyco Plant",
@@ -1011,7 +1186,8 @@
      "lat": 29.635,
      "lon": -95.069,
      "co2e": 878234,
-     "gwh": 4436.4
+     "gwh": 4436.4,
+     "mwth": 0
     },
     {
      "n": "Linde Facility 0497",
@@ -1019,7 +1195,8 @@
      "lat": 29.89,
      "lon": -93.948,
      "co2e": 692578,
-     "gwh": 3498.5
+     "gwh": 3498.5,
+     "mwth": 0
     },
     {
      "n": "Linde Inc",
@@ -1027,7 +1204,8 @@
      "lat": 41.637,
      "lon": -83.495,
      "co2e": 593125,
-     "gwh": 2996.2
+     "gwh": 2996.2,
+     "mwth": 0
     },
     {
      "n": "Linde Inc",
@@ -1035,7 +1213,8 @@
      "lat": 30.139,
      "lon": -93.527,
      "co2e": 500244,
-     "gwh": 2527.0
+     "gwh": 2527.0,
+     "mwth": 0
     }
    ],
    "note": "",
@@ -1058,6 +1237,13 @@
     "SC",
     "TX"
    ],
+   "mwth": 5675,
+   "fuels": {
+    "gas": 16281.1,
+    "pet": 311.4,
+    "oth": 858.4
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Koch Feritlizer Enid Llc Enid Nitrogen Plt",
@@ -1065,7 +1251,8 @@
      "lat": 36.379,
      "lon": -97.765,
      "co2e": 2379962,
-     "gwh": 12022.3
+     "gwh": 12022.3,
+     "mwth": 396
     },
     {
      "n": "Inv Nylon Chemicals Americas Victoria Site",
@@ -1073,7 +1260,8 @@
      "lat": 28.689,
      "lon": -96.942,
      "co2e": 1518293,
-     "gwh": 7669.6
+     "gwh": 7669.6,
+     "mwth": 1209
     },
     {
      "n": "Koch Fertilizer Ft. Dodge, Llc",
@@ -1081,7 +1269,8 @@
      "lat": 42.499,
      "lon": -94.017,
      "co2e": 1025233,
-     "gwh": 5178.9
+     "gwh": 5178.9,
+     "mwth": 178
     },
     {
      "n": "Koch Fertilizer Beatrice, Llc",
@@ -1089,7 +1278,8 @@
      "lat": 40.319,
      "lon": -96.841,
      "co2e": 795150,
-     "gwh": 4016.7
+     "gwh": 4016.7,
+     "mwth": 181
     },
     {
      "n": "Koch Methanol St. James",
@@ -1097,7 +1287,8 @@
      "lat": 29.983,
      "lon": -90.876,
      "co2e": 652496,
-     "gwh": 3296.1
+     "gwh": 3296.1,
+     "mwth": 2256
     },
     {
      "n": "Inv Propylene, Llc",
@@ -1105,7 +1296,8 @@
      "lat": 29.706,
      "lon": -95.251,
      "co2e": 556363,
-     "gwh": 2810.5
+     "gwh": 2810.5,
+     "mwth": 687
     },
     {
      "n": "Koch Fertilizer Dodge City, Llc",
@@ -1113,7 +1305,8 @@
      "lat": 37.78,
      "lon": -100.006,
      "co2e": 541912,
-     "gwh": 2737.5
+     "gwh": 2737.5,
+     "mwth": 201
     },
     {
      "n": "Invista Orange Site",
@@ -1121,7 +1314,8 @@
      "lat": 30.054,
      "lon": -93.752,
      "co2e": 159943,
-     "gwh": 807.9
+     "gwh": 807.9,
+     "mwth": 537
     }
    ],
    "note": "",
@@ -1141,6 +1335,13 @@
     "LA",
     "NJ"
    ],
+   "mwth": 3015,
+   "fuels": {
+    "gas": 11467.2,
+    "pet": 132.4,
+    "oth": 14272.6
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Delaware City Refinery",
@@ -1148,7 +1349,8 @@
      "lat": 39.594,
      "lon": -75.634,
      "co2e": 3416063,
-     "gwh": 13726.6
+     "gwh": 13726.6,
+     "mwth": 686
     },
     {
      "n": "Martinez Refining Company Llc",
@@ -1156,7 +1358,8 @@
      "lat": 38.017,
      "lon": -122.115,
      "co2e": 2356381,
-     "gwh": 9468.5
+     "gwh": 9468.5,
+     "mwth": 493
     },
     {
      "n": "Chalmette Refining Llc - Chalmette Refinery",
@@ -1164,7 +1367,8 @@
      "lat": 29.936,
      "lon": -89.973,
      "co2e": 1568512,
-     "gwh": 6302.7
+     "gwh": 6302.7,
+     "mwth": 190
     },
     {
      "n": "Torrance Refining Company Llc",
@@ -1172,7 +1376,8 @@
      "lat": 33.858,
      "lon": -118.337,
      "co2e": 1204549,
-     "gwh": 4840.2
+     "gwh": 4840.2,
+     "mwth": 426
     },
     {
      "n": "Paulsboro Refining Company Llc",
@@ -1180,7 +1385,8 @@
      "lat": 39.84,
      "lon": -75.258,
      "co2e": 740857,
-     "gwh": 2977.0
+     "gwh": 2977.0,
+     "mwth": 1220
     }
    ],
    "note": "",
@@ -1200,6 +1406,13 @@
     "LA",
     "TX"
    ],
+   "mwth": 9203,
+   "fuels": {
+    "gas": 7237.8,
+    "pet": 674.8,
+    "oth": 15403.6
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Channelview Complex",
@@ -1207,7 +1420,8 @@
      "lat": 29.831,
      "lon": -95.116,
      "co2e": 1940433,
-     "gwh": 9802.0
+     "gwh": 9802.0,
+     "mwth": 2967
     },
     {
      "n": "Equistar Chemicals Laporte Complex",
@@ -1215,7 +1429,8 @@
      "lat": 29.717,
      "lon": -95.068,
      "co2e": 1315541,
-     "gwh": 6645.4
+     "gwh": 6645.4,
+     "mwth": 1619
     },
     {
      "n": "Equistar Corpus Christi Plant",
@@ -1223,7 +1438,8 @@
      "lat": 27.81,
      "lon": -97.594,
      "co2e": 1311004,
-     "gwh": 6622.5
+     "gwh": 6622.5,
+     "mwth": 1249
     },
     {
      "n": "Louisiana Integrated Polyethylene Jv Llc",
@@ -1231,7 +1447,8 @@
      "lat": 30.245,
      "lon": -93.276,
      "co2e": 965533,
-     "gwh": 4877.4
+     "gwh": 4877.4,
+     "mwth": 431
     },
     {
      "n": "Equistar Chemicals Lp",
@@ -1239,7 +1456,8 @@
      "lat": 41.807,
      "lon": -90.296,
      "co2e": 502998,
-     "gwh": 2540.9
+     "gwh": 2540.9,
+     "mwth": 744
     },
     {
      "n": "Lyondell Chemical Channelview",
@@ -1247,7 +1465,8 @@
      "lat": 29.831,
      "lon": -95.116,
      "co2e": 449254,
-     "gwh": 2269.4
+     "gwh": 2269.4,
+     "mwth": 1234
     },
     {
      "n": "Equistar Chemicals Lp",
@@ -1255,7 +1474,8 @@
      "lat": 41.413,
      "lon": -88.33,
      "co2e": 268440,
-     "gwh": 1356.0
+     "gwh": 1356.0,
+     "mwth": 230
     },
     {
      "n": "Equistar Chemicals Lp",
@@ -1263,7 +1483,8 @@
      "lat": 30.193,
      "lon": -93.325,
      "co2e": 126420,
-     "gwh": 638.6
+     "gwh": 638.6,
+     "mwth": 151
     }
    ],
    "note": "",
@@ -1282,6 +1503,13 @@
     "OH",
     "WA"
    ],
+   "mwth": 4645,
+   "fuels": {
+    "gas": 8893.0,
+    "pet": 0.9,
+    "oth": 13391.9
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Bp Whiting Business Unit",
@@ -1289,7 +1517,8 @@
      "lat": 41.67,
      "lon": -87.48,
      "co2e": 5220291,
-     "gwh": 20976.5
+     "gwh": 20976.5,
+     "mwth": 2346
     },
     {
      "n": "Bp Cherry Point Refinery",
@@ -1297,7 +1526,8 @@
      "lat": 48.884,
      "lon": -122.735,
      "co2e": 2179352,
-     "gwh": 8757.2
+     "gwh": 8757.2,
+     "mwth": 1504
     },
     {
      "n": "Ohio Refining Company Llc",
@@ -1305,7 +1535,8 @@
      "lat": 41.679,
      "lon": -83.454,
      "co2e": 887438,
-     "gwh": 3566.0
+     "gwh": 3566.0,
+     "mwth": 795
     }
    ],
    "note": "",
@@ -1324,6 +1555,13 @@
     "LA",
     "TX"
    ],
+   "mwth": 5509,
+   "fuels": {
+    "gas": 132.8,
+    "pet": 8.3,
+    "oth": 18886.0
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Citgo Petroleum Corp - Lake Charles Manufacturin",
@@ -1331,7 +1569,8 @@
      "lat": 30.189,
      "lon": -93.325,
      "co2e": 4476976,
-     "gwh": 17989.6
+     "gwh": 17989.6,
+     "mwth": 4108
     },
     {
      "n": "Lemont Refinery",
@@ -1339,7 +1578,8 @@
      "lat": 41.644,
      "lon": -88.047,
      "co2e": 1857829,
-     "gwh": 7465.2
+     "gwh": 7465.2,
+     "mwth": 831
     },
     {
      "n": "Citgo Corpus Christi Refinery East Plant",
@@ -1347,7 +1587,8 @@
      "lat": 27.81,
      "lon": -97.426,
      "co2e": 1063388,
-     "gwh": 4273.0
+     "gwh": 4273.0,
+     "mwth": 440
     },
     {
      "n": "Citgo Corpus Christi Refinery - West Plant",
@@ -1355,7 +1596,8 @@
      "lat": 27.81,
      "lon": -97.498,
      "co2e": 420043,
-     "gwh": 1687.8
+     "gwh": 1687.8,
+     "mwth": 130
     }
    ],
    "note": "",
@@ -1375,6 +1617,12 @@
     "MI",
     "TX"
    ],
+   "mwth": 2751,
+   "fuels": {
+    "gas": 28561.3,
+    "pet": 1.6
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Occidental Chemical Corporation - Taft Facility",
@@ -1382,7 +1630,8 @@
      "lat": 29.986,
      "lon": -90.457,
      "co2e": 2557974,
-     "gwh": 12921.5
+     "gwh": 12921.5,
+     "mwth": 3
     },
     {
      "n": "Occidental Chemical Corporation Ingleside Plant",
@@ -1390,7 +1639,8 @@
      "lat": 27.887,
      "lon": -97.233,
      "co2e": 1803754,
-     "gwh": 9111.6
+     "gwh": 9111.6,
+     "mwth": 1201
     },
     {
      "n": "Oxy Vinyls Lp - La Porte Vcm Plant",
@@ -1398,7 +1648,8 @@
      "lat": 29.724,
      "lon": -95.074,
      "co2e": 1231291,
-     "gwh": 6219.8
+     "gwh": 6219.8,
+     "mwth": 1105
     },
     {
      "n": "Occidental Chemical Corporation - Geismar Plant",
@@ -1406,7 +1657,8 @@
      "lat": 30.182,
      "lon": -90.987,
      "co2e": 148931,
-     "gwh": 752.3
+     "gwh": 752.3,
+     "mwth": 74
     },
     {
      "n": "Oxy Vinyls, Lp- Pasadena Facility",
@@ -1414,7 +1666,8 @@
      "lat": 29.712,
      "lon": -95.147,
      "co2e": 115124,
-     "gwh": 581.5
+     "gwh": 581.5,
+     "mwth": 60
     },
     {
      "n": "Occidental Chemical Corporation",
@@ -1422,7 +1675,8 @@
      "lat": 37.582,
      "lon": -97.425,
      "co2e": 106678,
-     "gwh": 538.9
+     "gwh": 538.9,
+     "mwth": 120
     },
     {
      "n": "Oxy Vinyls Lp - Deer Park Vcm Facility",
@@ -1430,7 +1684,8 @@
      "lat": 29.725,
      "lon": -95.113,
      "co2e": 79967,
-     "gwh": 403.9
+     "gwh": 403.9,
+     "mwth": 21
     },
     {
      "n": "Occidental Chemical Corp - Convent Facility",
@@ -1438,7 +1693,8 @@
      "lat": 30.055,
      "lon": -90.831,
      "co2e": 79835,
-     "gwh": 403.3
+     "gwh": 403.3,
+     "mwth": 93
     }
    ],
    "note": "",
@@ -1459,6 +1715,12 @@
     "TX",
     "WA"
    ],
+   "mwth": 746,
+   "fuels": {
+    "gas": 3261.9,
+    "oth": 5981.3
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Bayou Cogeneration Plant",
@@ -1466,7 +1728,8 @@
      "lat": 29.622,
      "lon": -95.046,
      "co2e": 2017198,
-     "gwh": 10189.8
+     "gwh": 10189.8,
+     "mwth": 13
     },
     {
      "n": "Air Liquide Large Industries Us Lp - Rodeo Hydro",
@@ -1474,7 +1737,8 @@
      "lat": 38.048,
      "lon": -122.257,
      "co2e": 821122,
-     "gwh": 4147.9
+     "gwh": 4147.9,
+     "mwth": 0
     },
     {
      "n": "La Porte Steam Methane Reformer",
@@ -1482,7 +1746,8 @@
      "lat": 29.651,
      "lon": -95.054,
      "co2e": 780670,
-     "gwh": 3943.5
+     "gwh": 3943.5,
+     "mwth": 0
     },
     {
      "n": "Air Liquid Large Industries Us, Lp",
@@ -1490,7 +1755,8 @@
      "lat": 33.906,
      "lon": -118.402,
      "co2e": 617757,
-     "gwh": 3120.6
+     "gwh": 3120.6,
+     "mwth": 0
     },
     {
      "n": "Air Liquide America Corp",
@@ -1498,7 +1764,8 @@
      "lat": 32.448,
      "lon": -94.688,
      "co2e": 481525,
-     "gwh": 2432.4
+     "gwh": 2432.4,
+     "mwth": 0
     },
     {
      "n": "Air Liquide Large Industries Us - Smr",
@@ -1506,7 +1773,8 @@
      "lat": 29.621,
      "lon": -95.044,
      "co2e": 399378,
-     "gwh": 2017.4
+     "gwh": 2017.4,
+     "mwth": 0
     },
     {
      "n": "Air Liquide America Corp.",
@@ -1514,7 +1782,8 @@
      "lat": 30.21,
      "lon": -90.991,
      "co2e": 370413,
-     "gwh": 1871.1
+     "gwh": 1871.1,
+     "mwth": 435
     },
     {
      "n": "Air Liquide - Corpus Christi Smr",
@@ -1522,7 +1791,8 @@
      "lat": 27.814,
      "lon": -97.472,
      "co2e": 342879,
-     "gwh": 1732.0
+     "gwh": 1732.0,
+     "mwth": 0
     }
    ],
    "note": "",
@@ -1543,6 +1813,14 @@
     "TN",
     "TX"
    ],
+   "mwth": 1309,
+   "fuels": {
+    "gas": 18158.5,
+    "coal": 2293.7,
+    "pet": 1200.8,
+    "oth": 2193.0
+   },
+   "gwh_bio": 97.3,
    "sites": [
     {
      "n": "Eastman Chemical Company",
@@ -1550,7 +1828,8 @@
      "lat": 36.519,
      "lon": -82.535,
      "co2e": 3679916,
-     "gwh": 18589.0
+     "gwh": 18589.0,
+     "mwth": 192
     },
     {
      "n": "Eastman Chemical - Texas Operations",
@@ -1558,7 +1837,8 @@
      "lat": 32.447,
      "lon": -94.692,
      "co2e": 2220078,
-     "gwh": 11214.7
+     "gwh": 11214.7,
+     "mwth": 660
     },
     {
      "n": "Taminco Us Llc",
@@ -1566,7 +1846,8 @@
      "lat": 30.251,
      "lon": -91.092,
      "co2e": 48424,
-     "gwh": 244.6
+     "gwh": 244.6,
+     "mwth": 31
     },
     {
      "n": "Ineos Acetyls Chemicals Texas City Inc",
@@ -1574,7 +1855,8 @@
      "lat": 29.38,
      "lon": -94.894,
      "co2e": 45803,
-     "gwh": 231.4
+     "gwh": 231.4,
+     "mwth": 321
     },
     {
      "n": "Taminco Us Llc",
@@ -1582,7 +1864,8 @@
      "lat": 30.581,
      "lon": -87.138,
      "co2e": 38765,
-     "gwh": 195.8
+     "gwh": 195.8,
+     "mwth": 84
     },
     {
      "n": "Solutia Inc Anniston Plant",
@@ -1590,7 +1873,8 @@
      "lat": 33.651,
      "lon": -85.852,
      "co2e": 2130,
-     "gwh": 10.8
+     "gwh": 10.8,
+     "mwth": 22
     }
    ],
    "note": "",
@@ -1621,6 +1905,14 @@
     "VT",
     "WA"
    ],
+   "mwth": 5391,
+   "fuels": {
+    "gas": 14446.9,
+    "coal": 1795.6,
+    "pet": 1950.1,
+    "oth": 2536.1
+   },
+   "gwh_bio": 12520.0,
    "sites": [
     {
      "n": "Westrock Virginia, Covington",
@@ -1628,7 +1920,8 @@
      "lat": 37.8,
      "lon": -79.995,
      "co2e": 970084,
-     "gwh": 4948.9
+     "gwh": 4948.9,
+     "mwth": 536
     },
     {
      "n": "Westrock Cp, Llc - West Point Mill",
@@ -1636,7 +1929,8 @@
      "lat": 37.539,
      "lon": -76.805,
      "co2e": 587189,
-     "gwh": 2995.5
+     "gwh": 2995.5,
+     "mwth": 51
     },
     {
      "n": "Westrock Texas, L.P.",
@@ -1644,7 +1938,8 @@
      "lat": 30.339,
      "lon": -94.066,
      "co2e": 477024,
-     "gwh": 2433.5
+     "gwh": 2433.5,
+     "mwth": 585
     },
     {
      "n": "Westrock Coated Board, Llc",
@@ -1652,7 +1947,8 @@
      "lat": 32.175,
      "lon": -85.031,
      "co2e": 437315,
-     "gwh": 2230.9
+     "gwh": 2230.9,
+     "mwth": 848
     },
     {
      "n": "Westrock Cp, Llc - Fernandina Beach Mill (Former",
@@ -1660,7 +1956,8 @@
      "lat": 30.676,
      "lon": -81.458,
      "co2e": 380268,
-     "gwh": 1939.9
+     "gwh": 1939.9,
+     "mwth": 193
     },
     {
      "n": "Westrock Cp, Llc - Hodge Mill",
@@ -1668,7 +1965,8 @@
      "lat": 32.277,
      "lon": -92.727,
      "co2e": 372721,
-     "gwh": 1901.4
+     "gwh": 1901.4,
+     "mwth": 393
     },
     {
      "n": "Westrock Charleston Kraft, Llc",
@@ -1676,7 +1974,8 @@
      "lat": 32.899,
      "lon": -79.969,
      "co2e": 349147,
-     "gwh": 1781.2
+     "gwh": 1781.2,
+     "mwth": 168
     },
     {
      "n": "Westrock Cp, Llc - Florence Mill",
@@ -1684,7 +1983,8 @@
      "lat": 34.152,
      "lon": -79.559,
      "co2e": 339409,
-     "gwh": 1731.5
+     "gwh": 1731.5,
+     "mwth": 227
     }
    ],
    "note": "",
@@ -1702,6 +2002,13 @@
     "LA",
     "TX"
    ],
+   "mwth": 5492,
+   "fuels": {
+    "gas": 15788.6,
+    "pet": 110.3,
+    "oth": 6102.0
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Formosa Point Comfort Plant",
@@ -1709,7 +2016,8 @@
      "lat": 28.692,
      "lon": -96.542,
      "co2e": 5290825,
-     "gwh": 26726.5
+     "gwh": 26726.5,
+     "mwth": 4847
     },
     {
      "n": "Formosa Plastics Corporation Louisiana",
@@ -1717,7 +2025,8 @@
      "lat": 30.502,
      "lon": -91.186,
      "co2e": 320232,
-     "gwh": 1617.6
+     "gwh": 1617.6,
+     "mwth": 645
     }
    ],
    "note": "",
@@ -1735,6 +2044,13 @@
     "MN",
     "TX"
    ],
+   "mwth": 1724,
+   "fuels": {
+    "gas": 6730.6,
+    "pet": 4.6,
+    "oth": 9075.4
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Flint Hills Resources Pine Bend Refinery",
@@ -1742,7 +2058,8 @@
      "lat": 44.764,
      "lon": -93.039,
      "co2e": 3945753,
-     "gwh": 15855.0
+     "gwh": 15855.0,
+     "mwth": 645
     },
     {
      "n": "Flint Hills Resources Corpus Christi West Plant",
@@ -1750,7 +2067,8 @@
      "lat": 27.832,
      "lon": -97.526,
      "co2e": 2486742,
-     "gwh": 9992.4
+     "gwh": 9992.4,
+     "mwth": 856
     },
     {
      "n": "Flint Hills Resources Corpus Christi East Plant",
@@ -1758,7 +2076,8 @@
      "lat": 27.802,
      "lon": -97.424,
      "co2e": 535019,
-     "gwh": 2149.8
+     "gwh": 2149.8,
+     "mwth": 223
     }
    ],
    "note": "",
@@ -1777,6 +2096,13 @@
     "LA",
     "TX"
    ],
+   "mwth": 3895,
+   "fuels": {
+    "gas": 3039.9,
+    "pet": 7.1,
+    "oth": 14093.9
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Chevron Phillips Chemical Company Lp Cedar Bayou",
@@ -1784,7 +2110,8 @@
      "lat": 29.826,
      "lon": -94.922,
      "co2e": 2103735,
-     "gwh": 10627.0
+     "gwh": 10627.0,
+     "mwth": 985
     },
     {
      "n": "Chevron Phillips - Sweeny Complex",
@@ -1792,7 +2119,8 @@
      "lat": 29.082,
      "lon": -95.742,
      "co2e": 1002446,
-     "gwh": 5063.8
+     "gwh": 5063.8,
+     "mwth": 2112
     },
     {
      "n": "Chevron Phillips Chemical Company, Lp Port Arthu",
@@ -1800,7 +2128,8 @@
      "lat": 29.85,
      "lon": -93.977,
      "co2e": 861803,
-     "gwh": 4353.4
+     "gwh": 4353.4,
+     "mwth": 492
     },
     {
      "n": "Americas Styrenics Llc - St James Plant",
@@ -1808,7 +2137,8 @@
      "lat": 30.08,
      "lon": -90.916,
      "co2e": 771321,
-     "gwh": 3896.3
+     "gwh": 3896.3,
+     "mwth": 258
     },
     {
      "n": "Chevron Oronite Oak Point",
@@ -1816,7 +2146,8 @@
      "lat": 29.808,
      "lon": -90.013,
      "co2e": 141735,
-     "gwh": 716.0
+     "gwh": 716.0,
+     "mwth": 40
     },
     {
      "n": "Reg Seneca, Llc",
@@ -1824,101 +2155,8 @@
      "lat": 41.307,
      "lon": -88.59,
      "co2e": 25966,
-     "gwh": 131.2
-    }
-   ],
-   "note": "",
-   "signals": []
-  },
-  {
-   "name": "Independent / undisclosed",
-   "sector": "PULP & PAPER",
-   "gwh": 24490.7,
-   "gwh_e": 720.1,
-   "gwh_th": 23770.5,
-   "co2e": 4800700,
-   "n_sites": 28,
-   "states": [
-    "AL",
-    "AR",
-    "FL",
-    "GA",
-    "ID",
-    "KY",
-    "ME",
-    "MI",
-    "MS",
-    "NC",
-    "OR",
-    "TN",
-    "VA",
-    "WA",
-    "WV"
-   ],
-   "sites": [
-    {
-     "n": "Brunswick Cellulose, Inc.",
-     "st": "GA",
-     "lat": 31.173,
-     "lon": -81.519,
-     "co2e": 429604,
-     "gwh": 2191.6
-    },
-    {
-     "n": "Blue Ridge Paper Products Llc",
-     "st": "NC",
-     "lat": 35.535,
-     "lon": -82.841,
-     "co2e": 400763,
-     "gwh": 2044.5
-    },
-    {
-     "n": "Georgia-Pacific Naheola Llc",
-     "st": "AL",
-     "lat": 32.242,
-     "lon": -88.017,
-     "co2e": 382793,
-     "gwh": 1952.8
-    },
-    {
-     "n": "Alabama River Cellulose, Llc",
-     "st": "AL",
-     "lat": 31.58,
-     "lon": -87.49,
-     "co2e": 378850,
-     "gwh": 1932.7
-    },
-    {
-     "n": "Foley Cellulose, Llc",
-     "st": "FL",
-     "lat": 30.069,
-     "lon": -83.526,
-     "co2e": 316883,
-     "gwh": 1616.6
-    },
-    {
-     "n": "International Paper-Riegelwood",
-     "st": "NC",
-     "lat": 34.353,
-     "lon": -78.203,
-     "co2e": 301786,
-     "gwh": 1539.6
-    },
-    {
-     "n": "Clearwater Paper Corp",
-     "st": "ID",
-     "lat": 46.428,
-     "lon": -116.967,
-     "co2e": 294660,
-     "gwh": 1503.2
-    },
-    {
-     "n": "Georgia-Pacific Crossett Llc",
-     "st": "AR",
-     "lat": 33.139,
-     "lon": -91.966,
-     "co2e": 265878,
-     "gwh": 1356.4
+     "gwh": 131.2,
+     "mwth": 9
     }
    ],
    "note": "",
@@ -1944,6 +2182,14 @@
     "WA",
     "WI"
    ],
+   "mwth": 3060,
+   "fuels": {
+    "gas": 14827.9,
+    "coal": 903.7,
+    "pet": 553.8,
+    "oth": 1512.5
+   },
+   "gwh_bio": 2512.8,
    "sites": [
     {
      "n": "Georgia Pacific Muskogee Llc",
@@ -1951,7 +2197,8 @@
      "lat": 35.741,
      "lon": -95.297,
      "co2e": 571974,
-     "gwh": 2917.9
+     "gwh": 2917.9,
+     "mwth": 327
     },
     {
      "n": "Georgia-Pacific Cedar Springs Llc",
@@ -1959,7 +2206,8 @@
      "lat": 31.164,
      "lon": -85.097,
      "co2e": 571921,
-     "gwh": 2917.6
+     "gwh": 2917.6,
+     "mwth": 38
     },
     {
      "n": "Georgia-Pacific Brewton Llc",
@@ -1967,7 +2215,8 @@
      "lat": 31.08,
      "lon": -87.115,
      "co2e": 544667,
-     "gwh": 2778.6
+     "gwh": 2778.6,
+     "mwth": 252
     },
     {
      "n": "Georgia Pacific Monticello Llc",
@@ -1975,7 +2224,8 @@
      "lat": 31.621,
      "lon": -90.079,
      "co2e": 498188,
-     "gwh": 2541.5
+     "gwh": 2541.5,
+     "mwth": 496
     },
     {
      "n": "Georgia-Pacific Savannah River Llc",
@@ -1983,7 +2233,8 @@
      "lat": 32.331,
      "lon": -81.202,
      "co2e": 469919,
-     "gwh": 2397.3
+     "gwh": 2397.3,
+     "mwth": 194
     },
     {
      "n": "Georgia Pacific Palatka Llc",
@@ -1991,7 +2242,8 @@
      "lat": 29.681,
      "lon": -81.68,
      "co2e": 408593,
-     "gwh": 2084.4
+     "gwh": 2084.4,
+     "mwth": 419
     },
     {
      "n": "Georgia-Pacific Toledo Llc",
@@ -1999,7 +2251,8 @@
      "lat": 44.614,
      "lon": -123.937,
      "co2e": 336731,
-     "gwh": 1717.8
+     "gwh": 1717.8,
+     "mwth": 291
     },
     {
      "n": "Georgia-Pacific Broadway Llc",
@@ -2007,7 +2260,8 @@
      "lat": 44.494,
      "lon": -88.03,
      "co2e": 318363,
-     "gwh": 1624.1
+     "gwh": 1624.1,
+     "mwth": 176
     }
    ],
    "note": "",
@@ -2026,6 +2280,12 @@
     "LA",
     "OH"
    ],
+   "mwth": 650,
+   "fuels": {
+    "gas": 6147.7,
+    "pet": 0.1
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Pcs Nitrogen Fertilizer Lp - Geismar Agricultura",
@@ -2033,7 +2293,8 @@
      "lat": 30.226,
      "lon": -91.053,
      "co2e": 1666091,
-     "gwh": 8416.2
+     "gwh": 8416.2,
+     "mwth": 339
     },
     {
      "n": "Pcs Nitrogen Fertilizer, L.P.",
@@ -2041,7 +2302,8 @@
      "lat": 33.47,
      "lon": -81.97,
      "co2e": 1566702,
-     "gwh": 7914.2
+     "gwh": 7914.2,
+     "mwth": 240
     },
     {
      "n": "Pcs Nitrogen Ohio, L.P.",
@@ -2049,7 +2311,8 @@
      "lat": 40.711,
      "lon": -84.138,
      "co2e": 1370575,
-     "gwh": 6923.4
+     "gwh": 6923.4,
+     "mwth": 70
     }
    ],
    "note": "",
@@ -2077,6 +2340,14 @@
     "TX",
     "VA"
    ],
+   "mwth": 5426,
+   "fuels": {
+    "gas": 11635.0,
+    "coal": 395.2,
+    "pet": 1237.6,
+    "oth": 3407.5
+   },
+   "gwh_bio": 11450.1,
    "sites": [
     {
      "n": "International Paper - Mansfield Mill",
@@ -2084,7 +2355,8 @@
      "lat": 32.157,
      "lon": -93.56,
      "co2e": 671632,
-     "gwh": 3426.3
+     "gwh": 3426.3,
+     "mwth": 643
     },
     {
      "n": "International Paper-Riverdale Mill",
@@ -2092,7 +2364,8 @@
      "lat": 32.425,
      "lon": -86.869,
      "co2e": 483775,
-     "gwh": 2468.0
+     "gwh": 2468.0,
+     "mwth": 588
     },
     {
      "n": "International Paper - Valliant Mill",
@@ -2100,7 +2373,8 @@
      "lat": 33.998,
      "lon": -95.112,
      "co2e": 432836,
-     "gwh": 2208.1
+     "gwh": 2208.1,
+     "mwth": 725
     },
     {
      "n": "International Paper-Prattville Mill",
@@ -2108,7 +2382,8 @@
      "lat": 32.417,
      "lon": -86.467,
      "co2e": 406514,
-     "gwh": 2073.8
+     "gwh": 2073.8,
+     "mwth": 207
     },
     {
      "n": "International Paper Savanna Mill",
@@ -2116,7 +2391,8 @@
      "lat": 32.104,
      "lon": -81.123,
      "co2e": 396516,
-     "gwh": 2022.8
+     "gwh": 2022.8,
+     "mwth": 350
     },
     {
      "n": "International Paper - Georgetown Mill",
@@ -2124,7 +2400,8 @@
      "lat": 33.364,
      "lon": -79.303,
      "co2e": 319897,
-     "gwh": 1631.9
+     "gwh": 1631.9,
+     "mwth": 11
     },
     {
      "n": "International Paper - Orange Mill",
@@ -2132,7 +2409,8 @@
      "lat": 30.22,
      "lon": -93.742,
      "co2e": 241521,
-     "gwh": 1232.1
+     "gwh": 1232.1,
+     "mwth": 404
     },
     {
      "n": "International Paper - Pine Hill Mill",
@@ -2140,7 +2418,8 @@
      "lat": 31.97,
      "lon": -87.481,
      "co2e": 236263,
-     "gwh": 1205.3
+     "gwh": 1205.3,
+     "mwth": 218
     }
    ],
    "note": "",
@@ -2174,6 +2453,12 @@
     "UT",
     "WA"
    ],
+   "mwth": 1485,
+   "fuels": {
+    "gas": 7726.8,
+    "pet": 1018.0
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Nucor Steel Louisiana Llc",
@@ -2181,7 +2466,8 @@
      "lat": 30.081,
      "lon": -90.861,
      "co2e": 1086837,
-     "gwh": 4045.5
+     "gwh": 4045.5,
+     "mwth": 29
     },
     {
      "n": "Nucor Steel - Berkeley",
@@ -2189,7 +2475,8 @@
      "lat": 33.004,
      "lon": -79.882,
      "co2e": 598948,
-     "gwh": 2229.4
+     "gwh": 2229.4,
+     "mwth": 58
     },
     {
      "n": "Nucor Steel Decatur",
@@ -2197,7 +2484,8 @@
      "lat": 34.639,
      "lon": -87.089,
      "co2e": 452134,
-     "gwh": 1682.9
+     "gwh": 1682.9,
+     "mwth": 178
     },
     {
      "n": "Nucor Steel Gallatin Llc",
@@ -2205,7 +2493,8 @@
      "lat": 38.767,
      "lon": -85.004,
      "co2e": 378216,
-     "gwh": 1407.8
+     "gwh": 1407.8,
+     "mwth": 73
     },
     {
      "n": "Nucor-Yamato Steel Co",
@@ -2213,7 +2502,8 @@
      "lat": 35.892,
      "lon": -89.784,
      "co2e": 375417,
-     "gwh": 1397.4
+     "gwh": 1397.4,
+     "mwth": 117
     },
     {
      "n": "Nucor Steel - Arkansas",
@@ -2221,7 +2511,8 @@
      "lat": 35.944,
      "lon": -89.724,
      "co2e": 372389,
-     "gwh": 1386.1
+     "gwh": 1386.1,
+     "mwth": 26
     },
     {
      "n": "Nucor Steel Indiana",
@@ -2229,7 +2520,8 @@
      "lat": 39.975,
      "lon": -86.83,
      "co2e": 255383,
-     "gwh": 950.6
+     "gwh": 950.6,
+     "mwth": 60
     },
     {
      "n": "Nucor Steel - Utah",
@@ -2237,11 +2529,14 @@
      "lat": 41.883,
      "lon": -112.196,
      "co2e": 243503,
-     "gwh": 906.4
+     "gwh": 906.4,
+     "mwth": 50
     }
    ],
    "note": "",
-   "signals": []
+   "signals": [
+    "NuScale investor; Helion fusion PPA; exploring advanced nuclear for steel mills"
+   ]
   },
   {
    "name": "Aramco Services Co",
@@ -2254,6 +2549,12 @@
    "states": [
     "TX"
    ],
+   "mwth": 4495,
+   "fuels": {
+    "gas": 3391.4,
+    "oth": 11886.5
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Motiva Enterprises Llc",
@@ -2261,7 +2562,8 @@
      "lat": 29.883,
      "lon": -93.958,
      "co2e": 5015249,
-     "gwh": 20152.5
+     "gwh": 20152.5,
+     "mwth": 4495
     }
    ],
    "note": "",
@@ -2281,6 +2583,12 @@
     "TX",
     "WV"
    ],
+   "mwth": 2298,
+   "fuels": {
+    "gas": 12318.3,
+    "oth": 3526.0
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Westlake Chemicals And Vinyls, Llc",
@@ -2288,7 +2596,8 @@
      "lat": 30.255,
      "lon": -91.189,
      "co2e": 1167601,
-     "gwh": 5898.1
+     "gwh": 5898.1,
+     "mwth": 366
     },
     {
      "n": "Westlake Petrochemicals Lp - Ethylene Manufactur",
@@ -2296,7 +2605,8 @@
      "lat": 30.162,
      "lon": -93.379,
      "co2e": 1068186,
-     "gwh": 5395.9
+     "gwh": 5395.9,
+     "mwth": 1279
     },
     {
      "n": "Eagle Natrium Llc - Natrium Plant",
@@ -2304,7 +2614,8 @@
      "lat": 39.748,
      "lon": -80.855,
      "co2e": 598986,
-     "gwh": 3025.8
+     "gwh": 3025.8,
+     "mwth": 246
     },
     {
      "n": "Westlake Vinyls Inc",
@@ -2312,7 +2623,8 @@
      "lat": 37.047,
      "lon": -88.327,
      "co2e": 489941,
-     "gwh": 2474.9
+     "gwh": 2474.9,
+     "mwth": 123
     },
     {
      "n": "Westlake Vinyls Co Lp",
@@ -2320,7 +2632,8 @@
      "lat": 30.209,
      "lon": -91.011,
      "co2e": 261435,
-     "gwh": 1320.6
+     "gwh": 1320.6,
+     "mwth": 192
     },
     {
      "n": "Westlake Styrene Llc - Styrene Monomer Productio",
@@ -2328,7 +2641,8 @@
      "lat": 30.177,
      "lon": -93.357,
      "co2e": 166187,
-     "gwh": 839.5
+     "gwh": 839.5,
+     "mwth": 66
     },
     {
      "n": "Westlake Polymers Lp - Polyethylene I & Ii Plant",
@@ -2336,7 +2650,8 @@
      "lat": 30.197,
      "lon": -93.326,
      "co2e": 26894,
-     "gwh": 135.9
+     "gwh": 135.9,
+     "mwth": 24
     },
     {
      "n": "Westlake Longview Corp.",
@@ -2344,7 +2659,8 @@
      "lat": 32.439,
      "lon": -94.688,
      "co2e": 24271,
-     "gwh": 122.6
+     "gwh": 122.6,
+     "mwth": 3
     }
    ],
    "note": "",
@@ -2364,6 +2680,12 @@
     "MI",
     "TX"
    ],
+   "mwth": 3247,
+   "fuels": {
+    "gas": 6775.4,
+    "oth": 7120.4
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Basf Totalenergies Petrochemicals Llc",
@@ -2371,7 +2693,8 @@
      "lat": 29.952,
      "lon": -93.887,
      "co2e": 1906827,
-     "gwh": 9632.3
+     "gwh": 9632.3,
+     "mwth": 1979
     },
     {
      "n": "Basf Corp - Geismar Site",
@@ -2379,7 +2702,8 @@
      "lat": 30.198,
      "lon": -91.004,
      "co2e": 934158,
-     "gwh": 4718.9
+     "gwh": 4718.9,
+     "mwth": 763
     },
     {
      "n": "Basf Freeport Site",
@@ -2387,7 +2711,8 @@
      "lat": 29.002,
      "lon": -95.4,
      "co2e": 646435,
-     "gwh": 3265.5
+     "gwh": 3265.5,
+     "mwth": 397
     },
     {
      "n": "Basf Corporation",
@@ -2395,7 +2720,8 @@
      "lat": 31.279,
      "lon": -88.004,
      "co2e": 52411,
-     "gwh": 264.8
+     "gwh": 264.8,
+     "mwth": 39
     },
     {
      "n": "Basf Corp - Pasadena Plant",
@@ -2403,7 +2729,8 @@
      "lat": 29.732,
      "lon": -95.152,
      "co2e": 42022,
-     "gwh": 212.3
+     "gwh": 212.3,
+     "mwth": 53
     },
     {
      "n": "Basf Corporation",
@@ -2411,7 +2738,8 @@
      "lat": 42.219,
      "lon": -83.147,
      "co2e": 34964,
-     "gwh": 176.6
+     "gwh": 176.6,
+     "mwth": 16
     }
    ],
    "note": "",
@@ -2430,6 +2758,13 @@
     "OK",
     "WY"
    ],
+   "mwth": 940,
+   "fuels": {
+    "gas": 4431.7,
+    "pet": 9.6,
+    "oth": 6221.8
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Hf Sinclair El Dorado Refining Llc",
@@ -2437,7 +2772,8 @@
      "lat": 37.794,
      "lon": -96.874,
      "co2e": 1851451,
-     "gwh": 7439.6
+     "gwh": 7439.6,
+     "mwth": 271
     },
     {
      "n": "Hf Sinclair Parco Refining Company Llc",
@@ -2445,7 +2781,8 @@
      "lat": 41.779,
      "lon": -107.104,
      "co2e": 1050393,
-     "gwh": 4220.7
+     "gwh": 4220.7,
+     "mwth": 182
     },
     {
      "n": "Hf Sinclair Tulsa Refining Llc - East",
@@ -2453,7 +2790,8 @@
      "lat": 36.118,
      "lon": -96.001,
      "co2e": 765206,
-     "gwh": 3074.8
+     "gwh": 3074.8,
+     "mwth": 178
     },
     {
      "n": "Hf Sinclair Tulsa Refining Llc - West",
@@ -2461,7 +2799,8 @@
      "lat": 36.14,
      "lon": -96.015,
      "co2e": 476936,
-     "gwh": 1916.5
+     "gwh": 1916.5,
+     "mwth": 207
     },
     {
      "n": "Sinclair Casper Refining Company",
@@ -2469,7 +2808,8 @@
      "lat": 42.861,
      "lon": -106.243,
      "co2e": 264698,
-     "gwh": 1063.6
+     "gwh": 1063.6,
+     "mwth": 101
     }
    ],
    "note": "",
@@ -2488,6 +2828,13 @@
     "FL",
     "TX"
    ],
+   "mwth": 1317,
+   "fuels": {
+    "gas": 8127.1,
+    "pet": 18.3,
+    "oth": 418.7
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Ascend Performance Materials Llc",
@@ -2495,7 +2842,8 @@
      "lat": 30.597,
      "lon": -87.252,
      "co2e": 2329170,
-     "gwh": 11765.7
+     "gwh": 11765.7,
+     "mwth": 721
     },
     {
      "n": "Ascend (Decatur Plant)",
@@ -2503,7 +2851,8 @@
      "lat": 34.634,
      "lon": -87.024,
      "co2e": 603219,
-     "gwh": 3047.1
+     "gwh": 3047.1,
+     "mwth": 453
     },
     {
      "n": "Ascend Performance Materials Chocolate Bayou Fac",
@@ -2511,7 +2860,8 @@
      "lat": 29.257,
      "lon": -95.214,
      "co2e": 553628,
-     "gwh": 2796.6
+     "gwh": 2796.6,
+     "mwth": 143
     }
    ],
    "note": "",
@@ -2528,6 +2878,13 @@
    "states": [
     "LA"
    ],
+   "mwth": 642,
+   "fuels": {
+    "gas": 1071.9,
+    "pet": 39.6,
+    "oth": 9983.2
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Norco Manufacturing Complex",
@@ -2535,7 +2892,8 @@
      "lat": 30.001,
      "lon": -90.404,
      "co2e": 4143881,
-     "gwh": 16651.2
+     "gwh": 16651.2,
+     "mwth": 557
     },
     {
      "n": "Convent Refinery",
@@ -2543,7 +2901,8 @@
      "lat": 30.108,
      "lon": -90.897,
      "co2e": 40,
-     "gwh": 0.2
+     "gwh": 0.2,
+     "mwth": 85
     }
    ],
    "note": "",
@@ -2561,6 +2920,13 @@
     "OH",
     "TX"
    ],
+   "mwth": 2983,
+   "fuels": {
+    "gas": 4704.8,
+    "pet": 48.4,
+    "oth": 6089.1
+   },
+   "gwh_bio": 30.1,
    "sites": [
     {
      "n": "Ineos Chocolate Bayou Plant",
@@ -2568,7 +2934,8 @@
      "lat": 29.231,
      "lon": -95.188,
      "co2e": 2510015,
-     "gwh": 12679.3
+     "gwh": 12679.3,
+     "mwth": 2592
     },
     {
      "n": "Green Lake Plant",
@@ -2576,7 +2943,8 @@
      "lat": 28.428,
      "lon": -96.499,
      "co2e": 325990,
-     "gwh": 1646.7
+     "gwh": 1646.7,
+     "mwth": 53
     },
     {
      "n": "Ineos Polyethylene",
@@ -2584,7 +2952,8 @@
      "lat": 29.716,
      "lon": -95.09,
      "co2e": 134064,
-     "gwh": 677.2
+     "gwh": 677.2,
+     "mwth": 215
     },
     {
      "n": "Ineos Nitriles Usa Llc",
@@ -2592,7 +2961,8 @@
      "lat": 40.717,
      "lon": -84.132,
      "co2e": 118079,
-     "gwh": 596.5
+     "gwh": 596.5,
+     "mwth": 23
     },
     {
      "n": "Ineos Abs",
@@ -2600,7 +2970,8 @@
      "lat": 39.135,
      "lon": -84.712,
      "co2e": 26940,
-     "gwh": 136.1
+     "gwh": 136.1,
+     "mwth": 84
     },
     {
      "n": "Ineos Polypropylene",
@@ -2608,7 +2979,8 @@
      "lat": 29.716,
      "lon": -95.09,
      "co2e": 9652,
-     "gwh": 48.8
+     "gwh": 48.8,
+     "mwth": 15
     }
    ],
    "note": "",
@@ -2626,6 +2998,12 @@
     "LA",
     "MS"
    ],
+   "mwth": 2181,
+   "fuels": {
+    "gas": 13756.0,
+    "pet": 0.6
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Westlake Us 2 Llc",
@@ -2633,7 +3011,8 @@
      "lat": 30.221,
      "lon": -93.283,
      "co2e": 2689617,
-     "gwh": 13586.5
+     "gwh": 13586.5,
+     "mwth": 2116
     },
     {
      "n": "Westlake Chemicals & Vinyls Llc",
@@ -2641,7 +3020,8 @@
      "lat": 30.252,
      "lon": -93.284,
      "co2e": 66917,
-     "gwh": 338.0
+     "gwh": 338.0,
+     "mwth": 37
     },
     {
      "n": "Westlake, Aberdeen",
@@ -2649,7 +3029,8 @@
      "lat": 33.813,
      "lon": -88.559,
      "co2e": 56278,
-     "gwh": 284.3
+     "gwh": 284.3,
+     "mwth": 28
     }
    ],
    "note": "",
@@ -2667,6 +3048,13 @@
     "LA",
     "PA"
    ],
+   "mwth": 1779,
+   "fuels": {
+    "gas": 8459.3,
+    "pet": 11.8,
+    "oth": 1782.0
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Shell Chemical Appalachia Llc",
@@ -2674,7 +3062,8 @@
      "lat": 40.672,
      "lon": -80.336,
      "co2e": 1579719,
-     "gwh": 7979.9
+     "gwh": 7979.9,
+     "mwth": 1328
     },
     {
      "n": "Shell Chemical Co - Geismar Plant",
@@ -2682,7 +3071,8 @@
      "lat": 30.184,
      "lon": -90.993,
      "co2e": 1069814,
-     "gwh": 5404.1
+     "gwh": 5404.1,
+     "mwth": 429
     },
     {
      "n": "Shell Catalysts And Technologies L.P.",
@@ -2690,7 +3080,8 @@
      "lat": 30.494,
      "lon": -91.217,
      "co2e": 37836,
-     "gwh": 191.1
+     "gwh": 191.1,
+     "mwth": 22
     }
    ],
    "note": "",
@@ -2713,6 +3104,13 @@
     "OH",
     "SD"
    ],
+   "mwth": 1066,
+   "fuels": {
+    "gas": 11696.6,
+    "pet": 992.0,
+    "oth": 104.9
+   },
+   "gwh_bio": 329.4,
    "sites": [
     {
      "n": "Marion Ethanol Llc D/B/A Poet Biorefining - Mari",
@@ -2720,7 +3118,8 @@
      "lat": 40.619,
      "lon": -83.16,
      "co2e": 205275,
-     "gwh": 1032.8
+     "gwh": 1032.8,
+     "mwth": 42
     },
     {
      "n": "Poet Biorefining Alexandria",
@@ -2728,7 +3127,8 @@
      "lat": 40.294,
      "lon": -85.654,
      "co2e": 138337,
-     "gwh": 696.0
+     "gwh": 696.0,
+     "mwth": 42
     },
     {
      "n": "Poet Biorefining Leipsic, Llc",
@@ -2736,7 +3136,8 @@
      "lat": 41.12,
      "lon": -83.971,
      "co2e": 127985,
-     "gwh": 644.0
+     "gwh": 644.0,
+     "mwth": 42
     },
     {
      "n": "Poet Biorefining - Shelbyville",
@@ -2744,7 +3145,8 @@
      "lat": 39.566,
      "lon": -85.822,
      "co2e": 125949,
-     "gwh": 633.7
+     "gwh": 633.7,
+     "mwth": 42
     },
     {
      "n": "Poet Biorefining - North Manchester, Llc",
@@ -2752,7 +3154,8 @@
      "lat": 40.946,
      "lon": -85.783,
      "co2e": 123005,
-     "gwh": 618.9
+     "gwh": 618.9,
+     "mwth": 42
     },
     {
      "n": "Poet Biorefining",
@@ -2760,7 +3163,8 @@
      "lat": 41.176,
      "lon": -83.381,
      "co2e": 120280,
-     "gwh": 605.2
+     "gwh": 605.2,
+     "mwth": 42
     },
     {
      "n": "Poet Biorefining - Portland",
@@ -2768,7 +3172,8 @@
      "lat": 40.414,
      "lon": -85.019,
      "co2e": 115876,
-     "gwh": 583.0
+     "gwh": 583.0,
+     "mwth": 49
     },
     {
      "n": "Poet Biorefining",
@@ -2776,7 +3181,8 @@
      "lat": 42.329,
      "lon": -93.663,
      "co2e": 111870,
-     "gwh": 562.9
+     "gwh": 562.9,
+     "mwth": 42
     }
    ],
    "note": "",
@@ -2793,6 +3199,12 @@
    "states": [
     "TX"
    ],
+   "mwth": 2275,
+   "fuels": {
+    "gas": 4578.0,
+    "oth": 4916.2
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Deer Park Refining Limited Partnership",
@@ -2800,7 +3212,8 @@
      "lat": 29.722,
      "lon": -95.127,
      "co2e": 3230829,
-     "gwh": 12982.3
+     "gwh": 12982.3,
+     "mwth": 2275
     }
    ],
    "note": "",
@@ -2828,6 +3241,12 @@
     "TX",
     "UT"
    ],
+   "mwth": 136,
+   "fuels": {
+    "gas": 35.8,
+    "pet": 4.8
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Holcim (Us) Inc Ste Genevieve Plant",
@@ -2835,7 +3254,8 @@
      "lat": 38.11,
      "lon": -90.258,
      "co2e": 2967851,
-     "gwh": 3396.2
+     "gwh": 3396.2,
+     "mwth": 2
     },
     {
      "n": "Holcim (Us) Inc. D/B/A Lafarge Alpena",
@@ -2843,7 +3263,8 @@
      "lat": 45.072,
      "lon": -83.405,
      "co2e": 1769013,
-     "gwh": 2024.3
+     "gwh": 2024.3,
+     "mwth": 44
     },
     {
      "n": "Holcim (Us) Inc",
@@ -2851,7 +3272,8 @@
      "lat": 32.513,
      "lon": -96.971,
      "co2e": 1253349,
-     "gwh": 1434.3
+     "gwh": 1434.3,
+     "mwth": 0
     },
     {
      "n": "Holcim (Us) Inc.",
@@ -2859,7 +3281,8 @@
      "lat": 33.277,
      "lon": -80.43,
      "co2e": 1205311,
-     "gwh": 1379.3
+     "gwh": 1379.3,
+     "mwth": 10
     },
     {
      "n": "Holcim (Us) Inc. - Portland Plant",
@@ -2867,7 +3290,8 @@
      "lat": 38.329,
      "lon": -105.009,
      "co2e": 737083,
-     "gwh": 843.5
+     "gwh": 843.5,
+     "mwth": 0
     },
     {
      "n": "Holcim (Us) Inc",
@@ -2875,7 +3299,8 @@
      "lat": 30.535,
      "lon": -88.112,
      "co2e": 615636,
-     "gwh": 704.5
+     "gwh": 704.5,
+     "mwth": 0
     },
     {
      "n": "Holcim (Us) Inc. Devil\\S Slide Plant",
@@ -2883,7 +3308,8 @@
      "lat": 41.063,
      "lon": -111.532,
      "co2e": 579152,
-     "gwh": 662.7
+     "gwh": 662.7,
+     "mwth": 0
     },
     {
      "n": "Holcim (Us), Inc.",
@@ -2891,7 +3317,8 @@
      "lat": 39.652,
      "lon": -77.68,
      "co2e": 451527,
-     "gwh": 516.7
+     "gwh": 516.7,
+     "mwth": 59
     }
    ],
    "note": "",
@@ -2909,6 +3336,11 @@
     "IL",
     "KS"
    ],
+   "mwth": 225,
+   "fuels": {
+    "gas": 1627.3
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Coffeyville Resources Nitrogen Fert.",
@@ -2916,7 +3348,8 @@
      "lat": 37.045,
      "lon": -95.605,
      "co2e": 1640985,
-     "gwh": 8289.4
+     "gwh": 8289.4,
+     "mwth": 34
     },
     {
      "n": "East Dubuque Nitrogen Fertilizers, Llc",
@@ -2924,7 +3357,8 @@
      "lat": 42.443,
      "lon": -90.557,
      "co2e": 807616,
-     "gwh": 4079.7
+     "gwh": 4079.7,
+     "mwth": 191
     }
    ],
    "note": "",
@@ -2944,6 +3378,12 @@
     "OH",
     "VA"
    ],
+   "mwth": 15,
+   "fuels": {
+    "gas": 434.6,
+    "pet": 58.0
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Indiana Harbor Coke Company",
@@ -2951,7 +3391,8 @@
      "lat": 41.656,
      "lon": -87.45,
      "co2e": 1065052,
-     "gwh": 3964.4
+     "gwh": 3964.4,
+     "mwth": 3
     },
     {
      "n": "Haverhill Coke Company, Llc",
@@ -2959,7 +3400,8 @@
      "lat": 38.597,
      "lon": -82.827,
      "co2e": 921343,
-     "gwh": 3429.4
+     "gwh": 3429.4,
+     "mwth": 4
     },
     {
      "n": "Gateway Energy & Coke Co Llc",
@@ -2967,7 +3409,8 @@
      "lat": 38.696,
      "lon": -90.133,
      "co2e": 472577,
-     "gwh": 1759.0
+     "gwh": 1759.0,
+     "mwth": 1
     },
     {
      "n": "Suncoke Energy Middletown Operations",
@@ -2975,7 +3418,8 @@
      "lat": 39.472,
      "lon": -84.397,
      "co2e": 429704,
-     "gwh": 1599.5
+     "gwh": 1599.5,
+     "mwth": 2
     },
     {
      "n": "Jewell Coal & Coke",
@@ -2983,7 +3427,8 @@
      "lat": 37.234,
      "lon": -82.043,
      "co2e": 376576,
-     "gwh": 1401.7
+     "gwh": 1401.7,
+     "mwth": 5
     }
    ],
    "note": "",
@@ -3005,6 +3450,11 @@
     "OH",
     "SD"
    ],
+   "mwth": 543,
+   "fuels": {
+    "gas": 11064.8
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Valero Linden Plant",
@@ -3012,7 +3462,8 @@
      "lat": 40.198,
      "lon": -86.911,
      "co2e": 211216,
-     "gwh": 1062.7
+     "gwh": 1062.7,
+     "mwth": 42
     },
     {
      "n": "Valero Renewable Fuels Llc",
@@ -3020,7 +3471,8 @@
      "lat": 44.292,
      "lon": -96.692,
      "co2e": 201939,
-     "gwh": 1016.1
+     "gwh": 1016.1,
+     "mwth": 58
     },
     {
      "n": "Valero Renewable Fuels Llc Charles City",
@@ -3028,7 +3480,8 @@
      "lat": 43.096,
      "lon": -92.745,
      "co2e": 201940,
-     "gwh": 1016.1
+     "gwh": 1016.1,
+     "mwth": 62
     },
     {
      "n": "Valero Bloominburg Plant",
@@ -3036,7 +3489,8 @@
      "lat": 39.598,
      "lon": -83.39,
      "co2e": 196764,
-     "gwh": 990.0
+     "gwh": 990.0,
+     "mwth": 42
     },
     {
      "n": "Valero Fort Dodge Plant",
@@ -3044,7 +3498,8 @@
      "lat": 42.531,
      "lon": -94.293,
      "co2e": 195687,
-     "gwh": 984.6
+     "gwh": 984.6,
+     "mwth": 48
     },
     {
      "n": "Valero Hartley Plant",
@@ -3052,7 +3507,8 @@
      "lat": 43.183,
      "lon": -95.506,
      "co2e": 192779,
-     "gwh": 970.0
+     "gwh": 970.0,
+     "mwth": 48
     },
     {
      "n": "Valero Albert City Plant",
@@ -3060,7 +3516,8 @@
      "lat": 42.775,
      "lon": -94.942,
      "co2e": 189653,
-     "gwh": 954.2
+     "gwh": 954.2,
+     "mwth": 44
     },
     {
      "n": "Valero Renewable Fuels Campany Llc, Dba Valero A",
@@ -3068,7 +3525,8 @@
      "lat": 41.678,
      "lon": -97.982,
      "co2e": 188635,
-     "gwh": 949.1
+     "gwh": 949.1,
+     "mwth": 42
     }
    ],
    "note": "",
@@ -3088,6 +3546,13 @@
     "SC",
     "TX"
    ],
+   "mwth": 1517,
+   "fuels": {
+    "gas": 5235.2,
+    "pet": 166.3,
+    "oth": 2353.7
+   },
+   "gwh_bio": 19.4,
    "sites": [
     {
      "n": "Indorama Ventures Oxides Llc",
@@ -3095,7 +3560,8 @@
      "lat": 29.973,
      "lon": -93.957,
      "co2e": 1210395,
-     "gwh": 6114.3
+     "gwh": 6114.3,
+     "mwth": 919
     },
     {
      "n": "Indorama Ventures Olefin",
@@ -3103,7 +3569,8 @@
      "lat": 30.191,
      "lon": -93.326,
      "co2e": 525224,
-     "gwh": 2653.2
+     "gwh": 2653.2,
+     "mwth": 200
     },
     {
      "n": "Indorama Ventures, Xylenes And Pta, Llc",
@@ -3111,7 +3578,8 @@
      "lat": 34.64,
      "lon": -87.058,
      "co2e": 258727,
-     "gwh": 1307.0
+     "gwh": 1307.0,
+     "mwth": 329
     },
     {
      "n": "Auriga Polymers Inc.",
@@ -3119,7 +3587,8 @@
      "lat": 35.028,
      "lon": -81.879,
      "co2e": 86691,
-     "gwh": 437.9
+     "gwh": 437.9,
+     "mwth": 55
     },
     {
      "n": "Indorama Ventures Oxides Llc",
@@ -3127,7 +3596,8 @@
      "lat": 29.419,
      "lon": -95.239,
      "co2e": 41123,
-     "gwh": 207.7
+     "gwh": 207.7,
+     "mwth": 14
     }
    ],
    "note": "",
@@ -3146,6 +3616,13 @@
     "LA",
     "TX"
    ],
+   "mwth": 605,
+   "fuels": {
+    "gas": 1436.8,
+    "pet": 0.2,
+    "oth": 4738.2
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Big Spring Refinery",
@@ -3153,7 +3630,8 @@
      "lat": 32.269,
      "lon": -101.418,
      "co2e": 733267,
-     "gwh": 2946.5
+     "gwh": 2946.5,
+     "mwth": 74
     },
     {
      "n": "Lion Oil Co-El Dorado Refinery",
@@ -3161,7 +3639,8 @@
      "lat": 33.202,
      "lon": -92.674,
      "co2e": 712845,
-     "gwh": 2864.4
+     "gwh": 2864.4,
+     "mwth": 195
     },
     {
      "n": "Alon Refining Krotz Springs Inc",
@@ -3169,7 +3648,8 @@
      "lat": 30.527,
      "lon": -91.748,
      "co2e": 633554,
-     "gwh": 2545.8
+     "gwh": 2545.8,
+     "mwth": 202
     },
     {
      "n": "Delek Refining, Ltd",
@@ -3177,7 +3657,8 @@
      "lat": 32.363,
      "lon": -95.28,
      "co2e": 440271,
-     "gwh": 1769.1
+     "gwh": 1769.1,
+     "mwth": 133
     }
    ],
    "note": "",
@@ -3195,6 +3676,13 @@
     "LA",
     "TX"
    ],
+   "mwth": 2365,
+   "fuels": {
+    "gas": 1776.9,
+    "pet": 0.2,
+    "oth": 4817.9
+   },
+   "gwh_bio": 52.3,
    "sites": [
     {
      "n": "Gulf Coast Growth Ventures Llc",
@@ -3202,7 +3690,8 @@
      "lat": 27.925,
      "lon": -97.316,
      "co2e": 1597730,
-     "gwh": 8070.9
+     "gwh": 8070.9,
+     "mwth": 2236
     },
     {
      "n": "Exxonmobil Chemical Co - Baton Rouge Polyolefins",
@@ -3210,7 +3699,8 @@
      "lat": 30.56,
      "lon": -91.206,
      "co2e": 135043,
-     "gwh": 682.2
+     "gwh": 682.2,
+     "mwth": 38
     },
     {
      "n": "Exxonmobil Chemical Mont Belvieu Plastics Plant",
@@ -3218,7 +3708,8 @@
      "lat": 29.874,
      "lon": -94.912,
      "co2e": 93204,
-     "gwh": 470.8
+     "gwh": 470.8,
+     "mwth": 29
     },
     {
      "n": "Exxonmobil Chemical Co - Baton Rouge Plastics Pl",
@@ -3226,7 +3717,8 @@
      "lat": 30.551,
      "lon": -91.175,
      "co2e": 74313,
-     "gwh": 375.4
+     "gwh": 375.4,
+     "mwth": 21
     },
     {
      "n": "Beaumont Polyethylene Plant",
@@ -3234,7 +3726,8 @@
      "lat": 30.064,
      "lon": -94.218,
      "co2e": 68634,
-     "gwh": 346.7
+     "gwh": 346.7,
+     "mwth": 32
     },
     {
      "n": "Exxon Mobil Corporation-Baton Rouge Resin Finish",
@@ -3242,7 +3735,8 @@
      "lat": 30.56,
      "lon": -91.202,
      "co2e": 24493,
-     "gwh": 123.7
+     "gwh": 123.7,
+     "mwth": 9
     }
    ],
    "note": "",
@@ -3268,6 +3762,13 @@
     "OH",
     "TN"
    ],
+   "mwth": 967,
+   "fuels": {
+    "gas": 8170.6,
+    "pet": 125.3,
+    "oth": 1095.5
+   },
+   "gwh_bio": 11.6,
    "sites": [
     {
      "n": "Cargill Corn Milling North America",
@@ -3275,7 +3776,8 @@
      "lat": 41.534,
      "lon": -96.098,
      "co2e": 510871,
-     "gwh": 2570.4
+     "gwh": 2570.4,
+     "mwth": 88
     },
     {
      "n": "Cargill Inc - Eddyville",
@@ -3283,7 +3785,8 @@
      "lat": 41.162,
      "lon": -92.636,
      "co2e": 399264,
-     "gwh": 2008.9
+     "gwh": 2008.9,
+     "mwth": 116
     },
     {
      "n": "Cargill, Incorporated",
@@ -3291,7 +3794,8 @@
      "lat": 42.506,
      "lon": -94.312,
      "co2e": 233855,
-     "gwh": 1176.6
+     "gwh": 1176.6,
+     "mwth": 88
     },
     {
      "n": "Cargill Incorporated",
@@ -3299,7 +3803,8 @@
      "lat": 39.824,
      "lon": -84.175,
      "co2e": 163393,
-     "gwh": 822.1
+     "gwh": 822.1,
+     "mwth": 93
     },
     {
      "n": "Cargill Inc-Cedar Rapids",
@@ -3307,7 +3812,8 @@
      "lat": 41.97,
      "lon": -91.648,
      "co2e": 92119,
-     "gwh": 463.5
+     "gwh": 463.5,
+     "mwth": 82
     },
     {
      "n": "Cargill Texturizing Solutions",
@@ -3315,7 +3821,8 @@
      "lat": 41.694,
      "lon": -87.516,
      "co2e": 71410,
-     "gwh": 359.3
+     "gwh": 359.3,
+     "mwth": 72
     },
     {
      "n": "Cargill, Inc.",
@@ -3323,7 +3830,8 @@
      "lat": 35.088,
      "lon": -78.845,
      "co2e": 66583,
-     "gwh": 335.0
+     "gwh": 335.0,
+     "mwth": 29
     },
     {
      "n": "Cargill Inc Soy Processing Plant *",
@@ -3331,7 +3839,8 @@
      "lat": 40.276,
      "lon": -84.195,
      "co2e": 63971,
-     "gwh": 321.9
+     "gwh": 321.9,
+     "mwth": 29
     }
    ],
    "note": "",
@@ -3352,6 +3861,11 @@
     "VA",
     "WV"
    ],
+   "mwth": 355,
+   "fuels": {
+    "gas": 4011.4
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Steel Dynamics Inc",
@@ -3359,7 +3873,8 @@
      "lat": 41.364,
      "lon": -84.914,
      "co2e": 982503,
-     "gwh": 3657.1
+     "gwh": 3657.1,
+     "mwth": 35
     },
     {
      "n": "Steel Dynamics Columbus, Llc",
@@ -3367,7 +3882,8 @@
      "lat": 33.444,
      "lon": -88.576,
      "co2e": 498162,
-     "gwh": 1854.3
+     "gwh": 1854.3,
+     "mwth": 44
     },
     {
      "n": "Steel Dynamics. Inc. (Sdi), Structual And Rail D",
@@ -3375,7 +3891,8 @@
      "lat": 41.124,
      "lon": -85.396,
      "co2e": 328103,
-     "gwh": 1221.3
+     "gwh": 1221.3,
+     "mwth": 94
     },
     {
      "n": "Steel Dynamics Southwest, Llc",
@@ -3383,7 +3900,8 @@
      "lat": 28.057,
      "lon": -97.465,
      "co2e": 297362,
-     "gwh": 1106.8
+     "gwh": 1106.8,
+     "mwth": 44
     },
     {
      "n": "Steel Dynamics, Inc. (Sdi)",
@@ -3391,7 +3909,8 @@
      "lat": 39.877,
      "lon": -86.482,
      "co2e": 186944,
-     "gwh": 695.8
+     "gwh": 695.8,
+     "mwth": 54
     },
     {
      "n": "Roanoke Electric Steel Corporation",
@@ -3399,7 +3918,8 @@
      "lat": 37.273,
      "lon": -79.999,
      "co2e": 97145,
-     "gwh": 361.6
+     "gwh": 361.6,
+     "mwth": 46
     },
     {
      "n": "Swva, Inc.",
@@ -3407,7 +3927,8 @@
      "lat": 38.426,
      "lon": -82.425,
      "co2e": 55478,
-     "gwh": 206.5
+     "gwh": 206.5,
+     "mwth": 38
     }
    ],
    "note": "",
@@ -3426,6 +3947,14 @@
     "MT",
     "ND"
    ],
+   "mwth": 1248,
+   "fuels": {
+    "gas": 433.5,
+    "coal": 3789.3,
+    "pet": 4.6,
+    "oth": 54.6
+   },
+   "gwh_bio": 24.5,
    "sites": [
     {
      "n": "American Crystal Sugar - Hillsboro",
@@ -3433,7 +3962,8 @@
      "lat": 47.436,
      "lon": -97.062,
      "co2e": 488893,
-     "gwh": 2459.9
+     "gwh": 2459.9,
+     "mwth": 353
     },
     {
      "n": "American Crystal Sugar Company - Drayton",
@@ -3441,7 +3971,8 @@
      "lat": 48.593,
      "lon": -97.174,
      "co2e": 370074,
-     "gwh": 1862.0
+     "gwh": 1862.0,
+     "mwth": 321
     },
     {
      "n": "American Crystal Sugar - E Grand Forks",
@@ -3449,7 +3980,8 @@
      "lat": 47.926,
      "lon": -97.006,
      "co2e": 327866,
-     "gwh": 1649.6
+     "gwh": 1649.6,
+     "mwth": 86
     },
     {
      "n": "American Crystal Sugar - Moorhead",
@@ -3457,7 +3989,8 @@
      "lat": 46.903,
      "lon": -96.76,
      "co2e": 312834,
-     "gwh": 1574.0
+     "gwh": 1574.0,
+     "mwth": 204
     },
     {
      "n": "American Crystal Sugar - Crookston",
@@ -3465,7 +3998,8 @@
      "lat": 47.765,
      "lon": -96.63,
      "co2e": 304856,
-     "gwh": 1533.9
+     "gwh": 1533.9,
+     "mwth": 206
     },
     {
      "n": "Sidney Sugars Incorporated",
@@ -3473,7 +4007,8 @@
      "lat": 47.718,
      "lon": -104.133,
      "co2e": 2690,
-     "gwh": 13.5
+     "gwh": 13.5,
+     "mwth": 78
     }
    ],
    "note": "",
@@ -3491,6 +4026,12 @@
     "KS",
     "MT"
    ],
+   "mwth": 534,
+   "fuels": {
+    "gas": 315.1,
+    "oth": 3543.8
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Chs Mcpherson Refinery Inc.",
@@ -3498,7 +4039,8 @@
      "lat": 38.347,
      "lon": -97.674,
      "co2e": 1248855,
-     "gwh": 5018.2
+     "gwh": 5018.2,
+     "mwth": 365
     },
     {
      "n": "Chs Inc Laurel Refinery",
@@ -3506,7 +4048,8 @@
      "lat": 45.659,
      "lon": -108.768,
      "co2e": 918021,
-     "gwh": 3688.8
+     "gwh": 3688.8,
+     "mwth": 170
     }
    ],
    "note": "",
@@ -3524,6 +4067,11 @@
     "KY",
     "SC"
    ],
+   "mwth": 42,
+   "fuels": {
+    "gas": 523.5
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Century Aluminum Sebree Llc",
@@ -3531,7 +4079,8 @@
      "lat": 37.656,
      "lon": -87.507,
      "co2e": 564341,
-     "gwh": 4962.5
+     "gwh": 4962.5,
+     "mwth": 19
     },
     {
      "n": "Century Aluminum Of South Carolina, Inc.",
@@ -3539,7 +4088,8 @@
      "lat": 33.052,
      "lon": -80.054,
      "co2e": 421583,
-     "gwh": 3707.1
+     "gwh": 3707.1,
+     "mwth": 11
     },
     {
      "n": "Century Aluminum Of Kentucky",
@@ -3547,7 +4097,8 @@
      "lat": 37.945,
      "lon": -86.788,
      "co2e": 0,
-     "gwh": 0.0
+     "gwh": 0.0,
+     "mwth": 12
     }
    ],
    "note": "",
@@ -3586,6 +4137,13 @@
     "TX",
     "VA"
    ],
+   "mwth": 367,
+   "fuels": {
+    "gas": 1975.6,
+    "coal": 783.1,
+    "pet": 1512.8
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Lhoist North America - Montevallo Plant",
@@ -3593,7 +4151,8 @@
      "lat": 33.093,
      "lon": -86.802,
      "co2e": 975734,
-     "gwh": 1493.4
+     "gwh": 1493.4,
+     "mwth": 70
     },
     {
      "n": "Lhoist North America",
@@ -3601,7 +4160,8 @@
      "lat": 38.009,
      "lon": -90.08,
      "co2e": 845892,
-     "gwh": 1294.7
+     "gwh": 1294.7,
+     "mwth": 5
     },
     {
      "n": "Lhoist North America",
@@ -3609,7 +4169,8 @@
      "lat": 35.52,
      "lon": -113.313,
      "co2e": 787420,
-     "gwh": 1205.2
+     "gwh": 1205.2,
+     "mwth": 0
     },
     {
      "n": "Lhoist North America Of Alabama Llc O'Neal Plant",
@@ -3617,7 +4178,8 @@
      "lat": 33.177,
      "lon": -86.759,
      "co2e": 600150,
-     "gwh": 918.6
+     "gwh": 918.6,
+     "mwth": 5
     },
     {
      "n": "Lhoist North America Apex Plant",
@@ -3625,7 +4187,8 @@
      "lat": 36.204,
      "lon": -115.13,
      "co2e": 585504,
-     "gwh": 896.2
+     "gwh": 896.2,
+     "mwth": 110
     },
     {
      "n": "Lhoist North America New Braunfels Plant",
@@ -3633,7 +4196,8 @@
      "lat": 29.679,
      "lon": -98.183,
      "co2e": 579949,
-     "gwh": 887.7
+     "gwh": 887.7,
+     "mwth": 59
     },
     {
      "n": "Lhoist North America /Clifton Plant",
@@ -3641,7 +4205,8 @@
      "lat": 31.714,
      "lon": -97.592,
      "co2e": 453290,
-     "gwh": 693.8
+     "gwh": 693.8,
+     "mwth": 51
     },
     {
      "n": "Lhoist North America - Marble Falls Plant",
@@ -3649,7 +4214,8 @@
      "lat": 30.648,
      "lon": -98.254,
      "co2e": 376224,
-     "gwh": 575.8
+     "gwh": 575.8,
+     "mwth": 27
     }
    ],
    "note": "",
@@ -3668,6 +4234,11 @@
     "AR",
     "TX"
    ],
+   "mwth": 425,
+   "fuels": {
+    "gas": 2644.6
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "El Dorado Chemical Company",
@@ -3675,7 +4246,8 @@
      "lat": 33.249,
      "lon": -92.662,
      "co2e": 1027772,
-     "gwh": 5191.8
+     "gwh": 5191.8,
+     "mwth": 312
     },
     {
      "n": "Cherokee Nitrogen",
@@ -3683,7 +4255,8 @@
      "lat": 34.803,
      "lon": -87.94,
      "co2e": 485513,
-     "gwh": 2452.6
+     "gwh": 2452.6,
+     "mwth": 114
     },
     {
      "n": "El Dorado Nitrogen Llc",
@@ -3691,7 +4264,8 @@
      "lat": 29.763,
      "lon": -94.91,
      "co2e": 110698,
-     "gwh": 559.2
+     "gwh": 559.2,
+     "mwth": 0
     }
    ],
    "note": "",
@@ -3713,6 +4287,13 @@
     "TX",
     "WV"
    ],
+   "mwth": 333,
+   "fuels": {
+    "gas": 1661.2,
+    "pet": 44.9,
+    "oth": 0.5
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Chemours Washington Works",
@@ -3720,7 +4301,8 @@
      "lat": 39.272,
      "lon": -81.662,
      "co2e": 782338,
-     "gwh": 3952.0
+     "gwh": 3952.0,
+     "mwth": 73
     },
     {
      "n": "Chemours Louisville Works",
@@ -3728,7 +4310,8 @@
      "lat": 38.217,
      "lon": -85.842,
      "co2e": 486171,
-     "gwh": 2455.9
+     "gwh": 2455.9,
+     "mwth": 52
     },
     {
      "n": "Chemours Belle Plant",
@@ -3736,7 +4319,8 @@
      "lat": 38.243,
      "lon": -81.556,
      "co2e": 98685,
-     "gwh": 498.5
+     "gwh": 498.5,
+     "mwth": 151
     },
     {
      "n": "Chemours - Corpus Christi Plant",
@@ -3744,7 +4328,8 @@
      "lat": 27.919,
      "lon": -97.285,
      "co2e": 91071,
-     "gwh": 460.0
+     "gwh": 460.0,
+     "mwth": 12
     },
     {
      "n": "Chemours Chambers Works",
@@ -3752,7 +4337,8 @@
      "lat": 39.682,
      "lon": -75.491,
      "co2e": 53438,
-     "gwh": 269.9
+     "gwh": 269.9,
+     "mwth": 1
     },
     {
      "n": "Chemours Company - Fayetteville Works",
@@ -3760,7 +4346,8 @@
      "lat": 34.842,
      "lon": -78.839,
      "co2e": 46277,
-     "gwh": 233.8
+     "gwh": 233.8,
+     "mwth": 44
     },
     {
      "n": "Chemours El Dorado",
@@ -3768,7 +4355,8 @@
      "lat": 33.11,
      "lon": -92.675,
      "co2e": 13319,
-     "gwh": 67.3
+     "gwh": 67.3,
+     "mwth": 1
     }
    ],
    "note": "",
@@ -3785,6 +4373,12 @@
    "states": [
     "TX"
    ],
+   "mwth": 326,
+   "fuels": {
+    "gas": 301.8,
+    "oth": 3612.9
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Houston Refining",
@@ -3792,7 +4386,8 @@
      "lat": 29.709,
      "lon": -95.241,
      "co2e": 1930871,
-     "gwh": 7758.7
+     "gwh": 7758.7,
+     "mwth": 326
     }
    ],
    "note": "",
@@ -3813,6 +4408,13 @@
     "OH",
     "TX"
    ],
+   "mwth": 2265,
+   "fuels": {
+    "gas": 5594.2,
+    "pet": 260.0,
+    "oth": 592.1
+   },
+   "gwh_bio": 4450.1,
    "sites": [
     {
      "n": "Graphic Packaging International - Augusta",
@@ -3820,7 +4422,8 @@
      "lat": 33.329,
      "lon": -81.954,
      "co2e": 397228,
-     "gwh": 2026.4
+     "gwh": 2026.4,
+     "mwth": 641
     },
     {
      "n": "Graphic Packaging International Llc, West Monroe",
@@ -3828,7 +4431,8 @@
      "lat": 32.487,
      "lon": -92.152,
      "co2e": 356946,
-     "gwh": 1821.0
+     "gwh": 1821.0,
+     "mwth": 424
     },
     {
      "n": "Graphic Packaging International - Texarkana Mill",
@@ -3836,7 +4440,8 @@
      "lat": 33.264,
      "lon": -94.07,
      "co2e": 341583,
-     "gwh": 1742.6
+     "gwh": 1742.6,
+     "mwth": 600
     },
     {
      "n": "Graphic Packaging International, Inc.",
@@ -3844,7 +4449,8 @@
      "lat": 42.305,
      "lon": -85.578,
      "co2e": 245349,
-     "gwh": 1251.6
+     "gwh": 1251.6,
+     "mwth": 161
     },
     {
      "n": "Graphic Packaging International",
@@ -3852,7 +4458,8 @@
      "lat": 32.772,
      "lon": -83.627,
      "co2e": 135245,
-     "gwh": 689.9
+     "gwh": 689.9,
+     "mwth": 415
     },
     {
      "n": "Graphic Packaging Int Inc",
@@ -3860,7 +4467,8 @@
      "lat": 39.518,
      "lon": -84.391,
      "co2e": 41905,
-     "gwh": 213.8
+     "gwh": 213.8,
+     "mwth": 23
     }
    ],
    "note": "",
@@ -3884,6 +4492,14 @@
     "WA",
     "WI"
    ],
+   "mwth": 2640,
+   "fuels": {
+    "gas": 5396.3,
+    "coal": 83.4,
+    "pet": 198.1,
+    "oth": 496.3
+   },
+   "gwh_bio": 5165.8,
    "sites": [
     {
      "n": "Packaging Corporation Of America",
@@ -3891,7 +4507,8 @@
      "lat": 35.044,
      "lon": -88.265,
      "co2e": 291173,
-     "gwh": 1485.4
+     "gwh": 1485.4,
+     "mwth": 117
     },
     {
      "n": "Packaging Corporation Of America",
@@ -3899,7 +4516,8 @@
      "lat": 30.863,
      "lon": -93.375,
      "co2e": 260456,
-     "gwh": 1328.7
+     "gwh": 1328.7,
+     "mwth": 666
     },
     {
      "n": "Boise White Paper Mill",
@@ -3907,7 +4525,8 @@
      "lat": 31.492,
      "lon": -87.899,
      "co2e": 244865,
-     "gwh": 1249.2
+     "gwh": 1249.2,
+     "mwth": 390
     },
     {
      "n": "Packaging Corporation Of America-Tomahawk",
@@ -3915,7 +4534,8 @@
      "lat": 45.451,
      "lon": -89.74,
      "co2e": 202705,
-     "gwh": 1034.1
+     "gwh": 1034.1,
+     "mwth": 342
     },
     {
      "n": "Packaging Corporation Of America",
@@ -3923,7 +4543,8 @@
      "lat": 44.216,
      "lon": -86.29,
      "co2e": 174153,
-     "gwh": 888.4
+     "gwh": 888.4,
+     "mwth": 226
     },
     {
      "n": "Boise White Paper Llc",
@@ -3931,7 +4552,8 @@
      "lat": 48.606,
      "lon": -93.407,
      "co2e": 153117,
-     "gwh": 781.1
+     "gwh": 781.1,
+     "mwth": 402
     },
     {
      "n": "Boise Paper",
@@ -3939,7 +4561,8 @@
      "lat": 46.097,
      "lon": -118.911,
      "co2e": 99158,
-     "gwh": 505.9
+     "gwh": 505.9,
+     "mwth": 211
     },
     {
      "n": "Packaging Corp. Of America",
@@ -3947,7 +4570,8 @@
      "lat": 30.695,
      "lon": -83.304,
      "co2e": 72717,
-     "gwh": 371.0
+     "gwh": 371.0,
+     "mwth": 287
     }
    ],
    "note": "",
@@ -3964,6 +4588,13 @@
    "states": [
     "WA"
    ],
+   "mwth": 570,
+   "fuels": {
+    "gas": 1729.3,
+    "pet": 0.7,
+    "oth": 3544.0
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Hf Sinclair Puget Sound Refining Llc",
@@ -3971,7 +4602,8 @@
      "lat": 48.473,
      "lon": -122.56,
      "co2e": 1900999,
-     "gwh": 7638.7
+     "gwh": 7638.7,
+     "mwth": 570
     }
    ],
    "note": "",
@@ -3988,6 +4620,12 @@
    "states": [
     "TX"
    ],
+   "mwth": 1416,
+   "fuels": {
+    "gas": 1577.3,
+    "oth": 3262.1
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Totalenergies Petrochemicals & Refining Usa, Inc",
@@ -3995,7 +4633,8 @@
      "lat": 29.958,
      "lon": -93.897,
      "co2e": 1860675,
-     "gwh": 7476.7
+     "gwh": 7476.7,
+     "mwth": 1416
     }
    ],
    "note": "",
@@ -4014,6 +4653,13 @@
     "TN",
     "TX"
    ],
+   "mwth": 1916,
+   "fuels": {
+    "gas": 6969.6,
+    "pet": 69.9,
+    "oth": 24.2
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Olin Blue Cube, Freeport, Tx",
@@ -4021,7 +4667,8 @@
      "lat": 28.969,
      "lon": -95.38,
      "co2e": 1404000,
-     "gwh": 7092.3
+     "gwh": 7092.3,
+     "mwth": 1848
     },
     {
      "n": "Olin Corporation",
@@ -4029,7 +4676,8 @@
      "lat": 35.307,
      "lon": -84.782,
      "co2e": 36930,
-     "gwh": 186.6
+     "gwh": 186.6,
+     "mwth": 26
     },
     {
      "n": "Olin Chlor Alkali Products",
@@ -4037,7 +4685,8 @@
      "lat": 43.082,
      "lon": -79.03,
      "co2e": 23857,
-     "gwh": 120.5
+     "gwh": 120.5,
+     "mwth": 43
     }
    ],
    "note": "",
@@ -4056,6 +4705,11 @@
     "OR",
     "WY"
    ],
+   "mwth": 124,
+   "fuels": {
+    "gas": 1111.1
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Dyno Nobel Incorporated Nitrogen Division",
@@ -4063,7 +4717,8 @@
      "lat": 39.43,
      "lon": -91.023,
      "co2e": 860677,
-     "gwh": 4347.7
+     "gwh": 4347.7,
+     "mwth": 29
     },
     {
      "n": "Cheyenne Plant",
@@ -4071,7 +4726,8 @@
      "lat": 41.095,
      "lon": -104.908,
      "co2e": 383736,
-     "gwh": 1938.4
+     "gwh": 1938.4,
+     "mwth": 53
     },
     {
      "n": "Dyno Nobel",
@@ -4079,7 +4735,8 @@
      "lat": 45.911,
      "lon": -122.824,
      "co2e": 190239,
-     "gwh": 961.0
+     "gwh": 961.0,
+     "mwth": 42
     }
    ],
    "note": "",
@@ -4096,6 +4753,12 @@
    "states": [
     "LA"
    ],
+   "mwth": 942,
+   "fuels": {
+    "gas": 3970.2,
+    "pet": 1.1
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Atlantic Alumina, Gramercy Operations",
@@ -4103,7 +4766,8 @@
      "lat": 30.067,
      "lon": -90.702,
      "co2e": 802950,
-     "gwh": 7060.7
+     "gwh": 7060.7,
+     "mwth": 942
     }
    ],
    "note": "",
@@ -4120,6 +4784,11 @@
    "states": [
     "IA"
    ],
+   "mwth": 543,
+   "fuels": {
+    "gas": 1491.8
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Iowa Fertilizer Company",
@@ -4127,7 +4796,8 @@
      "lat": 40.69,
      "lon": -91.23,
      "co2e": 1350065,
-     "gwh": 6819.8
+     "gwh": 6819.8,
+     "mwth": 543
     }
    ],
    "note": "",
@@ -4163,6 +4833,13 @@
     "WA",
     "WY"
    ],
+   "mwth": 521,
+   "fuels": {
+    "gas": 1028.6,
+    "pet": 705.2,
+    "oth": 2702.9
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Par Montana, Llc Billings Refinery",
@@ -4170,7 +4847,8 @@
      "lat": 45.811,
      "lon": -108.432,
      "co2e": 719769,
-     "gwh": 2892.2
+     "gwh": 2892.2,
+     "mwth": 219
     },
     {
      "n": "Refinery Kapolei",
@@ -4178,7 +4856,8 @@
      "lat": 21.304,
      "lon": -158.091,
      "co2e": 620476,
-     "gwh": 2493.2
+     "gwh": 2493.2,
+     "mwth": 67
     },
     {
      "n": "Wyoming Refining Company",
@@ -4186,7 +4865,8 @@
      "lat": 43.851,
      "lon": -104.215,
      "co2e": 156346,
-     "gwh": 628.2
+     "gwh": 628.2,
+     "mwth": 22
     },
     {
      "n": "Us Oil & Refining Tacoma",
@@ -4194,7 +4874,8 @@
      "lat": 47.258,
      "lon": -122.395,
      "co2e": 148012,
-     "gwh": 594.7
+     "gwh": 594.7,
+     "mwth": 96
     },
     {
      "n": "Par West Refinery",
@@ -4202,7 +4883,8 @@
      "lat": 21.313,
      "lon": -158.114,
      "co2e": 0,
-     "gwh": 0.0
+     "gwh": 0.0,
+     "mwth": 117
     }
    ],
    "note": "",
@@ -4225,6 +4907,11 @@
     "TN",
     "TX"
    ],
+   "mwth": 389,
+   "fuels": {
+    "gas": 6437.0
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Green Plains Fairmont Llc",
@@ -4232,7 +4919,8 @@
      "lat": 43.664,
      "lon": -94.493,
      "co2e": 159508,
-     "gwh": 802.6
+     "gwh": 802.6,
+     "mwth": 62
     },
     {
      "n": "Green Plains Obion Llc",
@@ -4240,7 +4928,8 @@
      "lat": 36.283,
      "lon": -89.148,
      "co2e": 152667,
-     "gwh": 768.1
+     "gwh": 768.1,
+     "mwth": 36
     },
     {
      "n": "Green Plains Central City Llc",
@@ -4248,7 +4937,8 @@
      "lat": 41.111,
      "lon": -97.973,
      "co2e": 149930,
-     "gwh": 754.4
+     "gwh": 754.4,
+     "mwth": 27
     },
     {
      "n": "Green Plains Madison Llc",
@@ -4256,7 +4946,8 @@
      "lat": 38.68,
      "lon": -90.172,
      "co2e": 146050,
-     "gwh": 734.8
+     "gwh": 734.8,
+     "mwth": 27
     },
     {
      "n": "Green Plains Mount Vernon Llc",
@@ -4264,7 +4955,8 @@
      "lat": 37.905,
      "lon": -87.723,
      "co2e": 133621,
-     "gwh": 672.3
+     "gwh": 672.3,
+     "mwth": 27
     },
     {
      "n": "Green Plains Wood River, Llc.",
@@ -4272,7 +4964,8 @@
      "lat": 40.816,
      "lon": -98.608,
      "co2e": 116859,
-     "gwh": 588.0
+     "gwh": 588.0,
+     "mwth": 27
     },
     {
      "n": "Green Plains Shenandoah Llc",
@@ -4280,7 +4973,8 @@
      "lat": 40.755,
      "lon": -95.395,
      "co2e": 101170,
-     "gwh": 509.0
+     "gwh": 509.0,
+     "mwth": 37
     },
     {
      "n": "Hereford Ethanol Partners Lp",
@@ -4288,7 +4982,8 @@
      "lat": 34.85,
      "lon": -102.287,
      "co2e": 91981,
-     "gwh": 462.8
+     "gwh": 462.8,
+     "mwth": 44
     }
    ],
    "note": "",
@@ -4305,6 +5000,12 @@
    "states": [
     "VA"
    ],
+   "mwth": 558,
+   "fuels": {
+    "gas": 2801.6,
+    "pet": 201.7
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Advansix Incorporated - Hopewell",
@@ -4312,7 +5013,8 @@
      "lat": 37.181,
      "lon": -77.162,
      "co2e": 1227774,
-     "gwh": 6202.1
+     "gwh": 6202.1,
+     "mwth": 537
     },
     {
      "n": "Advansix Inc - Chesterfield Plant",
@@ -4320,7 +5022,8 @@
      "lat": 37.336,
      "lon": -77.282,
      "co2e": 60212,
-     "gwh": 304.2
+     "gwh": 304.2,
+     "mwth": 21
     }
    ],
    "note": "",
@@ -4337,6 +5040,9 @@
    "states": [
     "TX"
    ],
+   "mwth": 0,
+   "fuels": {},
+   "gwh_bio": 0,
    "sites": [
     {
      "n": "Linde Inc Texas City Hydrogen Complex",
@@ -4344,7 +5050,8 @@
      "lat": 29.375,
      "lon": -94.942,
      "co2e": 1286746,
-     "gwh": 6500.0
+     "gwh": 6500.0,
+     "mwth": 0
     }
    ],
    "note": "",
@@ -4366,6 +5073,12 @@
     "TN",
     "TX"
    ],
+   "mwth": 26,
+   "fuels": {
+    "gas": 12.6,
+    "pet": 4.0
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "River Cement Company Dba Buzzi Unicem Usa",
@@ -4373,7 +5086,8 @@
      "lat": 38.18,
      "lon": -90.337,
      "co2e": 1557125,
-     "gwh": 1781.9
+     "gwh": 1781.9,
+     "mwth": 4
     },
     {
      "n": "Lone Star Industries Inc",
@@ -4381,7 +5095,8 @@
      "lat": 39.617,
      "lon": -86.869,
      "co2e": 1028904,
-     "gwh": 1177.4
+     "gwh": 1177.4,
+     "mwth": 4
     },
     {
      "n": "Lone Star Industries",
@@ -4389,7 +5104,8 @@
      "lat": 37.268,
      "lon": -89.538,
      "co2e": 866805,
-     "gwh": 991.9
+     "gwh": 991.9,
+     "mwth": 1
     },
     {
      "n": "Signal Mountain Cement Co",
@@ -4397,7 +5113,8 @@
      "lat": 35.101,
      "lon": -85.345,
      "co2e": 814743,
-     "gwh": 932.3
+     "gwh": 932.3,
+     "mwth": 0
     },
     {
      "n": "Lone Star Industries, Inc. /Dba/ Buzzi Unicem Us",
@@ -4405,7 +5122,8 @@
      "lat": 32.25,
      "lon": -100.458,
      "co2e": 632181,
-     "gwh": 723.4
+     "gwh": 723.4,
+     "mwth": 0
     },
     {
      "n": "Hercules Cement Stockertown Plt Quarry",
@@ -4413,7 +5131,8 @@
      "lat": 40.754,
      "lon": -75.26,
      "co2e": 438412,
-     "gwh": 501.7
+     "gwh": 501.7,
+     "mwth": 1
     },
     {
      "n": "Lone Star Ind Inc Dba Buzzi Unicem Usa Pryor Cem",
@@ -4421,7 +5140,8 @@
      "lat": 36.296,
      "lon": -95.331,
      "co2e": 256257,
-     "gwh": 293.2
+     "gwh": 293.2,
+     "mwth": 15
     }
    ],
    "note": "",
@@ -4443,6 +5163,14 @@
     "TN",
     "WI"
    ],
+   "mwth": 1324,
+   "fuels": {
+    "gas": 3861.8,
+    "coal": 268.9,
+    "pet": 319.3,
+    "oth": 636.2
+   },
+   "gwh_bio": 2338.1,
    "sites": [
     {
      "n": "Domtar Aw Llc Ashdown Mill",
@@ -4450,7 +5178,8 @@
      "lat": 33.643,
      "lon": -94.101,
      "co2e": 408171,
-     "gwh": 2082.3
+     "gwh": 2082.3,
+     "mwth": 26
     },
     {
      "n": "Domtar A. W. Llc-Nekoosa",
@@ -4458,7 +5187,8 @@
      "lat": 44.314,
      "lon": -89.896,
      "co2e": 267877,
-     "gwh": 1366.6
+     "gwh": 1366.6,
+     "mwth": 179
     },
     {
      "n": "Domtar Paper Kingsport Mill",
@@ -4466,7 +5196,8 @@
      "lat": 36.548,
      "lon": -82.565,
      "co2e": 167523,
-     "gwh": 854.6
+     "gwh": 854.6,
+     "mwth": 415
     },
     {
      "n": "Domtar Paper Company, Llc",
@@ -4474,7 +5205,8 @@
      "lat": 41.491,
      "lon": -78.677,
      "co2e": 165410,
-     "gwh": 843.8
+     "gwh": 843.8,
+     "mwth": 53
     },
     {
      "n": "Domtar Paper Co Llc Hawesville Mill",
@@ -4482,7 +5214,8 @@
      "lat": 37.895,
      "lon": -86.686,
      "co2e": 131171,
-     "gwh": 669.2
+     "gwh": 669.2,
+     "mwth": 420
     },
     {
      "n": "Marlboro Paper Mill",
@@ -4490,7 +5223,8 @@
      "lat": 34.605,
      "lon": -79.785,
      "co2e": 102527,
-     "gwh": 523.0
+     "gwh": 523.0,
+     "mwth": 231
     }
    ],
    "note": "",
@@ -4514,6 +5248,11 @@
     "TX",
     "WY"
    ],
+   "mwth": 45,
+   "fuels": {
+    "gas": 76.0
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Kosmos Cement Co",
@@ -4521,7 +5260,8 @@
      "lat": 38.035,
      "lon": -85.906,
      "co2e": 1320866,
-     "gwh": 1511.5
+     "gwh": 1511.5,
+     "mwth": 34
     },
     {
      "n": "Texas Lehigh Cement Company Lp",
@@ -4529,7 +5269,8 @@
      "lat": 30.071,
      "lon": -97.857,
      "co2e": 818238,
-     "gwh": 936.3
+     "gwh": 936.3,
+     "mwth": 0
     },
     {
      "n": "Illinois Cement Co",
@@ -4537,7 +5278,8 @@
      "lat": 41.329,
      "lon": -89.082,
      "co2e": 761561,
-     "gwh": 871.5
+     "gwh": 871.5,
+     "mwth": 0
     },
     {
      "n": "Central Plains Cement Company Llc",
@@ -4545,7 +5287,8 @@
      "lat": 39.144,
      "lon": -94.395,
      "co2e": 745107,
-     "gwh": 852.7
+     "gwh": 852.7,
+     "mwth": 3
     },
     {
      "n": "Mountain Cement Co",
@@ -4553,7 +5296,8 @@
      "lat": 41.261,
      "lon": -105.603,
      "co2e": 522258,
-     "gwh": 597.6
+     "gwh": 597.6,
+     "mwth": 0
     },
     {
      "n": "Central Plains Cement Company",
@@ -4561,7 +5305,8 @@
      "lat": 36.194,
      "lon": -95.812,
      "co2e": 490542,
-     "gwh": 561.3
+     "gwh": 561.3,
+     "mwth": 0
     },
     {
      "n": "Fairborn Cement Company Llc",
@@ -4569,7 +5314,8 @@
      "lat": 39.778,
      "lon": -83.966,
      "co2e": 478200,
-     "gwh": 547.2
+     "gwh": 547.2,
+     "mwth": 0
     },
     {
      "n": "Nevada Cement Company",
@@ -4577,7 +5323,8 @@
      "lat": 39.62,
      "lon": -119.263,
      "co2e": 385165,
-     "gwh": 440.8
+     "gwh": 440.8,
+     "mwth": 8
     }
    ],
    "note": "",
@@ -4601,6 +5348,14 @@
     "VA",
     "WI"
    ],
+   "mwth": 1834,
+   "fuels": {
+    "gas": 2986.1,
+    "coal": 1990.7,
+    "pet": 1055.9,
+    "oth": 371.7
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Carmeuse Lime, Inc. Buffington",
@@ -4608,7 +5363,8 @@
      "lat": 41.602,
      "lon": -87.411,
      "co2e": 896323,
-     "gwh": 1371.9
+     "gwh": 1371.9,
+     "mwth": 312
     },
     {
      "n": "Carmeuse Lime Black River Operation",
@@ -4616,7 +5372,8 @@
      "lat": 38.837,
      "lon": -84.243,
      "co2e": 886781,
-     "gwh": 1357.3
+     "gwh": 1357.3,
+     "mwth": 401
     },
     {
      "n": "Carmeuse Lime & Stone Inc",
@@ -4624,7 +5381,8 @@
      "lat": 33.219,
      "lon": -86.786,
      "co2e": 517405,
-     "gwh": 791.9
+     "gwh": 791.9,
+     "mwth": 176
     },
     {
      "n": "Carmeuse Ohio Inc - Maplegrove Lime Plant",
@@ -4632,7 +5390,8 @@
      "lat": 41.225,
      "lon": -83.208,
      "co2e": 485544,
-     "gwh": 743.2
+     "gwh": 743.2,
+     "mwth": 120
     },
     {
      "n": "Carmeuse Lime Inc - River Rouge",
@@ -4640,7 +5399,8 @@
      "lat": 42.277,
      "lon": -83.128,
      "co2e": 345457,
-     "gwh": 528.8
+     "gwh": 528.8,
+     "mwth": 104
     },
     {
      "n": "Carmeuse Lime, Inc.  Grand River Operations (024",
@@ -4648,7 +5408,8 @@
      "lat": 41.75,
      "lon": -81.283,
      "co2e": 304546,
-     "gwh": 466.1
+     "gwh": 466.1,
+     "mwth": 146
     },
     {
      "n": "Carmeuse Lime & Stone Maysville Facility",
@@ -4656,7 +5417,8 @@
      "lat": 38.608,
      "lon": -83.651,
      "co2e": 236315,
-     "gwh": 361.7
+     "gwh": 361.7,
+     "mwth": 252
     },
     {
      "n": "Carmeuse Lime & Stone Rockwell Operation",
@@ -4664,7 +5426,8 @@
      "lat": 44.168,
      "lon": -87.7,
      "co2e": 160190,
-     "gwh": 245.2
+     "gwh": 245.2,
+     "mwth": 146
     }
    ],
    "note": "",
@@ -4681,6 +5444,12 @@
    "states": [
     "TX"
    ],
+   "mwth": 725,
+   "fuels": {
+    "gas": 311.5,
+    "oth": 3134.8
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Bayport Polymers Llc Ethane Cracker",
@@ -4688,7 +5457,8 @@
      "lat": 29.96,
      "lon": -93.896,
      "co2e": 1167421,
-     "gwh": 5897.2
+     "gwh": 5897.2,
+     "mwth": 707
     },
     {
      "n": "Bayport Polymers Llc - Hdpe Plant",
@@ -4696,7 +5466,8 @@
      "lat": 29.635,
      "lon": -95.058,
      "co2e": 61724,
-     "gwh": 311.8
+     "gwh": 311.8,
+     "mwth": 18
     }
    ],
    "note": "",
@@ -4718,6 +5489,12 @@
     "TN",
     "TX"
    ],
+   "mwth": 75,
+   "fuels": {
+    "gas": 49.5,
+    "pet": 1.9
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Cemex Construction Materials Pacific Llc",
@@ -4725,7 +5502,8 @@
      "lat": 34.397,
      "lon": -117.15,
      "co2e": 1816908,
-     "gwh": 2079.2
+     "gwh": 2079.2,
+     "mwth": 50
     },
     {
      "n": "Cemex Construction Materials South, Llc",
@@ -4733,7 +5511,8 @@
      "lat": 29.672,
      "lon": -98.175,
      "co2e": 1065672,
-     "gwh": 1219.5
+     "gwh": 1219.5,
+     "mwth": 3
     },
     {
      "n": "Brooksville South Cement Plant",
@@ -4741,7 +5520,8 @@
      "lat": 28.582,
      "lon": -82.431,
      "co2e": 731488,
-     "gwh": 837.1
+     "gwh": 837.1,
+     "mwth": 13
     },
     {
      "n": "Cemex Miami",
@@ -4749,7 +5529,8 @@
      "lat": 25.786,
      "lon": -80.421,
      "co2e": 575920,
-     "gwh": 659.0
+     "gwh": 659.0,
+     "mwth": 0
     },
     {
      "n": "Cemex Southeast Llc, Demopolis Plant",
@@ -4757,7 +5538,8 @@
      "lat": 32.513,
      "lon": -87.816,
      "co2e": 517396,
-     "gwh": 592.1
+     "gwh": 592.1,
+     "mwth": 0
     },
     {
      "n": "Cemex Construction Materials Atlantic Llc",
@@ -4765,7 +5547,8 @@
      "lat": 36.023,
      "lon": -83.834,
      "co2e": 441463,
-     "gwh": 505.2
+     "gwh": 505.2,
+     "mwth": 0
     },
     {
      "n": "Cemex Construction Materials South Llc",
@@ -4773,7 +5556,8 @@
      "lat": 40.202,
      "lon": -105.237,
      "co2e": 243722,
-     "gwh": 278.9
+     "gwh": 278.9,
+     "mwth": 9
     }
    ],
    "note": "",
@@ -4790,6 +5574,13 @@
    "states": [
     "TX"
    ],
+   "mwth": 1157,
+   "fuels": {
+    "gas": 4555.7,
+    "pet": 3.4,
+    "oth": 106.4
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Clear Lake Plant",
@@ -4797,7 +5588,8 @@
      "lat": 29.624,
      "lon": -95.063,
      "co2e": 763279,
-     "gwh": 3855.7
+     "gwh": 3855.7,
+     "mwth": 588
     },
     {
      "n": "Ticona Polymers Incorporated",
@@ -4805,7 +5597,8 @@
      "lat": 27.567,
      "lon": -97.825,
      "co2e": 404796,
-     "gwh": 2044.8
+     "gwh": 2044.8,
+     "mwth": 569
     }
    ],
    "note": "",
@@ -4824,6 +5617,11 @@
     "PA",
     "WI"
    ],
+   "mwth": 633,
+   "fuels": {
+    "gas": 5644.6
+   },
+   "gwh_bio": 40.0,
    "sites": [
     {
      "n": "Procter & Gamble Paper Products",
@@ -4831,7 +5629,8 @@
      "lat": 41.573,
      "lon": -76.043,
      "co2e": 685923,
-     "gwh": 3499.2
+     "gwh": 3499.2,
+     "mwth": 240
     },
     {
      "n": "Procter & Gamble Paper Products",
@@ -4839,7 +5638,8 @@
      "lat": 34.209,
      "lon": -119.142,
      "co2e": 276308,
-     "gwh": 1409.6
+     "gwh": 1409.6,
+     "mwth": 168
     },
     {
      "n": "Procter & Gamble Paper Products Co",
@@ -4847,7 +5647,8 @@
      "lat": 44.524,
      "lon": -88.003,
      "co2e": 191281,
-     "gwh": 975.8
+     "gwh": 975.8,
+     "mwth": 226
     }
    ],
    "note": "",
@@ -4864,6 +5665,12 @@
    "states": [
     "TX"
    ],
+   "mwth": 319,
+   "fuels": {
+    "gas": 397.7,
+    "oth": 3471.2
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Motiva Port Arthur Chemicals",
@@ -4871,7 +5678,8 @@
      "lat": 29.893,
      "lon": -93.973,
      "co2e": 1131434,
-     "gwh": 5715.4
+     "gwh": 5715.4,
+     "mwth": 319
     }
    ],
    "note": "",
@@ -4894,6 +5702,13 @@
     "UT",
     "WI"
    ],
+   "mwth": 919,
+   "fuels": {
+    "gas": 1141.7,
+    "coal": 3342.4,
+    "pet": 353.9
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Graymont Western Us Inc. Cricket Mountain",
@@ -4901,7 +5716,8 @@
      "lat": 38.939,
      "lon": -112.817,
      "co2e": 785085,
-     "gwh": 1201.6
+     "gwh": 1201.6,
+     "mwth": 205
     },
     {
      "n": "Graymont Pa Inc/Pleasant Gap Plt",
@@ -4909,7 +5725,8 @@
      "lat": 40.924,
      "lon": -77.722,
      "co2e": 742587,
-     "gwh": 1136.6
+     "gwh": 1136.6,
+     "mwth": 243
     },
     {
      "n": "Graymont (Wi) Llc",
@@ -4917,7 +5734,8 @@
      "lat": 46.729,
      "lon": -92.078,
      "co2e": 521551,
-     "gwh": 798.3
+     "gwh": 798.3,
+     "mwth": 82
     },
     {
      "n": "Graymont Western Us Inc Pilot Peak",
@@ -4925,7 +5743,8 @@
      "lat": 40.821,
      "lon": -114.25,
      "co2e": 504922,
-     "gwh": 772.8
+     "gwh": 772.8,
+     "mwth": 146
     },
     {
      "n": "Graymont Western Lime Eden",
@@ -4933,7 +5752,8 @@
      "lat": 43.705,
      "lon": -88.385,
      "co2e": 328455,
-     "gwh": 502.7
+     "gwh": 502.7,
+     "mwth": 66
     },
     {
      "n": "Graymont Western U.S. Inc. Indian Creek",
@@ -4941,7 +5761,8 @@
      "lat": 46.326,
      "lon": -111.617,
      "co2e": 276271,
-     "gwh": 422.9
+     "gwh": 422.9,
+     "mwth": 42
     },
     {
      "n": "Port Inland Plant",
@@ -4949,7 +5770,8 @@
      "lat": 46.045,
      "lon": -86.045,
      "co2e": 235536,
-     "gwh": 360.5
+     "gwh": 360.5,
+     "mwth": 55
     },
     {
      "n": "Graymont Western Lime Green Bay",
@@ -4957,7 +5779,8 @@
      "lat": 44.524,
      "lon": -88.013,
      "co2e": 161964,
-     "gwh": 247.9
+     "gwh": 247.9,
+     "mwth": 46
     }
    ],
    "note": "",
@@ -4980,6 +5803,12 @@
     "TX",
     "UT"
    ],
+   "mwth": 24,
+   "fuels": {
+    "gas": 17.3,
+    "pet": 0.2
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Ash Grove Cement Co-Chanute Plant",
@@ -4987,7 +5816,8 @@
      "lat": 37.699,
      "lon": -95.46,
      "co2e": 1299990,
-     "gwh": 1487.6
+     "gwh": 1487.6,
+     "mwth": 4
     },
     {
      "n": "Ash Grove Cement Company",
@@ -4995,7 +5825,8 @@
      "lat": 32.52,
      "lon": -97.007,
      "co2e": 642168,
-     "gwh": 734.9
+     "gwh": 734.9,
+     "mwth": 0
     },
     {
      "n": "Ash Grove Cement Company-Louisville",
@@ -5003,7 +5834,8 @@
      "lat": 41.006,
      "lon": -96.155,
      "co2e": 612375,
-     "gwh": 700.8
+     "gwh": 700.8,
+     "mwth": 9
     },
     {
      "n": "Ash Grove Cement Company-Durkee",
@@ -5011,7 +5843,8 @@
      "lat": 44.542,
      "lon": -117.421,
      "co2e": 580298,
-     "gwh": 664.1
+     "gwh": 664.1,
+     "mwth": 0
     },
     {
      "n": "Suwannee American Cement Company, Llc",
@@ -5019,7 +5852,8 @@
      "lat": 28.761,
      "lon": -82.025,
      "co2e": 567263,
-     "gwh": 649.1
+     "gwh": 649.1,
+     "mwth": 11
     },
     {
      "n": "Ash Grove Cement Company-Leamington",
@@ -5027,7 +5861,8 @@
      "lat": 39.508,
      "lon": -112.262,
      "co2e": 548943,
-     "gwh": 628.2
+     "gwh": 628.2,
+     "mwth": 0
     },
     {
      "n": "Suwannee American Cement",
@@ -5035,7 +5870,8 @@
      "lat": 29.962,
      "lon": -82.85,
      "co2e": 361182,
-     "gwh": 413.3
+     "gwh": 413.3,
+     "mwth": 0
     },
     {
      "n": "Ash Grove Cement Company-Montana City",
@@ -5043,7 +5879,8 @@
      "lat": 46.544,
      "lon": -111.921,
      "co2e": 323958,
-     "gwh": 370.7
+     "gwh": 370.7,
+     "mwth": 0
     }
    ],
    "note": "",
@@ -5060,6 +5897,11 @@
    "states": [
     "LA"
    ],
+   "mwth": 102,
+   "fuels": {
+    "gas": 4169.1
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Shintech Plaquemine Plant",
@@ -5067,7 +5909,8 @@
      "lat": 30.259,
      "lon": -91.174,
      "co2e": 1050986,
-     "gwh": 5309.0
+     "gwh": 5309.0,
+     "mwth": 73
     },
     {
      "n": "Shintech Louisiana Llc - Addis Plant A",
@@ -5075,7 +5918,8 @@
      "lat": 30.326,
      "lon": -91.262,
      "co2e": 65015,
-     "gwh": 328.4
+     "gwh": 328.4,
+     "mwth": 28
     }
    ],
    "note": "",
@@ -5096,6 +5940,11 @@
     "NY",
     "WV"
    ],
+   "mwth": 811,
+   "fuels": {
+    "gas": 5464.3
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Sabic Innovative Plastics Mt. Vernon, Llc",
@@ -5103,7 +5952,8 @@
      "lat": 37.907,
      "lon": -87.927,
      "co2e": 557714,
-     "gwh": 2817.3
+     "gwh": 2817.3,
+     "mwth": 604
     },
     {
      "n": "Sabic Innovative Plastics - Burkville",
@@ -5111,7 +5961,8 @@
      "lat": 32.31,
      "lon": -86.524,
      "co2e": 404081,
-     "gwh": 2041.2
+     "gwh": 2041.2,
+     "mwth": 73
     },
     {
      "n": "Shpp Us Llc",
@@ -5119,7 +5970,8 @@
      "lat": 42.575,
      "lon": -73.854,
      "co2e": 120792,
-     "gwh": 610.2
+     "gwh": 610.2,
+     "mwth": 106
     },
     {
      "n": "Sabic Innovative Plastics Us Llc",
@@ -5127,7 +5979,8 @@
      "lat": 41.335,
      "lon": -88.756,
      "co2e": 22121,
-     "gwh": 111.7
+     "gwh": 111.7,
+     "mwth": 27
     },
     {
      "n": "Sabic Innovative Plastics Us Llc",
@@ -5135,7 +5988,8 @@
      "lat": 39.267,
      "lon": -81.683,
      "co2e": 4240,
-     "gwh": 21.4
+     "gwh": 21.4,
+     "mwth": 0
     }
    ],
    "note": "",
@@ -5153,6 +6007,12 @@
     "NM",
     "UT"
    ],
+   "mwth": 528,
+   "fuels": {
+    "gas": 1171.3,
+    "oth": 1650.4
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Navajo Refining Company, Llc - Artesia Refinery",
@@ -5160,7 +6020,8 @@
      "lat": 32.849,
      "lon": -104.394,
      "co2e": 777339,
-     "gwh": 3123.5
+     "gwh": 3123.5,
+     "mwth": 357
     },
     {
      "n": "Hollyfrontier Woods Cross Refining Llc",
@@ -5168,7 +6029,8 @@
      "lat": 40.884,
      "lon": -111.911,
      "co2e": 412137,
-     "gwh": 1656.1
+     "gwh": 1656.1,
+     "mwth": 31
     },
     {
      "n": "Navajo Refining Company, Llc - Lovington Refiner",
@@ -5176,7 +6038,8 @@
      "lat": 32.879,
      "lon": -103.297,
      "co2e": 132162,
-     "gwh": 531.1
+     "gwh": 531.1,
+     "mwth": 141
     }
    ],
    "note": "",
@@ -5195,6 +6058,13 @@
     "KY",
     "MO"
    ],
+   "mwth": 232,
+   "fuels": {
+    "gas": 1239.2,
+    "coal": 1008.1,
+    "pet": 1009.0
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Mississippi Lime Company",
@@ -5202,7 +6072,8 @@
      "lat": 37.974,
      "lon": -90.068,
      "co2e": 2525594,
-     "gwh": 3865.6
+     "gwh": 3865.6,
+     "mwth": 59
     },
     {
      "n": "Mississippi Lime Co - Calera Plant",
@@ -5210,7 +6081,8 @@
      "lat": 33.094,
      "lon": -86.795,
      "co2e": 463624,
-     "gwh": 709.6
+     "gwh": 709.6,
+     "mwth": 71
     },
     {
      "n": "Mississippi Lime Co - Verona Plant",
@@ -5218,7 +6090,8 @@
      "lat": 38.828,
      "lon": -84.759,
      "co2e": 322597,
-     "gwh": 493.8
+     "gwh": 493.8,
+     "mwth": 59
     },
     {
      "n": "Mississippi Lime Company - Bonne Terre",
@@ -5226,7 +6099,8 @@
      "lat": 37.889,
      "lon": -90.53,
      "co2e": 136129,
-     "gwh": 208.4
+     "gwh": 208.4,
+     "mwth": 44
     }
    ],
    "note": "",
@@ -5244,6 +6118,11 @@
     "IA",
     "NE"
    ],
+   "mwth": 253,
+   "fuels": {
+    "gas": 5032.5
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Poet Biorefining Fairbank Llc",
@@ -5251,7 +6130,8 @@
      "lat": 42.639,
      "lon": -92.031,
      "co2e": 196145,
-     "gwh": 986.9
+     "gwh": 986.9,
+     "mwth": 43
     },
     {
      "n": "Poet Biorefining- Menlo, Llc",
@@ -5259,7 +6139,8 @@
      "lat": 41.524,
      "lon": -94.382,
      "co2e": 180626,
-     "gwh": 908.8
+     "gwh": 908.8,
+     "mwth": 43
     },
     {
      "n": "Poet Biorefining Shell Rock, Llc.",
@@ -5267,7 +6148,8 @@
      "lat": 42.736,
      "lon": -92.617,
      "co2e": 174101,
-     "gwh": 876.0
+     "gwh": 876.0,
+     "mwth": 43
     },
     {
      "n": "Poet- Biorefining Fairmont, Llc",
@@ -5275,7 +6157,8 @@
      "lat": 40.611,
      "lon": -97.601,
      "co2e": 164763,
-     "gwh": 829.0
+     "gwh": 829.0,
+     "mwth": 43
     },
     {
      "n": "Poet Biorefining- Arthur, Llc",
@@ -5283,7 +6166,8 @@
      "lat": 42.331,
      "lon": -95.347,
      "co2e": 159570,
-     "gwh": 802.9
+     "gwh": 802.9,
+     "mwth": 43
     },
     {
      "n": "Poet Biorefining- Iowa Falls, Llc",
@@ -5291,7 +6175,8 @@
      "lat": 42.507,
      "lon": -93.28,
      "co2e": 142205,
-     "gwh": 715.5
+     "gwh": 715.5,
+     "mwth": 37
     }
    ],
    "note": "",
@@ -5308,6 +6193,11 @@
    "states": [
     "LA"
    ],
+   "mwth": 1339,
+   "fuels": {
+    "gas": 2507.4
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Methanex Usa, Llc - Geismar Methanol Plant",
@@ -5315,7 +6205,8 @@
      "lat": 30.206,
      "lon": -91.021,
      "co2e": 1003452,
-     "gwh": 5068.9
+     "gwh": 5068.9,
+     "mwth": 1339
     }
    ],
    "note": "",
@@ -5332,6 +6223,13 @@
    "states": [
     "PA"
    ],
+   "mwth": 854,
+   "fuels": {
+    "gas": 573.0,
+    "pet": 4.1,
+    "oth": 2356.6
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Monroe Energy, Llc, Trainer Refinery",
@@ -5339,7 +6237,8 @@
      "lat": 39.823,
      "lon": -75.403,
      "co2e": 1213827,
-     "gwh": 4877.5
+     "gwh": 4877.5,
+     "mwth": 854
     }
    ],
    "note": "",
@@ -5356,6 +6255,12 @@
    "states": [
     "OH"
    ],
+   "mwth": 1084,
+   "fuels": {
+    "gas": 360.2,
+    "oth": 2865.6
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Lima Refinery",
@@ -5363,7 +6268,8 @@
      "lat": 40.723,
      "lon": -84.113,
      "co2e": 1205035,
-     "gwh": 4842.1
+     "gwh": 4842.1,
+     "mwth": 1084
     }
    ],
    "note": "",
@@ -5383,6 +6289,13 @@
     "IN",
     "MD"
    ],
+   "mwth": 138,
+   "fuels": {
+    "gas": 245.6,
+    "coal": 108.0,
+    "pet": 3.3
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Heidelberg Materials Us Cement Llc",
@@ -5390,7 +6303,8 @@
      "lat": 39.56,
      "lon": -77.171,
      "co2e": 1857878,
-     "gwh": 2126.0
+     "gwh": 2126.0,
+     "mwth": 3
     },
     {
      "n": "Heidelberg Materials Us Cement Llc",
@@ -5398,7 +6312,8 @@
      "lat": 38.739,
      "lon": -86.457,
      "co2e": 833267,
-     "gwh": 953.5
+     "gwh": 953.5,
+     "mwth": 127
     },
     {
      "n": "Hm Cement Southeast Llc",
@@ -5406,7 +6321,8 @@
      "lat": 33.54,
      "lon": -86.543,
      "co2e": 522543,
-     "gwh": 598.0
+     "gwh": 598.0,
+     "mwth": 0
     },
     {
      "n": "Lehigh Cement Co Llc",
@@ -5414,7 +6330,8 @@
      "lat": 43.179,
      "lon": -93.212,
      "co2e": 446400,
-     "gwh": 510.8
+     "gwh": 510.8,
+     "mwth": 6
     },
     {
      "n": "Heidelberg Materials",
@@ -5422,7 +6339,8 @@
      "lat": 40.735,
      "lon": -86.433,
      "co2e": 444881,
-     "gwh": 509.1
+     "gwh": 509.1,
+     "mwth": 0
     },
     {
      "n": "Heidelberg Materials Us Cement Llc",
@@ -5430,7 +6348,8 @@
      "lat": 38.416,
      "lon": -85.749,
      "co2e": 67822,
-     "gwh": 77.6
+     "gwh": 77.6,
+     "mwth": 3
     }
    ],
    "note": "",
@@ -5447,6 +6366,12 @@
    "states": [
     "LA"
    ],
+   "mwth": 205,
+   "fuels": {
+    "gas": 3194.1,
+    "oth": 127.2
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Sasol Chemicals (Usa) Llc - Lake Charles Chemica",
@@ -5454,7 +6379,8 @@
      "lat": 30.259,
      "lon": -93.294,
      "co2e": 940881,
-     "gwh": 4752.8
+     "gwh": 4752.8,
+     "mwth": 205
     }
    ],
    "note": "",
@@ -5477,6 +6403,13 @@
     "TN",
     "WI"
    ],
+   "mwth": 375,
+   "fuels": {
+    "gas": 3780.2,
+    "pet": 261.6,
+    "oth": 171.9
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Kimberly-Clark Tissue Company",
@@ -5484,7 +6417,8 @@
      "lat": 30.736,
      "lon": -88.048,
      "co2e": 250412,
-     "gwh": 1277.5
+     "gwh": 1277.5,
+     "mwth": 85
     },
     {
      "n": "Kimberly Clark Corporation",
@@ -5492,7 +6426,8 @@
      "lat": 33.416,
      "lon": -81.896,
      "co2e": 148672,
-     "gwh": 758.4
+     "gwh": 758.4,
+     "mwth": 47
     },
     {
      "n": "Kimberly-Clark Tissue Mill",
@@ -5500,7 +6435,8 @@
      "lat": 41.559,
      "lon": -73.41,
      "co2e": 139055,
-     "gwh": 709.4
+     "gwh": 709.4,
+     "mwth": 72
     },
     {
      "n": "Kimberly-Clark Corp Owensboro Operations",
@@ -5508,7 +6444,8 @@
      "lat": 37.823,
      "lon": -87.304,
      "co2e": 121014,
-     "gwh": 617.3
+     "gwh": 617.3,
+     "mwth": 88
     },
     {
      "n": "Kimberly-Clark Corp-Jenks Fac",
@@ -5516,7 +6453,8 @@
      "lat": 35.967,
      "lon": -95.928,
      "co2e": 107762,
-     "gwh": 549.7
+     "gwh": 549.7,
+     "mwth": 28
     },
     {
      "n": "Kimberly-Clark Corp.",
@@ -5524,7 +6462,8 @@
      "lat": 35.772,
      "lon": -84.331,
      "co2e": 76894,
-     "gwh": 392.3
+     "gwh": 392.3,
+     "mwth": 26
     },
     {
      "n": "Kimberly-Clark Corp",
@@ -5532,7 +6471,8 @@
      "lat": 45.105,
      "lon": -87.65,
      "co2e": 39084,
-     "gwh": 199.4
+     "gwh": 199.4,
+     "mwth": 29
     }
    ],
    "note": "",
@@ -5550,6 +6490,12 @@
     "AZ",
     "CA"
    ],
+   "mwth": 32,
+   "fuels": {
+    "gas": 13.1,
+    "pet": 0.2
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Calportland Company Oro Grande Plant",
@@ -5557,7 +6503,8 @@
      "lat": 34.605,
      "lon": -117.338,
      "co2e": 1424150,
-     "gwh": 1629.7
+     "gwh": 1629.7,
+     "mwth": 0
     },
     {
      "n": "Calportland Company Mojave Plant",
@@ -5565,7 +6512,8 @@
      "lat": 35.038,
      "lon": -118.298,
      "co2e": 991489,
-     "gwh": 1134.6
+     "gwh": 1134.6,
+     "mwth": 4
     },
     {
      "n": "Calportland Company Rillito Plant",
@@ -5573,7 +6521,8 @@
      "lat": 32.411,
      "lon": -111.151,
      "co2e": 789422,
-     "gwh": 903.4
+     "gwh": 903.4,
+     "mwth": 22
     },
     {
      "n": "Calportland Redding Cement Plant",
@@ -5581,7 +6530,8 @@
      "lat": 40.737,
      "lon": -122.322,
      "co2e": 365332,
-     "gwh": 418.1
+     "gwh": 418.1,
+     "mwth": 6
     }
    ],
    "note": "",
@@ -5601,6 +6551,11 @@
     "OH",
     "WA"
    ],
+   "mwth": 0,
+   "fuels": {
+    "gas": 0.2
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Matheson - Lemont Plant",
@@ -5608,7 +6563,8 @@
      "lat": 41.639,
      "lon": -88.103,
      "co2e": 440482,
-     "gwh": 2225.1
+     "gwh": 2225.1,
+     "mwth": 0
     },
     {
      "n": "Matheson - Lima Iii Plant",
@@ -5616,7 +6572,8 @@
      "lat": 40.722,
      "lon": -84.113,
      "co2e": 111875,
-     "gwh": 565.1
+     "gwh": 565.1,
+     "mwth": 0
     },
     {
      "n": "Matheson - Lima I Plant",
@@ -5624,7 +6581,8 @@
      "lat": 40.722,
      "lon": -84.113,
      "co2e": 82794,
-     "gwh": 418.2
+     "gwh": 418.2,
+     "mwth": 0
     },
     {
      "n": "Matheson - Lima Ii Plant",
@@ -5632,7 +6590,8 @@
      "lat": 40.722,
      "lon": -84.113,
      "co2e": 80852,
-     "gwh": 408.4
+     "gwh": 408.4,
+     "mwth": 0
     },
     {
      "n": "Matheson - Anacortes Hydrogen Plant",
@@ -5640,7 +6599,8 @@
      "lat": 48.466,
      "lon": -122.565,
      "co2e": 53407,
-     "gwh": 269.8
+     "gwh": 269.8,
+     "mwth": 0
     },
     {
      "n": "Matheson - Saraland Plant",
@@ -5648,7 +6608,8 @@
      "lat": 30.791,
      "lon": -88.059,
      "co2e": 35477,
-     "gwh": 179.2
+     "gwh": 179.2,
+     "mwth": 0
     }
    ],
    "note": "",
@@ -5665,6 +6626,13 @@
    "states": [
     "KS"
    ],
+   "mwth": 892,
+   "fuels": {
+    "gas": 565.0,
+    "pet": 1.5,
+    "oth": 2040.5
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Coffeyville Resources Refining & Marketing, Llc",
@@ -5672,7 +6640,8 @@
      "lat": 37.048,
      "lon": -95.606,
      "co2e": 1000741,
-     "gwh": 4021.2
+     "gwh": 4021.2,
+     "mwth": 892
     }
    ],
    "note": "",
@@ -5690,6 +6659,12 @@
     "LA",
     "MT"
    ],
+   "mwth": 327,
+   "fuels": {
+    "gas": 939.0,
+    "oth": 1206.5
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Calumet Montana Refining, Llc",
@@ -5697,7 +6672,8 @@
      "lat": 47.524,
      "lon": -111.294,
      "co2e": 427371,
-     "gwh": 1717.3
+     "gwh": 1717.3,
+     "mwth": 48
     },
     {
      "n": "Calumet Shrevport Refining Llc",
@@ -5705,7 +6681,8 @@
      "lat": 32.471,
      "lon": -93.791,
      "co2e": 375380,
-     "gwh": 1508.4
+     "gwh": 1508.4,
+     "mwth": 230
     },
     {
      "n": "Calumet Lubricants Co Lp",
@@ -5713,7 +6690,8 @@
      "lat": 32.589,
      "lon": -93.515,
      "co2e": 93891,
-     "gwh": 377.3
+     "gwh": 377.3,
+     "mwth": 32
     },
     {
      "n": "Calumet Lubricants Co Lp Calumet Cotton Valley",
@@ -5721,7 +6699,8 @@
      "lat": 32.801,
      "lon": -93.413,
      "co2e": 91428,
-     "gwh": 367.4
+     "gwh": 367.4,
+     "mwth": 18
     }
    ],
    "note": "",
@@ -5739,6 +6718,11 @@
     "LA",
     "TX"
    ],
+   "mwth": 26,
+   "fuels": {
+    "gas": 500.0
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Addis Carbon Black Plant",
@@ -5746,7 +6730,8 @@
      "lat": 30.329,
      "lon": -91.279,
      "co2e": 280795,
-     "gwh": 1418.4
+     "gwh": 1418.4,
+     "mwth": 3
     },
     {
      "n": "Borger Carbon Black Plant",
@@ -5754,7 +6739,8 @@
      "lat": 35.666,
      "lon": -101.436,
      "co2e": 254319,
-     "gwh": 1284.7
+     "gwh": 1284.7,
+     "mwth": 3
     },
     {
      "n": "Big Spring Carbon Black Plant",
@@ -5762,7 +6748,8 @@
      "lat": 32.279,
      "lon": -101.408,
      "co2e": 237339,
-     "gwh": 1198.9
+     "gwh": 1198.9,
+     "mwth": 21
     }
    ],
    "note": "",
@@ -5782,6 +6769,12 @@
     "SC",
     "WV"
    ],
+   "mwth": 26,
+   "fuels": {
+    "gas": 7.9,
+    "pet": 10.4
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Argos Cement Llc. - Roberta Plant",
@@ -5789,7 +6782,8 @@
      "lat": 33.104,
      "lon": -86.799,
      "co2e": 1058822,
-     "gwh": 1211.6
+     "gwh": 1211.6,
+     "mwth": 0
     },
     {
      "n": "Argos Usa -Martinsburg",
@@ -5797,7 +6791,8 @@
      "lat": 39.435,
      "lon": -77.978,
      "co2e": 846192,
-     "gwh": 968.3
+     "gwh": 968.3,
+     "mwth": 7
     },
     {
      "n": "Argos Cement Llc",
@@ -5805,7 +6800,8 @@
      "lat": 29.691,
      "lon": -82.582,
      "co2e": 808554,
-     "gwh": 925.3
+     "gwh": 925.3,
+     "mwth": 0
     },
     {
      "n": "Argos Cement Llc - Harleyville Plant",
@@ -5813,7 +6809,8 @@
      "lat": 33.226,
      "lon": -80.453,
      "co2e": 617387,
-     "gwh": 706.5
+     "gwh": 706.5,
+     "mwth": 20
     }
    ],
    "note": "",
@@ -5831,6 +6828,11 @@
     "TX",
     "WA"
    ],
+   "mwth": 379,
+   "fuels": {
+    "gas": 1790.0
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Agrium Us Borger Nitrogen Operations",
@@ -5838,7 +6840,8 @@
      "lat": 35.641,
      "lon": -101.42,
      "co2e": 736028,
-     "gwh": 3718.0
+     "gwh": 3718.0,
+     "mwth": 359
     },
     {
      "n": "Agrium Us Inc - Kfo",
@@ -5846,7 +6849,8 @@
      "lat": 46.166,
      "lon": -119.017,
      "co2e": 13400,
-     "gwh": 67.7
+     "gwh": 67.7,
+     "mwth": 19
     }
    ],
    "note": "",
@@ -5864,6 +6868,14 @@
     "ME",
     "WI"
    ],
+   "mwth": 261,
+   "fuels": {
+    "gas": 962.1,
+    "coal": 565.5,
+    "pet": 506.4,
+    "oth": 708.9
+   },
+   "gwh_bio": 728.5,
    "sites": [
     {
      "n": "Nd Paper Inc - Rumford Division",
@@ -5871,7 +6883,8 @@
      "lat": 44.551,
      "lon": -70.541,
      "co2e": 416874,
-     "gwh": 2126.7
+     "gwh": 2126.7,
+     "mwth": 127
     },
     {
      "n": "Nd Paper Inc - Biron Division",
@@ -5879,7 +6892,8 @@
      "lat": 44.429,
      "lon": -89.782,
      "co2e": 320692,
-     "gwh": 1636.0
+     "gwh": 1636.0,
+     "mwth": 134
     }
    ],
    "note": "",
@@ -5897,6 +6911,11 @@
     "IL",
     "IN"
    ],
+   "mwth": 863,
+   "fuels": {
+    "gas": 3655.9
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Primary Products Ingredients Americas Llc - Deca",
@@ -5904,7 +6923,8 @@
      "lat": 39.847,
      "lon": -88.926,
      "co2e": 419702,
-     "gwh": 2111.7
+     "gwh": 2111.7,
+     "mwth": 496
     },
     {
      "n": "Primary Products Ingredients Americas, Llc D/B/A",
@@ -5912,7 +6932,38 @@
      "lat": 40.379,
      "lon": -86.839,
      "co2e": 323932,
-     "gwh": 1629.9
+     "gwh": 1629.9,
+     "mwth": 367
+    }
+   ],
+   "note": "",
+   "signals": []
+  },
+  {
+   "name": "Nc Holdings Usa Inc",
+   "sector": "CHEMICALS",
+   "gwh": 3726.0,
+   "gwh_e": 73.8,
+   "gwh_th": 3652.2,
+   "co2e": 737598,
+   "n_sites": 1,
+   "states": [
+    "LA"
+   ],
+   "mwth": 68,
+   "fuels": {
+    "gas": 2212.7
+   },
+   "gwh_bio": 0.0,
+   "sites": [
+    {
+     "n": "Nova Chemicals Olefins Llc",
+     "st": "LA",
+     "lat": 30.233,
+     "lon": -91.051,
+     "co2e": 737598,
+     "gwh": 3726.0,
+     "mwth": 68
     }
    ],
    "note": "",
@@ -6195,6 +7246,12 @@
     "TX",
     "UT"
    ],
+   "mwth": 137,
+   "fuels": {
+    "gas": 472.5,
+    "pet": 11.7
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Texas Instruments North Campus",
@@ -6202,7 +7259,8 @@
      "lat": 32.933,
      "lon": -96.754,
      "co2e": 535084,
-     "gwh": null
+     "gwh": null,
+     "mwth": 80
     },
     {
      "n": "Texas Instruments - Sherman",
@@ -6210,7 +7268,8 @@
      "lat": 33.601,
      "lon": -96.557,
      "co2e": 82455,
-     "gwh": null
+     "gwh": null,
+     "mwth": 10
     },
     {
      "n": "Texas Instruments Incorporated - Maine Fab",
@@ -6218,7 +7277,8 @@
      "lat": 43.641,
      "lon": -70.322,
      "co2e": 69822,
-     "gwh": null
+     "gwh": null,
+     "mwth": 15
     },
     {
      "n": "Texas Instruments Richardson",
@@ -6226,7 +7286,8 @@
      "lat": 33.0,
      "lon": -96.721,
      "co2e": 277773,
-     "gwh": null
+     "gwh": null,
+     "mwth": 26
     },
     {
      "n": "Texas Instruments- Lehi Fab",
@@ -6234,7 +7295,8 @@
      "lat": 40.434,
      "lon": -111.832,
      "co2e": 92641,
-     "gwh": null
+     "gwh": null,
+     "mwth": 7
     }
    ],
    "note": "process-gas CO2e only; electricity is scope 2 — true load far exceeds this",
@@ -6253,6 +7315,13 @@
     "NM",
     "OR"
    ],
+   "mwth": 50,
+   "fuels": {
+    "gas": 962.6,
+    "pet": 30.2,
+    "oth": 27.7
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Intel Corporation - Ocotillo Campus",
@@ -6260,7 +7329,8 @@
      "lat": 33.246,
      "lon": -111.881,
      "co2e": 378991,
-     "gwh": null
+     "gwh": null,
+     "mwth": 15
     },
     {
      "n": "Intel Corporation - Rio Rancho Facility",
@@ -6268,7 +7338,8 @@
      "lat": 35.231,
      "lon": -106.656,
      "co2e": 112884,
-     "gwh": null
+     "gwh": null,
+     "mwth": 15
     },
     {
      "n": "Intel Corporation Aloha Campus",
@@ -6276,7 +7347,8 @@
      "lat": 45.493,
      "lon": -122.885,
      "co2e": 15228,
-     "gwh": null
+     "gwh": null,
+     "mwth": 6
     },
     {
      "n": "Intel Corporation Ronler Acres Campus",
@@ -6284,7 +7356,8 @@
      "lat": 45.501,
      "lon": -122.917,
      "co2e": 283665,
-     "gwh": null
+     "gwh": null,
+     "mwth": 13
     }
    ],
    "note": "process-gas CO2e only; electricity is scope 2 — true load far exceeds this",
@@ -6301,6 +7374,12 @@
    "states": [
     "TX"
    ],
+   "mwth": 13,
+   "fuels": {
+    "gas": 135.4,
+    "pet": 96.4
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Samsung Austin Semiconductor",
@@ -6308,7 +7387,8 @@
      "lat": 30.375,
      "lon": -97.631,
      "co2e": 739024,
-     "gwh": null
+     "gwh": null,
+     "mwth": 13
     }
    ],
    "note": "process-gas CO2e only; electricity is scope 2 — true load far exceeds this",
@@ -6327,6 +7407,12 @@
     "CO",
     "OR"
    ],
+   "mwth": 28,
+   "fuels": {
+    "gas": 163.9,
+    "pet": 10.4
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Microchip Technology Inc",
@@ -6334,7 +7420,8 @@
      "lat": 45.519,
      "lon": -122.449,
      "co2e": 208460,
-     "gwh": null
+     "gwh": null,
+     "mwth": 17
     },
     {
      "n": "Microchip Technology",
@@ -6342,7 +7429,8 @@
      "lat": 38.787,
      "lon": -104.806,
      "co2e": 186821,
-     "gwh": null
+     "gwh": null,
+     "mwth": 7
     },
     {
      "n": "Microchip Technology Inc.",
@@ -6350,7 +7438,8 @@
      "lat": 33.417,
      "lon": -111.97,
      "co2e": 77657,
-     "gwh": null
+     "gwh": null,
+     "mwth": 4
     }
    ],
    "note": "process-gas CO2e only; electricity is scope 2 — true load far exceeds this",
@@ -6368,6 +7457,12 @@
     "NY",
     "VT"
    ],
+   "mwth": 45,
+   "fuels": {
+    "gas": 153.2,
+    "pet": 117.3
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Globalfoundries U.S. 2 Llc - Vermont Facility",
@@ -6375,7 +7470,8 @@
      "lat": 44.482,
      "lon": -73.091,
      "co2e": 142165,
-     "gwh": null
+     "gwh": null,
+     "mwth": 28
     },
     {
      "n": "Globalfoundries U.S. Inc. Fab 8",
@@ -6383,7 +7479,8 @@
      "lat": 42.97,
      "lon": -73.754,
      "co2e": 195172,
-     "gwh": null
+     "gwh": null,
+     "mwth": 17
     }
    ],
    "note": "process-gas CO2e only; electricity is scope 2 — true load far exceeds this",
@@ -6400,6 +7497,11 @@
    "states": [
     "NC"
    ],
+   "mwth": 9,
+   "fuels": {
+    "gas": 72.7
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Wolfspeed Rtp",
@@ -6407,7 +7509,8 @@
      "lat": 35.917,
      "lon": -78.87,
      "co2e": 257690,
-     "gwh": null
+     "gwh": null,
+     "mwth": 2
     },
     {
      "n": "Wolfspeed, Inc",
@@ -6415,7 +7518,8 @@
      "lat": 35.899,
      "lon": -78.841,
      "co2e": 61966,
-     "gwh": null
+     "gwh": null,
+     "mwth": 6
     }
    ],
    "note": "process-gas CO2e only; electricity is scope 2 — true load far exceeds this",
@@ -6433,6 +7537,12 @@
     "ID",
     "VA"
    ],
+   "mwth": 25,
+   "fuels": {
+    "gas": 367.9,
+    "pet": 55.9
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Micron Technology, Inc.",
@@ -6440,7 +7550,8 @@
      "lat": 43.527,
      "lon": -116.145,
      "co2e": 60486,
-     "gwh": null
+     "gwh": null,
+     "mwth": 12
     },
     {
      "n": "Micron Technology, Inc.",
@@ -6448,7 +7559,8 @@
      "lat": 38.749,
      "lon": -77.511,
      "co2e": 243398,
-     "gwh": null
+     "gwh": null,
+     "mwth": 13
     }
    ],
    "note": "process-gas CO2e only; electricity is scope 2 — true load far exceeds this",
@@ -6467,6 +7579,12 @@
     "OR",
     "PA"
    ],
+   "mwth": 32,
+   "fuels": {
+    "gas": 169.6,
+    "pet": 90.5
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Fairchild Semiconductor",
@@ -6474,7 +7592,8 @@
      "lat": 41.142,
      "lon": -75.895,
      "co2e": 22213,
-     "gwh": null
+     "gwh": null,
+     "mwth": 4
     },
     {
      "n": "On Semiconductor",
@@ -6482,7 +7601,8 @@
      "lat": 45.525,
      "lon": -122.426,
      "co2e": 135614,
-     "gwh": null
+     "gwh": null,
+     "mwth": 7
     },
     {
      "n": "Onsemi East Fishkill Facility",
@@ -6490,7 +7610,8 @@
      "lat": 41.545,
      "lon": -73.829,
      "co2e": 127631,
-     "gwh": null
+     "gwh": null,
+     "mwth": 21
     }
    ],
    "note": "process-gas CO2e only; electricity is scope 2 — true load far exceeds this",
@@ -6508,6 +7629,12 @@
     "MA",
     "WA"
    ],
+   "mwth": 29,
+   "fuels": {
+    "gas": 50.2,
+    "pet": 10.2
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Analog Devices",
@@ -6515,7 +7642,8 @@
      "lat": 45.6,
      "lon": -122.452,
      "co2e": 18421,
-     "gwh": null
+     "gwh": null,
+     "mwth": 5
     },
     {
      "n": "Analog Devices Inc",
@@ -6523,7 +7651,8 @@
      "lat": 45.502,
      "lon": -122.825,
      "co2e": 60623,
-     "gwh": null
+     "gwh": null,
+     "mwth": 4
     },
     {
      "n": "Analog Devices, Inc./ Wilmington Manufacturing",
@@ -6531,7 +7660,8 @@
      "lat": 42.531,
      "lon": -71.15,
      "co2e": 38727,
-     "gwh": null
+     "gwh": null,
+     "mwth": 20
     }
    ],
    "note": "process-gas CO2e only; electricity is scope 2 — true load far exceeds this",
@@ -6548,6 +7678,11 @@
    "states": [
     "OR"
    ],
+   "mwth": 9,
+   "fuels": {
+    "gas": 22.2
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Jireh Semiconductor, Inc.",
@@ -6555,7 +7690,8 @@
      "lat": 45.548,
      "lon": -122.931,
      "co2e": 110902,
-     "gwh": null
+     "gwh": null,
+     "mwth": 9
     }
    ],
    "note": "process-gas CO2e only; electricity is scope 2 — true load far exceeds this",
@@ -6574,6 +7710,12 @@
     "OR",
     "TX"
    ],
+   "mwth": 32,
+   "fuels": {
+    "gas": 49.2,
+    "pet": 4.2
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Qorvo",
@@ -6581,7 +7723,8 @@
      "lat": 36.076,
      "lon": -79.965,
      "co2e": 24793,
-     "gwh": null
+     "gwh": null,
+     "mwth": 5
     },
     {
      "n": "Qorvo Texas Llc",
@@ -6589,7 +7732,8 @@
      "lat": 32.998,
      "lon": -96.727,
      "co2e": 39681,
-     "gwh": null
+     "gwh": null,
+     "mwth": 25
     },
     {
      "n": "Qorvo Us, Inc.",
@@ -6597,7 +7741,8 @@
      "lat": 45.54,
      "lon": -122.936,
      "co2e": 38043,
-     "gwh": null
+     "gwh": null,
+     "mwth": 2
     }
    ],
    "note": "process-gas CO2e only; electricity is scope 2 — true load far exceeds this",
@@ -6614,6 +7759,11 @@
    "states": [
     "AZ"
    ],
+   "mwth": 15,
+   "fuels": {
+    "gas": 60.0
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Nxp Semiconductors Chandler Site",
@@ -6621,7 +7771,8 @@
      "lat": 33.325,
      "lon": -111.859,
      "co2e": 83508,
-     "gwh": null
+     "gwh": null,
+     "mwth": 15
     }
    ],
    "note": "process-gas CO2e only; electricity is scope 2 — true load far exceeds this",
@@ -6638,6 +7789,11 @@
    "states": [
     "TX"
    ],
+   "mwth": 10,
+   "fuels": {
+    "gas": 40.1
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Nxp Semiconductors - Eb Site",
@@ -6645,7 +7801,8 @@
      "lat": 30.271,
      "lon": -97.669,
      "co2e": 77528,
-     "gwh": null
+     "gwh": null,
+     "mwth": 10
     }
    ],
    "note": "process-gas CO2e only; electricity is scope 2 — true load far exceeds this",
@@ -6662,6 +7819,12 @@
    "states": [
     "TX"
    ],
+   "mwth": 8,
+   "fuels": {
+    "gas": 0.2,
+    "pet": 0.2
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Cypress Semiconductor",
@@ -6669,7 +7832,8 @@
      "lat": 30.214,
      "lon": -97.725,
      "co2e": 74831,
-     "gwh": null
+     "gwh": null,
+     "mwth": 8
     }
    ],
    "note": "process-gas CO2e only; electricity is scope 2 — true load far exceeds this",
@@ -6686,6 +7850,11 @@
    "states": [
     "TX"
    ],
+   "mwth": 9,
+   "fuels": {
+    "gas": 54.3
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Nxp Semiconductors - Oh Site",
@@ -6693,7 +7862,8 @@
      "lat": 30.239,
      "lon": -97.867,
      "co2e": 74265,
-     "gwh": null
+     "gwh": null,
+     "mwth": 9
     }
    ],
    "note": "process-gas CO2e only; electricity is scope 2 — true load far exceeds this",
@@ -6710,6 +7880,12 @@
    "states": [
     "WA"
    ],
+   "mwth": 7,
+   "fuels": {
+    "gas": 36.6,
+    "pet": 28.0
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Wafertech Llc",
@@ -6717,7 +7893,8 @@
      "lat": 45.62,
      "lon": -122.456,
      "co2e": 73391,
-     "gwh": null
+     "gwh": null,
+     "mwth": 7
     }
    ],
    "note": "process-gas CO2e only; electricity is scope 2 — true load far exceeds this",
@@ -6734,6 +7911,11 @@
    "states": [
     "MN"
    ],
+   "mwth": 3,
+   "fuels": {
+    "gas": 31.1
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Skywater Technology Inc",
@@ -6741,7 +7923,8 @@
      "lat": 44.848,
      "lon": -93.237,
      "co2e": 65652,
-     "gwh": null
+     "gwh": null,
+     "mwth": 3
     }
    ],
    "note": "process-gas CO2e only; electricity is scope 2 — true load far exceeds this",
@@ -6758,6 +7941,11 @@
    "states": [
     "TX"
    ],
+   "mwth": 4,
+   "fuels": {
+    "gas": 18.9
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "X-Fab Texas Inc.",
@@ -6765,7 +7953,8 @@
      "lat": 33.629,
      "lon": -101.871,
      "co2e": 65366,
-     "gwh": null
+     "gwh": null,
+     "mwth": 4
     }
    ],
    "note": "process-gas CO2e only; electricity is scope 2 — true load far exceeds this",
@@ -6782,6 +7971,11 @@
    "states": [
     "CA"
    ],
+   "mwth": 6,
+   "fuels": {
+    "gas": 59.3
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Newport Fab Llc (Dba Towerjazz)",
@@ -6789,7 +7983,8 @@
      "lat": 33.663,
      "lon": -117.859,
      "co2e": 56223,
-     "gwh": null
+     "gwh": null,
+     "mwth": 6
     }
    ],
    "note": "process-gas CO2e only; electricity is scope 2 — true load far exceeds this",
@@ -6806,6 +8001,12 @@
    "states": [
     "MN"
    ],
+   "mwth": 2,
+   "fuels": {
+    "gas": 6.2,
+    "pet": 4.8
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Polar Semiconductor Llc",
@@ -6813,7 +8014,8 @@
      "lat": 44.853,
      "lon": -93.23,
      "co2e": 56013,
-     "gwh": null
+     "gwh": null,
+     "mwth": 2
     }
    ],
    "note": "process-gas CO2e only; electricity is scope 2 — true load far exceeds this",
@@ -6830,6 +8032,11 @@
    "states": [
     "MN"
    ],
+   "mwth": 3,
+   "fuels": {
+    "gas": 20.2
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Honeywell Aerospace - Plymouth",
@@ -6837,7 +8044,8 @@
      "lat": 44.994,
      "lon": -93.437,
      "co2e": 40396,
-     "gwh": null
+     "gwh": null,
+     "mwth": 3
     }
    ],
    "note": "process-gas CO2e only; electricity is scope 2 — true load far exceeds this",
@@ -6854,6 +8062,11 @@
    "states": [
     "ID"
    ],
+   "mwth": 3,
+   "fuels": {
+    "gas": 35.5
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "La Semiconductor",
@@ -6861,7 +8074,8 @@
      "lat": 42.867,
      "lon": -112.415,
      "co2e": 38434,
-     "gwh": null
+     "gwh": null,
+     "mwth": 3
     }
    ],
    "note": "process-gas CO2e only; electricity is scope 2 — true load far exceeds this",
@@ -6878,6 +8092,12 @@
    "states": [
     "CO"
    ],
+   "mwth": 16,
+   "fuels": {
+    "gas": 65.0,
+    "pet": 0.1
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Avago Technologies",
@@ -6885,7 +8105,8 @@
      "lat": 40.524,
      "lon": -105.02,
      "co2e": 34457,
-     "gwh": null
+     "gwh": null,
+     "mwth": 16
     }
    ],
    "note": "process-gas CO2e only; electricity is scope 2 — true load far exceeds this",
@@ -6902,6 +8123,11 @@
    "states": [
     "TX"
    ],
+   "mwth": 7,
+   "fuels": {
+    "pet": 18.7
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Tower Semiconductor",
@@ -6909,7 +8135,8 @@
      "lat": 29.472,
      "lon": -98.674,
      "co2e": 32536,
-     "gwh": null
+     "gwh": null,
+     "mwth": 7
     }
    ],
    "note": "process-gas CO2e only; electricity is scope 2 — true load far exceeds this",
@@ -6926,6 +8153,12 @@
    "states": [
     "MA"
    ],
+   "mwth": 1,
+   "fuels": {
+    "gas": 20.0,
+    "pet": 0.1
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Skyworks Solutions, Inc.",
@@ -6933,7 +8166,8 @@
      "lat": 42.499,
      "lon": -71.163,
      "co2e": 24117,
-     "gwh": null
+     "gwh": null,
+     "mwth": 1
     }
    ],
    "note": "process-gas CO2e only; electricity is scope 2 — true load far exceeds this",
@@ -6950,6 +8184,11 @@
    "states": [
     "ME"
    ],
+   "mwth": 6,
+   "fuels": {
+    "gas": 30.3
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Diodes Us Manufacturing Incorporated",
@@ -6957,7 +8196,8 @@
      "lat": 43.641,
      "lon": -70.326,
      "co2e": 20237,
-     "gwh": null
+     "gwh": null,
+     "mwth": 6
     }
    ],
    "note": "process-gas CO2e only; electricity is scope 2 — true load far exceeds this",
@@ -6974,6 +8214,11 @@
    "states": [
     "CA"
    ],
+   "mwth": 6,
+   "fuels": {
+    "gas": 24.8
+   },
+   "gwh_bio": 0.0,
    "sites": [
     {
      "n": "Robert Bosch Semiconductor Llc",
@@ -6981,12 +8226,13 @@
      "lat": 38.775,
      "lon": -121.313,
      "co2e": 18172,
-     "gwh": null
+     "gwh": null,
+     "mwth": 6
     }
    ],
    "note": "process-gas CO2e only; electricity is scope 2 — true load far exceeds this",
    "signals": []
   }
  ],
- "method": "Industrial demand estimated from EPA GHGRP reported CO2e (RY2023). Factors: cement 3.4 GJ/t clinker + 0.105 MWh/t; steel (incl. coke) 0.080 tCO2/GJ + 0.25 MWh/tCO2e; aluminium 14.2 MWh/t Al; chemicals (incl. chlor-alkali, resins) gas-EF heat + 0.10 MWh/tCO2e; refining 0.070 tCO2/GJ + 0.05 MWh/tCO2e; pulp & paper gas-EF + 0.15 MWh/tCO2e (fossil share only — biomass steam not visible); food & biofuels gas-EF + 0.08; minerals (lime + glass) blended kiln/furnace heat + 0.06. Semiconductors: no GWh claimed — GHGRP sees process gases only, electricity is scope 2. Data centres: curated announced MW x 8.76 x 0.80. Screening estimates, not metered data; reported CO2e shown alongside."
+ "method": "Industrial demand estimated from EPA GHGRP reported CO2e (RY2023). Factors: cement 3.4 GJ/t clinker + 0.105 MWh/t; steel (incl. coke) 0.080 tCO2/GJ + 0.25 MWh/tCO2e; aluminium 14.2 MWh/t Al; chemicals (incl. chlor-alkali, resins) gas-EF heat + 0.10 MWh/tCO2e; refining 0.070 tCO2/GJ + 0.05 MWh/tCO2e; pulp & paper gas-EF + 0.15 MWh/tCO2e (fossil share only — biomass steam not visible); food & biofuels gas-EF + 0.08; minerals (lime + glass) blended kiln/furnace heat + 0.06. Semiconductors: no GWh claimed — GHGRP sees process gases only, electricity is scope 2. Unit layer: rated heat capacity (MWth) and heat-by-fuel from EPA unit/fuel reporting (fuel-specific EFs: gas .0561, coal .0946, petroleum .0733 tCO2/GJ); biomass steam from biogenic CO2 at .112, shown separately and excluded from ranking. Data centres: curated announced MW x 8.76 x 0.80. Screening estimates, not metered data; reported CO2e shown alongside."
 }
