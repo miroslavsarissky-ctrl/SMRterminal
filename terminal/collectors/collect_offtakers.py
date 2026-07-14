@@ -35,13 +35,20 @@ SLEEP = 0.12
 NOW = dt.datetime.now(dt.timezone.utc)
 
 SECTORS = {                       # equal weighting: ranking is purely by estimated GWh
-    'STEEL':     ['331110'],
-    'CEMENT':    ['327310'],
-    'ALUMINIUM': ['331313'],
-    'CHEMICALS': ['325311', '325110', '325120', '325199'],
+    'STEEL':           ['331110', '324199'],                        # mills + merchant coke
+    'CEMENT':          ['327310'],
+    'ALUMINIUM':       ['331313'],
+    'CHEMICALS':       ['325311', '325110', '325120', '325199', '325180', '325211'],
+    'REFINING':        ['324110'],
+    'PULP & PAPER':    ['322110', '322120', '322121', '322122', '322130'],
+    'FOOD & BIOFUELS': ['325193', '311221', '311313', '311224'],
+    'MINERALS':        ['327410', '327211', '327212', '327213'],    # lime + glass
+    'SEMICONDUCTORS':  ['334413'],
 }
 SECTOR_COLOR = {'STEEL': '#9DB2C4', 'CEMENT': '#C9A26B', 'CHEMICALS': '#5CB88A',
-                'ALUMINIUM': '#7FB3D5', 'DATA CENTERS': '#F0782E'}
+                'ALUMINIUM': '#7FB3D5', 'REFINING': '#C7625C', 'PULP & PAPER': '#7D9B4E',
+                'FOOD & BIOFUELS': '#D9B23F', 'MINERALS': '#B08FC9',
+                'SEMICONDUCTORS': '#D98AC2', 'DATA CENTERS': '#F0782E'}
 
 def est_gwh(sector, co2e):
     """(gwh_electric, gwh_thermal) from tCO2e. Factors documented in the module docstring."""
@@ -55,7 +62,15 @@ def est_gwh(sector, co2e):
         return t_al * 14.2 / 1000, (co2e / 0.0946) / 3600 * 0.15
     if sector == 'CHEMICALS':
         return co2e * 0.10 / 1000, (co2e / 0.0561) / 3600
-    return 0.0, 0.0
+    if sector == 'REFINING':
+        return co2e * 0.05 / 1000, (co2e / 0.070) / 3600
+    if sector == 'PULP & PAPER':                       # fossil share only; biomass steam invisible
+        return co2e * 0.15 / 1000, (co2e / 0.0561) / 3600
+    if sector == 'FOOD & BIOFUELS':
+        return co2e * 0.08 / 1000, (co2e / 0.0561) / 3600
+    if sector == 'MINERALS':                           # lime kilns + glass furnaces, blended
+        return co2e * 0.06 / 1000, (co2e * 0.45 / 0.085) / 3600
+    return 0.0, 0.0                                    # SEMICONDUCTORS: handled post-aggregation
 
 def get(url, tries=3):
     for a in range(tries):
@@ -178,19 +193,30 @@ def main(out_dir=DATA):
                       'co2e': None, 'n_sites': None, 'states': [], 'sites': [], 'mw': mw,
                       'note': ('curated; announced campus MW' if mw else 'curated; MW not disclosed'),
                       'signals': [signal] if signal else []})
-    industrial = sorted([i for i in items if i['sector'] != 'DATA CENTERS'],
+    # semiconductors: GHGRP shows process gases only; electricity is scope 2, so no GWh claim
+    for i in items:
+        if i['sector'] == 'SEMICONDUCTORS':
+            i['gwh'] = i['gwh_e'] = i['gwh_th'] = None
+            i['note'] = 'process-gas CO2e only; electricity is scope 2 — true load far exceeds this'
+            for sx in i['sites']:
+                sx['gwh'] = None
+    industrial = sorted([i for i in items if i['sector'] not in ('DATA CENTERS', 'SEMICONDUCTORS')],
                         key=lambda i: -(i['gwh'] or 0))[:100]
-    dcs = sorted([i for i in items if i['sector'] == 'DATA CENTERS'],
-                 key=lambda i: -(i['gwh'] or 0))
-    items = sorted(industrial + dcs, key=lambda i: -(i['gwh'] or 0))
+    semis = sorted([i for i in items if i['sector'] == 'SEMICONDUCTORS'], key=lambda i: -(i['co2e'] or 0))
+    dcs = sorted([i for i in items if i['sector'] == 'DATA CENTERS'], key=lambda i: -(i['gwh'] or 0))
+    items = sorted(industrial + dcs, key=lambda i: -(i['gwh'] or 0)) + semis
     payload = {'generated': NOW.strftime('%Y-%m-%dT%H:%M:%S+00:00'), 'year': YEAR,
                'sector_colors': SECTOR_COLOR, 'universe': meta,
                'count': len(items), 'items': items,
-               'method': ('Industrial demand estimated from EPA GHGRP reported CO2e (RY' + YEAR + ') using '
-                          'sector factors: cement 3.4 GJ/t clinker heat + 0.105 MWh/t power; steel blended '
-                          '0.080 tCO2/GJ fuel + 0.25 MWh/tCO2e power; aluminium 14.2 MWh/t Al; chemicals '
-                          'gas-EF heat + 0.10 MWh/tCO2e power. Data centres: curated, announced MW x 8.76 x '
-                          '0.80. Screening estimates, not metered data; reported CO2e shown alongside.')}
+               'method': ('Industrial demand estimated from EPA GHGRP reported CO2e (RY' + YEAR + '). Factors: cement '
+                          '3.4 GJ/t clinker + 0.105 MWh/t; steel (incl. coke) 0.080 tCO2/GJ + 0.25 MWh/tCO2e; '
+                          'aluminium 14.2 MWh/t Al; chemicals (incl. chlor-alkali, resins) gas-EF heat + 0.10 '
+                          'MWh/tCO2e; refining 0.070 tCO2/GJ + 0.05 MWh/tCO2e; pulp & paper gas-EF + 0.15 '
+                          'MWh/tCO2e (fossil share only — biomass steam not visible); food & biofuels gas-EF '
+                          '+ 0.08; minerals (lime + glass) blended kiln/furnace heat + 0.06. Semiconductors: '
+                          'no GWh claimed — GHGRP sees process gases only, electricity is scope 2. Data '
+                          'centres: curated announced MW x 8.76 x 0.80. Screening estimates, not metered '
+                          'data; reported CO2e shown alongside.')}
     os.makedirs(out_dir, exist_ok=True)
     json.dump(payload, open(os.path.join(out_dir, 'offtakers.json'), 'w'), ensure_ascii=False, indent=1)
     open(os.path.join(out_dir, 'offtakers.js'), 'w').write('window.NIT_OFF = ' + json.dumps(payload, ensure_ascii=False) + ';')
