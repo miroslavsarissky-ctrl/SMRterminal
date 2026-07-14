@@ -35,11 +35,15 @@ def season_filing(cik, lo, hi):
 def main(out_dir=DATA):
     inv = json.load(open(os.path.join(out_dir, 'investors.json')))
     ciks = [(i['cik'], i['name'], i['total']) for i in inv['items']]
-    ciks.sort(key=lambda x: -x[2])
+
     if LIMIT:
         ciks = ciks[:LIMIT]
     hp = os.path.join(out_dir, 'inv_history.json')
     hist = json.load(open(hp)) if os.path.exists(hp) else {'seasons': [], 'names': {}}
+    for cx in hist.get('complexes', []):
+        if not any(c == cx['prior'] for c, _, _ in ciks):
+            ciks.append((cx['prior'], hist.get('names', {}).get(cx['prior'], 'complex prior filer'), 10**13))
+    ciks.sort(key=lambda x: -x[2])
     bylab = {s['label']: s for s in hist['seasons']}
     for lab, lo, hi in SEASONS:
         bylab[lab] = {'label': lab, 'holders': {}}      # rebuild these seasons from checkpoint

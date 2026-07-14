@@ -496,6 +496,33 @@ def annotate_deltas(items, out_dir, season):
         it['exits_q'] = sorted(t for t, v in (pq or {}).items()
                                if v > 0 and not any(p['t'] == t for p in it['positions']))
 
+    # complex-level deltas: filer restructurings (e.g. Vanguard Q1-2026) break CIK continuity;
+    # per-entity splits are undisclosed, so deltas are shown at the complex level only.
+    for cx in hist.get('complexes', []):
+        pq_old = (hq or {}).get(cx['prior'])
+        py_old = (hy or {}).get(cx['prior'])
+        if pq_old is None and py_old is None:
+            continue
+        mem = [it for it in items if it['cik'] in set(cx['members'])]
+        if not mem:
+            continue
+        cur_sum = {}
+        for it in mem:
+            for p in it['positions']:
+                cur_sum[p['t']] = cur_sum.get(p['t'], 0) + p['sh']
+        for it in mem:
+            if it.get('cmp_q'):
+                continue                     # entity has its own history; no complex overlay
+            it['cx'] = cx['label']
+            for p in it['positions']:
+                t = p['t']
+                if pq_old is not None:
+                    a = pq_old.get(t, 0)
+                    p['cxq'] = 'new' if a == 0 else round((cur_sum.get(t, 0) / a - 1) * 100)
+                if py_old is not None:
+                    b = py_old.get(t, 0)
+                    p['cxy'] = 'new' if b == 0 else round((cur_sum.get(t, 0) / b - 1) * 100)
+
 def main(out_dir=DATA):
     print(f'collect_investors: season {SEASON} ({START}..{END}) pages={PAGES} tables={TABLES}')
     investors, meta = collect()
