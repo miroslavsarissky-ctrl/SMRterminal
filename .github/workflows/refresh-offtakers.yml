@@ -1,0 +1,33 @@
+name: refresh-offtakers
+# Rebuilds the Offtakers layer once a year when EPA publishes the new GHGRP
+# reporting year (early October), plus manual dispatch. Update OFF_YEAR and the
+# ZIP_URL in the collector when EPA posts the RY2024 bundle.
+
+on:
+  schedule:
+    - cron: '0 6 25 10 *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: pip install requests pandas openpyxl
+      - name: Collect offtakers (EPA GHGRP bulk + curated DC layer)
+        run: python terminal/collectors/collect_offtakers.py terminal/data
+      - name: Commit refreshed data
+        run: |
+          git config user.name "intel-terminal-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add terminal/data/offtakers.json terminal/data/offtakers.js
+          git diff --cached --quiet || git commit -m "offtakers: GHGRP annual refresh"
+          git push
