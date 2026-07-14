@@ -159,6 +159,9 @@ a:hover{color:#fff}
 .dq.up{color:#5CB88A}.dq.dn{color:#C7625C}.dq.fl{color:var(--dim)}
 .dq.nw{color:var(--teal);border:1px solid var(--teal);padding:0 4px}
 .prx{font:600 9.5px var(--mono);color:#C7625C;margin-top:3px;padding:0 2px}
+.dq.yy{border:none;color:var(--dim);padding:0.5px 2px;margin-left:4px}
+.dq.yy.yup{color:#6FA98A}
+.dq.yy.ydn{color:#B98A85}
 .pr.ex b{color:#C7625C}.pr.ex .sh{color:#C7625C}
 .invwb td .nhb{font:700 8px var(--font);color:var(--orange);border:1px solid var(--orange);border-radius:2px;padding:0 4px;margin-left:6px}
 .invwb a{color:var(--teal);text-decoration:none}
@@ -1596,12 +1599,18 @@ function invExport(rows){
   document.body.appendChild(a); a.click(); a.remove();
 }
 function invDq(p){
-  if(p.new_q) return '<span class="dq nw">NEW</span>';
+  const ych=(()=>{
+    if(p.new_y) return '<span class="dq yy yup" title="not held a year ago">y NEW</span>';
+    if(p.psh_y){ const r=p.sh/p.psh_y, dy=(r-1)*100;
+      if(Math.abs(dy)<0.5) return '<span class="dq yy" title="'+p.psh_y.toLocaleString()+' sh a year ago">y ·</span>';
+      const txt=Math.abs(dy)>=300?('×'+r.toFixed(1)):((dy>0?'+':'')+dy.toFixed(0)+'%');
+      return `<span class="dq yy ${dy>0?'yup':'ydn'}" title="${p.psh_y.toLocaleString()} sh a year ago">y ${txt}</span>`; }
+    return ''; })();
+  if(p.new_q) return '<span class="dq nw" title="not held last quarter">NEW</span>'+ych;
   if(p.psh_q){ const d=(p.sh/p.psh_q-1)*100;
-    if(Math.abs(d)<0.5) return '<span class="dq fl">·</span>';
-    const yt = p.new_y ? ' · y/y NEW' : (p.psh_y ? ' · y/y '+(((p.sh/p.psh_y-1)*100)>0?'+':'')+((p.sh/p.psh_y-1)*100).toFixed(0)+'%' : '');
-    return `<span class="dq ${d>0?'up':'dn'}" title="${p.psh_q.toLocaleString()} sh last qtr${yt}">${d>0?'▲':'▼'}${Math.abs(d)>=100?Math.round(Math.abs(d)):Math.abs(d).toFixed(0)}%</span>`; }
-  return '';
+    if(Math.abs(d)<0.5) return '<span class="dq fl" title="'+p.psh_q.toLocaleString()+' sh last qtr — unchanged">·</span>'+ych;
+    return `<span class="dq ${d>0?'up':'dn'}" title="${p.psh_q.toLocaleString()} sh last qtr">${d>0?'▲':'▼'}${Math.abs(d)>=100?Math.round(Math.abs(d)):Math.abs(d).toFixed(0)}%</span>`+ych; }
+  return ych;
 }
 function invWbTable(rows){
   const arrow=k=> invWbSort===k?(invWbDir<0?' ↓':' ↑'):'';
