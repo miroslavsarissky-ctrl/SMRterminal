@@ -235,7 +235,11 @@ footer b{color:var(--muted)}
 @media(prefers-reduced-motion:reduce){.tape-in{animation:none}}
 
 /* ---------- tabs + energy ---------- */
-.navtabs{display:flex;gap:4px;margin-left:18px}
+.navtabs{display:flex;gap:4px;margin-left:22px}
+.statusbar{display:flex;align-items:center;gap:13px;padding:4px 18px 5px;border-bottom:1px solid var(--line);background:rgba(13,26,38,.55);font:600 9px var(--mono);letter-spacing:.1em;color:var(--muted)}
+.statusbar .v{border:1px solid var(--orange);color:var(--orange);border-radius:3px;padding:1.5px 7px;font:700 8.5px var(--mono);letter-spacing:.1em}
+.statusbar .sgap{flex:0 0 6px}
+.statusbar #gen{margin-left:auto}
 .navtab{font:700 10.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);background:none;border:1px solid var(--line);border-radius:5px;padding:5px 13px;cursor:pointer}
 .navtab.on{color:var(--ink);background:var(--teal);border-color:var(--teal)}
 .navtab:hover:not(.on){color:var(--text);border-color:var(--lead-light)}
@@ -345,7 +349,6 @@ footer b{color:var(--muted)}
 
 <header class="bar">
   <div class="ttl">Nuclear Intel <span>Terminal</span></div>
-  <div class="v">V1 · RAW FEED + VERIFIED LAYER</div>
   <div class="navtabs">
     <button class="navtab on" data-v="intel">Intel</button>
     <button class="navtab" data-v="energy">Energy</button>
@@ -353,20 +356,26 @@ footer b{color:var(--muted)}
     <button class="navtab" data-v="cap">Capital</button>
     <button class="navtab" data-v="inv">Investors</button>
     <button class="navtab" data-v="off">Offtakers</button>
-    <button class="navtab" data-v="peers">Listed Peers</button>
+    <button class="navtab" data-v="peers">Peers</button>
   </div>
-  <div class="right">
-    <span class="dot" id="d-fr"><i></i>FED REG</span>
-    <span class="dot" id="d-nrc"><i></i>NRC</span>
-    <span class="dot" id="d-sec"><i></i>EDGAR</span>
-    <span class="dot hide-m" id="d-osti"><i></i>OSTI</span>
-    <span class="dot off hide-m" id="d-datagov"><i></i>REG.GOV</span>
-    <span class="dot off hide-m" id="d-sam"><i></i>SAM.GOV</span>
-    <span class="dot off hide-m" id="d-x"><i></i>X</span>
-    <span id="gen" class="hide-m"></span>
-    <span class="clock" id="clock"></span>
-  </div>
+  <div class="right"><span class="clock" id="clock"></span></div>
 </header>
+<div class="statusbar">
+  <span class="v">V1 · RAW FEED + VERIFIED LAYER</span>
+  <span class="sgap"></span>
+  <span class="dot" id="d-fr" title="Federal Register · 30-min feed"><i></i>FED REG</span>
+  <span class="dot" id="d-nrc" title="NRC ADAMS · 30-min feed"><i></i>NRC</span>
+  <span class="dot" id="d-sec" title="SEC EDGAR · 30-min feed"><i></i>EDGAR</span>
+  <span class="dot hide-m" id="d-osti" title="OSTI · 30-min feed"><i></i>OSTI</span>
+  <span class="dot off hide-m" id="d-datagov" title="Regulations.gov · 30-min feed"><i></i>REG.GOV</span>
+  <span class="dot off hide-m" id="d-sam" title="SAM.gov · 30-min feed"><i></i>SAM.GOV</span>
+  <span class="dot off hide-m" id="d-grants" title="Grants.gov FOA candidates · weekly with research"><i></i>GRANTS</span>
+  <span class="dot off hide-m" id="d-cong" title="Congress.gov tracked bills · daily 06:10 UTC"><i></i>CONGRESS</span>
+  <span class="dot off hide-m" id="d-finra" title="FINRA consolidated short interest · weekly with peers"><i></i>FINRA</span>
+  <span class="dot off hide-m" id="d-x" title="X API · token not configured"><i></i>X</span>
+  <span class="sgap"></span>
+  <span id="gen"></span>
+</div>
 <div class="leadrule"></div>
 
 <div id="view-intel">
@@ -554,6 +563,7 @@ footer b{color:var(--muted)}
 <script src="data/internal.js"></script>
 <script src="data/legislation.js"></script>
 <script src="data/congress.js"></script>
+<script src="data/grants.js"></script>
 <script src="data/energy.js"></script>
 <script src="data/rto.js"></script>
 <script src="data/energymix.js"></script>
@@ -724,6 +734,19 @@ if (!FEED) {
   if (FEED.sources && FEED.sources.datagov) document.getElementById('d-datagov').classList.remove('off');
   if (FEED.sources && FEED.sources.sam_gov) document.getElementById('d-sam').classList.remove('off');
   if (FEED.sources && FEED.sources.x_api)  document.getElementById('d-x').classList.remove('off');
+  function freshDot(id, payload, maxH, label){
+    var el = document.getElementById(id); if(!el) return;
+    if(!payload || !payload.generated){ el.title = label + ' · no data file'; return; }
+    var age = (Date.now() - new Date(payload.generated)) / 36e5;
+    el.classList.remove('off');
+    if(age > maxH) el.classList.add('warn');
+    el.title = label + ' · generated ' + payload.generated.slice(0,16).replace('T',' ') + ' UTC' + (age>maxH?' · STALE':'');
+  }
+  freshDot('d-cong',  window.NIT_CONGRESS, 36,  'Congress.gov tracked bills (daily)');
+  freshDot('d-grants',window.NIT_GRANTS,   200, 'Grants.gov FOA candidates (weekly)');
+  var _pk = window.NIT_PEERS;
+  freshDot('d-finra', (_pk && _pk.items && _pk.items.some(function(i){return i.si!=null;})) ? _pk : null,
+           200, 'FINRA consolidated short interest (weekly)');
   boot();
 }
 
