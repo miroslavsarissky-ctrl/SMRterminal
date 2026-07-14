@@ -21,7 +21,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Install dependencies
-        run: pip install requests pandas openpyxl
+        run: pip install requests pandas openpyxl pyxlsb
       - name: Collect offtakers (EPA GHGRP bulk + curated DC layer)
         run: python terminal/collectors/collect_offtakers.py terminal/data
       - name: Commit refreshed data
