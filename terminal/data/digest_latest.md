@@ -1,59 +1,51 @@
-NUCLEAR INTEL DIGEST  Tue 14 Jul 2026
+NUCLEAR INTEL DIGEST  Wed 15 Jul 2026
 
 NWCL DEAL DESK
-NHIC 10.79  1d -0.5%  7d -1.8%  30d -1.0%
+NHIC 10.76  1d -0.3%  7d -0.8%  30d -2.2%
   No new SEC filings.
 
 NEW ON THE VERIFIED LAYER (7)
-  [3] Enclosure 3: U.S. LFR-AS-200 Reactor Technology Regulatory Engagement Plan (Non-Proprietary/Public)
-      Direct: newcleo's U.S. LFR-AS-200 regulatory engagement plan with NRC; core to Launch Pad deployment strategy.
-      NRC ADAMS | https://www.nrc.gov/docs/ML2618/ML26184A005.pdf
-  [3] Submission of newcleo Americas, LLC Regulatory Engagement Plan for the U.S. LFR-AS-200 Reactor Technology
-      Newcleo's regulatory engagement plan submission for LFR-AS-200 reactor technology directly advances NRC licensing pathway.
-      NRC ADAMS | https://www.nrc.gov/docs/ML2618/ML26184A001.pdf
-  [3] Regulatory_Engagement_Plan_20260703144132
-      Newcleo's regulatory engagement plan document for LFR-AS-200 establishes NRC pre-licensing engagement strategy.
-      NRC ADAMS | https://www.nrc.gov/docs/ML2618/ML26184A002.html
-  [2] OMB 3150-0238 - Final NRC Form 361S (Current Public Web Approved Part 53 version) (Copy 8) Renewal (6-15-2026)
-      NRC Form 361S renewal relates to Part 53 advanced-reactor licensing framework applicable to newcleo's regulatory pathway.
-      NRC ADAMS | https://www.nrc.gov/docs/ML2617/ML26174A013.pdf
-  [2] FOIA-2026-000310 - Response 1 - Final
-      Oklo FOIA response may contain fuel-cycle or regulatory information relevant to newcleo's DOE partnership.
-      NRC ADAMS | https://www.nrc.gov/docs/ML2619/ML26194A100.pdf
-  [2] FOIA-2026-000310 - Incoming Request - Redacted
-      Oklo FOIA request may reveal regulatory or operational details relevant to newcleo's fuel-cycle partnership.
-      NRC ADAMS | https://www.nrc.gov/docs/ML2619/ML26194A102.pdf
-  [2] Deep Fission files 8-K (22 Jun)
-      Deep Fission is an advanced-reactor competitor; SEC filing may signal funding, licensing or deployment milestones.
-      SEC EDGAR | https://www.sec.gov/Archives/edgar/data/1918102/000110465926076400/0001104659-26-076400-index.htm
+  [2] Draft Regulatory Guide DG-4036 (RG 4.29, Rev. 0), Graded Approach to Site Characterization for New Reactor Applications
+      NRC regulatory guide for new reactor siting affects advanced-reactor licensing pathway including potential LFR deployment sites.
+      NRC ADAMS | https://www.nrc.gov/docs/ML2527/ML25272A272.pdf
+  [2] Unofficial Redline Rule Language for the Proposed Rule - Modernizing Reactor Licensing, Safety Oversight, and Siting Practices
+      Proposed NRC rule modernising reactor licensing directly impacts advanced-reactor regulatory framework for LFR deployment.
+      NRC ADAMS | https://www.nrc.gov/docs/ML2602/ML26029A079.pdf
+  [2] Regulatory Analysis for the Proposed Rule - Modernizing Reactor Licensing, Safety Oversight, and Siting Practices
+      Regulatory analysis for modernised licensing rule shapes NRC framework governing advanced-reactor and LFR licensing pathways.
+      NRC ADAMS | https://www.nrc.gov/docs/ML2618/ML26181A099.pdf
+  [2] Draft Environmental Assessment for the Proposed Rule - Modernizing Reactor Licensing, Safety Oversight, and Siting Practices
+      NRC modernisation of reactor licensing and siting practices directly affects advanced-reactor deployment pathways.
+      NRC ADAMS | https://www.nrc.gov/docs/ML2618/ML26181A100.pdf
+  [2] Orano - TN SHPO Section 106 Concurrence
+      Orano is a reprocessing and recycling peer; regulatory engagement signals competitive activity in fuel-cycle space.
+      NRC ADAMS | https://www.nrc.gov/docs/ML2619/ML26195A339.pdf
+  [2] Closed meeting with Radiant Nuclear, LLC to discuss draft responses to RAIs - Set #1 - license application under 10 CFR Part 70 07/22/2026
+      10 CFR Part 70 licence application meeting signals competitor activity in fuel-cycle manufacturing and safeguards.
+      NRC ADAMS | https://www.nrc.gov/docs/ML2619/ML26191A350.pdf
+  [2] [Proposed Rule] Reforming and Modernizing the NRC's Radiation Protection Framework
+      NRC radiation protection framework reform under EO 14300 affects licensing and operational standards for advanced reactors including LFRs.
+      Federal Register · NRC | https://www.federalregister.gov/documents/2026/07/15/2026-14208/reforming-and-modernizing-the-nrcs-radiation-protection-framework
 
 DEADLINE RADAR (next 10 days)
-  D-3  2026-07-17  Responses due: [Notice · Nuclear] Sun Nuclear Daily QA 4 Pro Checker
+  D-2  2026-07-17  Responses due: [Notice · Nuclear] Sun Nuclear Daily QA 4 Pro Checker
         https://sam.gov/workspace/contract/opp/967ef359714a46579153e7d2994a465b/view
-  D-3  2026-07-17  Responses due: [Notice · AMR] TECHNOLOGY LICENSING OPPORTUNITY: Advanced Metal Hydride Microrea
-        https://sam.gov/workspace/contract/opp/c20b7117f0604ed49807c3835f197e8b/view
-  D-3  2026-07-17  Programme: NRIC DOME Test Bed Access (RFA)
+  D-2  2026-07-17  Programme: NRIC DOME Test Bed Access (RFA)
         https://nric.inl.gov/dome/dome-application/
-  D-6  2026-07-20  Responses due: [RFP · Nuclear] Nuclear CAPSCREW, HEX HD; 688-1864 (REV J) SERIES
+  D-5  2026-07-20  Responses due: [RFP · Recycling] REPROCESSING SINK - BATTLE CREEK - BRAND NAME OR EQUAL
+        https://sam.gov/workspace/contract/opp/0fdeb75630ef4e758c378d5c1d1338c3/view
+  D-5  2026-07-20  Responses due: [RFP · Nuclear] Nuclear CAPSCREW, HEX HD; 688-1864 (REV J) SERIES
         https://sam.gov/workspace/contract/opp/a6e7c2978578488cb77d463a407b21aa/view
-  D-6  2026-07-20  Responses due: [RFP · Recycling] REPROCESSING SINK - BATTLE CREEK
+  D-5  2026-07-20  Responses due: [RFP · Recycling] REPROCESSING SINK - BATTLE CREEK
         https://sam.gov/workspace/contract/opp/755a5d31c66f466ab610d2f810e0b2d8/view
-  D-6  2026-07-20  Responses due: [RFP · Enrichment] Non-Research Long-Term Care facility needed for the enrichmen
+  D-5  2026-07-20  Responses due: [RFP · Enrichment] Non-Research Long-Term Care facility needed for the enrichmen
         https://sam.gov/workspace/contract/opp/eb064578052745889cd429becfe50f67/view
-  D-9  2026-07-23  Applications close: [NOFO · Nuclear] Advancing Civilian Nuclear Power in Türkiye (DFOP0018810)
-        https://www.grants.gov/search-results-detail/362929
-  D-10  2026-07-24  Comments close: [Notice] Holtec Decommissioning International, LLC; Holtec Pilgrim, LLC; Holtec 
-        https://www.federalregister.gov/documents/2026/06/24/2026-12709/holtec-decommissioning-international-llc-holtec-pilgrim-llc-holtec-indian-point-2-llc-holtec-indian
+  D-6  2026-07-21  Responses due: [RFI · Recycling] Reprocessing sink
+        https://sam.gov/workspace/contract/opp/ca5873d9fbce43358a93f2ed2be63a2a/view
+  D-8  2026-07-23  Comments close: [Notice] Biweekly Notice; Applications and Amendments to Facility Operating Lice
+        https://www.federalregister.gov/documents/2026/06/23/2026-12541/biweekly-notice-applications-and-amendments-to-facility-operating-licenses-and-combined-licenses
 
 MARKET MOVES (over 5%)
-  LEU     156.05  -8.8%
-  LTBR      7.70  -8.6%
-  ASPI      4.59  -8.4%
-  SMR       8.35  -7.6%
-  EU        1.22  -7.6%
-  NXE       9.01  -6.8%
-  OKLO     45.81  -6.2%
-  DNN       3.03  -6.2%
-  CCJ      90.20  -6.0%
+  No watchlist ticker moved more than 5%.
 
 Terminal: https://miroslavsarissky-ctrl.github.io/SMRterminal/terminal/terminal.html
