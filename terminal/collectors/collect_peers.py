@@ -197,6 +197,29 @@ def short_interest(t):
     except Exception:
         return {}
 
+EVENT_FORMS = {'8-K', '424B5', 'S-3', 'S-3/A', 'S-1', 'S-1/A', '10-Q', '10-K', 'DEF 14A', '425'}
+def events(cik, days=150, cap=12):
+    """Recent corporate events from EDGAR submissions: dilution instruments and disclosures."""
+    r = get(f'https://data.sec.gov/submissions/CIK{cik}.json')
+    if r is None:
+        return []
+    rec = r.json()['filings']['recent']
+    cutoff = (NOW - dt.timedelta(days=days)).strftime('%Y-%m-%d')
+    out = []
+    for i in range(len(rec['form'])):
+        fm, fd = rec['form'][i], rec['filingDate'][i]
+        if fd < cutoff:
+            break
+        if fm not in EVENT_FORMS:
+            continue
+        adsh = rec['accessionNumber'][i].replace('-', '')
+        out.append({'d': fd, 'f': fm,
+                    'u': f'https://www.sec.gov/Archives/edgar/data/{int(cik)}/{adsh}',
+                    'dil': fm in ('424B5', 'S-3', 'S-3/A', 'S-1', 'S-1/A')})
+        if len(out) >= cap:
+            break
+    return out
+
 def chart(t):
     r = get('https://query1.finance.yahoo.com/v8/finance/chart/' + t,
             {'range': '3mo', 'interval': '1d'}, headers=YUA)
@@ -221,6 +244,7 @@ def main(out_dir=DATA):
         ins = insiders(cik)
         ch = chart(t); time.sleep(SLEEP)
         sh_i = short_interest(t); time.sleep(SLEEP)
+        evs = events(cik); time.sleep(SLEEP)
         burn = -v['ocf_q'] if v.get('ocf_q') is not None and v['ocf_q'] < 0 else 0
         runway = round(v['cash'] / burn, 1) if v.get('cash') and burn > 0 else None
         mcap = round(ch['px'] * v['sh']) if ch.get('px') and v.get('sh') else None
@@ -234,7 +258,7 @@ def main(out_dir=DATA):
                       'si': sh_i.get('si'), 'si_prev': sh_i.get('si_prev'), 'si_date': sh_i.get('si_date'),
                       'dtc': sh_i.get('dtc'),
                       'si_pct': round(sh_i['si'] / v['sh'] * 100, 1) if sh_i.get('si') and v.get('sh') else None,
-                      'ocf_q': v.get('ocf_q'),
+                      'ocf_q': v.get('ocf_q'), 'events': evs,
                       'url': f'https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK={cik}&type=10-&dateb=&owner=include&count=10'})
         print(f"  {t:5} px={ch.get('px')} cash={v.get('cash') and round(v['cash']/1e6)}M burn={round(burn/1e6)}M rw={runway} ins_net={ins.get('net')}")
     items.sort(key=lambda i: -(i['mcap'] or 0))
