@@ -23,6 +23,7 @@ jobs:
           NRC_APS_KEY:     ${{ secrets.NRC_APS_KEY }}
           API_DATA_GOV_KEY:  ${{ secrets.API_DATA_GOV_KEY }}
           EIA_API_KEY: ${{ secrets.EIA_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python terminal/collectors/collect.py
       - name: Commit data
         run: |
