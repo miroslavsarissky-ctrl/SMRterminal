@@ -167,6 +167,13 @@ a:hover{color:#fff}
 .flowm th.inv:hover{color:var(--teal)}
 .flowm td{width:30px;height:17px;border-radius:2px;background:#141F28;cursor:pointer}
 .flowm td:hover{outline:1px solid var(--teal)}
+#eknews .ekrow{display:flex;gap:8px;align-items:baseline;padding:4px 0;border-bottom:1px solid var(--line);font:500 10.5px var(--mono);color:var(--muted)}
+#eknews .ekrow:last-child{border-bottom:0}
+#eknews .ekrow b{color:var(--teal);flex:0 0 42px}
+#eknews .ekrow a{color:var(--text);text-decoration:none;font:600 11px var(--font);line-height:1.3}
+#eknews .ekrow a:hover{color:var(--teal)}
+#eknews .ekd{color:var(--dim);flex:0 0 38px}
+.ekit{font:700 8px var(--mono);color:#B08FC9;border:1px solid #B08FC9;border-radius:2px;padding:0 4px;margin-left:5px;vertical-align:1px}
 .invpos .pr.ex{white-space:normal;flex-wrap:wrap}
 .invpos .pr b{color:var(--text);font-weight:600}
 .invpos .pr .sh{color:var(--dim)}
@@ -508,6 +515,10 @@ footer b{color:var(--muted)}
     <div class="panelbox">
       <h2>Legislation <b id="billcount"></b></h2>
       <div id="bills"></div>
+    </div>
+    <div class="panelbox">
+      <h2>EDGAR · Material 8-Ks <b id="ekcount"></b></h2>
+      <div id="eknews"></div>
     </div>
     <div class="panelbox">
       <h2>Markets · EOD <b id="mktasof"></b></h2>
@@ -875,6 +886,22 @@ if (!FEED) {
   freshDot('d-cong',  window.NIT_CONGRESS, 36,  'Congress.gov tracked bills (daily)');
   freshDot('d-grants',window.NIT_GRANTS,   200, 'Grants.gov FOA candidates (weekly)');
   var _pk = window.NIT_PEERS;
+  const EIGHTK={'1.01':'Material agreement','1.02':'Agreement terminated','2.01':'Acquisition / disposal','2.02':'Results','2.03':'New debt / obligation','3.02':'Unregistered share sales','5.02':'Officer / director change','5.07':'Shareholder vote','7.01':'Reg FD','8.01':'Other event','9.01':'Exhibits'};
+  window.EIGHTK=EIGHTK;
+  (function(){
+    const box=document.getElementById('eknews'); if(!box||!window.NIT_PEERS) return;
+    const MAT=new Set(['1.01','1.02','2.01','2.03','3.02','5.02']);
+    const rows=[];
+    NIT_PEERS.items.forEach(i=>(i.events||[]).forEach(e=>{
+      if(e.f!=='8-K'||!e.it) return;
+      const hits=e.it.filter(x=>MAT.has(x));
+      if(hits.length) rows.push({t:i.t,d:e.d,u:e.u,hits});
+    }));
+    rows.sort((a,b)=>b.d.localeCompare(a.d));
+    document.getElementById('ekcount').textContent=rows.length+' material · 150d';
+    box.innerHTML=rows.length? rows.slice(0,8).map(r=>`<div class="ekrow"><span class="ekd">${r.d.slice(5)}</span><b>${r.t}</b><a href="${r.u}" target="_blank" rel="noopener">${r.hits.map(h=>EIGHTK[h]).join(' · ')}</a></div>`).join('')
+      : '<div class="ekrow">none in the last 150 days</div>';
+  })();
   freshDot('d-finra', (_pk && _pk.items && _pk.items.some(function(i){return i.si!=null;})) ? _pk : null,
            200, 'FINRA consolidated short interest (weekly)');
   boot();
@@ -2015,7 +2042,7 @@ function paintFoas(){
 
 /* ================= ENTITY GRAPH OVERLAY ================= */
 const ENT_ALIAS={OKLO:['oklo'],SMR:['nuscale'],LEU:['centrus'],NNE:['nano nuclear'],LTBR:['lightbridge'],
- ASPI:['asp isotopes'],BWXT:['bwxt','bwx technologies'],CCJ:['cameco'],IMSR:['terrestrial energy'],
+ ASPI:['asp isotopes'],BWXT:['bwxt','bwx technologies'],CCJ:['cameco'],STDN:['standard nuclear'],IMSR:['terrestrial energy'],
  NKLR:['terra innovatum'],UEC:['uranium energy'],XE:['x-energy','x energy'],FRMI:['fermi inc','fermi energ'],
  FISN:['deep fission'],HDRN:['hadron'],NHIC:['newhold']};
 function entPrevQ(){ const m=(INV&&INV.season||'').match(/Q(\d) (\d{4})/); if(!m) return null;
@@ -2076,7 +2103,7 @@ function entOpen(t){
      ${fl.exits.length?`<div class="entrow" style="margin-top:5px"><b>Exits (${fl.exits.length})</b></div>`+fl.exits.slice(0,5).map(row).join(''):''}
      ${(!fl.news.length&&!fl.adds.length&&!fl.trims.length&&!fl.exits.length)?'<div class="entrow"><b>no comparable prior-season coverage yet</b></div>':''}
    </div>
-   ${ev.length?`<div class="ents"><h4>Corporate events — 150d</h4>${ev.map(e=>`<div class="entrow"><b><a class="entl" href="${e.u}" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">${e.f}${e.dil?'<span class="evd">DILUTION</span>':''}</a></b><span class="v">${e.d}</span></div>`).join('')}</div>`:''}
+   ${ev.length?`<div class="ents"><h4>Corporate events — 150d</h4>${ev.map(e=>`<div class="entrow"><b><a class="entl" href="${e.u}" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">${e.f}${e.dil?'<span class="evd">DILUTION</span>':''}${(e.it||[]).filter(x=>x!=='9.01').map(x=>`<span class="ekit" title="${(window.EIGHTK&&EIGHTK[x])||x}">${x}</span>`).join('')}</a></b><span class="v">${e.d}</span></div>`).join('')}</div>`:''}
    ${nw.length?`<div class="ents entnews"><h4>Recent news</h4>${nw.map(x=>`<a href="${x.url||x.link||'#'}" target="_blank" rel="noopener"><span class="d">${(x.ts||'').slice(5,10)}</span>${x.title}</a>`).join('')}</div>`:''}
    <div class="ents"><h4>Filings</h4><div class="entrow"><b><a class="entl" style="color:inherit" href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${P.cik||''}&type=&dateb=&owner=include&count=20" target="_blank" rel="noopener">EDGAR — all filings ↗</a></b></div></div>`;
   document.getElementById('entpanel').innerHTML=h;
