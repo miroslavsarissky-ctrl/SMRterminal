@@ -1,17 +1,15 @@
 {
- "generated": "2026-07-14T22:38:52+00:00",
- "count": 16,
+ "generated": "2026-07-17T14:15:36+00:00",
+ "count": 17,
  "items": [
   {
    "t": "CCJ",
    "name": "Cameco",
    "cik": "0001009001",
-   "px": 91.57,
-   "chg30": -7.5,
-   "chg90": -23.1,
+   "px": 85.32,
+   "chg30": -20.9,
+   "chg90": -29.3,
    "spark": [
-    120.66,
-    116.61,
     123.85,
     123.11,
     114.29,
@@ -39,9 +37,11 @@
     96.54,
     94.67,
     95.74,
-    90.2
+    90.2,
+    90.98,
+    85.32
    ],
-   "mcap": 39874887045,
+   "mcap": 37153274683,
    "cash": null,
    "cash_date": null,
    "trust": false,
@@ -66,12 +66,10 @@
    "t": "BWXT",
    "name": "BWX Technologies",
    "cik": "0001486957",
-   "px": 179.83,
-   "chg30": -7.6,
-   "chg90": -24.6,
+   "px": 172.81,
+   "chg30": -12.2,
+   "chg90": -26.7,
    "spark": [
-    235.78,
-    216.66,
     225.51,
     222.07,
     208.08,
@@ -99,9 +97,11 @@
     191.06,
     186.08,
     186.99,
-    177.14
+    177.14,
+    176.91,
+    172.81
    ],
-   "mcap": 16475062330,
+   "mcap": 15831927494,
    "cash": 512357000,
    "cash_date": "2026-03-31",
    "trust": false,
@@ -124,7 +124,10 @@
      "d": "2026-05-05",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/1486957/000148695726000031",
-     "dil": false
+     "dil": false,
+     "it": [
+      "5.07"
+     ]
     },
     {
      "d": "2026-05-04",
@@ -136,7 +139,11 @@
      "d": "2026-05-04",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/1486957/000148695726000027",
-     "dil": false
+     "dil": false,
+     "it": [
+      "2.02",
+      "9.01"
+     ]
     },
     {
      "d": "2026-03-18",
@@ -154,13 +161,21 @@
      "d": "2026-02-23",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/1486957/000148695726000005",
-     "dil": false
+     "dil": false,
+     "it": [
+      "2.02",
+      "9.01"
+     ]
     },
     {
      "d": "2026-02-20",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/1486957/000110465926017868",
-     "dil": false
+     "dil": false,
+     "it": [
+      "5.02",
+      "9.01"
+     ]
     }
    ],
    "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001486957&type=10-&dateb=&owner=include&count=10"
@@ -169,12 +184,10 @@
    "t": "OKLO",
    "name": "Oklo",
    "cik": "0001849056",
-   "px": 46.24,
-   "chg30": -20.1,
-   "chg90": -27.0,
+   "px": 41.41,
+   "chg30": -27.9,
+   "chg90": -38.0,
    "spark": [
-    66.81,
-    62.61,
     76.46,
     75.93,
     64.98,
@@ -202,9 +215,11 @@
     52.36,
     47.9,
     49.27,
-    45.81
+    45.81,
+    45.69,
+    41.4
    ],
-   "mcap": 8045343239,
+   "mcap": 7204966772,
    "cash": 1594103000,
    "cash_date": "2026-03-31",
    "trust": false,
@@ -227,7 +242,10 @@
      "d": "2026-06-08",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/1849056/000184905626000028",
-     "dil": false
+     "dil": false,
+     "it": [
+      "5.07"
+     ]
     },
     {
      "d": "2026-05-13",
@@ -239,7 +257,12 @@
      "d": "2026-05-13",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/1849056/000110465926060385",
-     "dil": false
+     "dil": false,
+     "it": [
+      "1.01",
+      "1.02",
+      "9.01"
+     ]
     },
     {
      "d": "2026-05-12",
@@ -257,7 +280,11 @@
      "d": "2026-04-14",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/1849056/000184905626000006",
-     "dil": false
+     "dil": false,
+     "it": [
+      "5.02",
+      "9.01"
+     ]
     },
     {
      "d": "2026-03-17",
@@ -272,12 +299,10 @@
    "t": "UEC",
    "name": "Uranium Energy",
    "cik": "0001334933",
-   "px": 10.39,
-   "chg30": -2.3,
-   "chg90": -29.9,
+   "px": 9.16,
+   "chg30": -21.5,
+   "chg90": -38.8,
    "spark": [
-    14.97,
-    14.45,
     14.95,
     15.41,
     13.41,
@@ -305,9 +330,11 @@
     10.77,
     9.9,
     10.16,
-    10.07
+    10.07,
+    10.11,
+    9.16
    ],
-   "mcap": 5141723883,
+   "mcap": 4533030873,
    "cash": 488053000,
    "cash_date": "2026-04-30",
    "trust": false,
@@ -336,7 +363,12 @@
      "d": "2026-06-09",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/1334933/000143774926020021",
-     "dil": false
+     "dil": false,
+     "it": [
+      "2.02",
+      "7.01",
+      "9.01"
+     ]
     },
     {
      "d": "2026-06-09",
@@ -348,25 +380,42 @@
      "d": "2026-05-28",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/1334933/000143774926018759",
-     "dil": false
+     "dil": false,
+     "it": [
+      "7.01",
+      "9.01"
+     ]
     },
     {
      "d": "2026-04-08",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/1334933/000143774926011769",
-     "dil": false
+     "dil": false,
+     "it": [
+      "7.01",
+      "9.01"
+     ]
     },
     {
      "d": "2026-03-23",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/1334933/000143774926009421",
-     "dil": false
+     "dil": false,
+     "it": [
+      "7.01",
+      "9.01"
+     ]
     },
     {
      "d": "2026-03-10",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/1334933/000143774926007558",
-     "dil": false
+     "dil": false,
+     "it": [
+      "2.02",
+      "7.01",
+      "9.01"
+     ]
     },
     {
      "d": "2026-03-10",
@@ -381,12 +430,10 @@
    "t": "FRMI",
    "name": "Fermi",
    "cik": "0002071778",
-   "px": 6.74,
-   "chg30": -3.0,
-   "chg90": 15.6,
+   "px": 5.98,
+   "chg30": -24.1,
+   "chg90": -8.7,
    "spark": [
-    6.55,
-    5.06,
     5.92,
     5.46,
     5.03,
@@ -414,9 +461,11 @@
     8.06,
     7.38,
     7.32,
-    6.31
+    6.31,
+    6.25,
+    5.98
    ],
-   "mcap": 4297250371,
+   "mcap": 3812693949,
    "cash": 207501000,
    "cash_date": "2026-03-31",
    "trust": false,
@@ -436,16 +485,35 @@
    "ocf_q": -7345000,
    "events": [
     {
+     "d": "2026-07-15",
+     "f": "8-K",
+     "u": "https://www.sec.gov/Archives/edgar/data/2071778/000121390026078366",
+     "dil": false,
+     "it": [
+      "1.01",
+      "2.03",
+      "3.02",
+      "7.01"
+     ]
+    },
+    {
      "d": "2026-07-13",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/2071778/000121390026077385",
-     "dil": false
+     "dil": false,
+     "it": [
+      "5.02",
+      "9.01"
+     ]
     },
     {
      "d": "2026-07-09",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/2071778/000121390026076788",
-     "dil": false
+     "dil": false,
+     "it": [
+      "7.01"
+     ]
     },
     {
      "d": "2026-05-15",
@@ -457,54 +525,75 @@
      "d": "2026-05-14",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/2071778/000207177826000027",
-     "dil": false
+     "dil": false,
+     "it": [
+      "2.02",
+      "9.01"
+     ]
     },
     {
      "d": "2026-05-14",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/2071778/000121390026056189",
-     "dil": false
+     "dil": false,
+     "it": [
+      "5.03"
+     ]
     },
     {
      "d": "2026-05-06",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/2071778/000121390026052548",
-     "dil": false
+     "dil": false,
+     "it": [
+      "7.01",
+      "9.01"
+     ]
     },
     {
      "d": "2026-05-05",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/2071778/000121390026051895",
-     "dil": false
+     "dil": false,
+     "it": [
+      "5.02"
+     ]
     },
     {
      "d": "2026-04-30",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/2071778/000121390026049696",
-     "dil": false
+     "dil": false,
+     "it": [
+      "5.02",
+      "9.01"
+     ]
     },
     {
      "d": "2026-04-20",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/2071778/000121390026045351",
-     "dil": false
+     "dil": false,
+     "it": [
+      "5.02",
+      "7.01",
+      "9.01"
+     ]
     },
     {
      "d": "2026-04-17",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/2071778/000121390026045197",
-     "dil": false
+     "dil": false,
+     "it": [
+      "5.02",
+      "9.01"
+     ]
     },
     {
      "d": "2026-03-30",
      "f": "10-K",
      "u": "https://www.sec.gov/Archives/edgar/data/2071778/000207177826000010",
-     "dil": false
-    },
-    {
-     "d": "2026-03-30",
-     "f": "8-K",
-     "u": "https://www.sec.gov/Archives/edgar/data/2071778/000207177826000007",
      "dil": false
     }
    ],
@@ -514,12 +603,10 @@
    "t": "LEU",
    "name": "Centrus Energy",
    "cik": "0001065059",
-   "px": 159.38,
-   "chg30": 0.4,
-   "chg90": -19.4,
+   "px": 151.23,
+   "chg30": -8.6,
+   "chg90": -25.7,
    "spark": [
-    203.63,
-    191.55,
     219.58,
     221.98,
     191.98,
@@ -547,9 +634,11 @@
     162.13,
     165.64,
     173.56,
-    156.05
+    156.05,
+    156.54,
+    151.23
    ],
-   "mcap": 2179351442,
+   "mcap": 2067908888,
    "cash": 1868200000,
    "cash_date": "2026-03-31",
    "trust": false,
@@ -572,19 +661,33 @@
      "d": "2026-07-02",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/1065059/000162828026046801",
-     "dil": false
+     "dil": false,
+     "it": [
+      "1.01",
+      "9.01"
+     ]
     },
     {
      "d": "2026-06-18",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/1065059/000162828026044386",
-     "dil": false
+     "dil": false,
+     "it": [
+      "1.01",
+      "3.03",
+      "5.02",
+      "5.07"
+     ]
     },
     {
      "d": "2026-06-18",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/1065059/000162828026044360",
-     "dil": false
+     "dil": false,
+     "it": [
+      "8.01",
+      "9.01"
+     ]
     },
     {
      "d": "2026-05-06",
@@ -596,7 +699,11 @@
      "d": "2026-05-05",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/1065059/000162828026030674",
-     "dil": false
+     "dil": false,
+     "it": [
+      "2.02",
+      "9.01"
+     ]
     },
     {
      "d": "2026-04-24",
@@ -608,13 +715,21 @@
      "d": "2026-04-20",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/1065059/000162828026025916",
-     "dil": false
+     "dil": false,
+     "it": [
+      "1.01",
+      "9.01"
+     ]
     },
     {
      "d": "2026-03-16",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/1065059/000162828026017957",
-     "dil": false
+     "dil": false,
+     "it": [
+      "5.03",
+      "9.01"
+     ]
     }
    ],
    "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001065059&type=10-&dateb=&owner=include&count=10"
@@ -623,12 +738,10 @@
    "t": "NNE",
    "name": "NANO Nuclear",
    "cik": "0001923891",
-   "px": 18.14,
-   "chg30": -23.0,
-   "chg90": -25.3,
+   "px": 16.32,
+   "chg30": -32.0,
+   "chg90": -36.9,
    "spark": [
-    25.85,
-    23.78,
     25.33,
     25.76,
     22.42,
@@ -656,9 +769,11 @@
     20.03,
     18.88,
     19.29,
-    18.02
+    18.02,
+    17.87,
+    16.32
    ],
-   "mcap": 944790953,
+   "mcap": 849999358,
    "cash": 568672913,
    "cash_date": "2026-03-31",
    "trust": false,
@@ -681,31 +796,52 @@
      "d": "2026-06-25",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/1923891/000149315226030124",
-     "dil": false
+     "dil": false,
+     "it": [
+      "8.01",
+      "9.01"
+     ]
     },
     {
      "d": "2026-06-25",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/1923891/000149315226030000",
-     "dil": false
+     "dil": false,
+     "it": [
+      "5.02"
+     ]
     },
     {
      "d": "2026-05-29",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/1923891/000149315226025709",
-     "dil": false
+     "dil": false,
+     "it": [
+      "1.01",
+      "2.01",
+      "3.02",
+      "5.02"
+     ]
     },
     {
      "d": "2026-05-20",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/1923891/000149315226024659",
-     "dil": false
+     "dil": false,
+     "it": [
+      "8.01",
+      "9.01"
+     ]
     },
     {
      "d": "2026-05-15",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/1923891/000149315226023327",
-     "dil": false
+     "dil": false,
+     "it": [
+      "8.01",
+      "9.01"
+     ]
     },
     {
      "d": "2026-05-14",
@@ -717,19 +853,30 @@
      "d": "2026-04-09",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/1923891/000149315226015923",
-     "dil": false
+     "dil": false,
+     "it": [
+      "8.01",
+      "9.01"
+     ]
     },
     {
      "d": "2026-04-08",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/1923891/000149315226015585",
-     "dil": false
+     "dil": false,
+     "it": [
+      "8.01"
+     ]
     },
     {
      "d": "2026-04-06",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/1923891/000149315226015298",
-     "dil": false
+     "dil": false,
+     "it": [
+      "8.01",
+      "9.01"
+     ]
     },
     {
      "d": "2026-03-13",
@@ -756,9 +903,9 @@
    "t": "FISN",
    "name": "Deep Fission",
    "cik": "0001918102",
-   "px": 10.65,
-   "chg30": -26.9,
-   "chg90": -26.9,
+   "px": 10.44,
+   "chg30": -28.3,
+   "chg90": -28.3,
    "spark": [
     14.56,
     12.42,
@@ -776,9 +923,12 @@
     11.14,
     11.11,
     10.37,
-    10.65
+    10.65,
+    12.16,
+    10.51,
+    10.44
    ],
-   "mcap": 600618710,
+   "mcap": 588775524,
    "cash": 84767555,
    "cash_date": "2026-03-31",
    "trust": false,
@@ -801,7 +951,10 @@
      "d": "2026-06-22",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/1918102/000110465926076400",
-     "dil": false
+     "dil": false,
+     "it": [
+      "8.01"
+     ]
     },
     {
      "d": "2026-06-17",
@@ -831,7 +984,11 @@
      "d": "2026-04-22",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/1918102/000110465926046488",
-     "dil": false
+     "dil": false,
+     "it": [
+      "7.01",
+      "9.01"
+     ]
     },
     {
      "d": "2026-04-21",
@@ -849,19 +1006,29 @@
      "d": "2026-04-09",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/1918102/000110465926041290",
-     "dil": false
+     "dil": false,
+     "it": [
+      "4.02"
+     ]
     },
     {
      "d": "2026-03-05",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/1918102/000110465926023876",
-     "dil": false
+     "dil": false,
+     "it": [
+      "4.01",
+      "9.01"
+     ]
     },
     {
      "d": "2026-02-25",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/1918102/000110465926019327",
-     "dil": false
+     "dil": false,
+     "it": [
+      "5.02"
+     ]
     },
     {
      "d": "2026-02-17",
@@ -873,148 +1040,13 @@
    "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001918102&type=10-&dateb=&owner=include&count=10"
   },
   {
-   "t": "ASPI",
-   "name": "ASP Isotopes",
-   "cik": "0001921865",
-   "px": 4.7,
-   "chg30": -24.6,
-   "chg90": -12.6,
-   "spark": [
-    5.37,
-    5.06,
-    5.43,
-    5.65,
-    4.94,
-    5.15,
-    5.13,
-    5.33,
-    6.22,
-    6.32,
-    5.8,
-    4.84,
-    5.17,
-    6.93,
-    7.77,
-    8.01,
-    7.55,
-    6.71,
-    6.4,
-    6.23,
-    6.64,
-    6.68,
-    7.28,
-    7.06,
-    6.17,
-    6.22,
-    5.63,
-    5.06,
-    5.14,
-    4.59
-   ],
-   "mcap": 591746201,
-   "cash": 290516000,
-   "cash_date": "2026-03-31",
-   "trust": false,
-   "burn_q": 17760000,
-   "runway_q": 16.4,
-   "rev_q": 4180000,
-   "sh": 125903447,
-   "dil_qoq": 0.0,
-   "ins_net": -3933595,
-   "ins_b": 0,
-   "ins_s": 12,
-   "si": 1946,
-   "si_prev": 101480,
-   "si_date": "2022-11-30",
-   "dtc": 0.0,
-   "si_pct": 0.0,
-   "ocf_q": -17760000,
-   "events": [
-    {
-     "d": "2026-06-25",
-     "f": "425",
-     "u": "https://www.sec.gov/Archives/edgar/data/1921865/000147793226004021",
-     "dil": false
-    },
-    {
-     "d": "2026-06-25",
-     "f": "8-K",
-     "u": "https://www.sec.gov/Archives/edgar/data/1921865/000147793226004020",
-     "dil": false
-    },
-    {
-     "d": "2026-06-25",
-     "f": "8-K",
-     "u": "https://www.sec.gov/Archives/edgar/data/1921865/000119312526282048",
-     "dil": false
-    },
-    {
-     "d": "2026-06-23",
-     "f": "8-K",
-     "u": "https://www.sec.gov/Archives/edgar/data/1921865/000147793226003952",
-     "dil": false
-    },
-    {
-     "d": "2026-05-26",
-     "f": "8-K",
-     "u": "https://www.sec.gov/Archives/edgar/data/1921865/000119312526237916",
-     "dil": false
-    },
-    {
-     "d": "2026-05-20",
-     "f": "8-K",
-     "u": "https://www.sec.gov/Archives/edgar/data/1921865/000119312526232841",
-     "dil": false
-    },
-    {
-     "d": "2026-05-20",
-     "f": "10-Q",
-     "u": "https://www.sec.gov/Archives/edgar/data/1921865/000119312526232658",
-     "dil": false
-    },
-    {
-     "d": "2026-05-11",
-     "f": "8-K",
-     "u": "https://www.sec.gov/Archives/edgar/data/1921865/000119312526215717",
-     "dil": false
-    },
-    {
-     "d": "2026-05-06",
-     "f": "8-K",
-     "u": "https://www.sec.gov/Archives/edgar/data/1921865/000119312526207578",
-     "dil": false
-    },
-    {
-     "d": "2026-04-13",
-     "f": "8-K",
-     "u": "https://www.sec.gov/Archives/edgar/data/1921865/000147793226002140",
-     "dil": false
-    },
-    {
-     "d": "2026-04-10",
-     "f": "10-K",
-     "u": "https://www.sec.gov/Archives/edgar/data/1921865/000119312526151294",
-     "dil": false
-    },
-    {
-     "d": "2026-04-10",
-     "f": "8-K",
-     "u": "https://www.sec.gov/Archives/edgar/data/1921865/000147793226002103",
-     "dil": false
-    }
-   ],
-   "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001921865&type=10-&dateb=&owner=include&count=10"
-  },
-  {
    "t": "IMSR",
    "name": "Terrestrial Energy",
    "cik": "0002019804",
-   "px": 5.36,
-   "chg30": -26.0,
-   "chg90": -25.2,
+   "px": 4.63,
+   "chg30": -38.4,
+   "chg90": -39.1,
    "spark": [
-    7.61,
-    7.09,
     7.74,
     7.59,
     6.8,
@@ -1042,9 +1074,11 @@
     6.46,
     5.97,
     6.14,
-    5.39
+    5.39,
+    5.19,
+    4.63
    ],
-   "mcap": 567812961,
+   "mcap": 490480226,
    "cash": 274964000,
    "cash_date": "2026-03-31",
    "trust": false,
@@ -1067,7 +1101,10 @@
      "d": "2026-06-12",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/2019804/000110465926073471",
-     "dil": false
+     "dil": false,
+     "it": [
+      "5.07"
+     ]
     },
     {
      "d": "2026-05-14",
@@ -1079,13 +1116,20 @@
      "d": "2026-05-14",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/2019804/000110465926060716",
-     "dil": false
+     "dil": false,
+     "it": [
+      "2.02",
+      "9.01"
+     ]
     },
     {
      "d": "2026-05-08",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/2019804/000110465926057977",
-     "dil": false
+     "dil": false,
+     "it": [
+      "5.02"
+     ]
     },
     {
      "d": "2026-04-29",
@@ -1097,7 +1141,11 @@
      "d": "2026-04-16",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/2019804/000110465926044426",
-     "dil": false
+     "dil": false,
+     "it": [
+      "5.02",
+      "9.01"
+     ]
     },
     {
      "d": "2026-03-30",
@@ -1109,7 +1157,11 @@
      "d": "2026-03-30",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/2019804/000110465926036467",
-     "dil": false
+     "dil": false,
+     "it": [
+      "2.02",
+      "9.01"
+     ]
     }
    ],
    "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0002019804&type=10-&dateb=&owner=include&count=10"
@@ -1118,12 +1170,10 @@
    "t": "NKLR",
    "name": "Terra Innovatum",
    "cik": "0002067627",
-   "px": 4.92,
-   "chg30": -6.1,
-   "chg90": -18.4,
+   "px": 4.43,
+   "chg30": -11.4,
+   "chg90": -26.9,
    "spark": [
-    6.06,
-    6.33,
     7.72,
     6.93,
     5.97,
@@ -1151,9 +1201,11 @@
     4.62,
     4.67,
     4.87,
-    4.64
+    4.64,
+    4.85,
+    4.43
    ],
-   "mcap": 543664467,
+   "mcap": 489519022,
    "cash": 96701000,
    "cash_date": "2026-03-31",
    "trust": false,
@@ -1176,7 +1228,10 @@
      "d": "2026-07-02",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/2067627/000121390026075104",
-     "dil": false
+     "dil": false,
+     "it": [
+      "5.02"
+     ]
     },
     {
      "d": "2026-07-01",
@@ -1194,33 +1249,212 @@
      "d": "2026-05-22",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/2067627/000121390026060614",
-     "dil": false
+     "dil": false,
+     "it": [
+      "3.01"
+     ]
     },
     {
      "d": "2026-04-17",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/2067627/000121390026045267",
-     "dil": false
+     "dil": false,
+     "it": [
+      "3.01"
+     ]
     },
     {
      "d": "2026-03-30",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/2067627/000121390026036007",
-     "dil": false
+     "dil": false,
+     "it": [
+      "5.02"
+     ]
     }
    ],
    "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0002067627&type=10-&dateb=&owner=include&count=10"
   },
   {
+   "t": "ASPI",
+   "name": "ASP Isotopes",
+   "cik": "0001921865",
+   "px": 3.65,
+   "chg30": -43.2,
+   "chg90": -31.9,
+   "spark": [
+    5.43,
+    5.65,
+    4.94,
+    5.15,
+    5.13,
+    5.33,
+    6.22,
+    6.32,
+    5.8,
+    4.84,
+    5.17,
+    6.93,
+    7.77,
+    8.01,
+    7.55,
+    6.71,
+    6.4,
+    6.23,
+    6.64,
+    6.68,
+    7.28,
+    7.06,
+    6.17,
+    6.22,
+    5.63,
+    5.06,
+    5.14,
+    4.59,
+    4.58,
+    3.65
+   ],
+   "mcap": 459547582,
+   "cash": 290516000,
+   "cash_date": "2026-03-31",
+   "trust": false,
+   "burn_q": 17760000,
+   "runway_q": 16.4,
+   "rev_q": 4180000,
+   "sh": 125903447,
+   "dil_qoq": 0.0,
+   "ins_net": -3629213,
+   "ins_b": 0,
+   "ins_s": 9,
+   "si": 1946,
+   "si_prev": 101480,
+   "si_date": "2022-11-30",
+   "dtc": 0.0,
+   "si_pct": 0.0,
+   "ocf_q": -17760000,
+   "events": [
+    {
+     "d": "2026-07-17",
+     "f": "425",
+     "u": "https://www.sec.gov/Archives/edgar/data/1921865/000147793226004369",
+     "dil": false
+    },
+    {
+     "d": "2026-07-16",
+     "f": "8-K",
+     "u": "https://www.sec.gov/Archives/edgar/data/1921865/000119312526306136",
+     "dil": false,
+     "it": [
+      "8.01",
+      "9.01"
+     ]
+    },
+    {
+     "d": "2026-07-16",
+     "f": "8-K",
+     "u": "https://www.sec.gov/Archives/edgar/data/1921865/000147793226004337",
+     "dil": false,
+     "it": [
+      "1.01",
+      "3.02",
+      "7.01",
+      "9.01"
+     ]
+    },
+    {
+     "d": "2026-06-25",
+     "f": "425",
+     "u": "https://www.sec.gov/Archives/edgar/data/1921865/000147793226004021",
+     "dil": false
+    },
+    {
+     "d": "2026-06-25",
+     "f": "8-K",
+     "u": "https://www.sec.gov/Archives/edgar/data/1921865/000147793226004020",
+     "dil": false,
+     "it": [
+      "1.01",
+      "3.02",
+      "7.01",
+      "8.01"
+     ]
+    },
+    {
+     "d": "2026-06-25",
+     "f": "8-K",
+     "u": "https://www.sec.gov/Archives/edgar/data/1921865/000119312526282048",
+     "dil": false,
+     "it": [
+      "7.01",
+      "9.01"
+     ]
+    },
+    {
+     "d": "2026-06-23",
+     "f": "8-K",
+     "u": "https://www.sec.gov/Archives/edgar/data/1921865/000147793226003952",
+     "dil": false,
+     "it": [
+      "7.01",
+      "9.01"
+     ]
+    },
+    {
+     "d": "2026-05-26",
+     "f": "8-K",
+     "u": "https://www.sec.gov/Archives/edgar/data/1921865/000119312526237916",
+     "dil": false,
+     "it": [
+      "7.01",
+      "9.01"
+     ]
+    },
+    {
+     "d": "2026-05-20",
+     "f": "8-K",
+     "u": "https://www.sec.gov/Archives/edgar/data/1921865/000119312526232841",
+     "dil": false,
+     "it": [
+      "7.01"
+     ]
+    },
+    {
+     "d": "2026-05-20",
+     "f": "10-Q",
+     "u": "https://www.sec.gov/Archives/edgar/data/1921865/000119312526232658",
+     "dil": false
+    },
+    {
+     "d": "2026-05-11",
+     "f": "8-K",
+     "u": "https://www.sec.gov/Archives/edgar/data/1921865/000119312526215717",
+     "dil": false,
+     "it": [
+      "7.01",
+      "9.01"
+     ]
+    },
+    {
+     "d": "2026-05-06",
+     "f": "8-K",
+     "u": "https://www.sec.gov/Archives/edgar/data/1921865/000119312526207578",
+     "dil": false,
+     "it": [
+      "7.01",
+      "9.01"
+     ]
+    }
+   ],
+   "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001921865&type=10-&dateb=&owner=include&count=10"
+  },
+  {
    "t": "LTBR",
    "name": "Lightbridge",
    "cik": "0001084554",
-   "px": 7.98,
-   "chg30": -12.9,
-   "chg90": -34.3,
+   "px": 7.29,
+   "chg30": -21.4,
+   "chg90": -42.7,
    "spark": [
-    12.72,
-    12.61,
     13.0,
     13.13,
     11.38,
@@ -1248,9 +1482,11 @@
     8.64,
     8.23,
     8.59,
-    7.7
+    7.7,
+    7.77,
+    7.29
    ],
-   "mcap": 280473547,
+   "mcap": 256222075,
    "cash": 29235892,
    "cash_date": "2023-09-30",
    "trust": false,
@@ -1273,7 +1509,10 @@
      "d": "2026-05-14",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/1084554/000147793226003140",
-     "dil": false
+     "dil": false,
+     "it": [
+      "5.07"
+     ]
     },
     {
      "d": "2026-04-30",
@@ -1285,7 +1524,11 @@
      "d": "2026-04-27",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/1084554/000147793226002579",
-     "dil": false
+     "dil": false,
+     "it": [
+      "2.02",
+      "9.01"
+     ]
     },
     {
      "d": "2026-03-31",
@@ -1303,7 +1546,11 @@
      "d": "2026-02-25",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/1084554/000147793226001027",
-     "dil": false
+     "dil": false,
+     "it": [
+      "2.02",
+      "9.01"
+     ]
     }
    ],
    "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001084554&type=10-&dateb=&owner=include&count=10"
@@ -1312,12 +1559,10 @@
    "t": "HDRN",
    "name": "Hadron Energy",
    "cik": "0002023730",
-   "px": 1.95,
-   "chg30": -33.4,
-   "chg90": -81.7,
+   "px": 2.0,
+   "chg30": -24.0,
+   "chg90": -81.3,
    "spark": [
-    10.68,
-    10.7,
     10.71,
     10.67,
     10.68,
@@ -1345,9 +1590,11 @@
     2.0,
     2.01,
     1.88,
-    1.95
+    1.95,
+    1.95,
+    2.0
    ],
-   "mcap": 39000000,
+   "mcap": 40000000,
    "cash": 54692,
    "cash_date": "2026-03-31",
    "trust": false,
@@ -1370,7 +1617,10 @@
      "d": "2026-06-18",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/2023730/000119312526274479",
-     "dil": false
+     "dil": false,
+     "it": [
+      "8.01"
+     ]
     },
     {
      "d": "2026-06-15",
@@ -1394,13 +1644,22 @@
      "d": "2026-06-01",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/2023730/000119312526249151",
-     "dil": false
+     "dil": false,
+     "it": [
+      "2.01",
+      "3.02",
+      "5.02",
+      "9.01"
+     ]
     },
     {
      "d": "2026-05-28",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/2023730/000119312526242343",
-     "dil": false
+     "dil": false,
+     "it": [
+      "8.01"
+     ]
     },
     {
      "d": "2026-05-11",
@@ -1412,7 +1671,11 @@
      "d": "2026-05-11",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/2023730/000119312526215756",
-     "dil": false
+     "dil": false,
+     "it": [
+      "3.03",
+      "5.03"
+     ]
     },
     {
      "d": "2026-05-08",
@@ -1445,12 +1708,10 @@
    "t": "SMR",
    "name": "NuScale Power",
    "cik": "0001822966",
-   "px": 8.6,
-   "chg30": -10.1,
-   "chg90": -26.6,
+   "px": 7.59,
+   "chg30": -23.2,
+   "chg90": -40.0,
    "spark": [
-    12.65,
-    11.67,
     12.72,
     12.65,
     11.32,
@@ -1478,7 +1739,9 @@
     9.76,
     8.96,
     9.03,
-    8.35
+    8.35,
+    8.36,
+    7.59
    ],
    "mcap": null,
    "cash": 890129000,
@@ -1489,9 +1752,9 @@
    "rev_q": 565000,
    "sh": null,
    "dil_qoq": null,
-   "ins_net": -310069114,
+   "ins_net": -159627000,
    "ins_b": 0,
-   "ins_s": 3,
+   "ins_s": 2,
    "si": 4027595,
    "si_prev": 4490936,
    "si_date": "2022-11-30",
@@ -1503,7 +1766,10 @@
      "d": "2026-06-02",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/1822966/000182296626000058",
-     "dil": false
+     "dil": false,
+     "it": [
+      "5.07"
+     ]
     },
     {
      "d": "2026-05-07",
@@ -1515,7 +1781,11 @@
      "d": "2026-05-07",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/1822966/000182296626000052",
-     "dil": false
+     "dil": false,
+     "it": [
+      "2.02",
+      "9.01"
+     ]
     },
     {
      "d": "2026-04-15",
@@ -1527,7 +1797,11 @@
      "d": "2026-04-08",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/1822966/000182296626000038",
-     "dil": false
+     "dil": false,
+     "it": [
+      "7.01",
+      "9.01"
+     ]
     },
     {
      "d": "2026-02-26",
@@ -1539,7 +1813,12 @@
      "d": "2026-02-26",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/1822966/000182296626000019",
-     "dil": false
+     "dil": false,
+     "it": [
+      "1.01",
+      "1.02",
+      "9.01"
+     ]
     },
     {
      "d": "2026-02-26",
@@ -1551,7 +1830,11 @@
      "d": "2026-02-26",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/1822966/000182296626000016",
-     "dil": false
+     "dil": false,
+     "it": [
+      "2.02",
+      "9.01"
+     ]
     }
    ],
    "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001822966&type=10-&dateb=&owner=include&count=10"
@@ -1560,13 +1843,10 @@
    "t": "XE",
    "name": "X-energy",
    "cik": "0002088896",
-   "px": 15.33,
-   "chg30": -18.2,
-   "chg90": -47.5,
+   "px": 14.07,
+   "chg30": -35.0,
+   "chg90": -51.8,
    "spark": [
-    26.44,
-    27.58,
-    26.27,
     23.65,
     21.42,
     22.42,
@@ -1593,7 +1873,10 @@
     16.6,
     15.96,
     15.43,
-    15.33
+    15.33,
+    15.06,
+    13.83,
+    14.07
    ],
    "mcap": null,
    "cash": 673585000,
@@ -1624,13 +1907,22 @@
      "d": "2026-06-04",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/2088896/000119312526256369",
-     "dil": false
+     "dil": false,
+     "it": [
+      "2.02",
+      "7.01",
+      "9.01"
+     ]
     },
     {
      "d": "2026-05-19",
      "f": "8-K",
      "u": "https://www.sec.gov/Archives/edgar/data/2088896/000208889626000005",
-     "dil": false
+     "dil": false,
+     "it": [
+      "7.01",
+      "9.01"
+     ]
     },
     {
      "d": "2026-04-20",
@@ -1669,12 +1961,10 @@
    "t": "NHIC",
    "name": "NewHold Investment III",
    "cik": "0002043699",
-   "px": 10.76,
-   "chg30": -2.2,
-   "chg90": 3.5,
+   "px": 10.68,
+   "chg30": -3.0,
+   "chg90": 2.7,
    "spark": [
-    10.4,
-    10.4,
     10.4,
     10.5,
     10.51,
@@ -1702,7 +1992,9 @@
     11.0,
     10.85,
     10.92,
-    10.79
+    10.79,
+    10.73,
+    10.68
    ],
    "mcap": null,
    "cash": 624000,
@@ -1797,6 +2089,57 @@
     }
    ],
    "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0002043699&type=10-&dateb=&owner=include&count=10"
+  },
+  {
+   "t": "STDN",
+   "name": "Standard Nuclear",
+   "cik": "0002086716",
+   "px": 11.67,
+   "chg30": -5.1,
+   "chg90": -5.1,
+   "spark": [
+    12.3,
+    11.67
+   ],
+   "mcap": null,
+   "cash": null,
+   "cash_date": null,
+   "trust": false,
+   "burn_q": 0,
+   "runway_q": null,
+   "rev_q": null,
+   "sh": null,
+   "dil_qoq": null,
+   "ins_net": 0,
+   "ins_b": 0,
+   "ins_s": 0,
+   "si": null,
+   "si_prev": null,
+   "si_date": null,
+   "dtc": null,
+   "si_pct": null,
+   "ocf_q": null,
+   "events": [
+    {
+     "d": "2026-07-15",
+     "f": "S-1/A",
+     "u": "https://www.sec.gov/Archives/edgar/data/2086716/000121390026078128",
+     "dil": true
+    },
+    {
+     "d": "2026-07-07",
+     "f": "S-1/A",
+     "u": "https://www.sec.gov/Archives/edgar/data/2086716/000121390026075742",
+     "dil": true
+    },
+    {
+     "d": "2026-06-18",
+     "f": "S-1",
+     "u": "https://www.sec.gov/Archives/edgar/data/2086716/000121390026070215",
+     "dil": true
+    }
+   ],
+   "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0002086716&type=10-&dateb=&owner=include&count=10"
   }
  ],
  "caveats": "SEC XBRL vitals (quarterly, filing-lagged) + EDGAR Form 4 net open-market flow 90d + Yahoo prices. Cameco: IFRS/40-F filer, some fields absent. NHIC: SPAC — cash shown is trust assets, burn/runway not applicable. Short interest: FINRA consolidated (bi-monthly settlement), %% is of shares outstanding, not float."
