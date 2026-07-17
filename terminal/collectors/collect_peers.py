@@ -30,6 +30,7 @@ PEERS = [
     ('UEC', '0001334933', 'Uranium Energy'), ('XE', '0002088896', 'X-energy'),
     ('FRMI', '0002071778', 'Fermi'), ('FISN', '0001918102', 'Deep Fission'),
     ('HDRN', '0002023730', 'Hadron Energy'), ('NHIC', '0002043699', 'NewHold Investment III'),
+    ('STDN', '0002086716', 'Standard Nuclear'),
 ]
 
 def get(url, params=None, headers=UA, tries=3, timeout=45):
@@ -213,9 +214,22 @@ def events(cik, days=150, cap=12):
         if fm not in EVENT_FORMS:
             continue
         adsh = rec['accessionNumber'][i].replace('-', '')
-        out.append({'d': fd, 'f': fm,
-                    'u': f'https://www.sec.gov/Archives/edgar/data/{int(cik)}/{adsh}',
-                    'dil': fm in ('424B5', 'S-3', 'S-3/A', 'S-1', 'S-1/A')})
+        ev = {'d': fd, 'f': fm,
+              'u': f'https://www.sec.gov/Archives/edgar/data/{int(cik)}/{adsh}',
+              'dil': fm in ('424B5', 'S-3', 'S-3/A', 'S-1', 'S-1/A')}
+        if fm == '8-K':
+            pd_ = (rec.get('primaryDocument') or [''] * len(rec['form']))[i]
+            if pd_:
+                time.sleep(SLEEP)
+                doc = get(f'https://www.sec.gov/Archives/edgar/data/{int(cik)}/{adsh}/{pd_}')
+                if doc is not None:
+                    its, seen_i = [], set()
+                    for m in re.finditer(r'Item[\s\u00a0]*?(\d\.\d{2})', doc.text[:250000]):
+                        if m.group(1) not in seen_i:
+                            seen_i.add(m.group(1)); its.append(m.group(1))
+                    if its:
+                        ev['it'] = its[:4]
+        out.append(ev)
         if len(out) >= cap:
             break
     return out
