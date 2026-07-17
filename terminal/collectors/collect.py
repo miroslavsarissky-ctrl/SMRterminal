@@ -133,6 +133,84 @@ def make_item(title, url, ts, source, bucket, summary='', deadline=None, deadlin
             'entities': tag_entities(txt), 'topics': tag_topics(txt),
             'deadline': deadline, 'deadline_label': deadline_label, 'verified': False}
 
+# ---------------------------------------------------------------- EDGAR headline enrichment
+# "X files 8-K" tells you a filing exists, not what happened. For each new EDGAR feed item we
+# fetch the primary document and have Claude write one concrete headline; results are cached
+# by accession in data/ek_headlines.json so no filing is summarised twice. Fails soft: without
+# ANTHROPIC_API_KEY (or on any error) titles stay as-is.
+EK_CAP_PER_RUN = 6
+_EK_ACC = re.compile(r'/(\d{10}-\d{2}-\d{6})-index\.htm')
+_EK_TITLE = re.compile(r'^(.*) files ([A-Z0-9/\-\. ]+) \((\d{1,2} \w{3})\)$')
+
+def _claude_headline(filer, form, excerpt):
+    key = os.environ.get('ANTHROPIC_API_KEY', '')
+    if not key:
+        return ''
+    try:
+        r = requests.post('https://api.anthropic.com/v1/messages',
+            headers={'x-api-key': key, 'anthropic-version': '2023-06-01',
+                     'content-type': 'application/json'},
+            json={'model': os.environ.get('EK_MODEL', 'claude-haiku-4-5-20251001'),
+                  'max_tokens': 60,
+                  'messages': [{'role': 'user', 'content':
+                    f"SEC filing: {form} by {filer}. Excerpt:\n{excerpt}\n\n"
+                    "Write ONE headline (max 14 words) stating the concrete substance — what was "
+                    "announced, agreed, sold, raised, or changed, with numbers if present. No "
+                    "company name, no form type, no quotes, no preamble. If the excerpt is pure "
+                    "boilerplate with no substance, reply exactly: NONE"}]},
+            timeout=45)
+        if r.status_code != 200:
+            return ''
+        txt = ''.join(b.get('text', '') for b in r.json().get('content', [])).strip()
+        return '' if (not txt or txt.upper().startswith('NONE')) else txt.rstrip('.')
+    except Exception:
+        return ''
+
+def enrich_edgar_headlines(items):
+    if not os.environ.get('ANTHROPIC_API_KEY'):
+        return
+    cpath = os.path.join(DATA, 'ek_headlines.json')
+    cache = load_json(cpath, {})
+    done = 0
+    for it in items:
+        if not it.get('source', '').startswith('SEC EDGAR'):
+            continue
+        m = _EK_TITLE.match(it.get('title', ''))
+        a = _EK_ACC.search(it.get('url', ''))
+        if not m or not a:
+            continue
+        filer, form, dstr = m.group(1), m.group(2).strip(), m.group(3)
+        acc = a.group(1)
+        if acc in cache:
+            h = cache[acc]
+        elif done >= EK_CAP_PER_RUN:
+            continue
+        else:
+            h = ''
+            try:
+                adir = acc.replace('-', '')
+                cikm = re.search(r'/data/(\d+)/', it['url'])
+                ix = requests.get(f"https://www.sec.gov/Archives/edgar/data/{cikm.group(1)}/{adir}/index.json",
+                                  headers=UA, timeout=30).json()
+                docs = [d['name'] for d in ix['directory']['item']
+                        if d['name'].lower().endswith(('.htm', '.html')) and 'index' not in d['name'].lower()]
+                if docs:
+                    time.sleep(0.2)
+                    doc = requests.get(f"https://www.sec.gov/Archives/edgar/data/{cikm.group(1)}/{adir}/{docs[0]}",
+                                       headers=UA, timeout=30)
+                    excerpt = strip_html(doc.text, 7000)
+                    h = _claude_headline(filer, form, excerpt)
+            except Exception as ex:
+                print('  ! ek enrich', acc, ex)
+            cache[acc] = h
+            done += 1
+            time.sleep(0.3)
+        if h:
+            it['title'] = f"{filer} \u2014 {h} ({form}, {dstr})"
+    json.dump(cache, open(cpath, 'w'), ensure_ascii=False, indent=0)
+    if done:
+        print(f'  edgar headlines: {done} new via Claude, cache {len(cache)}')
+
 # ---------------------------------------------------------------- funding taxonomy (Phase 1)
 # Nuclear-relevance gate for funding items, plus subdomain + notice-type classification.
 FUND_REL = re.compile(r'nuclear|uranium|reactor|HALEU|fission|enrich|centrifuge|reprocess|recycl|'
@@ -991,6 +1069,7 @@ def main():
                            'usaspending': True,
                            'x_api': bool(os.environ.get('X_BEARER_TOKEN'))},
                'items': items}
+    enrich_edgar_headlines(payload['items'])
     json.dump(payload, open(os.path.join(DATA, 'feed.json'), 'w'))
     with open(os.path.join(DATA, 'feed.js'), 'w') as f:
         f.write('window.NIT_FEED=' + json.dumps(payload) + ';')
