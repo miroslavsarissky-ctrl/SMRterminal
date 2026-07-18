@@ -217,6 +217,26 @@ FUND_REL = re.compile(r'nuclear|uranium|reactor|HALEU|fission|enrich|centrifuge|
                       r'spent fuel|fuel cycle|fuel fabricat|radioiso|plutonium|TRISO|deconversion|'
                       r'microreactor|small modular|advanced reactor|molten salt|MOX|fast reactor', re.I)
 
+# Ambiguous keywords only count WITH nuclear context. Classic collisions: primate/classroom
+# "enrichment", bioreactors, biofuel. A term in AMBIG_KW needs a NUKE_CTX hit in the text;
+# NOISE_KW without nuclear context is dropped regardless of which keyword matched.
+NUKE_CTX = re.compile(r'uranium|nuclear|HALEU|\bLEU\b|U-?235|UF6|separative|\bSWU\b|centrifug|isotop|'
+                      r'fission|fuel cycle|spent fuel|\bNRC\b|\bMOX\b|TRISO|plutonium|tritium|deconversion|'
+                      r'molten salt|small modular|\bSMR\b|microreactor|atomic|radiolog|'
+                      r'(?:research|test|power|advanced|fast|naval|modular) reactor|reactor (?:fuel|core|pressure|vessel|coolant)', re.I)
+AMBIG_KW = re.compile(r'^(enrichment|enrich|reactor|fuel)$', re.I)
+NOISE_KW = re.compile(r'non-?human primate|\bprimate|animal (?:colony|care|enrich)|veterinar|\bzoo\b|aquari|'
+                      r'after-?school|youth (?:enrich|program)|classroom|K-?12|curricul|student enrich|'
+                      r'bio-?reactor|photobio|algae', re.I)
+
+def nuclear_relevant(kw, text):
+    t = text or ''
+    if NOISE_KW.search(t) and not NUKE_CTX.search(t):
+        return False
+    if AMBIG_KW.match((kw or '').strip()) and not NUKE_CTX.search(t):
+        return False
+    return True
+
 def classify_subdomain(text):
     """Tag a funding item with the nuclear subdomain it most specifically touches."""
     t = (text or '').lower()
@@ -297,6 +317,7 @@ def grants_gov():
                 blob = (o.get('title', '') + ' ' + (o.get('agency') or '') + ' '
                         + (o.get('agencyCode') or '') + ' ' + ' '.join(o.get('cfdaList') or []))
                 if not FUND_REL.search(blob): continue           # nuclear term in title/agency/CFDA
+                if not nuclear_relevant(kw, blob): continue      # ambiguous terms need nuclear context
                 seen.add(oid)
                 sub = classify_subdomain(o.get('title', '') + ' ' + (o.get('agency') or ''))
                 ntype = 'Forecast' if o.get('oppStatus', '') == 'forecasted' else 'NOFO'
@@ -357,6 +378,8 @@ def sam_gov():
             nid = o.get('noticeId') or o.get('uiLink') or o.get('title', '')
             if nid in seen: continue
             seen.add(nid)
+            if not nuclear_relevant(kw, (o.get('title') or '') + ' ' + (o.get('fullParentPathName') or '')):
+                continue
             ts = parse_date(o.get('postedDate')) or NOW
             dl = o.get('responseDeadLine')
             raw = o.get('type') or o.get('baseType') or 'Notice'
