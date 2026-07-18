@@ -223,6 +223,37 @@ a:hover{color:#fff}
 .flowm td.fL{font:700 6.5px var(--mono);text-align:center;vertical-align:middle;letter-spacing:.02em}
 .flowm td.fL.nw{color:#0E1B14}
 .flowm td.fL.ex{color:#FFE3DE}
+/* licensing funnel */
+.pviews{display:flex;gap:6px;margin-top:8px}
+.licctrl{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:10px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.licfilters{display:flex;gap:6px}
+.ldot{display:inline-block;width:9px;height:9px;border-radius:2px;margin:0 4px 0 8px;vertical-align:-1px}
+.ldot.r{background:var(--teal)}.ldot.f{background:var(--orange)}.ldot.s{background:#B08FC9}
+.lgl{color:var(--teal);letter-spacing:1px}
+.licwrap{overflow-x:auto;padding:4px 18px 22px}
+.licm{border-collapse:separate;border-spacing:0 4px;min-width:900px;width:100%}
+.licm th{font:700 8.5px var(--mono);color:var(--muted);letter-spacing:.05em;text-transform:uppercase;padding:6px 5px;text-align:center}
+.licm th.lproj{text-align:left;width:305px}
+.licm td{padding:0}
+.licm .lpr{font:600 11px var(--font);color:var(--text);padding-right:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:305px}
+.licm .lco{font:700 10.5px var(--mono);color:var(--teal);cursor:pointer}
+.licm .lco:hover{text-decoration:underline}
+.licm .pth{font:700 7.5px var(--mono);border:1px solid var(--line);color:var(--muted);border-radius:2px;padding:0 4px;margin-left:6px;white-space:nowrap}
+.licm .cf{display:inline-block;width:6px;height:6px;border-radius:50%;margin-left:6px;vertical-align:1px}
+.cf.H{background:#5CB88A}.cf.M{background:#D9A441}.cf.L{background:#C7625C}
+.lseg{height:15px;border-radius:2px;margin:0 2px;background:#16232C;position:relative}
+.lseg.on.reactor{background:rgba(0,179,182,.55)}
+.lseg.on.fuel{background:rgba(240,120,46,.55)}
+.lseg.on.source{background:rgba(176,143,201,.55)}
+.lseg.cur.reactor{background:var(--teal)}
+.lseg.cur.fuel{background:var(--orange)}
+.lseg.cur.source{background:#B08FC9}
+.lseg.cur::after{content:'●';position:absolute;inset:0;color:#0A1218;font-size:8px;line-height:15px;text-align:center}
+.licm .lln{padding-left:8px;white-space:nowrap}
+.licm .lln a{font:700 8.5px var(--mono);color:var(--dim);text-decoration:none;border:1px solid var(--line);border-radius:2px;padding:1px 4px;margin-right:4px}
+.licm .lln a:hover{color:var(--teal);border-color:var(--teal)}
+.licm tr:hover .lseg{filter:brightness(1.18)}
+@media(max-width:740px){.licwrap{padding:4px 12px 18px}.licm{min-width:780px}.licctrl{padding:8px 12px}}
 #eknews .ekrow{display:flex;gap:8px;align-items:baseline;padding:4px 0;border-bottom:1px solid var(--line);font:500 10.5px var(--mono);color:var(--muted)}
 #eknews .ekrow:last-child{border-bottom:0}
 #eknews .ekrow b{color:var(--teal);flex:0 0 42px}
@@ -723,9 +754,15 @@ footer b{color:var(--muted)}
   <div class="invhead">
     <h2>Listed Peer Companies</h2>
     <div class="sub" id="psub"></div>
+    <div class="pviews"><button class="invtgl on" id="pv-vitals">Vitals</button><button class="invtgl" id="pv-lic" title="project-by-project licensing funnel — stage, regulatory part, confidence">Licensing</button></div>
   </div>
   <div class="invstats" id="pstats"></div>
-  <div class="invwbwrap" style="padding-top:12px"><table class="invwb" id="ptable"></table></div>
+  <div id="licview" hidden>
+    <div class="licctrl"><span class="flowleg"><i class="ldot r"></i>reactor <i class="ldot f"></i>fuel cycle <i class="ldot s"></i>source material · <b class="lgl">▮▮▮▯▯▯</b> filled = stage reached · chip = regulatory part · dot = confidence</span>
+      <span class="licfilters"><button class="invtgl on" data-lf="ALL">All</button><button class="invtgl" data-lf="reactor">Reactors</button><button class="invtgl" data-lf="fuel">Fuel cycle</button></span></div>
+    <div class="licwrap"><table class="licm" id="licm"></table></div>
+  </div>
+  <div class="invwbwrap" id="peerwrap" style="padding-top:12px"><table class="invwb" id="ptable"></table></div>
 </div>
 
 <div id="view-off" hidden>
@@ -783,6 +820,7 @@ footer b{color:var(--muted)}
 <script src="data/offtakers.js"></script>
 <script src="data/peers.js"></script>
 <script src="data/awards.js"></script>
+<script src="data/licensing.js"></script>
 <script>
 (function(){
 'use strict';
@@ -1152,7 +1190,7 @@ function boot(){
       if (v==='cap') renderCap();
       if (v==='inv') renderInv();
       if (v==='off') renderOff();
-      if (v==='peers') renderPeers();
+      if (v==='peers') { renderPeers(); initLic(); }
       if (v==='flow') renderFlow();
     });
   });
@@ -2275,6 +2313,33 @@ function paintFlow(){
   document.getElementById('flowm').innerHTML=hd+body;
 }
 
+
+/* ================= LICENSING FUNNEL (Peers subview) ================= */
+let licFilter='ALL', licInit=false;
+function initLic(){
+  if(licInit) return; licInit=true;
+  const v=document.getElementById('pv-vitals'), l=document.getElementById('pv-lic');
+  v.addEventListener('click',()=>{v.classList.add('on');l.classList.remove('on');document.getElementById('licview').hidden=true;document.getElementById('peerwrap').hidden=false;});
+  l.addEventListener('click',()=>{l.classList.add('on');v.classList.remove('on');document.getElementById('licview').hidden=false;document.getElementById('peerwrap').hidden=true;paintLic();});
+  document.querySelector('.licfilters').addEventListener('click',e=>{const b=e.target.closest('[data-lf]');if(!b)return;
+    licFilter=b.dataset.lf;document.querySelectorAll('.licfilters .invtgl').forEach(x=>x.classList.toggle('on',x===b));paintLic();});
+  document.getElementById('licm').addEventListener('click',e=>{const c=e.target.closest('.lco'); if(c) entOpen(c.dataset.t);});
+}
+function paintLic(){
+  if(!window.NIT_LIC){ document.getElementById('licm').innerHTML='<tr><td class="invempty">Upload data/licensing.js</td></tr>'; return; }
+  const rows=NIT_LIC.items.filter(i=>licFilter==='ALL'||(licFilter==='fuel'?i.type!=='reactor':i.type===licFilter));
+  const hd='<tr><th class="lproj">company · project · part</th>'+NIT_LIC.stages.map(x=>`<th>${x}</th>`).join('')+'<th></th></tr>';
+  const peerUrl=t=>{const p=window.NIT_PEERS&&NIT_PEERS.items.find(x=>x.t===t);return p?p.url:'';};
+  document.getElementById('licm').innerHTML=hd+rows.map(i=>{
+    const segs=NIT_LIC.stages.map((st,ix)=>{const n=ix+1;
+      const cls=n<i.stage?`lseg on ${i.type}`:n===i.stage?`lseg on cur ${i.type}`:'lseg';
+      return `<td><div class="${cls}" title="${i.proj} — ${st}${n===i.stage?' (current stage)':''}"></div></td>`;}).join('');
+    return `<tr title="${(i.note||'').replace(/"/g,'&quot;')} · confidence ${i.conf} · updated ${NIT_LIC.generated}">`+
+      `<td class="lpr"><span class="lco" data-t="${i.t}">${i.t}</span> ${i.proj}<span class="pth">${i.path}</span><span class="cf ${i.conf}"></span></td>`+
+      segs+`<td class="lln"><a href="${i.src}" target="_blank" rel="noopener" title="NRC licensing hub">N</a><a href="${peerUrl(i.t)||'#'}" target="_blank" rel="noopener" title="issuer filings on EDGAR — licensing language in 10-K/S-1">E</a></td></tr>`;
+  }).join('');
+  document.getElementById('psub').title=NIT_LIC.caveats;
+}
 </script>
 </body>
 </html>
