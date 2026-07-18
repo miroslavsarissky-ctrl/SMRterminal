@@ -596,7 +596,12 @@
    ],
    "note": "",
    "signals": [
-    "X-energy Xe-100 deployment at Seadrift, TX — NRC construction permit application filed"
+    {
+     "t": "X-energy Xe-100 at Seadrift, TX — NRC construction permit application docketed",
+     "cls": "NB",
+     "tier": 2,
+     "gw": 0.32
+    }
    ]
   },
   {
@@ -2535,7 +2540,12 @@
    ],
    "note": "",
    "signals": [
-    "NuScale investor; Helion fusion PPA; exploring advanced nuclear for steel mills"
+    {
+     "t": "NuScale investor; Helion fusion PPA; exploring advanced nuclear for steel mills",
+     "cls": "NB",
+     "tier": 5,
+     "gw": null
+    }
    ]
   },
   {
@@ -4117,7 +4127,11 @@
    "mw": 1200,
    "note": "curated; announced campus MW",
    "signals": [
-    "Abilene TX campus, ~1.2 GW announced"
+    {
+     "t": "Abilene TX campus announced — load only, no nuclear procurement stated",
+     "cls": "LOAD",
+     "gw": 1.2
+    }
    ]
   },
   {
@@ -4816,7 +4830,17 @@
    "mw": 960,
    "note": "curated; announced campus MW",
    "signals": [
-    "Susquehanna nuclear-adjacent campus (up to 960 MW ISA); X-energy SMR development agreement"
+    {
+     "t": "Susquehanna existing-plant campus, up to 960 MW ISA",
+     "cls": "EF",
+     "gw": 0.96
+    },
+    {
+     "t": "X-energy SMR development agreement (fleet framework)",
+     "cls": "NB",
+     "tier": 5,
+     "gw": null
+    }
    ]
   },
   {
@@ -6996,7 +7020,11 @@
    "mw": null,
    "note": "curated; MW not disclosed",
    "signals": [
-    "20-yr PPA to restart Three Mile Island Unit 1 (Crane, 835 MW)"
+    {
+     "t": "20-yr PPA to restart Three Mile Island Unit 1 (Crane)",
+     "cls": "EF",
+     "gw": 0.835
+    }
    ]
   },
   {
@@ -7012,7 +7040,12 @@
    "mw": null,
    "note": "curated; MW not disclosed",
    "signals": [
-    "Kairos Power master agreement (500 MW by 2035); nuclear PPAs"
+    {
+     "t": "Kairos Power master agreement — 500 MW by 2035",
+     "cls": "NB",
+     "tier": 5,
+     "gw": 0.5
+    }
    ]
   },
   {
@@ -7028,7 +7061,11 @@
    "mw": null,
    "note": "curated; MW not disclosed",
    "signals": [
-    "20-yr PPA with Constellation for Clinton (1.1 GW) from 2027"
+    {
+     "t": "20-yr PPA with Constellation for Clinton, from 2027",
+     "cls": "EF",
+     "gw": 1.1
+    }
    ]
   },
   {
@@ -7044,7 +7081,12 @@
    "mw": null,
    "note": "curated; MW not disclosed",
    "signals": [
-    "Gigawatt-scale AI campus announced, SMR-powered design stated"
+    {
+     "t": "Gigawatt-scale AI campus announced, SMR-powered design stated",
+     "cls": "NB",
+     "tier": 5,
+     "gw": 1.0
+    }
    ]
   },
   {
@@ -7060,7 +7102,13 @@
    "mw": null,
    "note": "curated; MW not disclosed",
    "signals": [
-    "Oklo master agreement framework (up to 12 GW long-term)"
+    {
+     "t": "Oklo master agreement framework — long-term ceiling",
+     "cls": "NB",
+     "tier": 5,
+     "gw": 12,
+     "cap": true
+    }
    ]
   },
   {
@@ -7076,7 +7124,12 @@
    "mw": null,
    "note": "curated; MW not disclosed",
    "signals": [
-    "Oklo pre-order agreement (500 MW); Radiant microreactor order"
+    {
+     "t": "Oklo pre-order agreement (500 MW); Radiant microreactor order",
+     "cls": "NB",
+     "tier": 5,
+     "gw": 0.5
+    }
    ]
   },
   {
@@ -8234,5 +8287,6 @@
    "signals": []
   }
  ],
- "method": "Industrial demand estimated from EPA GHGRP reported CO2e (RY2023). Factors: cement 3.4 GJ/t clinker + 0.105 MWh/t; steel (incl. coke) 0.080 tCO2/GJ + 0.25 MWh/tCO2e; aluminium 14.2 MWh/t Al; chemicals (incl. chlor-alkali, resins) gas-EF heat + 0.10 MWh/tCO2e; refining 0.070 tCO2/GJ + 0.05 MWh/tCO2e; pulp & paper gas-EF + 0.15 MWh/tCO2e (fossil share only — biomass steam not visible); food & biofuels gas-EF + 0.08; minerals (lime + glass) blended kiln/furnace heat + 0.06. Semiconductors: no GWh claimed — GHGRP sees process gases only, electricity is scope 2. Unit layer: rated heat capacity (MWth) and heat-by-fuel from EPA unit/fuel reporting (fuel-specific EFs: gas .0561, coal .0946, petroleum .0733 tCO2/GJ); biomass steam from biogenic CO2 at .112, shown separately and excluded from ranking. Data centres: curated announced MW x 8.76 x 0.80. Screening estimates, not metered data; reported CO2e shown alongside."
+ "method": "Industrial demand estimated from EPA GHGRP reported CO2e (RY2023). Factors: cement 3.4 GJ/t clinker + 0.105 MWh/t; steel (incl. coke) 0.080 tCO2/GJ + 0.25 MWh/tCO2e; aluminium 14.2 MWh/t Al; chemicals (incl. chlor-alkali, resins) gas-EF heat + 0.10 MWh/tCO2e; refining 0.070 tCO2/GJ + 0.05 MWh/tCO2e; pulp & paper gas-EF + 0.15 MWh/tCO2e (fossil share only — biomass steam not visible); food & biofuels gas-EF + 0.08; minerals (lime + glass) blended kiln/furnace heat + 0.06. Semiconductors: no GWh claimed — GHGRP sees process gases only, electricity is scope 2. Unit layer: rated heat capacity (MWth) and heat-by-fuel from EPA unit/fuel reporting (fuel-specific EFs: gas .0561, coal .0946, petroleum .0733 tCO2/GJ); biomass steam from biogenic CO2 at .112, shown separately and excluded from ranking. Data centres: curated announced MW x 8.76 x 0.80. Screening estimates, not metered data; reported CO2e shown alongside.",
+ "framing": "Order-book context (BTI, Jul-2026): ~74 GW of announced/prospective US new-build — ~580 TWh/yr if fully built — plus 8.3 GW of existing-fleet hyperscaler deals; this layer maps the 2,077 TWh/yr of industrial demand behind that pipeline. Signal tiers follow the BTI maturity funnel."
 }
