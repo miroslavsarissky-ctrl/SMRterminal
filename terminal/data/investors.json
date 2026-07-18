@@ -118,6 +118,12 @@
    "fts_filers": 0,
    "parsed": 0,
    "holders_found": 0
+  },
+  {
+   "ticker": "STDN",
+   "company": "Standard Nuclear (IPO 16 Jul 2026; register appears with Q3 filings, by mid-Nov)",
+   "parsed": 0,
+   "fts_filers": 0
   }
  ],
  "items": [
