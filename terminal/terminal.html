@@ -253,6 +253,9 @@ a:hover{color:#fff}
 .licm .lln a{font:700 8.5px var(--mono);color:var(--dim);text-decoration:none;border:1px solid var(--line);border-radius:2px;padding:1px 4px;margin-right:4px}
 .licm .lln a:hover{color:var(--teal);border-color:var(--teal)}
 .licm tr:hover .lseg{filter:brightness(1.18)}
+.licm .lco.pv{color:#8FA3AE;cursor:default}
+.licm .lco.pv:hover{text-decoration:none}
+.lgsep td{font:700 8.5px var(--mono);color:var(--muted);letter-spacing:.14em;padding:10px 0 4px;border-bottom:1px solid var(--line)}
 @media(max-width:740px){.licwrap{padding:4px 12px 18px}.licm{min-width:780px}.licctrl{padding:8px 12px}}
 #eknews .ekrow{display:flex;gap:8px;align-items:baseline;padding:4px 0;border-bottom:1px solid var(--line);font:500 10.5px var(--mono);color:var(--muted)}
 #eknews .ekrow:last-child{border-bottom:0}
@@ -758,7 +761,7 @@ footer b{color:var(--muted)}
   </div>
   <div class="invstats" id="pstats"></div>
   <div id="licview" hidden>
-    <div class="licctrl"><span class="flowleg"><i class="ldot r"></i>reactor <i class="ldot f"></i>fuel cycle <i class="ldot s"></i>source material · <b class="lgl">▮▮▮▯▯▯</b> filled = stage reached · chip = regulatory part · dot = confidence</span>
+    <div class="licctrl"><span class="flowleg"><i class="ldot r"></i>reactor <i class="ldot f"></i>fuel cycle <i class="ldot s"></i>source material · <b style="color:var(--teal)">TICK</b> listed (click) <b style="color:#8FA3AE">TICK</b> private · <b class="lgl">▮▮▮▯▯▯</b> filled = stage reached · chip = regulatory part · dot = confidence</span>
       <span class="licfilters"><button class="invtgl on" data-lf="ALL">All</button><button class="invtgl" data-lf="reactor">Reactors</button><button class="invtgl" data-lf="fuel">Fuel cycle</button></span></div>
     <div class="licwrap"><table class="licm" id="licm"></table></div>
   </div>
@@ -2327,16 +2330,20 @@ function initLic(){
 }
 function paintLic(){
   if(!window.NIT_LIC){ document.getElementById('licm').innerHTML='<tr><td class="invempty">Upload data/licensing.js</td></tr>'; return; }
-  const rows=NIT_LIC.items.filter(i=>licFilter==='ALL'||(licFilter==='fuel'?i.type!=='reactor':i.type===licFilter));
+  const all=NIT_LIC.items.filter(i=>licFilter==='ALL'||(licFilter==='fuel'?i.type!=='reactor':i.type===licFilter));
+  const listed=all.filter(i=>i.lst!==false), unl=all.filter(i=>i.lst===false).sort((a,b)=>b.stage-a.stage);
   const hd='<tr><th class="lproj">company · project · part</th>'+NIT_LIC.stages.map(x=>`<th>${x}</th>`).join('')+'<th></th></tr>';
+  const gsep=n=>`<tr class="lgsep"><td colspan="${NIT_LIC.stages.length+2}">UNLISTED &amp; PRIVATE DEVELOPERS · ${n}</td></tr>`;
   const peerUrl=t=>{const p=window.NIT_PEERS&&NIT_PEERS.items.find(x=>x.t===t);return p?p.url:'';};
+  const rows=[...listed, ...(unl.length?[{__sep:unl.length}]:[]), ...unl];
   document.getElementById('licm').innerHTML=hd+rows.map(i=>{
+    if(i.__sep) return gsep(i.__sep);
     const segs=NIT_LIC.stages.map((st,ix)=>{const n=ix+1;
       const cls=n<i.stage?`lseg on ${i.type}`:n===i.stage?`lseg on cur ${i.type}`:'lseg';
       return `<td><div class="${cls}" title="${i.proj} — ${st}${n===i.stage?' (current stage)':''}"></div></td>`;}).join('');
     return `<tr title="${(i.note||'').replace(/"/g,'&quot;')} · confidence ${i.conf} · updated ${NIT_LIC.generated}">`+
-      `<td class="lpr"><span class="lco" data-t="${i.t}">${i.t}</span> ${i.proj}<span class="pth">${i.path}</span><span class="cf ${i.conf}"></span></td>`+
-      segs+`<td class="lln"><a href="${i.src}" target="_blank" rel="noopener" title="NRC licensing hub">N</a><a href="${peerUrl(i.t)||'#'}" target="_blank" rel="noopener" title="issuer filings on EDGAR — licensing language in 10-K/S-1">E</a></td></tr>`;
+      `<td class="lpr">${i.lst===false?`<span class="lco pv" title="${i.co||i.t} — private / unlisted">${i.t}</span>`:`<span class="lco" data-t="${i.t}">${i.t}</span>`} ${i.proj}<span class="pth">${i.path}</span><span class="cf ${i.conf}"></span></td>`+
+      segs+`<td class="lln"><a href="${i.src}" target="_blank" rel="noopener" title="NRC licensing hub">N</a>${i.lst===false?'':`<a href="${peerUrl(i.t)||'#'}" target="_blank" rel="noopener" title="issuer filings on EDGAR — licensing language in 10-K/S-1">E</a>`}</td></tr>`;
   }).join('');
   document.getElementById('psub').title=NIT_LIC.caveats;
 }
