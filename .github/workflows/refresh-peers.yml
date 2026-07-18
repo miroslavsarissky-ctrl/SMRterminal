@@ -1,0 +1,34 @@
+name: refresh-peers
+# Weekly refresh of the Listed Peers vitals: SEC XBRL fundamentals, Form 4 insider
+# flow (90d), prices and sparklines. Vitals move on filings; Monday keeps it fresh.
+
+on:
+  schedule:
+    - cron: '30 5 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: pip install requests
+      - name: Collect peer vitals
+        run: python terminal/collectors/collect_peers.py terminal/data
+      - name: Collect federal awards (USASpending, keyless)
+        run: python terminal/collectors/collect_awards.py terminal/data
+      - name: Commit refreshed data
+        run: |
+          git config user.name "intel-terminal-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add terminal/data/peers.json terminal/data/peers.js terminal/data/awards.json terminal/data/awards.js
+          git diff --cached --quiet || git commit -m "peers: weekly vitals refresh"
+          git push
