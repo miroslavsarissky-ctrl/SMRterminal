@@ -94,15 +94,16 @@ def parent_of(raw):
 
 # Curated data-centre layer: announced campus MW + nuclear procurement signals (public, pre-build).
 DC_SEED = [
-    ('Amazon (AWS)', 960, 'Susquehanna nuclear-adjacent campus (up to 960 MW ISA); X-energy SMR development agreement'),
-    ('Microsoft', None, '20-yr PPA to restart Three Mile Island Unit 1 (Crane, 835 MW)'),
-    ('Google', None, 'Kairos Power master agreement (500 MW by 2035); nuclear PPAs'),
-    ('Meta', None, '20-yr PPA with Constellation for Clinton (1.1 GW) from 2027'),
-    ('OpenAI / Stargate (Crusoe)', 1200, 'Abilene TX campus, ~1.2 GW announced'),
-    ('Oracle', None, 'Gigawatt-scale AI campus announced, SMR-powered design stated'),
+    ('Amazon (AWS)', 960, [{'t': 'Susquehanna existing-plant campus, up to 960 MW ISA', 'cls': 'EF', 'gw': 0.96},
+                           {'t': 'X-energy SMR development agreement (fleet framework)', 'cls': 'NB', 'tier': 5, 'gw': None}]),
+    ('Microsoft', None, [{'t': '20-yr PPA to restart Three Mile Island Unit 1 (Crane)', 'cls': 'EF', 'gw': 0.835}]),
+    ('Google', None, [{'t': 'Kairos Power master agreement — 500 MW by 2035', 'cls': 'NB', 'tier': 5, 'gw': 0.5}]),
+    ('Meta', None, [{'t': '20-yr PPA with Constellation for Clinton, from 2027', 'cls': 'EF', 'gw': 1.1}]),
+    ('OpenAI / Stargate (Crusoe)', 1200, [{'t': 'Abilene TX campus announced — load only, no nuclear procurement stated', 'cls': 'LOAD', 'gw': 1.2}]),
+    ('Oracle', None, [{'t': 'Gigawatt-scale AI campus announced, SMR-powered design stated', 'cls': 'NB', 'tier': 5, 'gw': 1.0}]),
     ('xAI', 300, ''),
-    ('Switch', None, 'Oklo master agreement framework (up to 12 GW long-term)'),
-    ('Equinix', None, 'Oklo pre-order agreement (500 MW); Radiant microreactor order'),
+    ('Switch', None, [{'t': 'Oklo master agreement framework — long-term ceiling', 'cls': 'NB', 'tier': 5, 'gw': 12, 'cap': True}]),
+    ('Equinix', None, [{'t': 'Oklo pre-order agreement (500 MW); Radiant microreactor order', 'cls': 'NB', 'tier': 5, 'gw': 0.5}]),
     ('CoreWeave', None, ''),
     ('Vantage Data Centers', None, ''),
     ('QTS (Blackstone)', None, ''),
@@ -198,9 +199,17 @@ def parent_map(naics):
             out[int(f['facility_id'])] = f.get('parent_company') or ''
     return out
 
+# Signals are structured against the Breakthrough Institute order-book framing (Jul-2026):
+# cls NB = new-build pipeline with BTI maturity tier (1 build … 5 fleet-level signal);
+# cls EF = existing-fleet deal (PPA / restart / uprate — BTI tracks 8.3 GW of these separately);
+# cls LOAD = announced campus load with no nuclear procurement stated. gw is announced size,
+# '≤' ceilings marked with cap=True. Source: thebreakthrough.org, "America's Nuclear Order
+# Book Is Large and Growing" (74 GW pipeline; ~580 TWh/yr if fully built at 90% CF).
 INDUSTRIAL_SIGNALS = [
-    ('DOW',   'X-energy Xe-100 deployment at Seadrift, TX — NRC construction permit application filed'),
-    ('NUCOR', 'NuScale investor; Helion fusion PPA; exploring advanced nuclear for steel mills'),
+    ('DOW',   {'t': 'X-energy Xe-100 at Seadrift, TX — NRC construction permit application docketed',
+               'cls': 'NB', 'tier': 2, 'gw': 0.32}),
+    ('NUCOR', {'t': 'NuScale investor; Helion fusion PPA; exploring advanced nuclear for steel mills',
+               'cls': 'NB', 'tier': 5, 'gw': None}),
 ]
 
 def collect_industrial():
@@ -248,7 +257,7 @@ def collect_industrial():
         up = p['name'].upper()
         for key, sig in INDUSTRIAL_SIGNALS:
             if key in up:
-                p.setdefault('signals', []).append(sig)
+                p.setdefault('signals', []).append(sig if isinstance(sig, dict) else {'t': sig})
     return parents, meta
 
 def main(out_dir=DATA):
@@ -271,7 +280,7 @@ def main(out_dir=DATA):
         items.append({'name': name, 'sector': 'DATA CENTERS', 'gwh': gwh, 'gwh_e': gwh, 'gwh_th': 0,
                       'co2e': None, 'n_sites': None, 'states': [], 'sites': [], 'mw': mw,
                       'note': ('curated; announced campus MW' if mw else 'curated; MW not disclosed'),
-                      'signals': [signal] if signal else []})
+                      'signals': (signal if isinstance(signal, list) else ([{'t': signal}] if signal else []))})
     # semiconductors: GHGRP shows process gases only; electricity is scope 2, so no GWh claim
     for i in items:
         if i['sector'] == 'SEMICONDUCTORS':
@@ -297,7 +306,8 @@ def main(out_dir=DATA):
                           '(fuel-specific EFs: gas .0561, coal .0946, petroleum .0733 tCO2/GJ); biomass steam '
                           'from biogenic CO2 at .112, shown separately and excluded from ranking. Data '
                           'centres: curated announced MW x 8.76 x 0.80. Screening estimates, not metered '
-                          'data; reported CO2e shown alongside.')}
+                          'data; reported CO2e shown alongside.'),
+               'framing': 'Order-book context (BTI, Jul-2026): ~74 GW of announced/prospective US new-build — ~580 TWh/yr if fully built — plus 8.3 GW of existing-fleet hyperscaler deals; this layer maps the 2,077 TWh/yr of industrial demand behind that pipeline. Signal tiers follow the BTI maturity funnel.'}
     os.makedirs(out_dir, exist_ok=True)
     json.dump(payload, open(os.path.join(out_dir, 'offtakers.json'), 'w'), ensure_ascii=False, indent=1)
     open(os.path.join(out_dir, 'offtakers.js'), 'w').write('window.NIT_OFF = ' + json.dumps(payload, ensure_ascii=False) + ';')
