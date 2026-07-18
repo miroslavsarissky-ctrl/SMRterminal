@@ -70,6 +70,7 @@ UNIVERSE = [
     ('FRMI', 'Fermi Inc (nuclear-powered AI campus developer)', '"FERMI INC"', r'^FERMI\b'),
     ('FISN', 'Deep Fission (IPO Jun 2026; register appears from Q2 filings)', '"DEEP FISSION"', r'DEEP\s*FISSION'),
     ('HDRN', 'Hadron Energy (de-SPAC closed Jun 2026; register appears from Q2 filings)', '"HADRON ENERGY"', r'\bHADRON'),
+    ('STDN', 'Standard Nuclear (IPO 16 Jul 2026; institutional register appears with Q3 filings, by mid-Nov)', '"STANDARD NUCLEAR"', r'STANDARD\s+NUCLEAR'),
     ('NHIC', 'NewHold Investment Corp III (newcleo de-SPAC)', 'NEWHOLD', r'NEWHOLD'),
 ]
 
