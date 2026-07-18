@@ -212,7 +212,7 @@ a:hover{color:#fff}
 .flowleg{font:600 9px var(--mono);color:var(--muted);display:flex;align-items:center;gap:6px}
 .fc{display:inline-block;width:13px;height:11px;border-radius:2px;background:#2A3A44}
 .fc.new{background:rgba(92,184,138,.92);box-shadow:inset 0 0 0 1.5px #A9E8C6}
-.fc.ex{background:#8E3B36}
+.fc.ex{background:#8E3B36;box-shadow:inset 0 0 0 1.5px #E8A9A1}
 .flowwrap{overflow-x:auto;padding:6px 18px 20px}
 .flowm{border-collapse:separate;border-spacing:2px}
 .flowm th{font:700 9px var(--mono);color:var(--muted);letter-spacing:.05em;padding:3px 2px;text-align:center;cursor:pointer}
@@ -220,6 +220,9 @@ a:hover{color:#fff}
 .flowm th.inv:hover{color:var(--teal)}
 .flowm td{width:30px;height:17px;border-radius:2px;background:#141F28;cursor:pointer}
 .flowm td:hover{outline:1px solid var(--teal)}
+.flowm td.fL{font:700 6.5px var(--mono);text-align:center;vertical-align:middle;letter-spacing:.02em}
+.flowm td.fL.nw{color:#0E1B14}
+.flowm td.fL.ex{color:#FFE3DE}
 #eknews .ekrow{display:flex;gap:8px;align-items:baseline;padding:4px 0;border-bottom:1px solid var(--line);font:500 10.5px var(--mono);color:var(--muted)}
 #eknews .ekrow:last-child{border-bottom:0}
 #eknews .ekrow b{color:var(--teal);flex:0 0 42px}
@@ -318,6 +321,7 @@ a:hover{color:#fff}
 /* markets rail */
 .mkrow{display:grid;grid-template-columns:44px 1fr 58px 54px;gap:8px;align-items:center;padding:4px 0;cursor:pointer}
 .mkrow .mkt{font:600 11px var(--mono);color:var(--text)}
+.mkrow.wnt .mkt{color:var(--orange)}
 .mkrow:hover .mkt{color:#fff}
 .mkrow .mkl{font:500 11px var(--mono);color:var(--muted);text-align:right}
 .mkrow .mkd{font:600 11px var(--mono);text-align:right;white-space:nowrap}
@@ -857,16 +861,19 @@ function renderMarkets(){
   }
   document.getElementById('mktasof').textContent = QUOTES.asof || '';
   var rows = Object.keys(QUOTES.tickers).map(function(t){ return { t: t, q: QUOTES.tickers[t] }; });
-  var pin = rows.filter(function(r){ return r.t === 'NHIC' || r.t === 'NWCL'; });
-  var rest = rows.filter(function(r){ return r.t !== 'NHIC' && r.t !== 'NWCL'; })
+  var PIN_ORDER = ['NHIC', 'NHICW', 'NWCL'];
+  var pin = rows.filter(function(r){ return PIN_ORDER.indexOf(r.t) >= 0; })
+    .sort(function(a, b){ return PIN_ORDER.indexOf(a.t) - PIN_ORDER.indexOf(b.t); });
+  var rest = rows.filter(function(r){ return PIN_ORDER.indexOf(r.t) < 0; })
     .sort(function(a, b){ return Math.abs(b.q.d1 || 0) - Math.abs(a.q.d1 || 0); })
     .slice(0, 11);
   el.innerHTML = pin.concat(rest).map(function(r){
     var d = r.q.d1, cls = d > 0 ? 'mkup' : d < 0 ? 'mkdn' : '';
     var arr = d > 0 ? '\u25b2' : d < 0 ? '\u25bc' : '\u00b7';
     var e = T2E[r.t];
-    return '<div class="mkrow' + (pin.indexOf(r) >= 0 ? ' pin' : '') + '"' + (e ? ' data-e="' + e + '"' : '') +
-      ' title="7d ' + (r.q.d7 == null ? 'n/a' : r.q.d7 + '%') + ' \u00b7 30d ' + (r.q.d30 == null ? 'n/a' : r.q.d30 + '%') + '">' +
+    var wnt = r.t === 'NHICW';
+    return '<div class="mkrow' + (pin.indexOf(r) >= 0 ? ' pin' : '') + (wnt ? ' wnt' : '') + '"' + (e ? ' data-e="' + e + '"' : '') +
+      ' title="' + (wnt ? 'NHIC warrants \u2014 leveraged read on de-SPAC completion odds \u00b7 ' : '') + '7d ' + (r.q.d7 == null ? 'n/a' : r.q.d7 + '%') + ' \u00b7 30d ' + (r.q.d30 == null ? 'n/a' : r.q.d30 + '%') + '">' +
       '<span class="mkt">' + r.t + '</span>' + sparkSvg(r.q.spark) +
       '<span class="mkl">' + fmtPrice(r.q.last) + '</span>' +
       '<span class="mkd ' + cls + '">' + arr + ' ' + (d == null ? 'n/a' : Math.abs(d).toFixed(1) + '%') + '</span></div>';
@@ -2201,7 +2208,7 @@ const FLOW_TICKS=['OKLO','SMR','LEU','NNE','LTBR','ASPI','BWXT','CCJ','NHIC','IM
 function flowCell(i,t){
   const p=i.positions.find(x=>x.t===t);
   if(p){
-    if(p.new_q) return {c:'rgba(92,184,138,.92)',ring:true,tip:`${i.name} · ${t} · NEW ${invShFmt(p.sh)}`,k:2};
+    if(p.new_q) return {c:'rgba(92,184,138,.92)',ring:'nw',lbl:'NEW',tip:`${i.name} · ${t} · NEW ${invShFmt(p.sh)}`,k:2};
     if(p.psh_q){ const d=(p.sh/p.psh_q-1)*100;
       if(Math.abs(d)<0.5) return {c:'#2A3A44',tip:`${i.name} · ${t} · unchanged (${invShFmt(p.sh)})`,k:0};
       const a=Math.min(Math.abs(d),100)/100;
@@ -2210,7 +2217,7 @@ function flowCell(i,t){
     }
     return {c:'#1B2833',tip:`${i.name} · ${t} · held, no prior coverage`,k:0};
   }
-  if((i.exits_q||[]).includes(t)) return {c:'#8E3B36',tip:`${i.name} · ${t} · EXITED`,k:-2};
+  if((i.exits_q||[]).includes(t)) return {c:'#8E3B36',ring:'ex',lbl:'EXIT',tip:`${i.name} · ${t} · EXITED`,k:-2};
   return {c:'#141F28',tip:'',k:null};
 }
 function renderFlow(){
@@ -2251,7 +2258,8 @@ function paintFlow(){
   const hd='<tr><th class="inv">investor ⌄ exposure</th>'+FLOW_TICKS.map(t=>`<th data-t="${t}" title="open ${t}">${t}</th>`).join('')+'</tr>';
   const body=rows.map(i=>{
     const cells=FLOW_TICKS.map(t=>{const c=flowCell(i,t);
-      return `<td data-t="${t}" title="${c.tip}" style="background:${c.c}${c.ring?';box-shadow:inset 0 0 0 1.5px #A9E8C6':''}"></td>`;}).join('');
+      const ring=c.ring==='nw'?';box-shadow:inset 0 0 0 1.5px #A9E8C6':c.ring==='ex'?';box-shadow:inset 0 0 0 1.5px #E8A9A1':'';
+      return `<td data-t="${t}" class="${c.lbl?'fL '+c.ring:''}" title="${c.tip}" style="background:${c.c}${ring}">${c.lbl||''}</td>`;}).join('');
     return `<tr><th class="inv" data-iq="${i.name.slice(0,28)}" title="${i.name} — open in Investors">${i.name}</th>${cells}</tr>`;
   }).join('');
   document.getElementById('flowm').innerHTML=hd+body;
