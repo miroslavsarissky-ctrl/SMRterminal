@@ -2041,7 +2041,7 @@ const P_COLS=[['t','Ticker','open the entity view'],['name','Company',''],
  ['rev_q','Rev/q','revenue in the latest reported quarter'],
  ['dil_qoq','Dil. QoQ','change in shares outstanding vs the prior report — issuance shows as +%'],
  ['ins_net','Insider 90d','net open-market insider flow, 90 days: Form 4 purchases minus sales in dollars'],
- ['awards','Fed awards','federal grants + contracts since 2015, summed award obligations (USASpending) — hover a value for count and DOE share'],
+ ['awards','Fed awards','federal money since 2015: prime grants + contracts to the company plus reported subawards (USASpending). Dollars obligated to project vehicles (CFPP LLC and similar) or given in-kind (fuel, lab access) do not appear under the ticker — hover a value for count, DOE share and subaward floor'],
  ['si_pct','SI %','short interest as % of shares outstanding (not float) · FINRA consolidated, bi-monthly settlement'],
  ['dtc','DtC','days to cover: short interest ÷ average daily volume'],
  ['url','SEC','latest periodic filings on EDGAR']];
@@ -2087,7 +2087,7 @@ function paintPeers(){
     `<td class="num">${i.trust?'—':pM(i.burn_q)}</td><td class="num${rwc}">${rw}</td>`+
     `<td class="num">${pM(i.rev_q)}</td><td class="num">${i.dil_qoq==null?'—':pChg(i.dil_qoq)}</td>`+
     `<td class="num">${i.ins_net==null?'—':`<span class="pchg ${i.ins_net>=0?'up':'dn'}">${pM(i.ins_net)}</span>`}</td>`+
-    `<td class="num" title="${(window.NIT_AWARDS&&NIT_AWARDS.totals[i.t])?NIT_AWARDS.totals[i.t].n+' awards · DOE '+pM(NIT_AWARDS.totals[i.t].doe)+' · since '+NIT_AWARDS.since:''}">${i.awards?pM(i.awards):'—'}</td>`+
+    `<td class="num" title="${(window.NIT_AWARDS&&NIT_AWARDS.totals[i.t])?NIT_AWARDS.totals[i.t].n+' awards · DOE '+pM(NIT_AWARDS.totals[i.t].doe)+(NIT_AWARDS.totals[i.t].subs?' · incl '+pM(NIT_AWARDS.totals[i.t].subs)+' as subawardee':'')+' · since '+NIT_AWARDS.since:''}">${i.awards?pM(i.awards):'—'}</td>`+
     `<td class="num" title="FINRA consolidated · settlement ${i.si_date||''} · % of shares outstanding">${i.si_pct==null?'—':i.si_pct.toFixed(1)+'%'}</td>`+
     `<td class="num" title="days to cover at avg daily volume">${i.dtc==null?'—':i.dtc.toFixed(1)}</td>`+
     `<td><a href="${i.url}" target="_blank" rel="noopener">10-Q ↗</a></td></tr>`; }).join('');
@@ -2196,7 +2196,7 @@ function entOpen(t){
    ${ev.length?`<div class="ents"><h4>Corporate events — 150d</h4>${ev.map(e=>`<div class="entrow"><b><a class="entl" href="${e.u}" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">${e.f}${e.dil?'<span class="evd">DILUTION</span>':''}${(e.it||[]).filter(x=>x!=='9.01').map(x=>`<span class="ekit" title="${(window.EIGHTK&&EIGHTK[x])||x}">${x}</span>`).join('')}</a></b><span class="v">${e.d}</span></div>`).join('')}</div>`:''}
    ${(window.NIT_AWARDS&&(NIT_AWARDS.items[t]||[]).length)?`<div class="ents"><h4>Federal awards — since ${NIT_AWARDS.since.slice(0,4)}</h4>
      <div class="entkpis" style="margin-bottom:6px"><span><b>${pM(NIT_AWARDS.totals[t].sum)}</b>total</span><span><b>${pM(NIT_AWARDS.totals[t].doe)}</b>DOE</span><span><b>${NIT_AWARDS.totals[t].n}</b>awards</span></div>
-     ${NIT_AWARDS.items[t].slice(0,5).map(a=>`<div class="entrow" title="${a.desc}"><b><a class="entl" style="color:inherit;text-decoration:none" href="${a.url||'#'}" target="_blank" rel="noopener">${a.sub||a.agency}</a></b><span class="v">${a.start.slice(0,4)}</span><span class="v">${pM(a.amt)}</span></div>`).join('')}
+     ${NIT_AWARDS.items[t].slice(0,5).map(a=>`<div class="entrow" title="${a.desc}"><b><a class="entl" style="color:inherit;text-decoration:none" href="${a.url||'#'}" target="_blank" rel="noopener">${a.fam==='sub'?'<span class="ekit" title="received as subawardee — prime holds the award">SUB</span> ':''}${a.sub||a.agency}</a></b><span class="v">${a.start.slice(0,4)}</span><span class="v">${pM(a.amt)}</span></div>`).join('')}
    </div>`:''}
    ${nw.length?`<div class="ents entnews"><h4>Recent news</h4>${nw.map(x=>`<a href="${x.url||x.link||'#'}" target="_blank" rel="noopener"><span class="d">${(x.ts||'').slice(5,10)}</span>${x.title}</a>`).join('')}</div>`:''}
    <div class="ents"><h4>Filings</h4><div class="entrow"><b><a class="entl" style="color:inherit" href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${P.cik||''}&type=&dateb=&owner=include&count=20" target="_blank" rel="noopener">EDGAR — all filings ↗</a></b></div></div>`;
