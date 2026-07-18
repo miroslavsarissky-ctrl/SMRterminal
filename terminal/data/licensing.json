@@ -421,6 +421,42 @@
    "lst": false,
    "note": "Fusion-driven subcritical isotope plant; NRC operating licence granted 2023, Mo-99 production ramping. Recycling ambitions filed separately at concept stage.",
    "src": "https://www.nrc.gov/materials/fuel-cycle-fac/fuel-fab.html"
+  },
+  {
+   "t": "BLUE",
+   "co": "Blue Energy",
+   "proj": "BWRX-300 plant — Texas (gas-to-nuclear)",
+   "type": "reactor",
+   "path": "Part 50 · pre-app (99902137)",
+   "stage": 1,
+   "conf": "H",
+   "lst": false,
+   "note": "Formal NRC pre-application docket 99902137 open; Part 50 CP+OL strategy stated, CPA targeted 2027. Shipyard-prefabricated plant architecture around GE Vernova Hitachi BWRX-300; phased gas-to-nuclear ~1→1.5 GW for a Crusoe data-centre campus; $380M raised 2026, Constellation Technology Ventures invested Jul 2026.",
+   "src": "https://www.nrc.gov/reactors/new-reactors/advanced.html"
+  },
+  {
+   "t": "FANC",
+   "co": "First American Nuclear (FANCO)",
+   "proj": "EAGL-1 LMFR — Indiana energy park",
+   "type": "reactor",
+   "path": "Part 50 · pre-app (REP filed)",
+   "stage": 1,
+   "conf": "H",
+   "lst": false,
+   "note": "Regulatory engagement plan filed with NRC 15 Apr 2026, opening pre-application toward a construction permit. 240 MWe / 600 MWt lead-bismuth-cooled fast reactor — the only lead-family design in the US and the closest technological neighbour to newcleo’s LFR. Closed-fuel-cycle energy park in Indiana on MOX/TRU from DOE stockpiles (HALEU-flexible); AtkinsRéalis EPCM alliance; FFTF/EBR-II heritage team; power targeted 2033.",
+   "src": "https://www.nrc.gov/reactors/new-reactors/advanced.html"
+  },
+  {
+   "t": "OMGA",
+   "co": "Project Omega",
+   "proj": "UNF recycling + Sr-90 power sources",
+   "type": "fuel",
+   "path": "Pre-licensing",
+   "stage": 1,
+   "conf": "H",
+   "lst": false,
+   "note": "Out of stealth Feb 2026 (Newport, RI): molten-salt electrochemical recycling of used fuel plus strontium-90 long-duration power sources. ARPA-E award with INL; PNNL proof-of-concept produced; ex-NRC Chair Christopher Hanson involved. No NRC application yet — recycling-adjacent to the MOX thesis.",
+   "src": "https://www.nrc.gov/materials/fuel-cycle-fac/fuel-fab.html"
   }
  ]
 }
