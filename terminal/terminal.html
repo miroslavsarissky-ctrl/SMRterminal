@@ -143,6 +143,54 @@ a:hover{color:#fff}
 .invcard.sigc.sdn{border-left-color:var(--orange)}
 .prx.sig{animation:sigpulsedn 1.5s ease-in-out 3;border-radius:3px}
 @media (prefers-reduced-motion: reduce){.dq.sig,.prx.sig{animation:none}}
+/* ---------- tablet (≤920px): header bands scroll ---------- */
+@media(max-width:920px){
+  .navtabs{overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none;-webkit-overflow-scrolling:touch;max-width:100%}
+  .navtabs::-webkit-scrollbar{display:none}
+  .navtab{white-space:nowrap;flex:0 0 auto}
+  .statusbar{overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .statusbar::-webkit-scrollbar{display:none}
+  .statusbar .dot{flex:0 0 auto}
+  .statusbar #gen{margin-left:10px;flex:0 0 auto}
+}
+/* ---------- mobile (≤740px): automatic, same page ---------- */
+@media(max-width:740px){
+  .bar{padding:8px 10px;gap:6px}
+  .ttl{font-size:13px;letter-spacing:.06em;white-space:nowrap}
+  .bar .right{display:none}
+  .navtabs{margin-left:6px;overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none;-webkit-overflow-scrolling:touch;max-width:100%}
+  .navtabs::-webkit-scrollbar{display:none}
+  .navtab{padding:5px 9px;font-size:9.5px;white-space:nowrap;flex:0 0 auto}
+  .statusbar{overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:4px 10px 5px;gap:10px}
+  .statusbar::-webkit-scrollbar{display:none}
+  .statusbar .dot{flex:0 0 auto}
+  .statusbar #gen{margin-left:10px;flex:0 0 auto}
+  .invhead,.ehead{padding:10px 12px 6px}
+  .invhead h2,.ehead h2{font-size:14px}
+  .invstats{flex-wrap:wrap;gap:8px 14px;padding:8px 12px}
+  .invstats .st b{font-size:15px}
+  .invctrl,.ectrls,.flowctrl{flex-wrap:wrap;gap:6px;padding:8px 12px}
+  .invgrid{padding:10px 12px;gap:8px}
+  .invwbwrap,.flowwrap{padding-left:12px;padding-right:12px}
+  .invwb{min-width:880px}
+  .flowm{min-width:640px}
+  .foahead{padding:9px 12px 6px;flex-wrap:wrap}
+  .foarow{grid-template-columns:1fr auto;grid-template-areas:"no chip" "ti ti" "cl cl";gap:3px 10px;padding:7px 12px}
+  .foarow .no{grid-area:no}
+  .foarow .ti{grid-area:ti}
+  .foarow .dchip{grid-area:chip;align-self:start}
+  .foarow span:nth-child(3){display:none}
+  .foarow span:nth-child(4){grid-area:cl;font-size:9.5px;color:var(--dim)}
+  .flowstrip{padding:10px 12px;gap:6px}
+  .flowtile{min-width:66px;padding:5px 8px}
+  .ents{padding:9px 12px}
+  .enth{padding:12px 12px 9px}
+  .tape,.tapewrap,#tape{min-width:0;max-width:100vw;overflow:hidden}
+  .tape .tk,#tape .tk{flex:0 0 auto}
+  .item{grid-template-columns:52px minmax(0,1fr)}
+  .item>div{min-width:0}
+  .item h4{font-size:12.5px;overflow-wrap:anywhere}
+}
 .invpos .pr .dqs{margin-left:auto;display:grid;grid-template-columns:56px 72px;gap:4px;align-items:center;flex:0 0 auto}
 .invpos .pr .dqs .dq{justify-self:end;margin-left:0}
 .invpos .prh{display:flex;padding:0 4px 1px}
@@ -248,6 +296,13 @@ a:hover{color:#fff}
 .offsites{display:flex;flex-direction:column;gap:2px}
 .offsites .sr{display:grid;grid-template-columns:1fr 34px auto;gap:8px;font:500 10px var(--mono);color:var(--muted)}
 .offsites .sr b{color:var(--text);font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sgt{font:700 8px var(--mono);border:1px solid;border-radius:2px;padding:0 4px;margin-right:6px;letter-spacing:.05em;vertical-align:1px}
+.sgt.t1,.sgt.t2{color:var(--teal);border-color:var(--teal)}
+.sgt.t3,.sgt.t4{color:#8FCDB0;border-color:#8FCDB0}
+.sgt.t5{color:var(--muted);border-color:var(--line)}
+.sgt.ef{color:#B08FC9;border-color:#B08FC9}
+.sgt.ld{color:var(--dim);border-color:var(--line)}
+.sgw{color:var(--dim)}
 .offsig{font:500 10px var(--font);color:var(--orange);line-height:1.4}
 .offfoot{display:flex;justify-content:space-between;margin-top:auto;padding-top:5px;border-top:1px solid var(--line);font:500 9.5px var(--mono);color:var(--dim)}
 #offlegend .rleg i{border-radius:50%}
@@ -671,7 +726,7 @@ footer b{color:var(--muted)}
   <div class="invctl">
     <input class="invsearch" id="offq" placeholder="search offtaker…">
     <button class="invchip" id="offsort" title="est. demand: biggest energy buyers first · plant count: widest multi-site fleets first (replication prospects)">sort: est. demand</button>
-    <button class="invtgl" id="offsig">◈ nuclear signals</button>
+    <button class="invtgl" id="offsig" title="structured against the BTI order-book funnel: T1 building … T5 fleet-level signal · EF existing-fleet deal · LOAD announced load only">◈ nuclear signals</button>
     <button class="invtgl" id="offexport">export CSV</button>
   </div>
   <div class="invgrid" id="offgrid"></div>
@@ -1882,8 +1937,8 @@ function renderOff(){
   if(offInit){ paintOff(); return; }
   offInit=true;
   if(!OFF||!OFF.items){ document.getElementById('offgrid').innerHTML='<div class="invempty">No offtaker data loaded.<br>Upload <code>data/offtakers.js</code>.</div>'; return; }
-  document.getElementById('offsub').textContent=`EPA GHGRP RY${OFF.year} bulk data + curated data-centre layer · estimated demand in GWh/yr (hover for method) · annual refresh each October`;
-  document.getElementById('offsub').title=OFF.method;
+  document.getElementById('offsub').textContent=`EPA GHGRP RY${OFF.year} bulk data + curated data-centre layer · estimated demand in GWh/yr · vs ~74 GW announced US order book (BTI Jul-2026) · annual refresh each October`;
+  document.getElementById('offsub').title=(OFF.framing?OFF.framing+'\n\n':'')+OFF.method;
   const secs=['ALL',...Object.keys(OFF.sector_colors)];
   const sc=document.getElementById('offsector');
   sc.innerHTML=secs.map(x=>`<button class="invchip" data-os="${x}">${x==='ALL'?'ALL SECTORS':x}</button>`).join('');
@@ -1895,7 +1950,7 @@ function renderOff(){
     const esc=v=>{v=String(v==null?'':v); return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;};
     const rows=offRows();
     const lines=[['Rank','Offtaker','Sector','Est_GWh_yr','Est_GWh_electric','Est_GWh_thermal','Reported_tCO2e','Sites','States','Signals'].join(',')];
-    rows.forEach((i,ix)=>lines.push([ix+1,esc(i.name),i.sector,i.gwh??'',i.gwh_e??'',i.gwh_th??'',i.co2e??'',i.n_sites??'',esc((i.states||[]).join(' ')),esc((i.signals||[]).join('; '))].join(',')));
+    rows.forEach((i,ix)=>lines.push([ix+1,esc(i.name),i.sector,i.gwh??'',i.gwh_e??'',i.gwh_th??'',i.co2e??'',i.n_sites??'',esc((i.states||[]).join(' ')),esc((i.signals||[]).map(x=>x.t||x).join('; '))].join(',')));
     const a=document.createElement('a');
     a.href=URL.createObjectURL(new Blob(['\ufeff'+lines.join('\r\n')],{type:'text/csv;charset=utf-8'}));
     a.download=`nit_offtakers_${offSec!=='ALL'?offSec.toLowerCase()+'_':''}${new Date().toISOString().slice(0,10)}.csv`;
@@ -1939,7 +1994,12 @@ function paintOff(){
       <div class="offtot">${offGwh(i.gwh)}<span>est. demand/yr</span></div>
       ${i.gwh_e!=null&&i.gwh_th?`<div class="offsplit">≈ ${offGwh(i.gwh_e)} electric · ${offGwh(i.gwh_th)} heat</div>`:''}
       ${offFuelLine(i)}
-      ${(i.signals||[]).length?`<div class="offsig">◈ ${i.signals[0]}</div>`:''}
+      ${(i.signals||[]).map(sg=>{const o=typeof sg==='string'?{t:sg}:sg;
+        const badge=o.cls==='EF'?'<span class="sgt ef" title="existing-fleet deal (PPA / restart / uprate) — BTI tracks 8.3 GW of these">EF</span>'
+          :o.cls==='LOAD'?'<span class="sgt ld" title="announced load; no nuclear procurement stated">LOAD</span>'
+          :o.tier?`<span class="sgt t${o.tier}" title="BTI maturity tier ${o.tier} — ${o.tier<=1?'building':o.tier===2?'firm (NRC-docketed)':o.tier===3?'firm (site-specific pre-application)':o.tier===4?'tentative (committed developer)':'tentative (fleet-level demand signal)'}">T${o.tier}</span>`:'';
+        const gw=o.gw!=null?` · ${o.cap?'≤':''}${o.gw} GW`:'';
+        return `<div class="offsig">◈ ${badge}${o.t}<span class="sgw">${gw}</span></div>`;}).join('')}
       ${sitesHtml?`<div class="offsites">${sitesHtml}</div>`:''}
       <div class="offfoot"><span>${i.n_sites?i.n_sites+' reporting sites · '+(i.states||[]).slice(0,8).join(' '):(i.mw?i.mw.toLocaleString()+' MW announced':'')}</span><span>${i.co2e?Math.round(i.co2e/1000).toLocaleString()+' ktCO2e':''}</span></div>
     </div>`;}).join('') : '<div class="invempty">No offtakers match.</div>';
