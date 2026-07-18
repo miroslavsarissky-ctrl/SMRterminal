@@ -14,9 +14,10 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.join(HERE, '..', 'data')
 KWS = ['nuclear', 'reactor', 'uranium', 'HALEU', 'isotope', 'fusion energy']
 NOW = dt.datetime.now(dt.timezone.utc)
-NUKE_CTX = re.compile(r'uranium|nuclear|HALEU|isotop|fission|fuel cycle|spent fuel|NRC|MOX|TRISO|plutonium|'
-                      r'small modular|SMR|microreactor|atomic|(?:research|test|power|advanced|fast) reactor|'
-                      r'reactor (?:fuel|core|pressure|vessel)', re.I)
+NUKE_CTX = re.compile(r'uranium|nuclear|HALEU|isotop|fission|fusion|fuel cycle|spent fuel|NRC|MOX|TRISO|plutonium|'
+                      r'small modular|SMR|microreactor|atomic|radiat|radiolog|tritium|deuterium|'
+                      r'(?:research|test|power|advanced|fast) reactor|reactor (?:fuel|core|pressure|vessel)', re.I)
+NUKE_TITLE = NUKE_CTX
 AMBIG_KW = re.compile(r'^(reactor|enrichment|fuel)$', re.I)
 NOISE_KW = re.compile(r'primate|animal|veterinar|classroom|curricul|after-?school|bio-?reactor|photobio|algae', re.I)
 
@@ -48,7 +49,11 @@ def main(out_dir=DATA):
                 continue
             seen.add(num)
             agency = h.get('agencyCode') or h.get('agency') or ''
-            if not nuclear_relevant(kw, (h.get('title') or '') + ' ' + str(agency)):
+            title_ = h.get('title') or ''
+            doe_ = str(agency).upper().startswith(('DOE', 'PAMS', 'DE-')) or num.upper().startswith('DE-')
+            if not doe_ and not NUKE_TITLE.search(title_):
+                continue                                     # nuclear in the title, or DOE-family — description-only matches are noise
+            if not nuclear_relevant(kw, title_ + ' ' + str(agency)):
                 continue
             items.append({'number': num,
                           'title': re.sub(r'&[a-z]+;', ' ', h.get('title') or '')[:150],
